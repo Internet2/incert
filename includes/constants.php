@@ -10,9 +10,8 @@ define("PKCS12_PLACEHOLDER", '/\$pkcs12UUID\$/');
 define("SIGN_CERT", "file://ssl/signcert.pem");
 define("PRIV_KEY", "file://ssl/privkey.pem");
 define("EXTRA_CERTS", "ssl/extracerts.pem");
-define("TEMPLATE", "template.mobileconfig");
-define("PROFILE_FILENAME", "iu.mobileconfig");
-define("ERROR_PAGE", "error.html");
+define("LOGIN_ERROR_PAGE", "login_err.html");
+define("TEMPLATE_ERROR_PAGE", "template_err.html");
 
 // !Certificate Server URL
 define("CERT_SERVER_URL", "https://bd3.itc.virginia.edu/cgi-bin/incommon_server.py");

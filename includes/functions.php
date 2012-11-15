@@ -82,7 +82,7 @@ function getCertificate($user, $pass)
 	// Check for errors
 	$responseInfo = $request->getResponseInfo();
 	if ( 400 == $responseInfo['http_code'] ) {
-		header( 'Location: ' .  ERROR_PAGE);
+		header( 'Location: ' .  LOGIN_ERROR_PAGE);
 		return NULL;
 	}
 

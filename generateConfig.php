@@ -8,9 +8,17 @@ $debug = FALSE;
 // define the variables using GET
 $username = $_GET['username'];
 $password = $_GET['password'];
+$template_id = $_GET['template'];
+
+// Find the selected template
+$template_file = "templates/" . $template_id . "_template.mobileconfig";
+if (!file_exists($template_file)) {
+		header( 'Location: ' .  TEMPLATE_ERROR_PAGE);
+		exit();
+}
 
 // Get the profile identifier from the template
-$profileID = getProfileID(TEMPLATE);
+$profileID = getProfileID($template_file);
 
 // Get the cert from Incommon
 $certData = getCertificate($username, $password);
@@ -25,13 +33,13 @@ if ($certData) {
 
 	// Replace all occurences of $username$ and $pkcs12UUID$ in the template
 	// with the actual username and pkcs12UUID
-	$mobileconfig = replaceUserAndCert(TEMPLATE, $username, $pkcs12UUID);
+	$mobileconfig = replaceUserAndCert($template_file, $username, $pkcs12UUID);
 
 	// Add the PKCS12 payload dictionary to the profile
 	$mobileconfig->getValue()->get(PAYLOAD_CONTENT)->add($pkcs12Dict);
 
 	// Prepend the user's name to the filename
-	$profile = "profiles/" . $username . "." . PROFILE_FILENAME;
+	$profile = "profiles/" . $username . "." . $template_id . ".mobileconfig";
 
 	// Save the unsigned profile to the file system
 	$mobileconfig->saveXML( $profile );
