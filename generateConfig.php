@@ -6,9 +6,12 @@ require_once("includes/functions.php");
 $debug = FALSE;
 
 // define the variables using GET
-$username = $_GET['username'];
-$password = $_GET['password'];
+$username = $_GET['LoginId'];
+$password = $_GET['LoginPwd'];
 $template_id = $_GET['template'];
+$cred2 = $_GET['LoginCred2'];
+$cred3 = $_GET['LoginCred3'];
+$cred4 = $_GET['LoginCred4'];
 
 // Find the selected template
 $template_file = "templates/" . $template_id . "_template.mobileconfig";
@@ -21,7 +24,7 @@ if (!file_exists($template_file)) {
 $profileID = getProfileID($template_file);
 
 // Get the cert from Incommon
-$certData = getCertificate($username, $password);
+$certData = getCertificate($username, $password, $cred2, $cred3, $cred4);
 
 // Continue only if we have certificate data
 if ($certData) {

@@ -70,10 +70,10 @@ function getProfileID($filename)
 	return $profileID;
 }
 
-function getCertificate($user, $pass)
+function getCertificate($user, $pass, $cred2, $cred3, $cred4)
 {
 	// Build the request
-	$url = CERT_SERVER_URL . "?Function=GetCertificate&LoginCred2=cred2&LoginCred3=cred3&LoginCred4=cred4&LoginId={$user}&LoginPwd={$pass}&EncryptPkcs12=Yes";
+	$url = CERT_SERVER_URL . "?Function=GetCertificate&LoginId={$user}&LoginPwd={$pass}&LoginCred2={$cred2}&LoginCred3={$cred3}&LoginCred4={$cred4}&EncryptPkcs12=Yes";
 	$request = new RestRequest($url, 'GET');
 
 	// Execute the request
