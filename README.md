@@ -11,7 +11,7 @@ It's purpose is to generate a signed configuration profile for use by iOS device
 
 API
 ---
-API examples are found [here](https://bd3.itc.virginia.edu/incommon/).
+API examples are found [here](https://certdev0.incommontest.org/incommon/).
 
 
 Templates
