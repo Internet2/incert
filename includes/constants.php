@@ -14,7 +14,7 @@ define("LOGIN_ERROR_PAGE", "login_err.html");
 define("TEMPLATE_ERROR_PAGE", "template_err.html");
 
 // !Certificate Server URL
-define("CERT_SERVER_URL", "https://bd3.itc.virginia.edu/cgi-bin/incommon_server.py");
+define("CERT_SERVER_URL", "https://certdev0.incommontest.org/cgi-bin/incommon_server.py");
 
 // The following is taken from
 // Configuration Profile Key Reference
