@@ -143,7 +143,7 @@
 				<key>TTLSInnerAuthentication</key>
 				<string>MSCHAPv2</string>
 				<key>UserName</key>
-				<string>$username$@indiana.edu</string>
+				<string>$username$@iu.edu</string>
 				<key>UserPassword</key>
 				<string></string>
 			</dict>
@@ -200,66 +200,6 @@
 			<key>SSID_STR</key>
 			<string>IU Guest</string>
 		</dict>
-		<dict>
-			<key>PayloadContent</key>
-			<dict>
-				<key>com.apple.alf</key>
-				<dict>
-					<key>Forced</key>
-					<array>
-						<dict>
-							<key>mcx_preference_settings</key>
-							<dict>
-								<key>globalstate</key>
-								<integer>1</integer>
-							</dict>
-						</dict>
-					</array>
-				</dict>
-			</dict>
-			<key>PayloadDisplayName</key>
-			<string>Firewall</string>
-			<key>PayloadEnabled</key>
-			<true/>
-			<key>PayloadIdentifier</key>
-			<string>com.apple.mdm.bl-uits-jag-x8s.ads.iu.edu.6f5c6650-f12a-012f-6c5c-0023df9d1eb4.alacarte.customsettings.6204940a-e865-4927-a696-6295aaeb9aa4</string>
-			<key>PayloadType</key>
-			<string>com.apple.ManagedClient.preferences</string>
-			<key>PayloadUUID</key>
-			<string>6204940a-e865-4927-a696-6295aaeb9aa4</string>
-			<key>PayloadVersion</key>
-			<integer>1</integer>
-		</dict>
-		<dict>
-			<key>PayloadContent</key>
-			<dict>
-				<key>com.apple.loginwindow</key>
-				<dict>
-					<key>Forced</key>
-					<array>
-						<dict>
-							<key>mcx_preference_settings</key>
-							<dict>
-								<key>com.apple.login.mcx.DisableAutoLoginClient</key>
-								<true/>
-							</dict>
-						</dict>
-					</array>
-				</dict>
-			</dict>
-			<key>PayloadDisplayName</key>
-			<string>Disable Automatic Login</string>
-			<key>PayloadEnabled</key>
-			<true/>
-			<key>PayloadIdentifier</key>
-			<string>com.apple.mdm.bl-uits-jag-x8s.ads.iu.edu.6f5c6650-f12a-012f-6c5c-0023df9d1eb4.alacarte.customsettings.947CC7DC-5D0A-4BFA-A6DB-B5F76AFAEF56</string>
-			<key>PayloadType</key>
-			<string>com.apple.ManagedClient.preferences</string>
-			<key>PayloadUUID</key>
-			<string>947CC7DC-5D0A-4BFA-A6DB-B5F76AFAEF56</string>
-			<key>PayloadVersion</key>
-			<integer>1</integer>
-		</dict>
 	</array>
 	<key>PayloadDescription</key>
 	<string>This profile includes settings for IU's WiFi services and includes your InCommon Personal Certificate. It requires that a passcode/password be set on your device.</string>
@@ -272,7 +212,7 @@
 	<key>PayloadRemovalDisallowed</key>
 	<false/>
 	<key>PayloadScope</key>
-	<string>System</string>
+	<string>User</string>
 	<key>PayloadType</key>
 	<string>Configuration</string>
 	<key>PayloadUUID</key>
