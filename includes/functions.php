@@ -97,7 +97,7 @@ function getCertificate($user, $pass, $cred2, $cred3, $cred4)
 	fclose($fh);
 
 	// Return whatever we got back
-	return $InCommonProvision->UserCertificate[0]->pkcs12;
+	return $data;
 }
 
 function buildProfile($profileIdentifier, $profileOrg, $payloadArray)
