@@ -65,6 +65,48 @@
 			<integer>1</integer>
 		</dict>
 		<dict>
+			<key>PayloadContent</key>
+			<data>
+			MIIE6jCCA9KgAwIBAgIQJ5o/CcavxpGv2uo3G++mbzANBgkqhkiG9w0BAQUFADCB
+			rjELMAkGA1UEBhMCVVMxCzAJBgNVBAgTAlVUMRcwFQYDVQQHEw5TYWx0IExha2Ug
+			Q2l0eTEeMBwGA1UEChMVVGhlIFVTRVJUUlVTVCBOZXR3b3JrMSEwHwYDVQQLExho
+			dHRwOi8vd3d3LnVzZXJ0cnVzdC5jb20xNjA0BgNVBAMTLVVUTi1VU0VSRmlyc3Qt
+			Q2xpZW50IEF1dGhlbnRpY2F0aW9uIGFuZCBFbWFpbDAeFw0xMTAyMTEwMDAwMDBa
+			Fw0yMDA1MzAxMDQ4MzhaMGQxCzAJBgNVBAYTAlVTMRIwEAYDVQQKEwlJbnRlcm5l
+			dDIxETAPBgNVBAsTCEluQ29tbW9uMS4wLAYDVQQDEyVJbkNvbW1vbiBTdGFuZGFy
+			ZCBBc3N1cmFuY2UgQ2xpZW50IENBMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIB
+			CgKCAQEA0+AVAnv5doLp/pGW8/AeIWi1DWEwvgmXZt0dI6f7H4Z4OuaXasfBpH+J
+			TbOeWbM4Cx85ImsCKBK/KZbRNfSVKmwGmBwZZFymfkVuIGuRuHQPPFPIgxlrEaPH
+			LIUFHofUy6AIBQYuZok9eKeDk1S32Bfq0+59ZtQ03onKGf03ytCD3lFo2Fr1dOvd
+			ggJa+iDOqs9AK9PInoXpgTOb1vFPkUXZjTMpHF0HmoXp/8kSskwMQirtMPTX3Jm1
+			zwuA6nnepyNin7XplqLWshpF0NgTHZJ59ISBPbYVj+5vLBrG7F2sk48LR006OwnV
+			3gYiOhGVkG9Oex9yLieRMz6IV8K/CQIDAQABo4IBSzCCAUcwHwYDVR0jBBgwFoAU
+			iYJnfcSdJnAAS7RQSHzePa4Ebn0wHQYDVR0OBBYEFOjXvZaq3dAI76Eznl5ZmDwS
+			t5uRMA4GA1UdDwEB/wQEAwIBBjASBgNVHRMBAf8ECDAGAQH/AgEAMBEGA1UdIAQK
+			MAgwBgYEVR0gADBYBgNVHR8EUTBPME2gS6BJhkdodHRwOi8vY3JsLnVzZXJ0cnVz
+			dC5jb20vVVROLVVTRVJGaXJzdC1DbGllbnRBdXRoZW50aWNhdGlvbmFuZEVtYWls
+			LmNybDB0BggrBgEFBQcBAQRoMGYwPQYIKwYBBQUHMAKGMWh0dHA6Ly9jcnQudXNl
+			cnRydXN0LmNvbS9VVE5BZGRUcnVzdENsaWVudF9DQS5jcnQwJQYIKwYBBQUHMAGG
+			GWh0dHA6Ly9vY3NwLnVzZXJ0cnVzdC5jb20wDQYJKoZIhvcNAQEFBQADggEBAA7t
+			tuA4nzpoogHB8ITlJu78gdLXjMkbJEOgybGF5p/k4CrRRN7yoHCtiBgoSJYTEkdJ
+			+co5o1fXzVOFTbf3Lx/Zq1N6aQdOyEK/4uxeO3v0PrKkSZaRFnv5T2peQnIx0dND
+			oTkFiT7LtdHpPhHGhHXONb/1Leiiq/WkAU5wHCZlqxbDvTLmKRAva2qySNZwBgb1
+			KOhUfswQxWmuEekF6zs4wWJa0B4Y6VxNU/j1KuHdkjWE+iWPH8cjWRr4oiWlVmLi
+			3jis1N8zV2IBOCpRKjtMuUewcenJIcFhjtJjrbpJKyIArDY1EEgOXsHsHbHbYl6T
+			A+rlUEjvUashivtgxcI=
+			</data>
+			<key>PayloadDisplayName</key>
+			<string>InCommon Standard Assurance Client CA</string>
+			<key>PayloadIdentifier</key>
+			<string>com.apple.mdm.bl-uits-jag-x8s.ads.iu.edu.6f5c6650-f12a-012f-6c5c-0023df9d1eb4.alacarte.certificate.31D8A6FA-7205-4E01-9F2C-8C36DA0BA303</string>
+			<key>PayloadType</key>
+			<string>com.apple.security.pkcs1</string>
+			<key>PayloadUUID</key>
+			<string>31D8A6FA-7205-4E01-9F2C-8C36DA0BA303</string>
+			<key>PayloadVersion</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
 			<key>AuthenticationMethod</key>
 			<string></string>
 			<key>AutoJoin</key>
