@@ -274,7 +274,7 @@
 		</dict>
 	</array>
 	<key>PayloadDescription</key>
-	<string>This profile configures iPhone OS devices to connect to UVa network resources for University Faculty, Staff, and Students.</string>
+	<string>This profile configures iOS devices to connect to UVa network resources for University Faculty, Staff, and Students.</string>
 	<key>PayloadDisplayName</key>
 	<string>University of Virginia</string>
 	<key>PayloadIdentifier</key>
