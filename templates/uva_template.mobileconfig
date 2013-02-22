@@ -123,8 +123,6 @@
 			<true/>
 			<key>forcePIN</key>
 			<true/>
-			<key>forcePIN</key>
-			<true/>
 			<key>maxFailedAttempts</key>
 			<integer>10</integer>
 			<key>maxGracePeriod</key>
