@@ -19,9 +19,9 @@
 				<false/>
 				<key>PayloadCertificateAnchorUUID</key>
 				<array>
-					<string>ABA12849-8C6B-420A-BD31-8BF20F1CE974</string>
-					<string>0F578EAA-C312-4F3E-9FE6-F134915E63E9</string>
-					<string>F8379BD3-766F-45E8-BCB3-7E8B180B3FE1</string>
+					<string>8DD2361D-0CDB-49DE-BC30-D97D1448D1D0</string>
+					<string>11D46014-4ABB-4CA7-BA4B-1514FC8AAA6A</string>
+					<string>5F5FDC72-A2FF-435B-A18A-A27A1893F14E</string>
 				</array>
 				<key>TLSAllowTrustExceptions</key>
 				<false/>
@@ -41,13 +41,13 @@
 			<key>PayloadDisplayName</key>
 			<string>Wi-Fi (eduroam)</string>
 			<key>PayloadIdentifier</key>
-			<string>edu.virginia.itc.standard.wifi</string>
+			<string>org.incommontest.certdev0.uva.wifi</string>
 			<key>PayloadOrganization</key>
 			<string></string>
 			<key>PayloadType</key>
 			<string>com.apple.wifi.managed</string>
 			<key>PayloadUUID</key>
-			<string>B2DAE79C-A039-418F-BC99-81729139E09D</string>
+			<string>C93CAF40-D051-46A5-8840-5107B1259CF8</string>
 			<key>PayloadVersion</key>
 			<integer>1</integer>
 			<key>SSID_STR</key>
@@ -77,13 +77,13 @@
 			<key>PayloadDisplayName</key>
 			<string>VPN (UVa Anywhere)</string>
 			<key>PayloadIdentifier</key>
-			<string>edu.virginia.itc.standard.vpn</string>
+			<string>org.incommontest.certdev0.uva.vpn</string>
 			<key>PayloadOrganization</key>
 			<string></string>
 			<key>PayloadType</key>
 			<string>com.apple.vpn.managed</string>
 			<key>PayloadUUID</key>
-			<string>7168F631-A0BD-474F-B2FB-18ACCB08D9DE</string>
+			<string>1A84A4F6-33D3-4D34-AB7F-AAF7762B8DB1</string>
 			<key>PayloadVersion</key>
 			<integer>1</integer>
 			<key>Proxies</key>
@@ -110,13 +110,13 @@
 			<key>PayloadDisplayName</key>
 			<string>Passcode</string>
 			<key>PayloadIdentifier</key>
-			<string>edu.virginia.itc.standard.passcodepolicy</string>
+			<string>org.incommontest.certdev0.uva.passcodepolicy</string>
 			<key>PayloadOrganization</key>
 			<string></string>
 			<key>PayloadType</key>
 			<string>com.apple.mobiledevice.passwordpolicy</string>
 			<key>PayloadUUID</key>
-			<string>1E51C1F8-4B46-4C8B-89D2-0662FD365FFB</string>
+			<string>E5068EBB-02CE-4380-8ACB-98426B9463E4</string>
 			<key>PayloadVersion</key>
 			<integer>1</integer>
 			<key>allowSimple</key>
@@ -168,13 +168,13 @@
 			<key>PayloadDisplayName</key>
 			<string>AddTrust External CA Root</string>
 			<key>PayloadIdentifier</key>
-			<string>edu.virginia.itc.standard.credential</string>
+			<string>org.incommontest.certdev0.uva.credential</string>
 			<key>PayloadOrganization</key>
 			<string></string>
 			<key>PayloadType</key>
 			<string>com.apple.security.root</string>
 			<key>PayloadUUID</key>
-			<string>ABA12849-8C6B-420A-BD31-8BF20F1CE974</string>
+			<string>8DD2361D-0CDB-49DE-BC30-D97D1448D1D0</string>
 			<key>PayloadVersion</key>
 			<integer>1</integer>
 		</dict>
@@ -214,13 +214,13 @@
 			<key>PayloadDisplayName</key>
 			<string>UTN-USERFirst-Client Authentication and Email</string>
 			<key>PayloadIdentifier</key>
-			<string>edu.virginia.itc.standard.credential1</string>
+			<string>org.incommontest.certdev0.uva.credential1</string>
 			<key>PayloadOrganization</key>
 			<string></string>
 			<key>PayloadType</key>
 			<string>com.apple.security.pkcs1</string>
 			<key>PayloadUUID</key>
-			<string>0F578EAA-C312-4F3E-9FE6-F134915E63E9</string>
+			<string>11D46014-4ABB-4CA7-BA4B-1514FC8AAA6A</string>
 			<key>PayloadVersion</key>
 			<integer>1</integer>
 		</dict>
@@ -262,13 +262,13 @@
 			<key>PayloadDisplayName</key>
 			<string>InCommon Standard Assurance Client CA</string>
 			<key>PayloadIdentifier</key>
-			<string>edu.virginia.itc.standard.credential2</string>
+			<string>org.incommontest.certdev0.uva.credential2</string>
 			<key>PayloadOrganization</key>
 			<string></string>
 			<key>PayloadType</key>
 			<string>com.apple.security.pkcs1</string>
 			<key>PayloadUUID</key>
-			<string>F8379BD3-766F-45E8-BCB3-7E8B180B3FE1</string>
+			<string>5F5FDC72-A2FF-435B-A18A-A27A1893F14E</string>
 			<key>PayloadVersion</key>
 			<integer>1</integer>
 		</dict>
@@ -278,7 +278,7 @@
 	<key>PayloadDisplayName</key>
 	<string>University of Virginia</string>
 	<key>PayloadIdentifier</key>
-	<string>edu.virginia.itc.standard</string>
+	<string>org.incommontest.certdev0.uva</string>
 	<key>PayloadOrganization</key>
 	<string>Network Setup</string>
 	<key>PayloadRemovalDisallowed</key>
