@@ -5,13 +5,13 @@ require_once("includes/functions.php");
 
 $debug = FALSE;
 
-// define the variables using GET
-$username = $_GET['LoginId'];
-$password = $_GET['LoginPwd'];
-$template_id = $_GET['template'];
-$cred2 = $_GET['LoginCred2'];
-$cred3 = $_GET['LoginCred3'];
-$cred4 = $_GET['LoginCred4'];
+// define the variables using POST
+$username = $_POST['LoginId'];
+$password = $_POST['LoginPwd'];
+$template_id = $_POST['template'];
+$cred2 = $_POST['LoginCred2'];
+$cred3 = $_POST['LoginCred3'];
+$cred4 = $_POST['LoginCred4'];
 
 // Find the selected template
 $template_file = "templates/" . $template_id . "_template.mobileconfig";
