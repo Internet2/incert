@@ -91,9 +91,9 @@ function getCertificate($user, $pass, $cred2, $cred3, $cred4)
 	$InCommonProvision = simplexml_load_string($responseBody);
 
 	// Save what we got for inspection
-	$data = $InCommonProvision->UserCertificate[0]->pkcs12;
+	$data = base64_decode($InCommonProvision->UserCertificate[0]->pkcs12);
 	$fh = fopen("certificates/$user.p12", 'w');
-	fwrite($fh, base64_decode($data));
+	fwrite($fh, $data);
 	fclose($fh);
 
 	// Return whatever we got back
@@ -205,7 +205,7 @@ function pkcs1Payload($profileIdentifier, $certData)
 	$dict->add( PAYLOAD_VER, new CFPropertyList\CFNumber( 1 ) );
 
 	// the keys specific to this payload
-	$dict->add( PAYLOAD_CONTENT, $certData );
+	$dict->add( PAYLOAD_CONTENT, new CFPropertyList\CFData($certData, TRUE) );
 
 	return $dict;
 }
@@ -224,10 +224,11 @@ function pkcs12Payload($profileIdentifier, $certData)
 	$dict->add( PAYLOAD_VER, new CFPropertyList\CFNumber( 1 ) );
 
 	// not required, but helpful
-	$dict->add( PAYLOAD_NAME, new CFPropertyList\CFString( "My InCommon Certificate" ) );
+	$dict->add( PAYLOAD_NAME, new CFPropertyList\CFString( "InCert Identity" ) );
+	$dict->add( PAYLOAD_DESC, new CFPropertyList\CFString( "My InCommon Certificate" ) );
 
 	// the keys specific to this payload
-	$dict->add( PAYLOAD_CONTENT, new CFPropertyList\CFData($certData, TRUE) );
+	$dict->add( PAYLOAD_CONTENT, new CFPropertyList\CFData($certData) );
 
 	return $dict;
 }

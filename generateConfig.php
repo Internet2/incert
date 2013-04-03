@@ -28,8 +28,32 @@ $certData = getCertificate($username, $password, $cred2, $cred3, $cred4);
 
 // Continue only if we have certificate data
 if ($certData) {
+	// Extract each item in the PCKS12 data
+	openssl_pkcs12_read($certData, $certsArray, $password);
+	
+	// If there are bundled certs
+	if (array_key_exists('extracerts', $certsArray)) {
+		// Get the extracerts array
+		$extraCertsArray = $certsArray['extracerts'];
+		
+		// Build the PKCS1 payload dictionaries
+		$pkcs1DictArray = array();
+		foreach ($extraCertsArray as $extraCert) {
+			
+			// Trim the delimiters
+			$search = array( "-----BEGIN CERTIFICATE-----\n", "-----END CERTIFICATE-----\n" );
+			
+			$trimmedExtraCert = str_replace($search, "", $extraCert);
+			
+			$pkcs1DictArray[] = pkcs1Payload($profileID, $trimmedExtraCert);
+		}
+		
+	}
+
+	openssl_pkcs12_export($certsArray['cert'], $pkcs12Data, $certsArray['pkey'], $password);
+
 	// Build the PKCS12 payload dictionary
-	$pkcs12Dict = pkcs12Payload($profileID, $certData);
+	$pkcs12Dict = pkcs12Payload($profileID, $pkcs12Data);
 
 	// Get the UUID from the PKCS12 payload
 	$pkcs12UUID = $pkcs12Dict->get(PAYLOAD_UUID)->getValue();
@@ -37,6 +61,13 @@ if ($certData) {
 	// Replace all occurences of $username$ and $pkcs12UUID$ in the template
 	// with the actual username and pkcs12UUID
 	$mobileconfig = replaceUserAndCert($template_file, $username, $pkcs12UUID);
+
+	// Add the PKCS1 payload dictionaries (if any) to the profile
+	if ($pkcs1DictArray) {
+		foreach ($pkcs1DictArray as $pkcs1Dict) {
+			$mobileconfig->getValue()->get(PAYLOAD_CONTENT)->add($pkcs1Dict);
+		}
+	}
 
 	// Add the PKCS12 payload dictionary to the profile
 	$mobileconfig->getValue()->get(PAYLOAD_CONTENT)->add($pkcs12Dict);
