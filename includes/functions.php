@@ -1,7 +1,7 @@
 <?php
 require_once('constants.php');
-require_once('CFPropertyList/CFPropertyList.php');
 require_once("RestRequest.inc.php");
+require_once "CFPropertyList/classes/CFPropertyList/CFPropertyList.php";
 
 function gen_uuid()
 {

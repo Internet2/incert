@@ -1,0 +1,3 @@
+[submodule "CFPropertyList"]
+	path = CFPropertyList
+	url = git://github.com/rodneyrehm/CFPropertyList.git
