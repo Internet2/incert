@@ -233,6 +233,25 @@ function pkcs12Payload($profileIdentifier, $certData)
 	return $dict;
 }
 
+function rootPayload($profileIdentifier, $certData)
+{
+	// this payload's UUID
+	$myUUID = gen_uuid();
+
+	$dict = new CFPropertyList\CFDictionary();
+
+	// The required keys common to all payloads
+	$dict->add( PAYLOAD_ID, new CFPropertyList\CFString( $profileIdentifier . '.certificate.' . $myUUID ) );
+	$dict->add( PAYLOAD_TYPE, new CFPropertyList\CFString( TYPE_ROOT ) );
+	$dict->add( PAYLOAD_UUID, new CFPropertyList\CFString( $myUUID ) );
+	$dict->add( PAYLOAD_VER, new CFPropertyList\CFNumber( 1 ) );
+
+	// the keys specific to this payload
+	$dict->add( PAYLOAD_CONTENT, new CFPropertyList\CFData($certData, TRUE) );
+
+	return $dict;
+}
+
 function wifiPayload($profileIdentifier, $contentDict)
 {
 	// this payload's UUID

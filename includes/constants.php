@@ -53,6 +53,7 @@ define("TYPE_MAIL", "com.apple.mail.managed");
 define("TYPE_WEB", "com.apple.webClip.managed");
 define("TYPE_PKCS1", "com.apple.security.pkcs1");
 define("TYPE_PKCS12", "com.apple.security.pkcs12");
+define("TYPE_ROOT", "com.apple.security.root");
 define("TYPE_SCEP", "com.apple.security.scep");
 define("TYPE_EAS", "com.apple.eas.account"); // Exchange Active Sync (iOS)
 define("TYPE_EWS", "com.apple.ews.account"); // Exchange Web Servies (OS X, Contacts only)
