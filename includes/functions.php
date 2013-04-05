@@ -225,7 +225,7 @@ function pkcs12Payload($profileIdentifier, $certData)
 
 	// not required, but helpful
 	$dict->add( PAYLOAD_NAME, new CFPropertyList\CFString( "InCert Identity" ) );
-	$dict->add( PAYLOAD_DESC, new CFPropertyList\CFString( "My InCommon Certificate" ) );
+	$dict->add( PAYLOAD_DESC, new CFPropertyList\CFString( "My Certificate & Private Key" ) );
 
 	// the keys specific to this payload
 	$dict->add( PAYLOAD_CONTENT, new CFPropertyList\CFData($certData) );
