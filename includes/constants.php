@@ -117,6 +117,9 @@ define("WEB_URL", "URL");
 define("WEB_ICON", "Icon");        // optional
 define("WEB_IS_REMOVABLE", "IsRemovable"); // optional
 
+// !Certificate Keys
+define("CERT_FILENAME", "PayloadCertificateFileName");
+
 // !SCEP Keys
 define("SCEP_URL", "URL");
 define("SCEP_NAME", "Name");   // optional
