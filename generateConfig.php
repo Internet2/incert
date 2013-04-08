@@ -60,44 +60,44 @@ if ($certData) {
 		// Reverse the array so that the root cert is the first element
 		$certDictArray = array_reverse($certDictArray);
 	}
-
+	
 	openssl_pkcs12_export($certsArray['cert'], $pkcs12Data, $certsArray['pkey'], $password);
-
+	
 	// Build the PKCS12 payload dictionary
 	$pkcs12Dict = pkcs12Payload($profileID, $pkcs12Data);
 
 	// Get the UUID from the PKCS12 payload
 	$pkcs12UUID = $pkcs12Dict->get(PAYLOAD_UUID)->getValue();
-
+	
 	// Replace all occurences of $username$ and $pkcs12UUID$ in the template
 	// with the actual username and pkcs12UUID
 	$mobileconfig = replaceUserAndCert($template_file, $username, $pkcs12UUID);
-
+	
 	// Add the supporting certificate payload dictionaries (if any) to the profile
 	if ($certDictArray) {
 		foreach ($certDictArray as $certDict) {
 			$mobileconfig->getValue()->get(PAYLOAD_CONTENT)->add($certDict);
 		}
 	}
-
+	
 	// Add the PKCS12 payload dictionary to the profile
 	$mobileconfig->getValue()->get(PAYLOAD_CONTENT)->add($pkcs12Dict);
-
+	
 	// Prepend the user's name to the filename
 	$profile = "profiles/" . $username . "." . $template_id . ".mobileconfig";
-
+	
 	// Save the unsigned profile to the file system
 	$mobileconfig->saveXML( $profile );
-
+	
 	// Display the profile
 	if ($debug) {
 		$xml = file_get_contents( $profile );
 		echo 'Profile: <br /><pre>' . xmlpp($xml, TRUE) . '</pre>';
 	}
-
+	
 	// Sign the profile
 	signProfile($profile);
-
+	
 	// Redirect the user to the signed profile
 	if (!$debug) {
 		header( 'Location: ' . $profile );
