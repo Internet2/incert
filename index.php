@@ -15,32 +15,51 @@
 
 <head>
 	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, user-scalable=no">
 	<title>InCert</title>
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.0/jquery.mobile-1.3.0.css" />
+	<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+	<script src="http://code.jquery.com/mobile/1.3.0/jquery.mobile-1.3.0.js"></script>
 </head>
 
 <body>
-	<h3>InCert (InCommon Certificate Provisioning Tool)</h3>
 
+<div data-role="page">
+	
+	<header data-role="header">
+	<a href="../" data-ajax="false" data-icon="back" data-iconpos="notext">Back</a>
+    <h3>InCert</h3>
+    </header>
+	
+    <div data-role="content">
 	<p>Select your site and enter your credentials to receive your iOS/OS X Configuration Profile.</p>
 
 	<form method="post" action="generateConfig.php" id="configForm">
-		<p> Site:
-			<select name="template">
-				<option value="iu">Indiana University</option>
-				<option value="uva">University of Virginia</option>
-				</select>
-		</p>
-
-		<p>
-		Login-ID: <input type="text" name="LoginId" /><br />
-		Password: <input type="password" name="LoginPwd" /><br />
-		Last Name: <input type="text" name="LoginCred2" value="cred2" /><br />
-		ID Number: <input type="text" name="LoginCred3" value="cred3" /><br />
-		Date of Birth: <input type="text" name="LoginCred4" value="cred4" /><br />
-		</p>
-
-		<p> <input type="submit" /> </p>
+		<label for="template">Site:</label>
+		<select name="template">
+			<option value="iu">Indiana University</option>
+			<option value="uva">University of Virginia</option>
+		</select>
+		<label for="LoginId">Login-ID:</label>
+		<input type="text" name="LoginId" data-clear-btn="true" />
+		<label for="LoginPwd">Password:</label>
+		<input type="password" name="LoginPwd" data-clear-btn="true" />
+		<label for="LoginCred2">Last Name:</label>
+		<input type="text" name="LoginCred2" value="cred2" data-clear-btn="true" />
+		<label for="LoginCred3">ID Number:</label>
+		<input type="text" name="LoginCred3" value="cred3" data-clear-btn="true" />
+		<label for="LoginCred4">Date of Birth:</label>
+		<input type="text" name="LoginCred4" value="cred4" data-clear-btn="true" />
+		<input type="submit" value="Submit"/>
 	</form>
+    </div>
+	
+	<footer data-role="footer">
+	<h3>© 2013 InCommon LLC</h3>
+	</footer>
+
+</div>
+
 </body>
 
 </html>
