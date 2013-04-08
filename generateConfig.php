@@ -50,9 +50,9 @@ if ($certData) {
 			// If the cert is self-signed, make it a root payload
 			// Else make it a regular PKCS1 payload
 			if ($parsedExtraCertArray["subject"] === $parsedExtraCertArray["issuer"]) {
-				$certDictArray[] = rootPayload($profileID, $trimmedExtraCert);
+				$certDictArray[] = rootPayload($profileID, $parsedExtraCertArray["subject"]["CN"], $trimmedExtraCert);
 			} else {
-				$certDictArray[] = pkcs1Payload($profileID, $trimmedExtraCert);
+				$certDictArray[] = pkcs1Payload($profileID, $parsedExtraCertArray["subject"]["CN"], $trimmedExtraCert);
 			}
 			
 		}
@@ -64,8 +64,8 @@ if ($certData) {
 	openssl_pkcs12_export($certsArray['cert'], $pkcs12Data, $certsArray['pkey'], $password);
 	
 	// Build the PKCS12 payload dictionary
-	$pkcs12Dict = pkcs12Payload($profileID, $pkcs12Data);
-
+	$pkcs12Dict = pkcs12Payload($profileID, strtolower($username), $pkcs12Data);
+	
 	// Get the UUID from the PKCS12 payload
 	$pkcs12UUID = $pkcs12Dict->get(PAYLOAD_UUID)->getValue();
 	
