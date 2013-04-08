@@ -15,8 +15,6 @@
 	<string>UVa</string>
 	<key>PayloadRemovalDisallowed</key>
 	<false/>
-	<key>PayloadScope</key>
-	<string>User</string>
 	<key>PayloadType</key>
 	<string>Configuration</string>
 	<key>PayloadUUID</key>
