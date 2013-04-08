@@ -100,7 +100,9 @@ if ($certData) {
 	
 	// Redirect the user to the signed profile
 	if (!$debug) {
-		header( 'Location: ' . $profile );
+		header('Content-type: application/x-apple-aspen-config');
+		header("Content-Disposition: attachment; filename=$username.$template_id.mobileconfig");
+		readfile($profile);
 	}
 }
 
