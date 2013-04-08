@@ -36,18 +36,29 @@ if ($certData) {
 		// Get the extracerts array
 		$extraCertsArray = $certsArray['extracerts'];
 		
-		// Build the PKCS1 payload dictionaries
-		$pkcs1DictArray = array();
+		// Build the certificate payload dictionaries
+		$certDictArray = array();
 		foreach ($extraCertsArray as $extraCert) {
 			
-			// Trim the delimiters
+			// Trim the headers and footers
 			$search = array( "-----BEGIN CERTIFICATE-----\n", "-----END CERTIFICATE-----\n" );
-			
 			$trimmedExtraCert = str_replace($search, "", $extraCert);
 			
-			$pkcs1DictArray[] = pkcs1Payload($profileID, $trimmedExtraCert);
+			// Parse the certificate
+			$parsedExtraCertArray = openssl_x509_parse($extraCert);
+			
+			// If the cert is self-signed, make it a root payload
+			// Else make it a regular PKCS1 payload
+			if ($parsedExtraCertArray["subject"] === $parsedExtraCertArray["issuer"]) {
+				$certDictArray[] = rootPayload($profileID, $trimmedExtraCert);
+			} else {
+				$certDictArray[] = pkcs1Payload($profileID, $trimmedExtraCert);
+			}
+			
 		}
 		
+		// Reverse the array so that the root cert is the first element
+		$certDictArray = array_reverse($certDictArray);
 	}
 
 	openssl_pkcs12_export($certsArray['cert'], $pkcs12Data, $certsArray['pkey'], $password);
@@ -62,10 +73,10 @@ if ($certData) {
 	// with the actual username and pkcs12UUID
 	$mobileconfig = replaceUserAndCert($template_file, $username, $pkcs12UUID);
 
-	// Add the PKCS1 payload dictionaries (if any) to the profile
-	if ($pkcs1DictArray) {
-		foreach ($pkcs1DictArray as $pkcs1Dict) {
-			$mobileconfig->getValue()->get(PAYLOAD_CONTENT)->add($pkcs1Dict);
+	// Add the supporting certificate payload dictionaries (if any) to the profile
+	if ($certDictArray) {
+		foreach ($certDictArray as $certDict) {
+			$mobileconfig->getValue()->get(PAYLOAD_CONTENT)->add($certDict);
 		}
 	}
 
