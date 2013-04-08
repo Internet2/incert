@@ -191,7 +191,7 @@ function passwordPolicyPayload($profileIdentifier, $policyDict)
 	return $dict;
 }
 
-function pkcs1Payload($profileIdentifier, $certData)
+function pkcs1Payload($profileIdentifier, $certName, $certData)
 {
 	// this payload's UUID
 	$myUUID = gen_uuid();
@@ -204,13 +204,19 @@ function pkcs1Payload($profileIdentifier, $certData)
 	$dict->add( PAYLOAD_UUID, new CFPropertyList\CFString( $myUUID ) );
 	$dict->add( PAYLOAD_VER, new CFPropertyList\CFNumber( 1 ) );
 
+	// not required, but helpful
+	$dict->add( PAYLOAD_NAME, new CFPropertyList\CFString( $certName ) );
+	$dict->add( PAYLOAD_DESC, new CFPropertyList\CFString( "Provides device authentication (certificate or identity)." ) );
+	$dict->add( PAYLOAD_ORG, new CFPropertyList\CFString( "" ) );
+
 	// the keys specific to this payload
-	$dict->add( PAYLOAD_CONTENT, new CFPropertyList\CFData($certData, TRUE) );
+	$dict->add( CERT_FILENAME, new CFPropertyList\CFString( $certName . '.cer' ) );
+	$dict->add( PAYLOAD_CONTENT, new CFPropertyList\CFData( $certData, TRUE ) );
 
 	return $dict;
 }
 
-function pkcs12Payload($profileIdentifier, $certData)
+function pkcs12Payload($profileIdentifier, $certName, $certData)
 {
 	// this payload's UUID
 	$myUUID = gen_uuid();
@@ -224,16 +230,18 @@ function pkcs12Payload($profileIdentifier, $certData)
 	$dict->add( PAYLOAD_VER, new CFPropertyList\CFNumber( 1 ) );
 
 	// not required, but helpful
-	$dict->add( PAYLOAD_NAME, new CFPropertyList\CFString( "InCert Identity" ) );
-	$dict->add( PAYLOAD_DESC, new CFPropertyList\CFString( "My Certificate & Private Key" ) );
+	$dict->add( PAYLOAD_NAME, new CFPropertyList\CFString( $certName . '.p12' ) );
+	$dict->add( PAYLOAD_DESC, new CFPropertyList\CFString( "Provides device authentication (certificate or identity)." ) );
+	$dict->add( PAYLOAD_ORG, new CFPropertyList\CFString( "" ) );
 
 	// the keys specific to this payload
-	$dict->add( PAYLOAD_CONTENT, new CFPropertyList\CFData($certData) );
+	$dict->add( CERT_FILENAME, new CFPropertyList\CFString( $certName . '.p12' ) );
+	$dict->add( PAYLOAD_CONTENT, new CFPropertyList\CFData( $certData ) );
 
 	return $dict;
 }
 
-function rootPayload($profileIdentifier, $certData)
+function rootPayload($profileIdentifier, $certName, $certData)
 {
 	// this payload's UUID
 	$myUUID = gen_uuid();
@@ -246,8 +254,14 @@ function rootPayload($profileIdentifier, $certData)
 	$dict->add( PAYLOAD_UUID, new CFPropertyList\CFString( $myUUID ) );
 	$dict->add( PAYLOAD_VER, new CFPropertyList\CFNumber( 1 ) );
 
+	// not required, but helpful
+	$dict->add( PAYLOAD_NAME, new CFPropertyList\CFString( $certName ) );
+	$dict->add( PAYLOAD_DESC, new CFPropertyList\CFString( "Provides device authentication (certificate or identity)." ) );
+	$dict->add( PAYLOAD_ORG, new CFPropertyList\CFString( "" ) );
+
 	// the keys specific to this payload
-	$dict->add( PAYLOAD_CONTENT, new CFPropertyList\CFData($certData, TRUE) );
+	$dict->add( CERT_FILENAME, new CFPropertyList\CFString( $certName . '.cer' ) );
+	$dict->add( PAYLOAD_CONTENT, new CFPropertyList\CFData( $certData, TRUE ) );
 
 	return $dict;
 }
