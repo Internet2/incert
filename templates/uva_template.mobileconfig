@@ -4,151 +4,23 @@
 <dict>
 	<key>PayloadContent</key>
 	<array>
-		<dict>
-			<key>EAPClientConfiguration</key>
-			<dict>
-				<key>AcceptEAPTypes</key>
-				<array>
-					<integer>13</integer>
-				</array>
-				<key>EAPFASTProvisionPAC</key>
-				<false/>
-				<key>EAPFASTProvisionPACAnonymously</key>
-				<false/>
-				<key>EAPFASTUsePAC</key>
-				<false/>
-				<key>PayloadCertificateAnchorUUID</key>
-				<array>
-					<string>8DD2361D-0CDB-49DE-BC30-D97D1448D1D0</string>
-					<string>11D46014-4ABB-4CA7-BA4B-1514FC8AAA6A</string>
-					<string>5F5FDC72-A2FF-435B-A18A-A27A1893F14E</string>
-				</array>
-				<key>TLSAllowTrustExceptions</key>
-				<false/>
-				<key>TLSTrustedServerNames</key>
-				<array>
-					<string>wireless.itc.virginia.edu</string>
-				</array>
-			</dict>
-			<key>EncryptionType</key>
-			<string>WPA</string>
-			<key>HIDDEN_NETWORK</key>
-			<false/>
-			<key>PayloadCertificateUUID</key>
-			<string>$pkcs12UUID$</string>
-			<key>PayloadDescription</key>
-			<string>Configures wireless connectivity settings.</string>
-			<key>PayloadDisplayName</key>
-			<string>Wi-Fi (eduroam)</string>
-			<key>PayloadIdentifier</key>
-			<string>org.incommontest.certdev0.uva.wifi</string>
-			<key>PayloadOrganization</key>
-			<string></string>
-			<key>PayloadType</key>
-			<string>com.apple.wifi.managed</string>
-			<key>PayloadUUID</key>
-			<string>C93CAF40-D051-46A5-8840-5107B1259CF8</string>
-			<key>PayloadVersion</key>
-			<integer>1</integer>
-			<key>SSID_STR</key>
-			<string>eduroam</string>
-		</dict>
-		<dict>
-			<key>IPSec</key>
-			<dict>
-				<key>AuthenticationMethod</key>
-				<string>Certificate</string>
-				<key>OnDemandEnabled</key>
-				<integer>0</integer>
-				<key>PayloadCertificateUUID</key>
-				<string>$pkcs12UUID$</string>
-				<key>PromptForVPNPIN</key>
-				<false/>
-				<key>RemoteAddress</key>
-				<string>uva-anywhere-1.itc.virginia.edu</string>
-			</dict>
-			<key>IPv4</key>
-			<dict>
-				<key>OverridePrimary</key>
-				<integer>0</integer>
-			</dict>
-			<key>PayloadDescription</key>
-			<string>Configures VPN settings, including authentication.</string>
-			<key>PayloadDisplayName</key>
-			<string>VPN (UVa Anywhere)</string>
-			<key>PayloadIdentifier</key>
-			<string>org.incommontest.certdev0.uva.vpn</string>
-			<key>PayloadOrganization</key>
-			<string></string>
-			<key>PayloadType</key>
-			<string>com.apple.vpn.managed</string>
-			<key>PayloadUUID</key>
-			<string>1A84A4F6-33D3-4D34-AB7F-AAF7762B8DB1</string>
-			<key>PayloadVersion</key>
-			<integer>1</integer>
-			<key>Proxies</key>
-			<dict>
-				<key>HTTPEnable</key>
-				<integer>0</integer>
-				<key>HTTPProxyType</key>
-				<string>None</string>
-				<key>HTTPSEnable</key>
-				<integer>0</integer>
-				<key>ProxyAutoConfigEnable</key>
-				<integer>0</integer>
-				<key>ProxyAutoDiscoveryEnable</key>
-				<integer>0</integer>
-			</dict>
-			<key>UserDefinedName</key>
-			<string>UVa Anywhere</string>
-			<key>VPNType</key>
-			<string>IPSec</string>
-		</dict>
-		<dict>
-			<key>PayloadDescription</key>
-			<string>Configures security-related items.</string>
-			<key>PayloadDisplayName</key>
-			<string>Passcode</string>
-			<key>PayloadIdentifier</key>
-			<string>org.incommontest.certdev0.uva.passcodepolicy</string>
-			<key>PayloadOrganization</key>
-			<string></string>
-			<key>PayloadType</key>
-			<string>com.apple.mobiledevice.passwordpolicy</string>
-			<key>PayloadUUID</key>
-			<string>E5068EBB-02CE-4380-8ACB-98426B9463E4</string>
-			<key>PayloadVersion</key>
-			<integer>1</integer>
-			<key>allowSimple</key>
-			<true/>
-			<key>forcePIN</key>
-			<true/>
-			<key>maxFailedAttempts</key>
-			<integer>10</integer>
-			<key>maxGracePeriod</key>
-			<integer>15</integer>
-			<key>maxInactivity</key>
-			<integer>5</integer>
-			<key>minLength</key>
-			<integer>4</integer>
-			<key>pinHistory</key>
-			<integer>0</integer>
-		</dict>
 	</array>
 	<key>PayloadDescription</key>
-	<string>This profile configures iOS devices to connect to UVa network resources for University Faculty, Staff, and Students.</string>
+	<string>This profile just provides the Comodo InCommon certs</string>
 	<key>PayloadDisplayName</key>
-	<string>University of Virginia</string>
+	<string>UVa test  Configuration Profile</string>
 	<key>PayloadIdentifier</key>
-	<string>org.incommontest.certdev0.uva</string>
+	<string>org.incommontest.certdev0.uva2</string>
 	<key>PayloadOrganization</key>
-	<string>Network Setup</string>
+	<string>UVa</string>
 	<key>PayloadRemovalDisallowed</key>
 	<false/>
+	<key>PayloadScope</key>
+	<string>User</string>
 	<key>PayloadType</key>
 	<string>Configuration</string>
 	<key>PayloadUUID</key>
-	<string>56412749-3207-420A-85DD-EA353722ECBD</string>
+	<string>56412749-3207-420A-85DD-EA353722ECBE</string>
 	<key>PayloadVersion</key>
 	<integer>1</integer>
 </dict>
