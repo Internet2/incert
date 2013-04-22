@@ -34,7 +34,7 @@
     <div data-role="content">
 	<p>Select your site and enter your credentials to receive your iOS/OS X Configuration Profile.</p>
 
-	<form method="post" action="generateConfig.php" id="configForm">
+	<form method="post" action="generateConfig.php" data-ajax="false">
 		<label for="template">Site:</label>
 		<select name="template">
 			<option value="iu">Indiana University</option>
