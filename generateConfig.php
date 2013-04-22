@@ -20,6 +20,17 @@ if (!file_exists($template_file)) {
 		exit();
 }
 
+// Setup the page if debugging is on
+if ($debug) {
+	echo '<!DOCTYPE html>
+	<html lang="en">
+	<head>
+	  <meta charset="UTF-8">
+		<title>InCert Debug</title>
+	</head>
+	<body>';
+}
+
 // Get the profile identifier from the template
 $profileID = getProfileID($template_file);
 
@@ -47,6 +58,13 @@ if ($certData) {
 			// Parse the certificate
 			$parsedExtraCertArray = openssl_x509_parse($extraCert);
 			
+			// Display the extra cert for debugging
+			if ($debug) {
+				echo '<p>extraCert:</p><pre>';
+				print_r($parsedExtraCertArray);
+				echo '</pre>';
+			}
+			
 			// If the cert is self-signed, make it a root payload
 			// Else make it a regular PKCS1 payload
 			if ($parsedExtraCertArray["subject"] === $parsedExtraCertArray["issuer"]) {
@@ -59,6 +77,13 @@ if ($certData) {
 		
 		// Reverse the array so that the root cert is the first element
 		$certDictArray = array_reverse($certDictArray);
+	}
+	
+	// Display the cert for debugging
+	if ($debug) {
+		echo '<p>cert:</p><pre>';
+		print_r(openssl_x509_parse($certsArray['cert']));
+		echo '</pre>';
 	}
 	
 	openssl_pkcs12_export($certsArray['cert'], $pkcs12Data, $certsArray['pkey'], $password);
@@ -104,6 +129,12 @@ if ($certData) {
 		header("Content-Disposition: attachment; filename=$username.$template_id.mobileconfig");
 		readfile($profile);
 	}
+}
+
+// Close the tags
+if ($debug) {
+	echo '</body>
+	</html>';
 }
 
 ?>
