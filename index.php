@@ -17,9 +17,10 @@
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, user-scalable=no">
 	<title>InCert</title>
-	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.0/jquery.mobile-1.3.0.css" />
-	<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-	<script src="http://code.jquery.com/mobile/1.3.0/jquery.mobile-1.3.0.js"></script>
+    <link rel="stylesheet" href="css/jquery.mobile.structure-1.3.1.min.css" />
+    <link rel="stylesheet" href="css/themes/jquery.mobile.theme-1.3.1.min.css" />
+    <script src="js/jquery-2.0.3.min.js"></script>
+    <script src="js/jquery.mobile-1.3.1.min.js"></script>
 </head>
 
 <body>
