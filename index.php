@@ -40,6 +40,7 @@
 		<select name="template">
 			<option value="iu">Indiana University</option>
 			<option value="uva">University of Virginia</option>
+			<option value="incommon" selected>InCommon Test (incommontest.org)</option>
 		</select>
 		<label for="LoginId">Login-ID:</label>
 		<input type="text" name="LoginId" data-clear-btn="true" />
