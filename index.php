@@ -3,7 +3,7 @@
 	
 	// Parse the user agent
 	$parser = new UAParser;
-	$result = $parser->parse($_SERVER[HTTP_USER_AGENT]);
+	$result = $parser->parse($_SERVER['HTTP_USER_AGENT']);
 	
 	// Grab value for later use
 	$osFamily = $result->os->family;
