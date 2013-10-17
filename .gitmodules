@@ -1,6 +1,6 @@
-[submodule "CFPropertyList"]
-	path = CFPropertyList
+[submodule "Apple/CFPropertyList"]
+	path = Apple/CFPropertyList
 	url = git://github.com/rodneyrehm/CFPropertyList.git
-[submodule "ua-parser"]
-	path = ua-parser
+[submodule "Apple/ua-parser"]
+	path = Apple/ua-parser
 	url = git://github.com/tobie/ua-parser.git
