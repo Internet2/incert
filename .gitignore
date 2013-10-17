@@ -1,3 +1,4 @@
-certificates/*.p12
-profiles/*.mobileconfig
-ssl/*.pem
+# Apple ignores
+Apple/certificates/*.p12
+Apple/profiles/*.mobileconfig
+Apple/ssl/*.pem
