@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>PayloadContent</key>
+	<array>
+	</array>
+	<key>PayloadDescription</key>
+	<string>This profile just provides the Comodo InCommon certs</string>
+	<key>PayloadDisplayName</key>
+	<string>UVa test  Configuration Profile</string>
+	<key>PayloadIdentifier</key>
+	<string>org.incommontest.certdev0.uva2</string>
+	<key>PayloadOrganization</key>
+	<string>UVa</string>
+	<key>PayloadRemovalDisallowed</key>
+	<false/>
+	<key>PayloadType</key>
+	<string>Configuration</string>
+	<key>PayloadUUID</key>
+	<string>56412749-3207-420A-85DD-EA353722ECBE</string>
+	<key>PayloadVersion</key>
+	<integer>1</integer>
+</dict>
+</plist>

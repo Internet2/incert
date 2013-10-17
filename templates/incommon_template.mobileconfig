@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>PayloadContent</key>
+	<array>
+		<dict>
+			<key>EAPClientConfiguration</key>
+			<dict>
+				<key>AcceptEAPTypes</key>
+				<array>
+					<integer>13</integer>
+				</array>
+				<key>EAPFASTProvisionPAC</key>
+				<false/>
+				<key>EAPFASTProvisionPACAnonymously</key>
+				<false/>
+				<key>EAPFASTUsePAC</key>
+				<false/>
+				<key>TLSTrustedServerNames</key>
+				<array>
+					<string>certdev0.incommontest.org</string>
+				</array>
+				<key>PayloadCertificateAnchorUUID</key>
+				<array>
+					<string>0F578EAA-C312-4F3E-9FE6-F134915E63ZY</string>
+				</array>
+			</dict>
+			<key>EncryptionType</key>
+			<string>WPA</string>
+			<key>HIDDEN_NETWORK</key>
+			<true/>
+			<key>PayloadCertificateUUID</key>
+			<string>$pkcs12UUID$</string>
+			<key>PayloadDescription</key>
+			<string>Configures eduRoam wireless connectivity settings.</string>
+			<key>PayloadDisplayName</key>
+			<string>Wi-Fi (eduroam)</string>
+			<key>PayloadIdentifier</key>
+			<string>org.incommontest.certdev0.eduroam.wifi</string>
+			<key>PayloadOrganization</key>
+			<string></string>
+			<key>PayloadType</key>
+			<string>com.apple.wifi.managed</string>
+			<key>PayloadUUID</key>
+			<string>B2DAE79C-A039-418F-BC99-81729139E09E</string>
+			<key>PayloadVersion</key>
+			<integer>1</integer>
+			<key>SSID_STR</key>
+			<string>eduroam</string>
+		</dict>
+		<dict>
+			<key>PayloadDescription</key>
+			<string>Configures incommontest.org security-related items.</string>
+			<key>PayloadDisplayName</key>
+			<string>Passcode</string>
+			<key>PayloadIdentifier</key>
+			<string>org.incommontest.certdev0.icommon.passcodepolicy</string>
+			<key>PayloadOrganization</key>
+			<string></string>
+			<key>PayloadType</key>
+			<string>com.apple.mobiledevice.passwordpolicy</string>
+			<key>PayloadUUID</key>
+			<string>1E51C1F8-4B46-4C8B-89D2-0662FD365FFB</string>
+			<key>PayloadVersion</key>
+			<integer>1</integer>
+			<key>allowSimple</key>
+			<true/>
+			<key>forcePIN</key>
+			<true/>
+			<key>maxFailedAttempts</key>
+			<integer>10</integer>
+			<key>maxGracePeriod</key>
+			<integer>15</integer>
+			<key>maxInactivity</key>
+			<integer>5</integer>
+			<key>minLength</key>
+			<integer>4</integer>
+			<key>pinHistory</key>
+			<integer>0</integer>
+		</dict>
+
+		<dict>
+			<key>PayloadCertificateFileName</key>
+			<string>InCommon-Server-CA.cer</string>
+			<key>PayloadContent</key>
+			<data>
+			MIIEwzCCA6ugAwIBAgIQf3HB06ImsNKxE/PmgWdkPjANBgkqhkiG9w0BAQUFADBv
+			MQswCQYDVQQGEwJTRTEUMBIGA1UEChMLQWRkVHJ1c3QgQUIxJjAkBgNVBAsTHUFk
+			ZFRydXN0IEV4dGVybmFsIFRUUCBOZXR3b3JrMSIwIAYDVQQDExlBZGRUcnVzdCBF
+			eHRlcm5hbCBDQSBSb290MB4XDTEwMTIwNzAwMDAwMFoXDTIwMDUzMDEwNDgzOFow
+			UTELMAkGA1UEBhMCVVMxEjAQBgNVBAoTCUludGVybmV0MjERMA8GA1UECxMISW5D
+			b21tb24xGzAZBgNVBAMTEkluQ29tbW9uIFNlcnZlciBDQTCCASIwDQYJKoZIhvcN
+			AQEBBQADggEPADCCAQoCggEBAJd8x8j+s+kgaqOkT46ONFYGs3psqhCbSGErNpBp
+			4zQKR6e7e96qavvrgpWPyh1/r3WmqEzaIGdhGg2GwcrBh6+sTuTeYhsvnbGYr8YB
+			+xdw26wUWexvPzN/ppgL5OI4r/V/hW0OdASd9ieGx5uP53EqCPQDAkBjJH1AV49U
+			4FR+thNIYfHezg69tvpNmLLZDY15puCqzQyRmqXfq3O7yhR4XEcpocrFup/H2mD3
+			/+d/8tnaoS0PSRan0wCSz4pH2U341ZVm03T5gGMAT0yEFh+z9SQfoU7e6JXWsgsJ
+			iyxrx1wvjGPJmctSsWJ7cwFif2Ns2Gig7mqojR8p89AYrK0CAwEAAaOCAXcwggFz
+			MB8GA1UdIwQYMBaAFK29mHo0tCb3+sQmVO8DveAky1QaMB0GA1UdDgQWBBRIT1r6
+			L0qaXuBQ82t7VaXe9b40XTAOBgNVHQ8BAf8EBAMCAQYwEgYDVR0TAQH/BAgwBgEB
+			/wIBADARBgNVHSAECjAIMAYGBFUdIAAwRAYDVR0fBD0wOzA5oDegNYYzaHR0cDov
+			L2NybC51c2VydHJ1c3QuY29tL0FkZFRydXN0RXh0ZXJuYWxDQVJvb3QuY3JsMIGz
+			BggrBgEFBQcBAQSBpjCBozA/BggrBgEFBQcwAoYzaHR0cDovL2NydC51c2VydHJ1
+			c3QuY29tL0FkZFRydXN0RXh0ZXJuYWxDQVJvb3QucDdjMDkGCCsGAQUFBzAChi1o
+			dHRwOi8vY3J0LnVzZXJ0cnVzdC5jb20vQWRkVHJ1c3RVVE5TR0NDQS5jcnQwJQYI
+			KwYBBQUHMAGGGWh0dHA6Ly9vY3NwLnVzZXJ0cnVzdC5jb20wDQYJKoZIhvcNAQEF
+			BQADggEBAJNmIYB0RYVLwqvOMrAp/t3f1iRbvwNqb1A+DhuzDYijW+7EpBI7Vu8G
+			f89/IZVWO0Ex/uGqk9KV85UNPEerylwmrT7x+Yw0bhG+9GfjAkn5pnx7ZCXdF0by
+			UOPjCiE6SSTNxoRlaGdosEUtR5nNnKuGKRFy3NacNkN089SXnlag/l9AWNLV1358
+			xY4asgRckmYOha0uBs7Io9jrFCeR3s8XMIFTtmYSrTfk9e+WXCAONumsYn0ZgYr1
+			kGGmSavOPN/mymTugmU5RZUWukEGAJi6DFZh5MbGhgHPZqkiKQLWPc/EKo2Z3vsJ
+			FJ4O0dXG14HdrSSrrAcF4h1ow3BmX9M=
+			</data>
+			<key>PayloadDescription</key>
+			<string>Provides Comodo InCommon SSL Intermediate certificate</string> 			
+			<key>PayloadDisplayName</key>
+			<string>InCommon Server CA</string>
+			<key>PayloadIdentifier</key>
+			<string>org.incommontest.certdev0.comodo.credential1</string>
+			<key>PayloadOrganization</key>
+			<string></string>
+			<key>PayloadType</key>
+			<string>com.apple.security.pkcs1</string>
+			<key>PayloadUUID</key>
+			<string>0F578EAA-C312-4F3E-9FE6-F134915E63ZY</string>
+			<key>PayloadVersion</key>
+			<integer>1</integer>
+		</dict>
+
+
+	</array>
+	<key>PayloadDescription</key>
+	<string>This profile configures iOS and Macintosh devices to connect to the eduRoam network and login to services using certificates</string>
+	<key>PayloadDisplayName</key>
+	<string>InCommonTest.org Configuration Profile</string>
+	<key>PayloadIdentifier</key>
+	<string>org.incommontest.certdev0.incommon</string>
+	<key>PayloadOrganization</key>
+	<string>InCommon, Inc.</string>
+	<key>PayloadRemovalDisallowed</key>
+	<false/>
+	<key>PayloadScope</key>
+	<string>User</string>
+	<key>PayloadType</key>
+	<string>Configuration</string>
+	<key>PayloadUUID</key>
+	<string>56412749-3207-420A-85DD-EA353722ECBD</string>
+	<key>PayloadVersion</key>
+	<integer>1</integer>
+</dict>
+</plist>

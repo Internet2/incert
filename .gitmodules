@@ -1,0 +1,6 @@
+[submodule "CFPropertyList"]
+	path = CFPropertyList
+	url = git://github.com/rodneyrehm/CFPropertyList.git
+[submodule "ua-parser"]
+	path = ua-parser
+	url = git://github.com/tobie/ua-parser.git

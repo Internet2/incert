@@ -1,0 +1,3 @@
+certificates/*.p12
+profiles/*.mobileconfig
+ssl/*.pem
