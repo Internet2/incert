@@ -31,8 +31,16 @@ if ($debug) {
 	<body>';
 }
 
+if ($debug) {
+	echo '<p>template_id: ' . $template_id . '</p>';
+}
+
 // Get the profile identifier from the template
 $profileID = getProfileID($template_file);
+
+if ($debug) {
+	echo '<p>profileID: ' . $profileID . '</p>';
+}
 
 // Get the cert from Incommon
 $certData = getCertificate($username, $password, $cred2, $cred3, $cred4);
@@ -110,6 +118,10 @@ if ($certData) {
 	
 	// Prepend the user's name to the filename
 	$profile = "profiles/" . $username . "." . $template_id . ".mobileconfig";
+	
+	if ($debug) {
+		echo '<p>profile: ' . $profile . '</p>';
+	}
 	
 	// Save the unsigned profile to the file system
 	$mobileconfig->saveXML( $profile );
