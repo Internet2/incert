@@ -134,6 +134,7 @@ if ($certData) {
 	
 	// Sign the profile
 	signProfile($profile);
+	chmod($profile, 0644);
 	
 	// Redirect the user to the signed profile
 	if (!$debug) {
