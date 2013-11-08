@@ -35,8 +35,6 @@
     <BootstrapperEnabled>true</BootstrapperEnabled>
     <!-- for msbuild community paths library -->
     <MSBuildCommunityTasksPath Condition="'$(MSBuildCommunityTasksPath)' == ''">$(SolutionDir).build</MSBuildCommunityTasksPath>
-    <AppVersion Condition="'$(AppVersion)' == ''">13.2.0.0</AppVersion>
-    <IconPath Condition="'$(IconPath)' == ''">icon.ico</IconPath>
     <IncertTargets Condition="'$(IncertTargets)' == '' or !Exists('$(IncertTargets)')">$(SolutionDir).build\InCert.targets</IncertTargets>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
@@ -50,9 +48,6 @@
     <WarningLevel>4</WarningLevel>
     <RunCodeAnalysis>false</RunCodeAnalysis>
     <Prefer32Bit>false</Prefer32Bit>
-    <!--<ProductName Condition="'$(ProductName)' == ''">InCert</ProductName>
-    <Institution Condition="'$(Institution)' == ''">InCommon</Institution>
-    <ArchivePath Condition="'$(ArchivePath)' == ''">content\Incommon\archive\</ArchivePath>-->
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -63,37 +58,8 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
-    <!--  <ProductName Condition="'$(ProductName)' == ''">InCert</ProductName>
-    <Institution Condition="'$(Institution)' == ''">InCommon</Institution>
-    <ArchivePath Condition="'$(ArchivePath)' == ''">content\Incommon\archive\</ArchivePath>-->
   </PropertyGroup>
-  <!-- <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug.Indiana|x86'">
-    <OutputPath>bin\Debug\</OutputPath>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <RunCodeAnalysis>false</RunCodeAnalysis>
-    <Prefer32Bit>false</Prefer32Bit>
-    <Institution Condition="'$(Institution)' == ''">InCommon</Institution>
-    <ProductName Condition="'$(ProductName)' == ''">Get Connected</ProductName>
-    <ArchivePath Condition="'$(ArchivePath)' == ''">content\Indiana\archive\</ArchivePath>
-  </PropertyGroup>-->
-  <!-- <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release.Indiana|x86'">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
-    <ProductName Condition="'$(ProductName)' == ''">Get Connected</ProductName>
-    <ArchivePath Condition="'$(ArchivePath)' == ''">content\Indiana\archive\</ArchivePath>
-  </PropertyGroup>-->
+
   <PropertyGroup>
     <StartupObject>Org.InCommon.InCert.Engine.App</StartupObject>
   </PropertyGroup>
@@ -1494,17 +1460,17 @@
       <Output TaskParameter="OutputFile" ItemName="UpdatedAssemblyVersionFiles" />
     </AssemblyInfo>
   </Target>
-  <Import Project="$(SlowCheetahTargets)" Condition="Exists('$(SlowCheetahTargets)')" Label="SlowCheetah" />
-  <Import Project="$(IncertTargets)" Condition="Exists('$(IncertTargets)')" Label="Incert" />
-  <PropertyGroup>
-    <PreBuildEvent>
-    </PreBuildEvent>
-  </PropertyGroup>
   <PropertyGroup Label="SlowCheetah">
     <SlowCheetahToolsPath>$([System.IO.Path]::GetFullPath( $(MSBuildProjectDirectory)\..\packages\SlowCheetah.2.5.10.3\tools\))</SlowCheetahToolsPath>
     <SlowCheetah_EnableImportFromNuGet Condition=" '$(SC_EnableImportFromNuGet)'=='' ">true</SlowCheetah_EnableImportFromNuGet>
     <SlowCheetah_NuGetImportPath Condition=" '$(SlowCheetah_NuGetImportPath)'=='' ">$([System.IO.Path]::GetFullPath( $(MSBuildProjectDirectory)\Properties\SlowCheetah\SlowCheetah.Transforms.targets ))</SlowCheetah_NuGetImportPath>
     <SlowCheetahTargets Condition=" '$(SlowCheetah_EnableImportFromNuGet)'=='true' and Exists('$(SlowCheetah_NuGetImportPath)') ">$(SlowCheetah_NuGetImportPath)</SlowCheetahTargets>
+  </PropertyGroup>
+  <Import Project="$(SlowCheetahTargets)" Condition="Exists('$(SlowCheetahTargets)')" Label="SlowCheetah" />
+  <Import Project="$(IncertTargets)" Condition="Exists('$(IncertTargets)')" Label="Incert" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
   </PropertyGroup>
   <Target Name="BeforeBuild">
     <Warning Condition="!Exists('$(IncertTargets)')" Text="Could not load $(IncertTargets)" />

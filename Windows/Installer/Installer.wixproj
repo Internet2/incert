@@ -47,6 +47,7 @@
   <Target Name="BeforeBuild">
     <Warning Condition="!Exists('$(IncertTargets)')" Text="Could not load $(IncertTargets)" />
     <Message Text="Installer: using Incert Target File: $(IncertTargets)" Importance="High" />
+    <Message Text="Installer: using Engine source from: $(EngineFilesDir)" Importance="High" />
     <Message Text=" " Importance="high" />
     <Message Text="--- Installer base properties ----" Importance="high" />
     <Message Text="App version = $(AppVersion)" Importance="high" />

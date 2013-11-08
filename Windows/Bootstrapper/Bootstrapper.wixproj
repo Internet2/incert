@@ -68,6 +68,9 @@
   <Target Name="BeforeBuild">
     <Warning Condition="!Exists('$(IncertTargets)')" Text="Could not load $(IncertTargets)" />
     <Message Text="Bootstrapper: using Incert Target File: $(IncertTargets)" Importance="High" />
+    <Message Text="Bootstrapper: using Bootstrapper Engine from: $(BootstrapperEngineFilesDir)" Importance="high" />
+    <Message Text="Bootstrapper: using Installer: $(InstallerFile)" Importance="High" />
+    <Message Text=" " Importance="high" />
     <Message Text="--- Bootstrapper base properties ----" Importance="high" />
     <Message Text="App version = $(AppVersion)" Importance="high" />
     <Message Text="Product name = $(ProductName)" Importance="high" />
