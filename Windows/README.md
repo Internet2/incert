@@ -3,7 +3,7 @@ InCommon Personal Certificate Provisioning Tool - Windows Client
 
 Overview
 --------
-This project is the Windows component of the [InCommon Personal Certificate Provisioning and Application Setup Tool](https://spaces.internet2.edu/x/f66KAQ).
+This folder contains the source for the Windows version of [InCommon Personal Certificate Provisioning and Application Setup Tool](https://spaces.internet2.edu/x/f66KAQ).
 
 Build Prerequities
 ---
@@ -25,7 +25,7 @@ The project consists of the following components (in order of importance):
 - Elevator: contains the source files for the elevator, a small .exe stub to help launching the engine with elevated privileges.
 - Utilities/GenerateFileWrapper: contains the source files to build the GenerateFileWrapper helper utility.  This utility builds .info.xml files, which the engine consumes to help it download files, etc.
 
-Customizing the Project
+Customizing the Project - Pre-Build
 ---
 For the most part, the engine is customized by modifying its various xml files, but there are some customizations that need to be compiled into the various engine components.
 
@@ -48,3 +48,4 @@ These are set in the .build/Incert.targets file.  They are:
 - CertificateThumbprint: thumbprint to code-signing cert installed in certificate store that will be used to sign various engine components. Note that this is not required, but the engine is designed not to continue if it detects that it is not signed with a valid code-signing certificate.
 - NetFx45DownloadUrl: url to use to download .NET framework installer when building the final bootstrap package.
 
+Note that you may need to close and re-open the project in Visual Studio for these changes to effect.  This is because Visual Studio will cache the values in the Incert.targets file when it is first loaded.
