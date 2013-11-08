@@ -18,7 +18,7 @@ Project Contents
 The project consists of the following components (in order of importance):
 
 - Engine: contains the source files for the InCert engine proper.
-- DataContracts: contains source files for the engines various WebApi data contracts.
+- DataContracts: contains source files for the engine's various WebApi data contracts.
 - Bootstrapper: contains the source files that will generate the final bootrapper / installer bundle
 - Installer: contains the source files to generate the installer.
 - BootstrapperEngine: contains the source files to generate the custom bootstrapper engine.  The bootstrapper engine drives the installation process.
