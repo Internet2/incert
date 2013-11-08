@@ -62,7 +62,7 @@
 
   <Target Name="WarnCannotSign" Condition="!Exists('$(SignToolPath)') or '$(CertThumbprint)' == ''" AfterTargets="AfterBuild" DependsOnTargets="AfterBuild">
     <Warning Text="Cannot find or access signtool.exe at '$(SignToolPath)'. Engine output files will not be signed." Condition="!Exists('$(SignToolPath)')" />
-    <Warning Text="No certificate thumbprint defined. Engine output files will not be signed." Condition="'$(CertThumbprint)' == ''" />
+    <Warning Text="No certificate thumbprint defined. Installer output files will not be signed." Condition="'$(CertThumbprint)' == ''" />
   </Target>
 
   <Target Name="SignBinaries" Condition="Exists('$(SignToolPath)') and '$(CertThumbprint)' != ''" AfterTargets="AfterBuild" DependsOnTargets="AfterBuild">

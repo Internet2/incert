@@ -59,7 +59,6 @@
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
-
   <PropertyGroup>
     <StartupObject>Org.InCommon.InCert.Engine.App</StartupObject>
   </PropertyGroup>
@@ -949,16 +948,7 @@
     </EmbeddedResource>
     <None Include="Content\Documentation\webapi endpoints and contracts.docx" />
     <None Include="Content\InCommon\archive\makesecurecab.bat" />
-    <None Include="Content\InCommon\archive\Init.Debug.xml">
-      <DependentUpon>Init.xml</DependentUpon>
-      <IsTransformFile>True</IsTransformFile>
-    </None>
-    <None Include="Content\InCommon\archive\Init.Release.xml">
-      <DependentUpon>Init.xml</DependentUpon>
-      <IsTransformFile>True</IsTransformFile>
-    </None>
     <Compile Include="Tasks\Control\ReturnSilentRestartResult.cs" />
-    <None Include="Properties\SlowCheetah\SlowCheetah.Transforms.targets" />
     <Resource Include="Content\InCommon\antimalware.xml" />
     <Resource Include="Content\InCommon\systemintegrity.xml" />
     <Resource Include="Content\InCommon\certificates.xml" />
@@ -1460,13 +1450,6 @@
       <Output TaskParameter="OutputFile" ItemName="UpdatedAssemblyVersionFiles" />
     </AssemblyInfo>
   </Target>
-  <PropertyGroup Label="SlowCheetah">
-    <SlowCheetahToolsPath>$([System.IO.Path]::GetFullPath( $(MSBuildProjectDirectory)\..\packages\SlowCheetah.2.5.10.3\tools\))</SlowCheetahToolsPath>
-    <SlowCheetah_EnableImportFromNuGet Condition=" '$(SC_EnableImportFromNuGet)'=='' ">true</SlowCheetah_EnableImportFromNuGet>
-    <SlowCheetah_NuGetImportPath Condition=" '$(SlowCheetah_NuGetImportPath)'=='' ">$([System.IO.Path]::GetFullPath( $(MSBuildProjectDirectory)\Properties\SlowCheetah\SlowCheetah.Transforms.targets ))</SlowCheetah_NuGetImportPath>
-    <SlowCheetahTargets Condition=" '$(SlowCheetah_EnableImportFromNuGet)'=='true' and Exists('$(SlowCheetah_NuGetImportPath)') ">$(SlowCheetah_NuGetImportPath)</SlowCheetahTargets>
-  </PropertyGroup>
-  <Import Project="$(SlowCheetahTargets)" Condition="Exists('$(SlowCheetahTargets)')" Label="SlowCheetah" />
   <Import Project="$(IncertTargets)" Condition="Exists('$(IncertTargets)')" Label="Incert" />
   <PropertyGroup>
     <PreBuildEvent>
@@ -1482,17 +1465,17 @@
     <Message Text="Icon = $(IconPath)" Importance="high" />
     <Message Text=" " Importance="high" />
   </Target>
-  <Target Name="WarnCannotBuildSettingsCab" AfterTargets="TransformAllFiles" DependsOnTargets="TransformAllFiles" Condition="Exists('$(ArchivePath)')">
+  <Target Name="WarnCannotBuildSettingsCab" AfterTargets="AfterBuild" DependsOnTargets="AfterBuild" Condition="Exists('$(ArchivePath)')">
     <Warning Text="Cannot find or access archive path at '$(ArchivePath)'. Will not generate settings.cab archive." Condition="!Exists('$(SignToolPath)')" />
   </Target>
-  <Target Name="BuildSettingsCab" AfterTargets="TransformAllFiles" DependsOnTargets="TransformAllFiles" Condition="Exists('$(ArchivePath)')">
+  <Target Name="BuildSettingsCab" AfterTargets="AfterBuild" DependsOnTargets="AfterBuild" Condition="Exists('$(ArchivePath)')">
     <Exec Command="&quot;$(ProjectDir)$(ArchivePath)makesecurecab.bat&quot; &quot;settings.cab&quot; &quot;$(TargetDir)$(ArchivePath)&quot; &quot;$(TargetDir)&quot;" />
   </Target>
-  <Target Name="WarnCannotSign" Condition="!Exists('$(SignToolPath)') or '$(CertThumbprint)' == ''" AfterTargets="AfterBuild" DependsOnTargets="AfterBuild">
+  <Target Name="WarnCannotSign" Condition="!Exists('$(SignToolPath)') or '$(CertThumbprint)' == ''" AfterTargets="BuildSettingsCab" DependsOnTargets="BuildSettingsCab">
     <Warning Text="Cannot find or access signtool.exe at '$(SignToolPath)'. Engine output files will not be signed." Condition="!Exists('$(SignToolPath)')" />
     <Warning Text="No certificate thumbprint defined. Engine output files will not be signed." Condition="'$(CertThumbprint)' == ''" />
   </Target>
-  <Target Name="SignBinaries" Condition="Exists('$(SignToolPath)') and '$(CertThumbprint)' != ''" AfterTargets="AfterBuild" DependsOnTargets="AfterBuild">
+  <Target Name="SignBinaries" Condition="Exists('$(SignToolPath)') and '$(CertThumbprint)' != ''" AfterTargets="BuildSettingsCab" DependsOnTargets="BuildSettingsCab">
     <Exec Command="&quot;$(SignToolPath)&quot; sign /s MY /sha1 $(CertThumbprint) /t http://timestamp.verisign.com/scripts/timstamp.dll &quot;$(TargetPath)&quot;" />
     <Exec Command="&quot;$(SignToolPath)&quot; sign /s MY /sha1 $(CertThumbprint) /t http://timestamp.verisign.com/scripts/timstamp.dll &quot;$(TargetDir)elevator.exe&quot;" />
     <Exec Command="&quot;$(SignToolPath)&quot; sign /s MY /sha1 $(CertThumbprint) /t http://timestamp.verisign.com/scripts/timstamp.dll &quot;$(TargetDir)settings.cab&quot;" />
