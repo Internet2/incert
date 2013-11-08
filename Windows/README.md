@@ -40,8 +40,8 @@ These are set in the .build/Incert.targets file.  They are:
 - BackgroundColor: sets the installer's background color
 - TextColor: sets the installer's text / foreground color
 - LogUploader: specifies tha log uploader that the installer should use to upload logs.  Valid values are:
- -GetBasedLogUploader: uploads logs using GET requests
- -PostBasedLogUploader: uploads logs using POST requests
+    - GetBasedLogUploader: uploads logs using GET requests
+    - PostBasedLogUploader: uploads logs using POST requests
 - LoggingUrl: server API logging endpoint url.
 - StartMenuShortcut: if set to 1, adds an engine shortcut to the start menu when installed
 - DesktopShortcut: if set to 1, adds an engine shortcut to the desktop menu when installed
