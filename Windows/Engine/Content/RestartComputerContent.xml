@@ -1,0 +1,167 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Content xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://incert.incommon.org/schemas ./Schemas/tasklist.xsd">
+  <Branches>
+    <RoleBranch name="Restart" role="Restart">
+      <Control.ReturnLeaveBranchNextResult>
+        <Conditions.All>
+          <Control.PreviousResultNotTypeOf resultType="ControlResults.RestartComputerResult"/>
+        </Conditions.All>
+      </Control.ReturnLeaveBranchNextResult>
+
+      <UserInterface.CloseAllDialogs />
+
+      <Control.ReturnRestartComputerResult>
+        <Conditions.All>
+          <Settings.SettingEquals key="restart computer.suppress dialog" value="true" ignoreCase="true"/>
+        </Conditions.All>
+      </Control.ReturnRestartComputerResult>
+
+      <UserInterface.ShowBorderedBannerModal>
+        <Properties>
+          <Dialog>Main dialog</Dialog>
+          <Banner>restart computer banner</Banner>
+        </Properties>
+      </UserInterface.ShowBorderedBannerModal>
+
+      <Logging.LogEvent>
+        <Conditions.All>
+          <Settings.SettingEquals key="restart computer.exit now" value="true" ignoreCase="true"/>
+        </Conditions.All>
+        <Properties>
+          <Event>Warn</Event>
+          <Message>User opted *not* to restart computer</Message>
+        </Properties>
+      </Logging.LogEvent>
+
+      <Control.ReturnLeaveBranchNextResult>
+        <Conditions.All>
+          <Settings.SettingEquals key="restart computer.exit now" value="true" ignoreCase="true"/>
+        </Conditions.All>
+      </Control.ReturnLeaveBranchNextResult>
+
+      <Logging.LogEvent>
+        <Properties>
+          <Event>Info</Event>
+          <Message>User opted to restart computer</Message>
+        </Properties>
+      </Logging.LogEvent>
+
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>restart computer.add restart shortcut</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+
+      <Control.ReturnRestartComputerResult />
+    </RoleBranch>
+
+    <TaskBranch name="restart computer.add restart shortcut">
+      <FileAndPath.AddShortcut>
+        <Properties>
+          <ShortcutPath>!UserStartupDirectory!\Resume !ApplicationTitle!.lnk</ShortcutPath>
+          <SourcePath>!ApplicationFolder!\elevator.exe</SourcePath>
+          <Arguments>-resume="[restart computer.resume point]"</Arguments>
+        </Properties>
+      </FileAndPath.AddShortcut>
+    </TaskBranch>
+
+    <TaskBranch name="restart computer.remove restart shortcut">
+      <FileAndPath.RemoveFile errorBranch="suppress error result">
+        <Conditions.All>
+          <FileAndPath.FileExists key="!UserStartupDirectory!\Resume !ApplicationTitle!.lnk"/>
+        </Conditions.All>
+        <Properties>
+          <TargetPath>!UserStartupDirectory!\Resume !ApplicationTitle!.lnk</TargetPath>
+        </Properties>
+      </FileAndPath.RemoveFile>
+    </TaskBranch>
+  </Branches>
+
+  <Banners>
+    <SimpleBanner name="restart computer banner" noCloseQuestion="true" height="475" width="500">
+      <Content>
+        <ContentBlockParagraph borderSize="0" banner="restart computer.content title banner" verticalAlignment="Top" margin="20,53,40,0"  />
+        <ContentBlockParagraph borderSize="0" banner="restart computer.restart banner content" verticalAlignment="Top" margin="95,0,40,0" />
+      </Content>
+      <Actions>
+        <ReturnResultAction result="ControlResults.NextResult">
+          <Conditions.Any>
+            <Settings.SettingEquals key="restart computer.exit now" value="true" ignoreCase="true"/>
+            <Settings.SettingEquals key="restart computer.restart now" value="true" ignoreCase="true"/>
+          </Conditions.Any>
+          <ControlKey>restart computer.restart now link</ControlKey>
+          <ControlKey>restart computer.exit link</ControlKey>
+        </ReturnResultAction>
+
+      </Actions>
+      <Buttons>
+        <UrlButton>
+          <Target>HelpButton</Target>
+          <Text>Help</Text>
+          <Value>http://kb.iu.edu/data/abxl.html</Value>
+        </UrlButton>
+      </Buttons>
+    </SimpleBanner>
+
+    <SimpleBanner name="restart computer.content title banner">
+      <Content>
+        <EllipseGlyph dock="Left" glyph="?" fontSize="36" borderSize="2" fontWeight="Bold" verticalAlignment="Center" alignment="Right" margin="0,0,16,0" />
+        <ContentBlockParagraph borderSize="0" banner="restart computer.content title content" verticalAlignment="Center" margin="0"  dock="Right" />
+      </Content>
+    </SimpleBanner>
+
+    <SimpleBanner name="restart computer.content title content">
+      <Content>
+        <SimpleParagraph alignment="Left" fontSize="24" fontWeight="Bold" margin="0,2,0,0" padding="0">
+          <Content>
+            <DirectTextContent>Restart Required</DirectTextContent>
+          </Content>
+        </SimpleParagraph>
+        <SimpleParagraph margin="0,0,0,0">
+          <Content>
+            <DirectTextContent>!ApplicationTitle! needs to restart your computer before it can continue.</DirectTextContent>
+          </Content>
+        </SimpleParagraph>
+      </Content>
+    </SimpleBanner>
+
+    <SimpleBanner name="restart computer.restart banner content">
+      <Content>
+        <SimpleParagraph fontSize="24" margin="0,36,0,0" padding="0" controlKey="restart computer.restart now link">
+          <Content>
+            <DirectTextContent>Restart</DirectTextContent>
+          </Content>
+          <Links>
+            <SettingsLink target="restart computer.restart now">
+              <DirectTextContent>Restart</DirectTextContent>
+            </SettingsLink>
+          </Links>
+        </SimpleParagraph>
+        <SimpleParagraph margin="0,4,0,0" padding="0">
+          <Content>
+            <DirectTextContent>Restart your computer now. !ApplicationTitle! will resume automatically after your computer restarts.</DirectTextContent>
+          </Content>
+        </SimpleParagraph>
+        <SimpleParagraph fontSize="24" margin="0,24,0,0" padding="0" controlKey="restart computer.exit link">
+          <Content>
+            <DirectTextContent>Exit</DirectTextContent>
+          </Content>
+          <Links>
+            <SettingsLink target="restart computer.exit now">
+              <DirectTextContent>Exit</DirectTextContent>
+            </SettingsLink>
+          </Links>
+        </SimpleParagraph>
+        <SimpleParagraph margin="0,4,0,0" padding="0">
+          <Content>
+            <DirectTextContent>Close !ApplicationTitle!. You will need to restart your computer manually.</DirectTextContent>
+          </Content>
+        </SimpleParagraph>
+      </Content>
+    </SimpleBanner>
+  </Banners>
+
+
+
+</Content>

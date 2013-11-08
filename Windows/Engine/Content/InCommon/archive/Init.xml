@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Content xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://incert.incommon.org/schemas ../../Schemas/tasklist.xsd">
+  <Branches>
+    <RoleBranch name="initialize" role="Initialize">
+      <UserInterface.SetApplicationProperties>
+        <Properties>
+          <Title>InCert</Title>
+          <Institution>InCommon</Institution>
+        </Properties>
+      </UserInterface.SetApplicationProperties>
+
+      <UserInterface.SetColorValues>
+        <Properties>
+          <Setter key="BodyTextColor">White</Setter>
+          <Setter key="LinkTextColor">#FFE373</Setter>
+          <Setter key="TitleTextColor">White</Setter>
+          <Setter key="SplashScreenBackgroundColor">#4f7fb0</Setter>
+          <Setter key="DisabledTextColor">Gray</Setter>
+          <Setter key="InverseTitleTextColor">White</Setter>
+          <Setter key="InverseBodyTextColor">White</Setter>
+          <Setter key="BorderColor">DarkGray</Setter>
+          <Setter key="CheckMarkColor">DarkGreen</Setter>
+          <Setter key="BackgroundColor">#4f7fb0</Setter>
+          <Setter key="NavigationTextColor">White</Setter>
+        </Properties>
+      </UserInterface.SetColorValues>
+
+      <UserInterface.SetDefaultFont>
+        <Properties>
+          <FontFamily>Verdana</FontFamily>
+        </Properties>
+      </UserInterface.SetDefaultFont>
+
+      <UserInterface.SetApplicationIconFromArchive>
+        <Properties>
+          <Archive>!ApplicationFolder!\settings.cab</Archive>
+          <Icon>icon.ico</Icon>
+        </Properties>
+      </UserInterface.SetApplicationIconFromArchive>
+
+      <WebServices.SetDefaultEndpointUrl>
+        <Properties>
+          <Value>https://certdev0.incommontest.org/cgi-bin/incommon_server.py</Value>
+        </Properties>
+      </WebServices.SetDefaultEndpointUrl>
+
+      <Settings.SetSettingText>
+        <Properties>
+          <Setter key="FullNetworkingPingTarget1">www.incommon.org</Setter>
+          <Setter key="FullNetworkingPingTarget2">www.google.com</Setter>
+        </Properties>
+      </Settings.SetSettingText>
+
+      <WebServices.SetEndpointUrlForFunction>
+        <Properties>
+          <Function>GetContent</Function>
+          <Url>https://certdev0.incommontest.org/incommon/windows/content/</Url>
+        </Properties>
+      </WebServices.SetEndpointUrlForFunction>
+
+      <WebServices.SetEndpointUrlForFunction>
+        <Properties>
+          <Function>GetFileInfo</Function>
+          <Url>https://certdev0.incommontest.org/incommon/windows/downloads/</Url>
+        </Properties>
+      </WebServices.SetEndpointUrlForFunction>
+
+      <WebServices.ConfigureLoggingContracts>
+        <Properties>
+          <AsynchronousContract>InCommon.AsynchronousLogRequest</AsynchronousContract>
+          <SynchronousContract>InCommon.SynchronousLogRequest</SynchronousContract>
+        </Properties>
+      </WebServices.ConfigureLoggingContracts>
+
+      <Logging.SetRemoteLoggingLevel>
+        <Properties>
+          <Level>Info</Level>
+        </Properties>
+      </Logging.SetRemoteLoggingLevel>
+
+      <Logging.SetRemoteLoggingMessageFormat>
+        <Properties>
+          <MessageFormat>%P{UserId} %P{Identifier} %-5p %m</MessageFormat>
+        </Properties>
+      </Logging.SetRemoteLoggingMessageFormat>
+
+      <Settings.SetSettingText>
+        <Properties>
+          <Setter key="ignore timezone checks">false</Setter>
+          <Setter key="timezone1">Eastern Standard Time</Setter>
+          <Setter key="timezone2">US Eastern Standard Time</Setter>
+        </Properties>
+      </Settings.SetSettingText>
+    </RoleBranch>
+  </Branches>
+
+  <Banners>
+    <SimpleBanner name="Splash screen banner" width="400" height="250" margin="0" background="Transparent">
+      <Content>
+        <ContentBlockParagraph banner ="Splash screen wrapper banner" cornerRadius="4" />
+      </Content>
+    </SimpleBanner>
+
+    <SimpleBanner name="Splash screen wrapper banner" margin="0">
+      <Content>
+        <SimpleParagraph margin="0,80,0,0" color="InverseTitleTextColor" padding="0" fontSize="72" alignment="Center">
+          <Content>
+            <DirectTextContent>!ApplicationTitle!</DirectTextContent>
+          </Content>
+        </SimpleParagraph>
+        <SimpleParagraph color="InverseTitleTextColor" alignment="Right" margin="0,4,61,60" padding="0" fontSize="14">
+          <Content>
+            <DirectTextContent>!ApplicationCompany!</DirectTextContent>
+          </Content>
+        </SimpleParagraph>
+
+        <ProgressParagraph settingKey="Splash screen progress text" margin="12,0,0,8" dock="Bottom" verticalAlignment="Stretch">
+          <Content>
+            <DirectTextContent>Initializing</DirectTextContent>
+          </Content>
+        </ProgressParagraph>
+      </Content>
+
+    </SimpleBanner>
+  </Banners>
+</Content>

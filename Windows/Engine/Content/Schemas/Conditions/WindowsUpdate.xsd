@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="WindowsUpdate" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="WindowsUpdate.UpdatesPresent">
+    <xs:complexType>
+      <xs:attribute name="objectKey" type="xs:string" use="required" />
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="WindowsUpdate.NoUpdatesPresent">
+    <xs:complexType>
+      <xs:attribute name="objectKey" type="xs:string" use="required" />
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="WindowsUpdate.RestartRequired" />
+  <xs:element name="WindowsUpdate.RestartNotRequired" />
+</xs:schema>

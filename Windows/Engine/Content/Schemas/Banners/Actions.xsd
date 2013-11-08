@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<xs:schema id="Actions" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:include schemaLocation="../Conditions/Conditions.xsd" />
+  <xs:include schemaLocation="../Results/All.xsd" />
+  <xs:element name="Actions">
+    <xs:complexType>
+      <xs:sequence minOccurs="0" maxOccurs="unbounded">
+        <xs:choice>
+          <xs:element ref="EnableControlAction" />
+          <xs:element ref="DisableControlAction" />
+          <xs:element ref="HideControlAction" />
+          <xs:element ref="ShowControlAction" />
+          <xs:element ref="SetFocusAction" />
+          <xs:element ref="ReturnResultAction" />
+          <xs:element ref="SelectAllContentAction" />
+        </xs:choice>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:complexType name="BaseActionType">
+    <xs:sequence>
+      <xs:choice minOccurs="0">
+        <xs:element ref="Conditions.All" />
+        <xs:element ref="Conditions.Any" />
+      </xs:choice>
+      <xs:element name="ControlKey" type="xs:string" maxOccurs="unbounded" minOccurs="1" />
+    </xs:sequence>
+    <xs:attribute name="onetime" type="xs:boolean" use="optional" />
+  </xs:complexType>
+
+  <xs:element name="EnableControlAction" type="BaseActionType" />
+  <xs:element name="DisableControlAction" type="BaseActionType" />
+  <xs:element name="SetFocusAction" type="BaseActionType" />
+  <xs:element name="HideControlAction" type="BaseActionType" />
+  <xs:element name="ShowControlAction" type="BaseActionType" />
+  <xs:element name="SelectAllContentAction" type="BaseActionType" />
+
+
+
+  <xs:element name="ReturnResultAction">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseActionType">
+          <xs:attribute name="result" type="AllResultsList" use="required" />
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+
+  </xs:element>
+
+</xs:schema>

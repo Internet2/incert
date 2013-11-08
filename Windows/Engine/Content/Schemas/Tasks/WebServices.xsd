@@ -1,0 +1,251 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="WebServices" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:include schemaLocation="Base.xsd" />
+  <xs:element name="WebServices.SetEndpointUrlForFunction">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="Function" type="WebServiceFunctions" minOccurs="1" maxOccurs="1"  />
+                  <xs:element name="Url" type="xs:string" minOccurs="1" maxOccurs="1"  />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="WebServices.ConfigureLoggingContracts">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence minOccurs="1">
+                  <xs:element name="EndpointUrl" type="xs:string" minOccurs="0" maxOccurs="1"  />
+                  <xs:element name="AsynchronousContract" type="AsynchronousLoggingContracts" minOccurs="0" maxOccurs="1"  />
+                  <xs:element name="SynchronousContract" type="SynchronousLoggingContracts" minOccurs="0" maxOccurs="1"  />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="WebServices.ConfigureReportingContract">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence minOccurs="1">
+                  <xs:element name="EndpointUrl" type="xs:string" minOccurs="0" maxOccurs="1"  />
+                  <xs:element name="AsynchronousContract" type="AsynchronousReportingContracts" minOccurs="0" maxOccurs="1"  />
+                  <xs:element name="SynchronousContract" type="SynchronousReportingContracts" minOccurs="0" maxOccurs="1"  />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="WebServices.ConfigureRegistrationQueryStringContract">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence minOccurs="1">
+                  <xs:element name="EndpointUrl" type="xs:string" minOccurs="0" maxOccurs="1"  />
+                  <xs:element name="Contract" type="RegistrationQueryStringContracts" minOccurs="0" maxOccurs="1"  />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="WebServices.ConfigureAuthenticationContract">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence minOccurs="1">
+                  <xs:element name="EndpointUrl" type="xs:string" minOccurs="0" maxOccurs="1"  />
+                  <xs:element name="Contract" type="AuthenticationContracts" minOccurs="0" maxOccurs="1"  />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="WebServices.ConfigureStatusInfoContract">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence minOccurs="1">
+                  <xs:element name="EndpointUrl" type="xs:string" minOccurs="0" maxOccurs="1"  />
+                  <xs:element name="Contract" type="StatusInfoContracts" minOccurs="0" maxOccurs="1"  />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="WebServices.ConfigureIdentityQueryContract">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence minOccurs="1">
+                  <xs:element name="EndpointUrl" type="xs:string" minOccurs="0" maxOccurs="1"  />
+                  <xs:element name="Contract" type="IdentityQueryContracts" minOccurs="0" maxOccurs="1"  />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="WebServices.ConfigureLocationQueryContract">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence minOccurs="1">
+                  <xs:element name="EndpointUrl" type="xs:string" minOccurs="0" maxOccurs="1"  />
+                  <xs:element name="Contract" type="LocationQueryContracts" minOccurs="0" maxOccurs="1"  />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="WebServices.ConfigureComputerNameContract">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence minOccurs="1">
+                  <xs:element name="EndpointUrl" type="xs:string" minOccurs="0" maxOccurs="1"  />
+                  <xs:element name="Contract" type="ComputerNameContracts" minOccurs="0" maxOccurs="1"  />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="WebServices.ConfigureUserCampusContract">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence minOccurs="1">
+                  <xs:element name="EndpointUrl" type="xs:string" minOccurs="0" maxOccurs="1"  />
+                  <xs:element name="Contract" type="UserCampusContracts" minOccurs="0" maxOccurs="1"  />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="WebServices.ConfigureRegisterComputerContract">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence minOccurs="1">
+                  <xs:element name="EndpointUrl" type="xs:string" minOccurs="0" maxOccurs="1"  />
+                  <xs:element name="Contract" type="RegistrationContracts" minOccurs="0" maxOccurs="1"  />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="WebServices.ConfigureMacAddressReportingContract">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence minOccurs="1">
+                  <xs:element name="EndpointUrl" type="xs:string" minOccurs="0" maxOccurs="1"  />
+                  <xs:element name="Contract" type="MacAddressReportingContracts" minOccurs="0" maxOccurs="1"  />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="WebServices.SetDefaultEndpointUrl">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="Value" type="xs:string" minOccurs="1" maxOccurs="1"  />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

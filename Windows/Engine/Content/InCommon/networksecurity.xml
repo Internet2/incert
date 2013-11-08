@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Content xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://incert.incommon.org/schemas ../Schemas/tasklist.xsd">
+  <Branches>
+    <TaskBranch name="networksecurity.configure">
+      <UserInterface.ActivateCheckedParagraph minimumTaskTime="1">
+        <Properties>
+          <Dialog>Main dialog</Dialog>
+          <ControlKey>Configuring network security</ControlKey>
+        </Properties>
+      </UserInterface.ActivateCheckedParagraph>
+
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>networksecurity.configure firewall</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+
+      <UserInterface.SetCheckedParagraphSubtitle>
+        <Properties>
+          <Dialog>Main dialog</Dialog>
+          <ControlKey>Configuring network security</ControlKey>
+        </Properties>
+        <Content>
+          <ProgressParagraph settingKey="Configuring network security subtitle" margin="0,0,0,0" padding="0,0,0,0" style="InsetText">
+            <Content>
+              <DirectTextContent>Blocking ports used by known exploits</DirectTextContent>
+            </Content>
+          </ProgressParagraph>
+        </Content>
+      </UserInterface.SetCheckedParagraphSubtitle>
+
+      <UserInterface.StartMessageTimer>
+        <Properties>
+          <SettingKey>Configuring network security subtitle</SettingKey>
+        </Properties>
+      </UserInterface.StartMessageTimer>
+
+      <Control.ReturnBranchResult minimumTaskTime="3">
+        <Properties>
+          <Branch>networksecurity.block ports</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+
+      <UserInterface.StopMessageTimer>
+        <Properties>
+          <SettingKey>Configuring network security subtitle</SettingKey>
+        </Properties>
+      </UserInterface.StopMessageTimer>
+
+      <UserInterface.RemoveCheckedParagraphSubtitle>
+        <Properties>
+          <Dialog>Main dialog</Dialog>
+          <ControlKey>Configuring network security</ControlKey>
+        </Properties>
+      </UserInterface.RemoveCheckedParagraphSubtitle>
+
+      <UserInterface.CompleteCheckedParagraph minimumTaskTime="1">
+        <Properties>
+          <Dialog>Main dialog</Dialog>
+          <ControlKey>Configuring network security</ControlKey>
+        </Properties>
+      </UserInterface.CompleteCheckedParagraph>
+    </TaskBranch>
+
+    <TaskBranch name="networksecurity.configure firewall">
+      <Control.ReturnLeaveBranchNextResult>
+        <Conditions.All>
+          <Firewall.IsFirewallEnabled profile="All" />
+        </Conditions.All>
+      </Control.ReturnLeaveBranchNextResult>
+
+      <UserInterface.SetCheckedParagraphSubtitle>
+        <Properties>
+          <Dialog>Main dialog</Dialog>
+          <ControlKey>Configuring network security</ControlKey>
+        </Properties>
+        <Content>
+          <ProgressParagraph settingKey="Configuring network security subtitle" margin="0,0,0,0" padding="0,0,0,0" style="InsetText">
+            <Content>
+              <DirectTextContent>Enabling Windows firewall</DirectTextContent>
+            </Content>
+          </ProgressParagraph>
+        </Content>
+      </UserInterface.SetCheckedParagraphSubtitle>
+
+      <UserInterface.StartMessageTimer>
+        <Properties>
+          <SettingKey>Configuring network security subtitle</SettingKey>
+        </Properties>
+      </UserInterface.StartMessageTimer>
+
+      <Firewall.EnableFirewall minimumTaskTime="3">
+        <Properties>
+          <Profile>All</Profile>
+        </Properties>
+      </Firewall.EnableFirewall>
+    </TaskBranch>
+
+    <TaskBranch name="networksecurity.block ports">
+      <Firewall.AddRule>
+        <Properties>
+          <Action>NET_FW_ACTION_BLOCK</Action>
+          <Description>!ApplicationTitle! block UDP 135 rule</Description>
+          <Enabled>true</Enabled>
+          <Grouping>!ApplicationTitle!</Grouping>
+          <LocalPorts>135</LocalPorts>
+          <Name>Block Port UDP 135 (!ApplicationTitle!)</Name>
+          <Profile>All</Profile>
+          <Protocol>NET_FW_IP_PROTOCOL_UDP</Protocol>
+        </Properties>
+      </Firewall.AddRule>
+
+      <Firewall.AddRule>
+        <Properties>
+          <Action>NET_FW_ACTION_BLOCK</Action>
+          <Description>!ApplicationTitle! block TCP 135 rule</Description>
+          <Enabled>true</Enabled>
+          <Grouping>!ApplicationTitle!</Grouping>
+          <LocalPorts>135</LocalPorts>
+          <Name>Block Port TCP 135 (!ApplicationTitle!)</Name>
+          <Profile>All</Profile>
+          <Protocol>NET_FW_IP_PROTOCOL_TCP</Protocol>
+        </Properties>
+      </Firewall.AddRule>
+
+      <Firewall.AddRule>
+        <Properties>
+          <Action>NET_FW_ACTION_BLOCK</Action>
+          <Description>!ApplicationTitle! block TCP 593 rule</Description>
+          <Enabled>true</Enabled>
+          <Grouping>!ApplicationTitle!</Grouping>
+          <LocalPorts>135</LocalPorts>
+          <Name>Block Port TCP 593 (!ApplicationTitle!)</Name>
+          <Profile>All</Profile>
+          <Protocol>NET_FW_IP_PROTOCOL_TCP</Protocol>
+        </Properties>
+      </Firewall.AddRule>
+    </TaskBranch>
+  </Branches>
+</Content>

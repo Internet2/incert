@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="Encryption" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="Encryption.BitLocker.DrivesEncrypted" />
+  <xs:element name="Encryption.BitLocker.DrivesNotEncrypted" />
+  <xs:element name="Encryption.Pgp.DrivesEncrypted" />
+  <xs:element name="Encryption.Pgp.DrivesNotEncrypted" />
+  <xs:element name="Encryption.Pgp.PgpInstalled" />
+  <xs:element name="Encryption.Pgp.PgpNotInstalled" />
+  <xs:element name="Encryption.TrueCrypt.DriverPresent" />
+  <xs:element name="Encryption.TrueCrypt.DriverNotPresent" />
+  <xs:element name="Encryption.TrueCrypt.SystemDriveEncrypted" />
+  <xs:element name="Encryption.TrueCrypt.SystemDriveNotEncrypted" />
+</xs:schema>

@@ -1,0 +1,23 @@
+﻿<xs:schema id="NamedPipes" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:include schemaLocation="Base.xsd" />
+  <xs:element name="NamedPipes.SendMessage">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="PipeName" type="xs:string" maxOccurs="1" minOccurs="1" />
+                  <xs:element name="Message" type="xs:string" maxOccurs="1" minOccurs="1" />
+                  <xs:element name="Timeout" type="xs:int" maxOccurs="1" minOccurs="1" />
+                  <xs:element name="Async" type="xs:boolean" maxOccurs="1" minOccurs="0" />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

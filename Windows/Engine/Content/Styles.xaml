@@ -1,0 +1,14 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Color x:Key="BodyTextColor">Black</Color>
+    <Color x:Key="LinkTextColor">#7D110C</Color>
+    <Color x:Key="TitleTextColor">#7D110C</Color>
+    <Color x:Key="DisabledTextColor">Gray</Color>
+    <Color x:Key="InverseTitleTextColor">#F8F3D2</Color>
+    <Color x:Key="InverseBodyTextColor">#F8F3D2</Color>
+    <Color x:Key="BorderColor">DarkGray</Color>
+    
+    <FontFamily x:Key="DefaultFontFamily">Verdana</FontFamily>
+    
+</ResourceDictionary>

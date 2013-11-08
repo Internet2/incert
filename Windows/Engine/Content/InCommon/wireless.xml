@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Content xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://incert.incommon.org/schemas ../Schemas/tasklist.xsd">
+  <Branches>
+    <TaskBranch name="wireless.add profiles">
+      <Control.ReturnLeaveBranchNextResult>
+        <Conditions.All>
+          <Wireless.NoWirelessAdaptersPresent />
+        </Conditions.All>
+      </Control.ReturnLeaveBranchNextResult>
+      
+      <UserInterface.ActivateCheckedParagraph minimumTaskTime="1">
+        <Properties>
+          <Dialog>Main dialog</Dialog>
+          <ControlKey>Adding wireless profiles</ControlKey>
+        </Properties>
+      </UserInterface.ActivateCheckedParagraph>
+
+      <UserInterface.SetCheckedParagraphSubtitle>
+        <Properties>
+          <Dialog>Main dialog</Dialog>
+          <ControlKey>Adding wireless profiles</ControlKey>
+        </Properties>
+        <Content>
+          <ProgressParagraph settingKey="Adding wireless profiles subtitle" margin="0,0,0,0" padding="0,0,0,0" style="InsetText">
+            <Content>
+              <DirectTextContent>Adding Eduroam wireless profile</DirectTextContent>
+            </Content>
+          </ProgressParagraph>
+        </Content>
+      </UserInterface.SetCheckedParagraphSubtitle>
+
+      <UserInterface.StartMessageTimer>
+        <Properties>
+          <SettingKey>Adding wireless profiles subtitle</SettingKey>
+        </Properties>
+      </UserInterface.StartMessageTimer>
+
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>wireless.download profile</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+
+      <Wireless.AddWirelessProfile minimumTaskTime="2">
+        <Properties>
+          <ProfilePath>!DownloadFolder!\Wireless Network Connection-eduroam.xml</ProfilePath>
+        </Properties>
+      </Wireless.AddWirelessProfile>
+
+      <UserInterface.StopMessageTimer>
+        <Properties>
+          <SettingKey>Adding wireless profiles subtitle</SettingKey>
+        </Properties>
+      </UserInterface.StopMessageTimer>
+
+      <UserInterface.RemoveCheckedParagraphSubtitle>
+        <Properties>
+          <Dialog>Main dialog</Dialog>
+          <ControlKey>Adding wireless profiles</ControlKey>
+        </Properties>
+      </UserInterface.RemoveCheckedParagraphSubtitle>
+
+      <UserInterface.CompleteCheckedParagraph minimumTaskTime="1">
+        <Properties>
+          <Dialog>Main dialog</Dialog>
+          <ControlKey>Adding wireless profiles</ControlKey>
+        </Properties>
+      </UserInterface.CompleteCheckedParagraph>
+    </TaskBranch>
+
+    <TaskBranch name="wireless.download profile">
+      <Settings.SetSettingText>
+        <Properties>
+          <Setter key="generic download branch info key">Wireless Network Connection-eduroam.info.xml</Setter>
+          <Setter key="generic download branch target url">Wireless Network Connection-eduroam.info.xml</Setter>
+          <Setter key="generic download branch display name">Eduroam wireless profile</Setter>
+        </Properties>
+      </Settings.SetSettingText>
+
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>generic download branch</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+    </TaskBranch>
+
+  </Branches>
+</Content>
+

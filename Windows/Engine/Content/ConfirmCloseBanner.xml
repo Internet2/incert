@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Content xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://incert.incommon.org/schemas ./Schemas/tasklist.xsd">
+  <Banners>
+    <SimpleBanner name="Confirm close banner" width ="450" height="300" margin="14,12,38,12" canClose="false" >
+      <Content>
+        <EllipseGlyph fontWeight="Bold" fontSize="30" dock="Left" margin="24,0,14,0" verticalAlignment="Center" alignment="Right" glyph="?" />
+        <ContentBlockParagraph banner="Confirm close banner content" verticalAlignment="Center"  />
+      </Content>
+      <Buttons>
+        <ResultButton>
+          <Target>BackButton</Target>
+          <Result>ControlResults.CloseResult</Result>
+          <Text>Yes</Text>
+          <IsDefaultButton>true</IsDefaultButton>
+        </ResultButton>
+        <ResultButton>
+          <Target>NextButton</Target>
+          <Result>ControlResults.NextResult</Result>
+          <Text>No</Text>
+          <IsCancelButton>true</IsCancelButton>
+        </ResultButton>
+        <TopicButton>
+          <Target>HelpButton</Target>
+          <Text>Help</Text>
+          <Value>close utility</Value>
+        </TopicButton>
+      </Buttons>
+    </SimpleBanner>
+
+    <SimpleBanner name="Confirm close banner content" >
+      <Content>
+        <SimpleParagraph style="Body" margin="0,0,0,6" padding="0" verticalAlignment="Center" fontSize="14">
+          <Content>
+            <DirectTextContent>[engine close question]</DirectTextContent>
+          </Content>
+        </SimpleParagraph>
+      </Content>
+    </SimpleBanner>
+  </Banners>
+</Content>

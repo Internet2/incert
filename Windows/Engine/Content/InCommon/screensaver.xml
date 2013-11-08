@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Content xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://incert.incommon.org/schemas ../Schemas/tasklist.xsd">
+  <Branches>
+    <TaskBranch name="screensaver.configure">
+      <UserInterface.ActivateCheckedParagraph minimumTaskTime="1">
+        <Properties>
+          <Dialog>Main dialog</Dialog>
+          <ControlKey>Configuring screen saver</ControlKey>
+        </Properties>
+      </UserInterface.ActivateCheckedParagraph>
+
+      <ScreenSaver.ConfigureScreenSaver>
+        <Properties>
+          <Active>true</Active>
+          <Timeout>300</Timeout>
+          <RequirePassword>true</RequirePassword>
+        </Properties>
+      </ScreenSaver.ConfigureScreenSaver>
+
+      <UserInterface.CompleteCheckedParagraph minimumTaskTime="1">
+        <Properties>
+          <Dialog>Main dialog</Dialog>
+          <ControlKey>Configuring screen saver</ControlKey>
+        </Properties>
+      </UserInterface.CompleteCheckedParagraph>
+    </TaskBranch>
+  </Branches>
+</Content>

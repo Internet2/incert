@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="Wireless" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="Wireless.WirelessAdapterPresent" />
+  <xs:element name="Wireless.NoWirelessAdaptersPresent" />
+  <xs:element name="Wireless.PrimaryAdapterWireless" />
+  <xs:element name="Wireless.PrimaryAdapterNotWireless" />
+
+  <xs:element name="Wireless.ConnectedToNetwork">
+    <xs:complexType>
+      <xs:attribute name="network" type="xs:string" use="required" />
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Wireless.NotConnectedToNetwork">
+    <xs:complexType>
+      <xs:attribute name="network" type="xs:string" use="required" />
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Wireless.ProfileEquivalent">
+    <xs:complexType>
+      <xs:attribute name="profilePath" type="xs:string" use="required" />
+      <xs:attribute name="profileName" type="xs:string" use="required" />
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Wireless.ProfileNotEquivalent">
+    <xs:complexType>
+      <xs:attribute name="profilePath" type="xs:string" use="required" />
+      <xs:attribute name="profileName" type="xs:string" use="required" />
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

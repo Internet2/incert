@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Content xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://incert.incommon.org/schemas ./Schemas/tasklist.xsd">
+
+  <Branches>
+    <TaskBranch name="check system time">
+      <Time.CheckSystemTime>
+        <Properties>
+          <MaxVariantMinutes>60</MaxVariantMinutes>
+        </Properties>
+      </Time.CheckSystemTime>
+    </TaskBranch>
+  </Branches>
+
+
+</Content>

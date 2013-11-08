@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="UserInterface" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="UserInterface.BannerControlExists">
+    <xs:complexType>
+      <xs:attribute name="key" type="xs:string" use="required"   />
+      <xs:attribute name="dialog" type="xs:string" use="required" />
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="UserInterface.BannerControlDoesNotExist">
+    <xs:complexType>
+      <xs:attribute name="key" type="xs:string" use="required"   />
+      <xs:attribute name="dialog" type="xs:string" use="required" />
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="UserInterface.TimedMessageExists">
+    <xs:complexType>
+      <xs:attribute name="key" type="xs:string" use="required"   />
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="UserInterface.TimedMessageDoesNotExist">
+    <xs:complexType>
+      <xs:attribute name="key" type="xs:string" use="required"   />
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="UserInterface.ValidColorString">
+    <xs:complexType>
+      <xs:attribute name="value" type="xs:string" use="required"   />
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="UserInterface.InvalidColorString">
+    <xs:complexType>
+      <xs:attribute name="value" type="xs:string" use="required"   />
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

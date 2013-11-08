@@ -1,0 +1,32 @@
+﻿<UserControl x:Class="Org.InCommon.InCert.Engine.UserInterface.Dialogs.Instances.CustomControls.AdvancedMenuItemContainer"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:contentModels="clr-namespace:Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.Mockup.ContentModels"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid d:DataContext="{d:DesignInstance Type=contentModels:MockAdvancedMenuGroupContainer, IsDesignTimeCreatable=True}" Background="{Binding BackGround}" SnapsToDevicePixels="True" IsEnabled="{Binding IsEnabled}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+
+        <DockPanel Grid.Row="0" Background="{Binding BackGround}" Margin="0" SnapsToDevicePixels="True"  >
+            <Label Margin="8,12,0,0" Padding="0" VerticalAlignment="Center">
+                <TextBlock Foreground="{Binding TextBrush}" FontFamily="{Binding FontFamily}" FontSize="18" FontWeight="Bold"  Text="{Binding Title}" />
+            </Label>
+        </DockPanel>
+
+        <ItemsControl IsTabStop="False" Name="ButtonContainer" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="{Binding BackGround}" Visibility="{Binding ContainerVisibility}" ItemsSource="{Binding Children}" SnapsToDevicePixels="True">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel Orientation="Horizontal" HorizontalAlignment="Left" SnapsToDevicePixels="True" Margin="12"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+
+        </ItemsControl>
+
+    </Grid>
+</UserControl>

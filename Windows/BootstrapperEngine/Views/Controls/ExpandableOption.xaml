@@ -1,0 +1,59 @@
+﻿<UserControl x:Class="Org.InCommon.InCert.BootstrapperEngine.Views.Controls.ExpandableOption"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:converters="clr-namespace:Org.InCommon.InCert.BootstrapperEngine.Views.Converters"
+             xmlns:mock="clr-namespace:Org.InCommon.InCert.BootstrapperEngine.Models.Mockup.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="350"
+             d:DataContext="{d:DesignInstance Type=mock:MockExpandableOptionModel,IsDesignTimeCreatable=True}"
+             Margin="12,0,20,12"
+             FontFamily="Verdana"
+             FontSize="12"
+             Background="{Binding Background}"
+             >
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVisConverter" />
+        <converters:BooleanToBoldConverter x:Key="BoolToBoldConverter" />
+    </UserControl.Resources>
+    <Grid Margin="0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <RadioButton 
+            Foreground="{Binding Foreground}" 
+            Name="ControlRadio" 
+            GroupName="{Binding GroupName}" 
+            Grid.Row="0" Grid.Column="0" 
+            VerticalAlignment="Center" 
+            HorizontalAlignment="Left" 
+            IsChecked="{Binding IsChecked}"
+            Cursor="Hand">
+            <TextBlock 
+                TextWrapping="Wrap" 
+                FontWeight="{Binding IsChecked, ElementName=ControlRadio, Converter={StaticResource BoolToBoldConverter}}" 
+                Margin="0" 
+                Text="{Binding Title}"
+                />
+        </RadioButton>
+        <StackPanel Grid.Row="1" Grid.Column="1" Visibility="{Binding IsChecked, ElementName=ControlRadio, Converter={StaticResource BoolToVisConverter}}" Margin="0,2,0,0">
+            <Label 
+                Foreground="{Binding Foreground}" 
+                HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" Margin="19,2,12,0" Padding="0" >
+                <TextBlock TextWrapping="Wrap" Text="{Binding Description}" />
+            </Label>
+            <Label HorizontalAlignment="Stretch" HorizontalContentAlignment="Right" Margin="0,0,12,0" Padding="0,4,0,8" FontSize="12" Foreground="{Binding Foreground}">
+                <Hyperlink Foreground="{Binding LinkBrush}" Command="{Binding DetailsCommand}">
+                    <TextBlock Text="{Binding DetailsLinkText}" />
+                </Hyperlink>
+            </Label>
+        </StackPanel>
+
+    </Grid>
+
+</UserControl>

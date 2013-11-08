@@ -1,0 +1,36 @@
+﻿<Border x:Class="Org.InCommon.InCert.Engine.UserInterface.Dialogs.Instances.CustomControls.ScrollingBorderedContentPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:contentModels="clr-namespace:Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.Mockup.ContentModels"
+             mc:Ignorable="d" 
+             d:DataContext="{d:DesignInstance Type=contentModels:MockScrollingContentPanelModel, IsDesignTimeCreatable=True}"
+             d:DesignHeight="300" d:DesignWidth="300"
+            DockPanel.Dock="{Binding Dock}"
+        IsEnabled="{Binding Enabled}"
+        VerticalAlignment="{Binding VerticalAlignment}"
+        HorizontalAlignment="{Binding HorizontalAlignment}"
+        Margin="{Binding Margin}"
+        Visibility="{Binding Visibility}"
+        Background="{Binding Background}"
+        BorderBrush="{Binding BorderBrush}"
+        BorderThickness="{Binding BorderSize}"
+        CornerRadius="{Binding CornerRadius}">
+
+    <ScrollViewer
+           HorizontalScrollBarVisibility="{Binding HorizontalScrollBarVisibility}"
+            VerticalScrollBarVisibility="{Binding VerticalScrollBarVisibility}"
+            CanContentScroll="{Binding CanScroll}"
+            Padding="{Binding Padding}">
+        <ItemsControl ItemsSource="{Binding ChildInstances}" IsTabStop="False">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <DockPanel  SnapsToDevicePixels="True" LastChildFill="False" />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+        </ItemsControl>
+    </ScrollViewer>
+
+
+</Border>

@@ -1,0 +1,377 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="Conditions" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:include schemaLocation="../Enums/EngineModes.xsd" />
+  <xs:include schemaLocation="AntiMalware.xsd" />
+  <xs:include schemaLocation="Certificates.xsd" />
+  <xs:include schemaLocation="Control.xsd" />
+  <xs:include schemaLocation="Downloader.xsd" />
+  <xs:include schemaLocation="Engine.xsd" />
+  <xs:include schemaLocation="FileAndPath.xsd" />
+  <xs:include schemaLocation="Firewall.xsd"/>
+  <xs:include schemaLocation="Encryption.xsd" />
+  <xs:include schemaLocation="Settings.xsd" />
+  <xs:include schemaLocation="SystemInfo.xsd" />
+  <xs:include schemaLocation="UserInterface.xsd" />
+  <xs:include schemaLocation="Versioning.xsd" />
+  <xs:include schemaLocation="WindowsUpdate.xsd" />
+  <xs:include schemaLocation="Network.xsd" />
+  <xs:include schemaLocation="Services.xsd" />
+  <xs:include schemaLocation="Wireless.xsd" />
+  <xs:include schemaLocation="WindowsRegistry.xsd" />
+  <xs:include schemaLocation="Resources.xsd" />
+  <xs:include schemaLocation="SecurityPolicies.xsd" />
+  <xs:include schemaLocation="Misc.xsd" />
+  <xs:include schemaLocation="Resources.xsd" />
+  <xs:include schemaLocation="Identity.xsd" />
+  <xs:include schemaLocation="../Enums/LoggingLevels.xsd" />
+  
+  <!-- condition node types-->
+  <xs:element name="Conditions.Any" type="ConditionsNodeType">
+    <xs:annotation>
+      <xs:documentation>The parent element will be executed if any of the child conditions are present.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="Conditions.All" type="ConditionsNodeType">
+    <xs:annotation>
+      <xs:documentation>The parent element will be executed only if all of the child conditions are present.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+  <xs:complexType name="ConditionsNodeType">
+    <xs:sequence minOccurs="1" maxOccurs="unbounded">
+      <xs:choice>
+        <xs:element ref="AntiMalware.SecurityProviderHealthy" />
+        <xs:element ref="AntiMalware.SecurityProviderNotHealthy" />
+        <xs:element ref="Certificates.NoValidCertsExistForSubjectKey" />
+        <xs:element ref="Certificates.ValidCertExistsForSubjectKey" />
+        <xs:element ref="Certificates.NoValidCertsExistForEmail" />
+        <xs:element ref="Certificates.ValidCertExistsForEmail" />
+        <xs:element ref="Certificates.CertificateThumbprintExists" />
+        <xs:element ref="Certificates.CertificateThumbprintDoesNotExist" />
+        <xs:element ref="Control.BranchExists" />
+        <xs:element ref="Control.BranchNotExists" />
+        <xs:element ref="Control.IsExceptionResult" />
+        <xs:element ref="Control.IsNotExceptionResult" />
+        <xs:element ref="Control.IsResultType" />
+        <xs:element ref="Control.IsNotResultType" />
+        <xs:element ref="Control.PreviousResultTypeOf" />
+        <xs:element ref="Control.PreviousResultNotTypeOf" />
+        <xs:element ref="Control.SecondsHaveElapsed" />
+        <xs:element ref="Control.SecondsHaveNotElapsed" />
+        <xs:element ref="Downloader.FileDoesNotExist" />
+        <xs:element ref="Downloader.FileExists" />
+        <xs:element ref="Downloader.FileValid" />
+        <xs:element ref="Downloader.FileNotValid" />
+        <xs:element ref="Engine.ModeEquals" />
+        <xs:element ref="Engine.ModeNotEqual" />
+        <xs:element ref="Encryption.BitLocker.DrivesEncrypted" />
+        <xs:element ref="Encryption.BitLocker.DrivesNotEncrypted" />
+        <xs:element ref="Encryption.Pgp.DrivesEncrypted" />
+        <xs:element ref="Encryption.Pgp.DrivesNotEncrypted" />
+        <xs:element ref="Encryption.Pgp.PgpInstalled" />
+        <xs:element ref="Encryption.Pgp.PgpNotInstalled" />
+        <xs:element ref="Encryption.TrueCrypt.DriverPresent" />
+        <xs:element ref="Encryption.TrueCrypt.DriverNotPresent" />
+        <xs:element ref="Encryption.TrueCrypt.SystemDriveEncrypted" />
+        <xs:element ref="Encryption.TrueCrypt.SystemDriveNotEncrypted" />
+        <xs:element ref="Firewall.IsFirewallEnabled" />
+        <xs:element ref="Firewall.IsFirewallDisabled" />
+        <xs:element ref="FileAndPath.FileDoesNotExist" />
+        <xs:element ref="FileAndPath.FileExists" />
+        <xs:element ref="FileAndPath.DirectoryExists" />
+        <xs:element ref="FileAndPath.DirectoryDoesNotExist" />
+        <xs:element ref="Grouping.AnyTrue" />
+        <xs:element ref="Grouping.AllTrue" />
+        <xs:element ref="Identity.GroupPresent" />
+        <xs:element ref="Identity.GroupNotPresent" />
+        <xs:element ref="Misc.ValidUrlString" />
+        <xs:element ref="Misc.InvalidUrlString" />
+        <xs:element ref="Network.Online" />
+        <xs:element ref="Network.NotOnline" />
+        <xs:element ref="Network.HostPingable" />
+        <xs:element ref="Network.HostNotPingable" />
+        <xs:element ref="Network.NtlmV2Enabled" />
+        <xs:element ref="Network.NtlmV2NotEnabled" />
+        <xs:element ref="Resources.EmbeddedResourceExists" />
+        <xs:element ref="SecurityPolicies.PolicyApplied" />
+        <xs:element ref="SecurityPolicies.PolicyNotApplied" />
+        <xs:element ref="Settings.ObjectEntryPresent" />
+        <xs:element ref="Settings.ObjectEntryNotPresent" />
+        <xs:element ref="Settings.SettingEquals" />
+        <xs:element ref="Settings.SettingNotEqual" />
+        <xs:element ref="Settings.SettingNotPresent" />
+        <xs:element ref="Settings.SettingPresent" />
+        <xs:element ref="Settings.PersistedValuePresent" />
+        <xs:element ref="Settings.PersistedValueNotPresent" />
+        <xs:element ref="Settings.StoredDictionaryValueEquals" />
+        <xs:element ref="Settings.StoredDictionaryValueNotEqual" />
+        <xs:element ref="Settings.ValuePresentInStoredList" />
+        <xs:element ref="Settings.ValueNotPresentInStoredList" />
+        <xs:element ref="Services.ServiceStarted" />
+        <xs:element ref="Services.ServiceNotStarted" />
+        <xs:element ref="Services.StartupTypeIs" />
+        <xs:element ref="Services.StartupTypeNot" />
+        <xs:element ref="SystemInfo.IsAdministrator" />
+        <xs:element ref="SystemInfo.IsNotAdministrator" />
+        <xs:element ref="SystemInfo.Is64Bit" />
+        <xs:element ref="SystemInfo.IsNot64Bit" />
+        <xs:element ref="SystemInfo.IsWindowsXp" />
+        <xs:element ref="SystemInfo.IsNotWindowsXp" />
+        <xs:element ref="SystemInfo.IsWindowsVista" />
+        <xs:element ref="SystemInfo.IsNotWindowsVista" />
+        <xs:element ref="SystemInfo.IsWindows7" />
+        <xs:element ref="SystemInfo.IsNotWindows7" />
+        <xs:element ref="SystemInfo.IsWindows8" />
+        <xs:element ref="SystemInfo.IsNotWindows8" />
+        <xs:element ref="SystemInfo.IsProcessRunning" />
+        <xs:element ref="SystemInfo.ServicePackAtLeast" />
+        <xs:element ref="SystemInfo.ServicePackLessThan" />
+        <xs:element ref="SystemInfo.IsProfessional" />
+        <xs:element ref="SystemInfo.IsNotProfessional" />
+        <xs:element ref="UserInterface.BannerControlExists" />
+        <xs:element ref="UserInterface.BannerControlDoesNotExist" />
+        <xs:element ref="UserInterface.TimedMessageExists" />
+        <xs:element ref="UserInterface.TimedMessageDoesNotExist" />
+        <xs:element ref="UserInterface.ValidColorString" />
+        <xs:element ref="UserInterface.InvalidColorString" />
+        <xs:element ref="Versioning.FileInfoNotVital" />
+        <xs:element ref="Versioning.FileInfoVital" />
+        <xs:element ref="Versioning.FileInfoVersionAtLeast" />
+        <xs:element ref="Versioning.FileInfoVersionLess" />
+        <xs:element ref="Versioning.FileInfoVersionGreater" />
+        <xs:element ref="Versioning.FileInfoVersionLessOrEqual"/>
+        <xs:element ref="Versioning.FileVersionAtLeast" />
+        <xs:element ref="Versioning.FileVersionNotAtLeast" />
+        <xs:element ref="Versioning.ValidVersionString" />
+        <xs:element ref="Versioning.InvalidVersionString" />
+        <xs:element ref="Versioning.LatestVersionInstalled" />
+        <xs:element ref="Versioning.AnyVersionInstalled" />
+        <xs:element ref="Versioning.NoVersionInstalled" />
+        <xs:element ref="Versioning.UninstallKeyDoesNotExist" />
+        <xs:element ref="Versioning.UninstallKeyExists" />
+        <xs:element ref="Versioning.UninstallVersionAtLeast" />
+        <xs:element ref="Versioning.UninstallVersionLessThan" />
+        <xs:element ref="Versioning.UninstallValueEquals" />
+        <xs:element ref="Versioning.UninstallValueNotEqual" />
+        <xs:element ref="WindowsRegistry.ValueExists" />
+        <xs:element ref="WindowsRegistry.ValueDoesNotExist" />
+        <xs:element ref="WindowsRegistry.LongDateWithinRange"/>
+        <xs:element ref="WindowsRegistry.LongDateNotWithinRange"/>
+        <xs:element ref="WindowsUpdate.UpdatesPresent" />
+        <xs:element ref="WindowsUpdate.NoUpdatesPresent" />
+        <xs:element ref="WindowsUpdate.RestartRequired" />
+        <xs:element ref="WindowsUpdate.RestartNotRequired" />
+        <xs:element ref="Wireless.ConnectedToNetwork" />
+        <xs:element ref="Wireless.NotConnectedToNetwork" />
+        <xs:element ref="Wireless.WirelessAdapterPresent" />
+        <xs:element ref="Wireless.NoWirelessAdaptersPresent" />
+        <xs:element ref="Wireless.PrimaryAdapterWireless" />
+        <xs:element ref="Wireless.PrimaryAdapterNotWireless" />
+        <xs:element ref="Wireless.ProfileEquivalent" />
+        <xs:element ref="Wireless.ProfileNotEquivalent" />
+      </xs:choice>
+    </xs:sequence>
+    <xs:attribute name="logLevel" type="LoggingLevels" use="optional" />
+  </xs:complexType>
+
+
+  <!-- conditions instances-->
+  <xs:element name="Grouping.AnyTrue" type="ConditionsNodeType" />
+  <xs:element name="Grouping.AllTrue" type="ConditionsNodeType" />
+
+  
+
+  <!-- enums -->
+
+  
+
+
+
+  <xs:simpleType name="ReportingLoggingEventTypes">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Debug" />
+      <xs:enumeration value="Error" />
+      <xs:enumeration value="Info" />
+      <xs:enumeration value="Warn" />
+      <xs:enumeration value="Task" />
+      <xs:enumeration value="Branch" />
+      <xs:enumeration value="Start" />
+      <xs:enumeration value="Exit" />
+      <xs:enumeration value="Register" />
+      <xs:enumeration value="Finish" />
+      <xs:enumeration value="Track" />
+      <xs:enumeration value="Monitor" />
+      <xs:enumeration value="Waypoint" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="WebServiceFunctions">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="LogAsync" />
+      <xs:enumeration value="LogWait" />
+      <xs:enumeration value="AuthenticateUser" />
+      <xs:enumeration value="GetContent" />
+      <xs:enumeration value="GetFileInfo" />
+      <xs:enumeration value="GetCertificateRequest" />
+      <xs:enumeration value="RegisterComputer" />
+      <xs:enumeration value="GetStatusInfo" />
+      <xs:enumeration value="IdentityQuery" />
+    </xs:restriction>
+  </xs:simpleType>
+
+ 
+
+  <xs:simpleType name="WindowsUpdateServiceStartupValues">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Automatic" />
+      <xs:enumeration value="Disabled" />
+      <xs:enumeration value="Manual" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="AsynchronousLoggingContracts">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="InCommon.AsynchronousLogRequest" />
+      <xs:enumeration value="WebApi.AsynchronousLogRequest" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="SynchronousLoggingContracts">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="InCommon.SynchronousLogRequest" />
+      <xs:enumeration value="WebApi.SynchronousLogRequest" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="StatusInfoContracts">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="InCommon.StatusInfoRequest" />
+      <xs:enumeration value="WebApi.StatusInfoRequest" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="AuthenticationContracts">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="InCommon.AuthenticateUserRequest" />
+      <xs:enumeration value="WebApi.AuthenticateUserRequest" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="SynchronousReportingContracts">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="WebApi.ReportingRequest" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="AsynchronousReportingContracts">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="WebApi.AsyncReportingRequest" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="IdentityQueryContracts">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="WebApi.IdentityQueryRequest" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="RegistrationQueryStringContracts">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="WebApi.RegistrationQueryStringRequest" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="ComputerNameContracts">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="WebApi.ComputerNameRequest" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="LocationQueryContracts">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="WebApi.LocationQueryRequest" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="UserCampusContracts">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="WebApi.UserCampusRequest" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="RegistrationContracts">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="InCommon.RegisterComputerRequest" />
+      <xs:enumeration value="WebApi.RegisterComputerRequest" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="MacAddressReportingContracts">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="WebApi.MacAddressReport" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="Ipv6RegistryRestriction">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="NoRestrictions" />
+      <xs:enumeration value="Disabled" />
+      <xs:enumeration value="PreferIpv4" />
+      <xs:enumeration value="DisableOnNonTunnelInterfaces" />
+      <xs:enumeration value="DisableTunneling" />
+      <xs:enumeration value="DisableAllButLoopback" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="FileAttributes">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="ReadOnly" />
+      <xs:enumeration value="Hidden" />
+      <xs:enumeration value="Archive" />
+      <xs:enumeration value="Normal" />
+      <xs:enumeration value="Temporary" />
+      <xs:enumeration value="System" />
+      <xs:enumeration value="NotContentIndexed" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="FileAttributesList">
+    <xs:list itemType="FileAttributes" />
+  </xs:simpleType>
+
+
+
+  <xs:simpleType name="InternetZone">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="LocalMachine"  />
+      <xs:enumeration value="Intranet" />
+      <xs:enumeration value="Trusted" />
+      <xs:enumeration value="Internet" />
+      <xs:enumeration value="Untrusted" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="ControlPanelNames">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="DateTime"  />
+      <xs:enumeration value="SecurityCenter" />
+      <xs:enumeration value="UserAccounts" />
+      <xs:enumeration value="Network" />
+      <xs:enumeration value="Firewall" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- help topic-->
+  <xs:element name="HelpTopic">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:choice minOccurs="0">
+          <xs:element ref="Conditions.All" />
+          <xs:element ref="Conditions.Any" />
+        </xs:choice>
+      </xs:sequence>
+      <xs:attribute name="id" type="xs:string" use="required" />
+      <xs:attribute name="url" type="xs:string" use="required" />
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

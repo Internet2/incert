@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="Control" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:include schemaLocation="../Results/All.xsd" />
+  <xs:element name="Control.BranchExists">
+    <xs:complexType>
+      <xs:attribute name="key" type="xs:string" use="required"   />
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Control.BranchNotExists">
+    <xs:complexType>
+      <xs:attribute name="key" type="xs:string" use="required"   />
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Control.SecondsHaveElapsed">
+    <xs:complexType>
+      <xs:attribute name="key" type="xs:string" use="required"   />
+      <xs:attribute name="value" type="xs:int" use="required"   />
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Control.SecondsHaveNotElapsed">
+    <xs:complexType>
+      <xs:attribute name="key" type="xs:string" use="required"   />
+      <xs:attribute name="value" type="xs:int" use="required"   />
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Control.IsExceptionResult">
+    <xs:complexType>
+      <xs:attribute name="resultKey" type="xs:string" use="required" />
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Control.IsNotExceptionResult">
+    <xs:complexType>
+      <xs:attribute name="resultKey" type="xs:string" use="required" />
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Control.IsResultType">
+    <xs:complexType>
+      <xs:attribute name="resultKey" type="xs:string" use="required" />
+      <xs:attribute name="resultType" type="AllResultsList" use="required" />
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Control.IsNotResultType">
+    <xs:complexType>
+      <xs:attribute name="resultKey" type="xs:string" use="required" />
+      <xs:attribute name="resultType" type="AllResultsList" use="required" />
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Control.PreviousResultTypeOf">
+    <xs:complexType>
+      <xs:attribute name="resultType" type="AllResultsList" use="required" />
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Control.PreviousResultNotTypeOf">
+    <xs:complexType>
+      <xs:attribute name="resultType" type="AllResultsList" use="required" />
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

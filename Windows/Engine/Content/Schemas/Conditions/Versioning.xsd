@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="Versioning" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="Versioning.FileInfoVersionLess">
+    <xs:complexType>
+      <xs:attribute name="key" type="xs:string" use="required"   />
+      <xs:attribute name="version" type="xs:string" use="required" />
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="Versioning.FileInfoVersionLessOrEqual">
+    <xs:complexType>
+      <xs:attribute name="key" type="xs:string" use="required"   />
+      <xs:attribute name="version" type="xs:string" use="required" />
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="Versioning.FileInfoVersionAtLeast">
+    <xs:complexType>
+      <xs:attribute name="key" type="xs:string" use="required"   />
+      <xs:attribute name="version" type="xs:string" use="required" />
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Versioning.FileInfoVersionGreater">
+    <xs:complexType>
+      <xs:attribute name="key" type="xs:string" use="required"   />
+      <xs:attribute name="version" type="xs:string" use="required" />
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Versioning.FileInfoNotVital">
+    <xs:complexType>
+      <xs:attribute name="key" type="xs:string" use="required"   />
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Versioning.FileInfoVital">
+    <xs:complexType>
+      <xs:attribute name="key" type="xs:string" use="required"   />
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Versioning.ValidVersionString">
+    <xs:complexType>
+      <xs:attribute name="value" type="xs:string" use="required"   />
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Versioning.InvalidVersionString">
+    <xs:complexType>
+      <xs:attribute name="value" type="xs:string" use="required"   />
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Versioning.LatestVersionInstalled">
+    <xs:complexType>
+      <xs:attribute name="objectKey" type="xs:string" use="required"   />
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Versioning.AnyVersionInstalled">
+    <xs:complexType>
+      <xs:attribute name="objectKey" type="xs:string" use="required"   />
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Versioning.NoVersionInstalled">
+    <xs:complexType>
+      <xs:attribute name="objectKey" type="xs:string" use="required"   />
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Versioning.FileVersionAtLeast">
+    <xs:complexType>
+      <xs:attribute name="key" type="xs:string" use="required"   />
+      <xs:attribute name="target" type="xs:string" use="required" />
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Versioning.UninstallKeyExists">
+    <xs:complexType>
+      <xs:attribute name="key" type="xs:string" use="required"   />
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Versioning.UninstallKeyDoesNotExist">
+    <xs:complexType>
+      <xs:attribute name="key" type="xs:string" use="required"   />
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Versioning.UninstallVersionAtLeast">
+    <xs:complexType>
+      <xs:attribute name="uninstallKey" type="xs:string" use="required"   />
+      <xs:attribute name="valueName" type="xs:string" use="required" />
+      <xs:attribute name="objectKey" type="xs:string" use="required" />
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Versioning.UninstallVersionLessThan">
+    <xs:complexType>
+      <xs:attribute name="uninstallKey" type="xs:string" use="required"   />
+      <xs:attribute name="valueName" type="xs:string" use="required" />
+      <xs:attribute name="objectKey" type="xs:string" use="required" />
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Versioning.UninstallValueEquals">
+    <xs:complexType>
+      <xs:attribute name="uninstallKey" type="xs:string" use="required"   />
+      <xs:attribute name="valueName" type="xs:string" use="required" />
+      <xs:attribute name="value" type="xs:string" use="required" />
+      <xs:attribute name="ignoreCase" type="xs:boolean" use="optional" />
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Versioning.UninstallValueNotEqual">
+    <xs:complexType>
+      <xs:attribute name="uninstallKey" type="xs:string" use="required"   />
+      <xs:attribute name="valueName" type="xs:string" use="required" />
+      <xs:attribute name="value" type="xs:string" use="required" />
+      <xs:attribute name="ignoreCase" type="xs:boolean" use="optional" />
+    </xs:complexType>
+  </xs:element>
+
+
+  <xs:element name="Versioning.FileVersionNotAtLeast">
+    <xs:complexType>
+      <xs:attribute name="key" type="xs:string" use="required"   />
+      <xs:attribute name="target" type="xs:string" use="required" />
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

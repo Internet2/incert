@@ -1,0 +1,115 @@
+﻿<Window x:Class="Org.InCommon.InCert.Engine.UserInterface.Dialogs.Instances.StarkBorderedWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:dialogModels="clr-namespace:Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.Mockup.DialogModels"
+        mc:Ignorable="d"
+        Title="{Binding WindowTitle}"
+        WindowStyle="{Binding WindowStyle}"
+        IsEnabled="{Binding IsEnabled}"
+        Icon="{Binding Icon}"
+        Top ="{Binding Top, Mode=TwoWay}"
+        Left ="{Binding Left, Mode=TwoWay}"
+        Cursor ="{Binding Cursor}"
+        Background="{Binding Background}"
+        FontFamily="{Binding Font}" 
+        WindowStartupLocation="CenterScreen" 
+        ShowInTaskbar="{Binding ShowInTaskbar}"
+        ResizeMode="NoResize" SizeToContent="WidthAndHeight"
+        d:DataContext="{d:DesignInstance Type=dialogModels:MockBorderedModel, IsDesignTimeCreatable=True}"
+        >
+    <Window.Resources>
+        <ResourceDictionary Source="CommonResources.xaml" />
+    </Window.Resources>
+
+    <Grid Width="{Binding Width}" Height="{Binding Height}" Cursor="{Binding Cursor}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid DataContext="{Binding ContentModel}" Background="{Binding Background}">
+            <ContentPresenter 
+            Name="ContentGrid"
+            
+            Content="{Binding Content}" />
+        </Grid>
+        <!--<Frame 
+            Name="ContentFrame" 
+            Grid.Row="0"
+            Grid.Column="0"
+            NavigationUIVisibility="Hidden" 
+            IsTabStop="False" 
+            FocusVisualStyle="{x:Null}" 
+            Margin="0" 
+            Padding="0"
+            DataContext="{Binding ContentModel}"
+            Content="{Binding Page}"
+            Cursor="{Binding Cursor}" />-->
+
+        <DockPanel
+            Name="NavigationPanel"
+            Grid.Row="1"
+            Grid.Column="0"
+            LastChildFill="False">
+
+            <Button 
+                Style="{StaticResource TextButton}" 
+                DockPanel.Dock="Left" 
+                Margin="14,6,0,8" 
+                DataContext="{Binding HelpModel}"
+                Content="{Binding Text}"
+                Foreground="{Binding TextBrush}"
+                IsEnabled="{Binding Enabled}"
+                Command="{Binding Command}"
+                IsDefault="{Binding IsDefaultButton}"
+                IsCancel="{Binding IsCancelButton}"
+                Visibility="{Binding Visibility}" />
+
+
+            <Button 
+                Style="{StaticResource TextButton}" 
+                DockPanel.Dock="Left" 
+                Margin="14,6,0,8" 
+                DataContext="{Binding AdvancedModel}"
+                Content="{Binding Text}"
+                Foreground="{Binding TextBrush}"
+                IsEnabled="{Binding Enabled}"
+                Command="{Binding Command}"
+                IsDefault="{Binding IsDefaultButton}"
+                IsCancel="{Binding IsCancelButton}"
+                Visibility="{Binding Visibility}" />
+
+            <Button 
+                Style="{StaticResource TextButton}" 
+                DockPanel.Dock="Right" 
+                Margin="0,6,14,8"
+                DataContext="{Binding NextModel}"
+                Content="{Binding Text}"
+                Foreground="{Binding TextBrush}"
+                IsEnabled="{Binding Enabled}"
+                Command="{Binding Command}"
+                IsDefault="{Binding IsDefaultButton}"
+                IsCancel="{Binding IsCancelButton}"
+                Visibility="{Binding Visibility}" />
+
+            <Button 
+                Style="{StaticResource TextButton}" 
+                DockPanel.Dock="Right" 
+                Margin="0,6,14,8"
+                DataContext="{Binding BackModel}"
+                Content="{Binding Text}"
+                Foreground="{Binding TextBrush}"
+                IsEnabled="{Binding Enabled}"
+                Command="{Binding Command}" 
+                IsDefault="{Binding IsDefaultButton}"
+                IsCancel="{Binding IsCancelButton}"
+                Visibility="{Binding Visibility}" />
+
+        </DockPanel>
+
+    </Grid>
+</Window>

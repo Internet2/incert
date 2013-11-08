@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="Error" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:simpleType name="ErrorResultsList">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Errors.AntiMalware.AntiSpywareHealthNotMonitored" />
+      <xs:enumeration value="Errors.AntiMalware.AntiSpywareHealthPoor" />
+      <xs:enumeration value="Errors.AntiMalware.AntiVirusHealthNotMonitored" />
+      <xs:enumeration value="Errors.AntiMalware.AntiVirusHealthPoor" />
+      <xs:enumeration value="Errors.AntiMalware.IssueScanningForMalware" />
+      <xs:enumeration value="Errors.AntiMalware.MalwareDetected" />
+      <xs:enumeration value="Errors.AntiMalware.SecurityCenterNotActive" />
+      <xs:enumeration value="Errors.AntiMalware.SecurityCenterLibrariesAbsent" />
+      <xs:enumeration value="Errors.Authentication.CouldNotAuthenticateUser" />
+      <xs:enumeration value="Errors.Authentication.LocalAdminPasswordNotSet" />
+      <xs:enumeration value="Errors.Certificates.CouldNotInstallCertificate" />
+      <xs:enumeration value="Errors.Certificates.CouldNotRetrieveCertificate" />
+      <xs:enumeration value="Errors.Certificates.UserCertNotPresent" />
+      <xs:enumeration value="Errors.Certificates.UserCertWillExpire" />
+      <xs:enumeration value="Errors.Control.BranchNotFound" />
+      <xs:enumeration value="Errors.Control.CouldNotImportContent" />
+      <xs:enumeration value="Errors.Downloader.CouldNotDownloadFile" />
+      <xs:enumeration value="Errors.Downloader.CouldNotVerifyFile" />
+      <xs:enumeration value="Errors.General.Cancelled" />
+      <xs:enumeration value="Errors.System.NotSupported" />
+      <xs:enumeration value="Errors.System.Windows7ServicePackRequired" />
+      <xs:enumeration value="Errors.System.WindowsVistaServicePackRequired" />
+      <xs:enumeration value="Errors.General.ExceptionOccurred" />
+      <xs:enumeration value="Errors.Installer.CouldNotInstallPackage" />
+      <xs:enumeration value="Errors.Network.CouldNotDetermineDefaultServer" />
+      <xs:enumeration value="Errors.Network.NetworkNoConnection" />
+      <xs:enumeration value="Errors.Network.NetworkNoHardware" />
+      <xs:enumeration value="Errors.Network.NetworkAddressTranslation" />
+      <xs:enumeration value="Errors.Network.BridgedAdapterPresent" />
+      <xs:enumeration value="Errors.Path.DirectoryNotFound" />
+      <xs:enumeration value="Errors.Path.DiskSpaceLow" />
+      <xs:enumeration value="Errors.Path.FileNotFound" />
+      <xs:enumeration value="Errors.Path.DriveNotEncrypted" />
+      <xs:enumeration value="Errors.Path.EncryptionStatusNotAvailable" />
+      <xs:enumeration value="Errors.Registration.CouldNotRegisterComputer" />
+      <xs:enumeration value="Errors.SecurityPolicies.CouldNotSetSecurityPolicy" />
+      <xs:enumeration value="Errors.Services.ServiceInfoNotInRegistry" />
+      <xs:enumeration value="Errors.Services.ServiceInstanceNotAvailable" />
+      <xs:enumeration value="Errors.ScreenSaver.CouldNotConfigureScreenSaver" />
+      <xs:enumeration value="Errors.SystemRestore.CouldNotCreateRestorePoint" />
+      <xs:enumeration value="Errors.SystemRestore.SystemRestoreDisabled" />
+      <xs:enumeration value="Errors.Time.DaylightSavingsTimeWrong" />
+      <xs:enumeration value="Errors.Time.SystemClockWrong" />
+      <xs:enumeration value="Errors.Time.TimezoneWrong" />
+      <xs:enumeration value="Errors.UserInterface.BannerNotDefined" />
+      <xs:enumeration value="Errors.UserInterface.DialogInstanceNotFound" />
+      <xs:enumeration value="Errors.Verification.CouldNotVerifyApplicationSignature" />
+      <xs:enumeration value="Errors.Versioning.EngineUpdateAvailable" />
+      <xs:enumeration value="Errors.WebServices.CouldNotLogMessage" />
+      <xs:enumeration value="Errors.WebServices.CouldNotRetrieveContent" />
+      <xs:enumeration value="Errors.WebServices.CouldNotRetrieveFileInfo" />
+      <xs:enumeration value="Errors.WebServices.CouldNotRetrieveStatusInfo" />
+      <xs:enumeration value="Errors.WindowsServices.ServiceIssue" />
+      <xs:enumeration value="Errors.Wireless.CouldNotAddWirelessProfile" />
+      <xs:enumeration value="Errors.WindowsUpdate.RestartPending" />
+      <xs:enumeration value="Errors.WindowsUpdate.UpdateQueryFailed" />
+      <xs:enumeration value="Errors.WindowsUpdate.UpdateInstallFailed" />
+      <xs:enumeration value="Errors.WindowsUpdate.UpdateDownloadFailed" />
+      <xs:enumeration value="Errors.WindowsUpdate.UpdateOperationCancelled" />
+      <xs:enumeration value="Errors.WindowsUpdate.UpdatesMissing" />
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>

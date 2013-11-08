@@ -1,0 +1,84 @@
+﻿code to run certutil to install a certificate
+also code to convert certutil error code to text
+
+
+    /*var utilityPath = Path.Combine(Environment.SystemDirectory, "certutil.exe");
+    if (!File.Exists(utilityPath))
+        return new ErrorFileNotFound { Target = utilityPath };*/
+
+/*var info = GetStartInfo(string.Format("-f -user -p {0} -importpfx \"{1}\"",
+    SettingsManager.GetTemporarySettingString(Key), Target));*/
+
+/*using (var process = Process.Start(info))
+{
+    do
+    {
+        process.WaitForExit(5);
+        Application.Current.DoEvents();
+    } while (!process.HasExited);
+
+    if (process.ExitCode != 0)
+    {
+        return new ErrorCouldNotInstallCertificate { Issue = GetErrorText(process.ExitCode) };
+    }
+   
+    return new NextResult();
+		
+  private static ProcessStartInfo GetStartInfo(string arguments)
+        {
+            return new ProcessStartInfo(Path.Combine(Environment.SystemDirectory, "certutil.exe"))
+            {
+                Arguments = arguments,
+                UseShellExecute = false,
+                CreateNoWindow = false,
+                WindowStyle = ProcessWindowStyle.Hidden,
+                RedirectStandardError = true,
+                RedirectStandardOutput = true
+            };
+        }
+
+private static string GetErrorText(int errorCode)
+{
+    var result = string.Format("unknown issue ({0})", errorCode);
+    try
+    {
+        var utilityPath = Path.Combine(Environment.SystemDirectory, "certutil.exe");
+        var info = GetStartInfo(string.Format("-error {0}", errorCode));
+        using (var process = Process.Start(info))
+        {
+            do
+            {
+                process.WaitForExit(5);
+                Application.Current.DoEvents();
+            } while (!process.HasExited);
+
+            if (process.ExitCode != 0)
+                return result;
+
+            while (!process.StandardOutput.EndOfStream)
+            {
+                var line = process.StandardOutput.ReadLine();
+                if (string.IsNullOrWhiteSpace(line))
+                    continue;
+
+                if (!line.StartsWith("Error message text: ", StringComparison.InvariantCulture))
+                    continue;
+
+                line = line.Replace("Error message text: ", "");
+                if (line.EndsWith(".", StringComparison.InvariantCultureIgnoreCase))
+                    line = line.Insert(line.Length - 2,
+                                        " (" + errorCode.ToString(CultureInfo.InvariantCulture) + ")");
+                else
+                    line = line + " (" + errorCode.ToString(CultureInfo.InvariantCulture) + ")";
+
+                return line;
+            }
+        }
+
+        return result;
+    }
+    catch (Exception)
+    {
+        return result;
+    }
+}

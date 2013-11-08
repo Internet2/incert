@@ -1,0 +1,517 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="XMLSchema1" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:include schemaLocation="../Enums/UserInterface.xsd" />
+  <xs:include schemaLocation="../Enums/ControlPanel.xsd" />
+
+  <xs:complexType name="BannerContentType">
+    <xs:sequence minOccurs="0" maxOccurs="unbounded">
+      <xs:choice>
+        <xs:element ref="FramedButton" />
+        <xs:element ref="FolderBrowseButton" />
+        <xs:element ref="FileBrowseButton" />
+        <xs:element ref="BulletParagraph" />
+        <xs:element ref="CheckInputField" />
+        <xs:element ref="OptionInputField" />
+        <xs:element ref="ContentBlockParagraph" />
+        <xs:element ref="DefaultCheckedParagraph" />
+        <xs:element ref="ErrorInfoBulletedContent" />
+        <xs:element ref="ErrorParagraph" />
+        <xs:element ref="LeftImageContentParagraph" />
+        <xs:element ref="HorizontalDivider" />
+        <xs:element ref="RightButtonInputField" />
+        <xs:element ref="PasswordInputField" />
+        <xs:element ref="ProgressBar" />
+        <xs:element ref="ProgressParagraph" />
+        <xs:element ref="SimpleInputField" />
+        <xs:element ref="SimpleParagraph" />
+        <xs:element ref="UpdatableParagraph" />
+        <xs:element ref="SystemIconParagraph" />
+        <xs:element ref="EllipseGlyph" />
+      </xs:choice>
+    </xs:sequence>
+  </xs:complexType>
+
+
+  <xs:complexType name="BaseContentParagraphType">
+    <xs:sequence minOccurs="0" maxOccurs="unbounded">
+      <xs:choice>
+        <xs:element name="Content" type="BaseTextContentType" />
+        <xs:element ref="Links" />
+      </xs:choice>
+    </xs:sequence>
+    <xs:attribute name="style" type="xs:string"  use="optional" />
+    <xs:attribute name="color" type="xs:string"  use="optional" />
+    <xs:attribute name="controlKey" type="xs:string"  use="optional" />
+    <xs:attribute name="settingKey" type="xs:string"  use="optional" />
+    <xs:attribute name="fontFamily" type="xs:string" use="optional" />
+    <xs:attribute name="fontSize" type="xs:double"  use="optional" />
+    <xs:attribute name="fontWeight" type="FontWeights"  use="optional" />
+    <xs:attribute name="fontStyle" type="FontStyles"  use="optional" />
+    <xs:attribute name="margin" type="Padding"  use="optional" />
+    <xs:attribute name="padding" type="Padding"  use="optional" />
+    <xs:attribute name="alignment" type="HorizontalAlignmentValues"  use="optional" />
+    <xs:attribute name="verticalAlignment" type="VerticalAlignmentValues" use="optional" />
+    <xs:attribute name="lineHeight" type="xs:double" use="optional" />
+    <xs:attribute name="dock" type="DockValues" use="optional" />
+    <xs:attribute name="enabled" type="xs:boolean" use="optional" />
+
+  </xs:complexType>
+
+  <xs:element name="DirectTextContent" type="xs:string" />
+  <xs:element name="TempObjectFieldContent">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:string">
+          <xs:attribute name="key" type="xs:string" use="required" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:complexType name="BaseTextContentType">
+    <xs:sequence minOccurs="0" maxOccurs="unbounded">
+      <xs:choice>
+        <xs:element ref="DirectTextContent" />
+        <xs:element ref="TempObjectFieldContent" />
+      </xs:choice>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="BaseImageContentType">
+    <xs:sequence minOccurs="0" maxOccurs="unbounded">
+      <xs:choice>
+        <xs:element ref="ApiSystemIconImage" />
+        <xs:element ref="BuiltInSystemIconImage" />
+      </xs:choice>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="InputContentType">
+    <xs:complexContent>
+      <xs:extension base="BaseContentParagraphType">
+        <xs:attribute name="settingKey" type="xs:string"  use="required" />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:element name="FramedButton">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="InputContentType">
+          <xs:attribute name="glowEffect" type="xs:boolean" use="optional" />
+          <xs:attribute name="glowColor" type="xs:string" use="optional" />
+          <xs:attribute name="width" type="xs:double" use="optional" />
+          <xs:attribute name="height" type="xs:double" use="optional" />
+          <xs:attribute name="defaultButton" type="xs:boolean" use="optional" />
+          <xs:attribute name="cancelButton" type="xs:boolean" use="optional" />
+          <xs:attribute name="borderSize" type="Padding" use="optional" />
+          <xs:attribute name="caption" type="xs:string" use="optional" />
+          <xs:attribute name="value" type="xs:string" use="optional" />
+          <xs:attribute name="background" type="xs:string" use="optional" />
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="FolderBrowseButton">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="InputContentType">
+          <xs:attribute name="glowEffect" type="xs:boolean" use="optional" />
+          <xs:attribute name="glowColor" type="xs:string" use="optional" />
+          <xs:attribute name="width" type="xs:double" use="optional" />
+          <xs:attribute name="height" type="xs:double" use="optional" />
+          <xs:attribute name="defaultButton" type="xs:boolean" use="optional" />
+          <xs:attribute name="cancelButton" type="xs:boolean" use="optional" />
+          <xs:attribute name="borderSize" type="Padding" use="optional" />
+          <xs:attribute name="caption" type="xs:string" use="optional" />
+          <xs:attribute name="description" type="xs:string" use="optional" />
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="FileBrowseButton">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="InputContentType">
+          <xs:attribute name="glowEffect" type="xs:boolean" use="optional" />
+          <xs:attribute name="glowColor" type="xs:string" use="optional" />
+          <xs:attribute name="width" type="xs:double" use="optional" />
+          <xs:attribute name="height" type="xs:double" use="optional" />
+          <xs:attribute name="defaultButton" type="xs:boolean" use="optional" />
+          <xs:attribute name="cancelButton" type="xs:boolean" use="optional" />
+          <xs:attribute name="borderSize" type="Padding" use="optional" />
+          <xs:attribute name="caption" type="xs:string" use="optional" />
+          <xs:attribute name="description" type="xs:string" use="optional" />
+          <xs:attribute name="filter" type="xs:string" use="optional" />
+          <xs:attribute name="title" type="xs:string" use="optional" />
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="CheckInputField" type="InputContentType" />
+  <xs:element name="PasswordInputField" type="InputContentType" />
+  <xs:element name="DefaultCheckedParagraph" type="BaseContentParagraphType" />
+
+  <xs:element name="OptionInputField">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="InputContentType">
+          <xs:attribute name="group" type="xs:string" use="required" />
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="SimpleInputField">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="InputContentType">
+          <xs:attribute name="minLines" type="xs:integer" use="optional" />
+          <xs:attribute name="maxLines" type="xs:integer" use="optional" />
+          <xs:attribute name="canScroll" type="xs:boolean" use="optional" />
+          <xs:attribute name="scrollToEnd" type="xs:boolean" use="optional" />
+          <xs:attribute name="readOnly" type="xs:boolean" use="optional" />
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="EllipseGlyph">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseContentParagraphType">
+          <xs:attribute name="borderSize" type="xs:int" use="optional" />
+          <xs:attribute name="glyph" type="xs:string" use="required" />
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="BulletParagraph">
+    <xs:complexType>
+      <xs:sequence minOccurs="0" maxOccurs="unbounded">
+        <xs:choice>
+          <xs:element name="Content" type="BaseTextContentType" />
+          <xs:element ref="Links" />
+        </xs:choice>
+      </xs:sequence>
+      <xs:attribute name="style" type="xs:string"  use="optional" />
+      <xs:attribute name="color" type="xs:string"  use="optional" />
+      <xs:attribute name="controlKey" type="xs:string"  use="optional" />
+      <xs:attribute name="fontFamily" type="xs:string" use="optional" />
+      <xs:attribute name="fontSize" type="xs:double"  use="optional" />
+      <xs:attribute name="fontWeight" type="FontWeights"  use="optional" />
+      <xs:attribute name="fontStyle" type="FontStyles"  use="optional" />
+      <xs:attribute name="padding" type="Padding"  use="optional" />
+      <xs:attribute name="alignment" type="HorizontalAlignmentValues"  use="optional" />
+      <xs:attribute name="verticalAlignment" type="VerticalAlignmentValues" use="optional" />
+      <xs:attribute name="bulletSize" type="xs:double" use="optional" />
+      <xs:attribute name="indent" type="xs:int" use="optional" />
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="ContentBlockParagraph">
+    <xs:complexType>
+      <xs:attribute name="controlKey" use="optional" type="xs:string" />
+      <xs:attribute name="banner" use="required" type="xs:string" />
+      <xs:attribute name="padding" type="Padding"  use="optional" />
+      <xs:attribute name="margin" type="Padding"  use="optional" />
+      <xs:attribute name="dock" type="DockValues" use="optional" />
+      <xs:attribute name="borderColor" type="xs:string" use="optional" />
+      <xs:attribute name="borderSize" type="Padding" use="optional" />
+      <xs:attribute name="cornerRadius" type="Padding" use="optional" />
+      <xs:attribute name="verticalAlignment" type="VerticalAlignmentValues" use="optional" />
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="ProgressParagraph">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseContentParagraphType">
+          <xs:attribute name="settingKey" type="xs:string" use="required" />
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="UpdatableParagraph">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseContentParagraphType">
+          <xs:attribute name="settingKey" type="xs:string" use="required" />
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="SystemIconParagraph">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseContentParagraphType">
+          <xs:attribute name="icon" type="ApiSystemIcons" use="required" />
+          <xs:attribute name="size" type="SystemIconSizes" use="optional" />
+
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="RightButtonInputField">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="InputContentType">
+          <xs:attribute name="text" type="xs:string" use="required" />
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="LeftImageContentParagraph">
+    <xs:complexType>
+      <xs:sequence maxOccurs="1" minOccurs="1">
+        <xs:element name="Content" type="BaseImageContentType" />
+      </xs:sequence>
+      <xs:attribute name="controlKey" type="xs:string" use="optional" />
+      <xs:attribute name="style" type="xs:string" use="optional" />
+      <xs:attribute name="banner" type="xs:string" use="required" />
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="ErrorInfoBulletedContent" type="BaseContentParagraphType"   />
+
+  <xs:element name="SimpleParagraph" type="BaseContentParagraphType" />
+  <xs:element name="ErrorParagraph">
+    <xs:complexType>
+      <xs:attribute name="style" type="xs:string"  use="optional" />
+      <xs:attribute name="color" type="xs:string"  use="optional" />
+      <xs:attribute name="controlKey" type="xs:string"  use="optional" />
+      <xs:attribute name="settingKey" type="xs:string"  use="optional" />
+      <xs:attribute name="fontFamily" type="xs:string" use="optional" />
+      <xs:attribute name="fontSize" type="xs:double"  use="optional" />
+      <xs:attribute name="fontWeight" type="FontWeights"  use="optional" />
+      <xs:attribute name="fontStyle" type="FontStyles"  use="optional" />
+      <xs:attribute name="margin" type="Padding"  use="optional" />
+      <xs:attribute name="padding" type="Padding"  use="optional" />
+      <xs:attribute name="alignment" type="HorizontalAlignmentValues"  use="optional" />
+      <xs:attribute name="verticalAlignment" type="VerticalAlignmentValues" use="optional" />
+      <xs:attribute name="lineHeight" type="xs:double" use="optional" />
+      <xs:attribute name="dock" type="DockValues" use="optional" />
+      <xs:attribute name="enabled" type="xs:boolean" use="optional" />
+      <xs:attribute name="errorInfoKey" type="xs:string" use="required" />
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="ProgressBar" type="BaseContentParagraphType" />
+
+  <xs:element name="HorizontalDivider">
+    <xs:complexType>
+      <xs:attribute name="color" use="optional" type="xs:string" />
+      <xs:attribute name="margin" type="Padding"  use="optional" />
+      <xs:attribute name="height" type="xs:int" use="optional" />
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Links">
+    <xs:complexType>
+      <xs:sequence maxOccurs="unbounded">
+        <xs:choice>
+          <xs:element ref="NextButtonLink" />
+          <xs:element ref="HelpButtonLink" />
+          <xs:element ref="AdvancedButtonLink" />
+          <xs:element ref="BackButtonLink" />
+          <xs:element ref="UrlLink" />
+          <xs:element ref="SettingsLink" />
+          <xs:element ref="OpenFolderLink" />
+          <xs:element ref="OpenControlPanelLink" />
+        </xs:choice>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <!-- link content elements-->
+  <xs:complexType name="LinkBaseType">
+    <xs:complexContent>
+      <xs:extension base="BaseTextContentType">
+        <xs:attribute name="target" type="xs:string" use="required" />
+        <xs:attribute name="color" type="xs:string" use="optional" />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:element name="NextButtonLink" type="LinkBaseType" />
+  <xs:element name="HelpButtonLink" type="LinkBaseType" />
+  <xs:element name="AdvancedButtonLink" type="LinkBaseType" />
+  <xs:element name="BackButtonLink" type="LinkBaseType" />
+  <xs:element name="UrlLink" type="LinkBaseType" />
+  <xs:element name="SettingsLink">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="LinkBaseType">
+          <xs:attribute name="value" type="xs:string" use="optional" />
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="OpenControlPanelLink">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTextContentType">
+          <xs:attribute name="target" type="ExtendedControlPanelValues" use="required" />
+          <xs:attribute name="color" type="xs:string" use="optional" />
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="OpenFolderLink" type="LinkBaseType" />
+
+  <xs:element name="ApiSystemIconImage">
+    <xs:complexType>
+      <xs:sequence maxOccurs="unbounded">
+        <xs:choice>
+          <xs:element name="Icon" type="ApiSystemIcons" />
+          <xs:element name="Size" type="SystemIconSizes" />
+        </xs:choice>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="BuiltInSystemIconImage">
+    <xs:complexType>
+      <xs:sequence maxOccurs="unbounded">
+        <xs:choice>
+          <xs:element name="Icon" type="BuiltInSystemIcons" />
+        </xs:choice>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:simpleType name="SystemIconSizes">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Small" />
+      <xs:enumeration value="Large" />
+      <xs:enumeration value="ShellSize" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="BuiltInSystemIcons">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Application" />
+      <xs:enumeration value="Asterisk" />
+      <xs:enumeration value="Error" />
+      <xs:enumeration value="Exclamation" />
+      <xs:enumeration value="Hand" />
+      <xs:enumeration value="Information" />
+      <xs:enumeration value="Question" />
+      <xs:enumeration value="Shield" />
+      <xs:enumeration value="Warning" />
+      <xs:enumeration value="WinLogo" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="ApiSystemIcons">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="DocumentNotAssociated" />
+      <xs:enumeration value="Application" />
+      <xs:enumeration value="Folder" />
+      <xs:enumeration value="FolderOpen" />
+      <xs:enumeration value="Drive525" />
+      <xs:enumeration value="Drive35" />
+      <xs:enumeration value="DriveRemove" />
+      <xs:enumeration value="DriveFixed" />
+      <xs:enumeration value="DriveNetwork" />
+      <xs:enumeration value="DriveNetworkDisabled" />
+      <xs:enumeration value="DriveCD" />
+      <xs:enumeration value="DriveRam" />
+      <xs:enumeration value="World" />
+      <xs:enumeration value="Server" />
+      <xs:enumeration value="Printer" />
+      <xs:enumeration value="MyNetwork" />
+      <xs:enumeration value="Find" />
+      <xs:enumeration value="Help" />
+      <xs:enumeration value="Share" />
+      <xs:enumeration value="Link" />
+      <xs:enumeration value="SlowFile" />
+      <xs:enumeration value="Recycler" />
+      <xs:enumeration value="RecyclerFull" />
+      <xs:enumeration value="MediaCDAudio" />
+      <xs:enumeration value="Lock" />
+      <xs:enumeration value="AutoList" />
+      <xs:enumeration value="PrinterNet" />
+      <xs:enumeration value="ServerShare" />
+      <xs:enumeration value="PrinterFax" />
+      <xs:enumeration value="PrinterFaxNet" />
+      <xs:enumeration value="PrinterFile" />
+      <xs:enumeration value="Stack" />
+      <xs:enumeration value="MediaSvcd" />
+      <xs:enumeration value="StuffedFolder" />
+      <xs:enumeration value="DriveUnknown" />
+      <xs:enumeration value="DriveDvd" />
+      <xs:enumeration value="MediaDvd" />
+      <xs:enumeration value="MediaDvdRam" />
+      <xs:enumeration value="MediaDvdRW" />
+      <xs:enumeration value="MediaDvdR" />
+      <xs:enumeration value="MediaDvdRom" />
+      <xs:enumeration value="MediaCDAudioPlus" />
+      <xs:enumeration value="MediaCDRW" />
+      <xs:enumeration value="MediaCDR" />
+      <xs:enumeration value="MediaCDBurn" />
+      <xs:enumeration value="MediaBlankCD" />
+      <xs:enumeration value="MediaCDRom" />
+      <xs:enumeration value="AudioFiles" />
+      <xs:enumeration value="ImageFiles" />
+      <xs:enumeration value="VideoFiles" />
+      <xs:enumeration value="MixedFiles" />
+      <xs:enumeration value="FolderBack" />
+      <xs:enumeration value="FolderFront" />
+      <xs:enumeration value="Shield" />
+      <xs:enumeration value="Warning" />
+      <xs:enumeration value="Info" />
+      <xs:enumeration value="Error" />
+      <xs:enumeration value="Key" />
+      <xs:enumeration value="Software" />
+      <xs:enumeration value="Rename" />
+      <xs:enumeration value="Delete" />
+      <xs:enumeration value="MediaAudioDvd" />
+      <xs:enumeration value="MediaMovieDvd" />
+      <xs:enumeration value="MediaEnhancedCD" />
+      <xs:enumeration value="MediaEnhancedDvd" />
+      <xs:enumeration value="MediaHDDvd" />
+      <xs:enumeration value="MediaBluRay" />
+      <xs:enumeration value="MediaVcd" />
+      <xs:enumeration value="MediaDvdPlusR" />
+      <xs:enumeration value="MediaDvdPlusRW" />
+      <xs:enumeration value="DesktopPC" />
+      <xs:enumeration value="MobilePC" />
+      <xs:enumeration value="Users" />
+      <xs:enumeration value="MediaSmartMedia" />
+      <xs:enumeration value="MediaCompactFlash" />
+      <xs:enumeration value="DeviceCellPhone" />
+      <xs:enumeration value="DeviceCamera" />
+      <xs:enumeration value="DeviceVideoCamera" />
+      <xs:enumeration value="DeviceAudioPlayer" />
+      <xs:enumeration value="NetworkConnect" />
+      <xs:enumeration value="Internet" />
+      <xs:enumeration value="ZipFile" />
+      <xs:enumeration value="Settings" />
+      <xs:enumeration value="DriveHDDVD" />
+      <xs:enumeration value="DriveBluRay" />
+      <xs:enumeration value="MediaHDDVDROM" />
+      <xs:enumeration value="MediaHDDVDR" />
+      <xs:enumeration value="MediaHDDVDRAM" />
+      <xs:enumeration value="MediaBluRayROM" />
+      <xs:enumeration value="MediaBluRayR" />
+      <xs:enumeration value="MediaBluRayRE" />
+      <xs:enumeration value="ClusteredDisk" />
+
+    </xs:restriction>
+  </xs:simpleType>
+
+
+
+</xs:schema>
+
+

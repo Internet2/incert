@@ -1,0 +1,47 @@
+﻿<UserControl x:Class="Org.InCommon.InCert.Engine.UserInterface.Dialogs.Instances.CustomControls.CheckboxParagraph"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:contentModels="clr-namespace:Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.Mockup.ContentModels"
+             mc:Ignorable="d" 
+             d:DesignWidth="300">
+    <Grid 
+        d:DataContext="{d:DesignInstance Type=contentModels:MockCheckboxModel, IsDesignTimeCreatable=True}"
+        Margin="{Binding Margin}"
+        DockPanel.Dock="{Binding Dock}"
+        Visibility="{Binding Visibility}"
+        IsEnabled="{Binding Enabled}">
+        <Grid.Resources>
+            <ResourceDictionary Source="..\CommonResources.xaml" />
+        </Grid.Resources>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <CheckBox Name="CheckBox"
+            Cursor="Hand"
+            FocusVisualStyle="{x:Null}"
+            Padding="0"
+            Margin="0"
+            Grid.Column="0"
+            Grid.Row="0"
+            HorizontalAlignment="Left"
+            Command="{Binding Command}"
+            Foreground="{Binding TextBrush}"
+            VerticalContentAlignment="Center">
+            <TextBlock Style="{StaticResource ToggleButtonTextStyle}"
+                       Padding="{Binding Padding}"
+                       TextWrapping="Wrap" 
+                       Text="{Binding Text}" 
+                       FontFamily="{Binding FontFamily}"
+                       FontSize="{Binding FontSize}"
+                       Foreground="{Binding TextBrush}"
+                       Margin="0">
+                       
+            </TextBlock>
+        </CheckBox>
+    </Grid>
+</UserControl>

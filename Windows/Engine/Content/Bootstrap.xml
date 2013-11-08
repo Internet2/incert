@@ -1,0 +1,305 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Content xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://incert.incommon.org/schemas ./Schemas/tasklist.xsd">
+  <Branches>
+    <RoleBranch name="bootstrap" role="Default" roleMode="All">
+      <!-- import standard banners from embedded resource files -->
+      <Control.GetContentFromEmbeddedResource>
+        <Properties>
+          <ResourcePath>Org.InCommon.InCert.Engine.Content.ErrorContent.xml</ResourcePath>
+          <ResourcePath>Org.InCommon.InCert.Engine.Content.ConfirmCloseBanner.xml</ResourcePath>
+          <ResourcePath>Org.InCommon.InCert.Engine.Content.SplashScreenBanner.xml</ResourcePath>
+          <ResourcePath>Org.InCommon.InCert.Engine.Content.GenericIssueRetryBanner.xml</ResourcePath>
+          <ResourcePath>Org.InCommon.InCert.Engine.Content.GenericDownloader.xml</ResourcePath>
+          <ResourcePath>Org.InCommon.InCert.Engine.Content.RelaunchAsAdminContent.xml</ResourcePath>
+          <ResourcePath>Org.InCommon.InCert.Engine.Content.CheckForUpgradeContent.xml</ResourcePath>
+          <ResourcePath>Org.InCommon.InCert.Engine.Content.CheckSystemTimeContent.xml</ResourcePath>
+          <ResourcePath>Org.InCommon.InCert.Engine.Content.GenericDiagnosticsContent.xml</ResourcePath>
+          <ResourcePath>Org.InCommon.InCert.Engine.Content.VerifyUserCertContent.xml</ResourcePath>
+          <ResourcePath>Org.InCommon.InCert.Engine.Content.RestartComputerContent.xml</ResourcePath>
+        </Properties>
+      </Control.GetContentFromEmbeddedResource>
+
+      <!--set standard messages, etc-->
+      <Settings.SetSettingText>
+        <Properties>
+          <Setter key="engine close question" resolve="false">Are you sure that you want to close !ApplicationTitle!?</Setter>
+          <Setter key="UserCertInfoFile" resolve="false">!UtilityAppDataFolder!\CertInfo.xml</Setter>
+          <Setter key="UserCertMonitorShortcutPath" resolve="false">!UserStartupDirectory!\Certificate monitor.lnk</Setter>
+        </Properties>
+      </Settings.SetSettingText>
+
+      <Verification.VerifyApplicationSignature />
+
+      <Control.ImportContentFromSignedArchive>
+        <Conditions.All>
+          <FileAndPath.FileExists key="!ApplicationFolder!\settings.cab" />
+        </Conditions.All>
+        <Properties>
+          <TargetPath>!ApplicationFolder!\settings.cab</TargetPath>
+        </Properties>
+      </Control.ImportContentFromSignedArchive>
+
+      <Control.ProcessCommandLineArguments />
+      
+      <NamedPipes.SendMessage>
+        <Conditions.All>
+          <Settings.SettingPresent key="engine.named pipe" />
+          <Settings.SettingPresent key="engine.echo message" />
+        </Conditions.All>
+        <Properties>
+          <PipeName>[engine.named pipe]</PipeName>
+          <Message>[engine.echo message]</Message>
+          <Timeout>1</Timeout>
+        </Properties>
+      </NamedPipes.SendMessage>
+      
+      <Control.ReturnRoleBranchResult>
+        <Properties>
+          <Role>Initialize</Role>
+        </Properties>
+      </Control.ReturnRoleBranchResult>
+
+      <Control.ReturnBranchResult>
+        <Conditions.All>
+          <Control.BranchExists key="restart computer.remove restart shortcut"/>
+        </Conditions.All>
+        <Properties>
+          <Branch>restart computer.remove restart shortcut</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+     
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>configure default task list</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+
+      <Logging.EnableRemoteLogging />
+
+      <Logging.LogEvent>
+        <Properties>
+          <Event>Start</Event>
+          <Message>!EffectiveEngineVersion! (!ActualEngineVersion!)</Message>
+        </Properties>
+      </Logging.LogEvent>
+
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>upload initial reports</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+
+      <Control.ReturnRoleBranchResult>
+        <Properties>
+          <Role>Local</Role>
+        </Properties>
+      </Control.ReturnRoleBranchResult>
+
+      <Control.ReturnRoleBranchResult>
+        <Properties>
+          <Role>Remote</Role>
+        </Properties>
+      </Control.ReturnRoleBranchResult>
+    </RoleBranch>
+
+    <RoleBranch name="configure computer in remove mode" role="Local" roleMode="Unconfigure">
+      <Settings.SetSettingText>
+        <Properties>
+          <Setter key="initial remote tasklist">static.remove changes</Setter>
+        </Properties>
+      </Settings.SetSettingText>
+    </RoleBranch>
+
+    <RoleBranch name="configure computer in utilities mode" role="Local" roleMode="Utility">
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>Check for update</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>check operating system version</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+      
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>download task list</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+
+      <Settings.SetSettingText>
+        <Properties>
+          <Setter key="initial remote tasklist">main</Setter>
+        </Properties>
+      </Settings.SetSettingText>
+    </RoleBranch>
+
+    <RoleBranch name="configure computer as admin" roleMode="Normal" role="Local">
+      <UserInterface.ShowBorderlessDialog>
+        <Properties>
+          <Dialog>Splash screen dialog</Dialog>
+          <Banner>Splash screen banner</Banner>
+          <Shadowed>true</Shadowed>
+        </Properties>
+      </UserInterface.ShowBorderlessDialog>
+
+      <UserInterface.StartMessageTimer minimumTaskTime="2">
+        <Properties>
+          <SettingKey>Splash screen progress text</SettingKey>
+        </Properties>
+      </UserInterface.StartMessageTimer>
+
+      <UserInterface.ChangeProgressMessage>
+        <Properties>
+          <SettingKey>Splash screen progress text</SettingKey>
+          <Value>Verifying utility</Value>
+        </Properties>
+      </UserInterface.ChangeProgressMessage>
+
+      <Verification.VerifyServerVersion />
+
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>Check for update</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>check operating system version</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+      
+      <Control.ReturnBranchResult>
+        <Conditions.All>
+          <SystemInfo.IsNotAdministrator />
+        </Conditions.All>
+        <Properties>
+          <Branch>relaunch as admin</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>check system time</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+
+      <UserInterface.ChangeProgressMessage>
+        <Properties>
+          <SettingKey>Splash screen progress text</SettingKey>
+          <Value>Downloading configuration files</Value>
+        </Properties>
+      </UserInterface.ChangeProgressMessage>
+
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>download task list</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+
+    <!--  <Settings.SetSettingText>
+        <Properties>
+          <Setter key="initial remote tasklist">main</Setter>
+        </Properties>
+      </Settings.SetSettingText>-->
+    </RoleBranch>
+
+    <RoleBranch name="Final" role="Final">
+      <UserInterface.CloseAllDialogs />
+
+      <Help.OpenContentInExternalWindow>
+        <Conditions.All>
+          <Settings.SettingNotEqual key="restart computer.exit now" value="true" ignoreCase="true"/>
+        </Conditions.All>
+      </Help.OpenContentInExternalWindow>
+
+      <Utility.ExecuteUtilityNoWait>
+        <Conditions.All>
+          <Settings.SettingPresent key="exit launch application"/>
+          <FileAndPath.FileExists key="[exit launch application]"/>
+        </Conditions.All>
+        <Properties>
+          <TargetPath>[exit launch application]</TargetPath>
+          <Argument>[exit launch application arguments]</Argument>
+          <Verb>[exit launch application verb]</Verb>
+        </Properties>
+      </Utility.ExecuteUtilityNoWait>
+
+      <Logging.LogEvent>
+        <Properties>
+          <Event>Exit</Event>
+          <Message>!EffectiveEngineVersion! (!ActualEngineVersion!)</Message>
+        </Properties>
+      </Logging.LogEvent>
+    </RoleBranch>
+    
+    <TaskBranch name="download task list">
+      <Control.GetContentFromEndpoint>
+        <Properties>
+          <ContentName>[initial content download target]</ContentName>
+        </Properties>
+      </Control.GetContentFromEndpoint>
+    </TaskBranch>
+
+    <!-- If not value is present for the setting key 'tasklist' then use 'tasklist.xml' -->
+    <TaskBranch name="configure default task list">
+      <!--<Settings.SetSettingText>
+        <Conditions.All>
+          <Settings.SettingNotPresent key="initial local tasklist" />
+        </Conditions.All>
+        <Properties>
+          <Setter key="initial local tasklist">configure computer as admin</Setter>
+        </Properties>
+      </Settings.SetSettingText>-->
+
+      <Settings.SetSettingText>
+        <Conditions.All>
+          <Settings.SettingNotPresent key="initial content download target" />
+        </Conditions.All>
+        <Properties>
+          <Setter key="initial content download target">tasklist.xml</Setter>
+        </Properties>
+      </Settings.SetSettingText>
+    </TaskBranch>
+    
+
+
+    <TaskBranch name="check operating system version">
+      <Control.ReturnLeaveBranchNextResult>
+        <Conditions.Any>
+          <SystemInfo.IsWindows7 />
+          <SystemInfo.IsWindows8 />
+          <SystemInfo.IsWindowsVista />
+        </Conditions.Any>
+      </Control.ReturnLeaveBranchNextResult>
+
+      <Control.ReturnErrorResult>
+        <Properties>
+          <Result>Errors.System.NotSupported</Result>
+          <PropertySetter key="Issue">!ApplicationTitle! requires Windows Vista, Windows 7, or Windows 8.</PropertySetter>
+        </Properties>
+      </Control.ReturnErrorResult>
+    </TaskBranch>
+
+    <TaskBranch name="upload initial reports">
+      <Control.ReturnLeaveBranchNextResult />
+    </TaskBranch>
+
+    <TaskBranch name="static.remove changes">
+      <Logging.LogEvent>
+        <Properties>
+          <Event>Info</Event>
+          <Message>Default remove branch started</Message>
+        </Properties>
+      </Logging.LogEvent>
+    </TaskBranch>
+  </Branches>
+
+
+</Content>
+
+

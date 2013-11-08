@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Content xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://incert.incommon.org/schemas ./Schemas/tasklist.xsd">
+  <CommandLineProcessors>
+    <Settings.SetSettingProcessor key="tasklist">
+      <Properties>
+        <SettingKey>initial local tasklist</SettingKey>
+      </Properties>
+    </Settings.SetSettingProcessor>
+
+    <!--<Settings.SetSettingValueProcessor key="utility">
+      <Properties>
+        <SettingKey>initial local tasklist</SettingKey>
+        <SettingValue>configure computer in utilities mode</SettingValue>
+      </Properties>
+    </Settings.SetSettingValueProcessor>-->
+
+    <Engine.SetEngineMode key="unconfigure">
+      <Properties>
+        <Mode>Unconfigure</Mode>
+      </Properties>
+    </Engine.SetEngineMode>
+
+    <Engine.SetEngineMode key="utility">
+      <Properties>
+        <Mode>Utility</Mode>
+      </Properties>
+    </Engine.SetEngineMode>
+
+    <Settings.SetSettingValueProcessor key="certmon">
+      <Properties>
+        <SettingKey>initial local tasklist</SettingKey>
+        <SettingValue>verify user certificate</SettingValue>
+      </Properties>
+    </Settings.SetSettingValueProcessor>
+
+    <Settings.SetSettingProcessor key="download">
+      <Properties>
+        <SettingKey>initial content download target</SettingKey>
+      </Properties>
+    </Settings.SetSettingProcessor>
+
+    <Settings.SetSettingValueProcessor key="noupdatecheck">
+      <Properties>
+        <SettingKey>engine.ignoreupdatecheck</SettingKey>
+        <SettingValue>true</SettingValue>
+      </Properties>
+    </Settings.SetSettingValueProcessor>
+
+    <Settings.SetSettingProcessor key="resume">
+      <Properties>
+        <SettingKey>restart computer.resume point</SettingKey>
+      </Properties>
+    </Settings.SetSettingProcessor>
+
+    <Settings.SetListProcessor key="options">
+      <Properties>
+        <SettingKey>engine.command line options</SettingKey>
+      </Properties>
+    </Settings.SetListProcessor>
+
+    <Settings.SetSettingProcessor key="echo">
+      <Properties>
+        <SettingKey>engine.echo message</SettingKey>
+      </Properties>
+    </Settings.SetSettingProcessor>
+
+    <Settings.SetSettingProcessor key="pipe">
+      <Properties>
+        <SettingKey>engine.named pipe</SettingKey>
+      </Properties>
+    </Settings.SetSettingProcessor>
+
+    <Engine.SetEngineModeFromValue key="mode"/>
+
+  </CommandLineProcessors>
+
+
+</Content>

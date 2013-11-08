@@ -1,0 +1,178 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="FileAndPath" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:include schemaLocation="Base.xsd" />
+  <xs:element name="FileAndPath.AddShortcut">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="ShortcutPath" type="xs:string" maxOccurs="1" minOccurs="1" />
+                  <xs:element name="SourcePath" type="xs:string" maxOccurs="1" minOccurs="1" />
+                  <xs:element name="Arguments" type="xs:string" maxOccurs="1" minOccurs="0" />
+                  <xs:element name="Description" type="xs:string" maxOccurs="1" minOccurs="0" />
+                  <xs:element name="IconPath" type="xs:string" maxOccurs="1" minOccurs="0" />
+                  <xs:element name="IconIndex" type="xs:integer" maxOccurs="1" minOccurs="0" />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="FileAndPath.MoveFile">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="TargetFile" type="xs:string" maxOccurs="1" minOccurs="1" />
+                  <xs:element name="DestinationFile" type="xs:string" maxOccurs="1" minOccurs="1" />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="FileAndPath.SetFileAttributes">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="TargetPath" type="xs:string" maxOccurs="1" minOccurs="1" />
+                  <xs:element name="Attributes" type="FileAttributesList" maxOccurs="1" minOccurs="1" />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="FileAndPath.SetFolderAttributes">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="TargetPath" type="xs:string" maxOccurs="1" minOccurs="1" />
+                  <xs:element name="Attributes" type="FileAttributesList" maxOccurs="1" minOccurs="1" />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="FileAndPath.SetFolderIcon">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="TargetFolder" type="xs:string" maxOccurs="1" minOccurs="1" />
+                  <xs:element name="IconPath" type="xs:string" maxOccurs="1" minOccurs="1" />
+                  <xs:element name="Description" type="xs:string" maxOccurs="1" minOccurs="0" />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="FileAndPath.RemoveFile">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="TargetPath" type="xs:string" maxOccurs="1" minOccurs="1" />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="FileAndPath.CopyFile">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="SourcePath" type="xs:string" maxOccurs="1" minOccurs="1" />
+                  <xs:element name="DestinationPath" type="xs:string" maxOccurs="1" minOccurs="1" />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="FileAndPath.EnsureDrivesEncrypted" />
+
+  <xs:element name="FileAndPath.CreateFolder">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="TargetPath" type="xs:string" maxOccurs="1" minOccurs="1" />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="FileAndPath.NormalizeSettingsPathValues">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="SettingKey" type="xs:string" maxOccurs="unbounded" minOccurs="1" />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

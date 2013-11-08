@@ -1,0 +1,725 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="UserInterface" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:include schemaLocation="Base.xsd" />
+  <xs:include schemaLocation="../Enums/UserInterface.xsd" />
+  <xs:include schemaLocation="../Banners/Base.xsd" />
+  <xs:include schemaLocation="../Wrappers/KeyedStringPropertyType.xsd" />
+  <xs:element name="UserInterface.ActivateCheckedParagraph">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="Dialog" type="xs:string" minOccurs="1" maxOccurs="1"  />
+                  <xs:element name="ControlKey" type="xs:string" minOccurs="1" maxOccurs="1"  />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="UserInterface.ChangeBanner">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="Dialog" type="xs:string" minOccurs="1" maxOccurs="1"  />
+                  <xs:element name="Banner" type="xs:string" minOccurs="1" maxOccurs="1"  />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="UserInterface.ChangeDialogCursor">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="Dialog" type="xs:string" minOccurs="1" maxOccurs="1"  />
+                  <xs:element name="Cursor" type="Cursors" minOccurs="1" maxOccurs="1" />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="UserInterface.ChangeProgressMessage">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="SettingKey" type="xs:string" minOccurs="1" maxOccurs="1"  />
+                  <xs:element name="Value" type="xs:string" minOccurs="1" maxOccurs="1" />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="UserInterface.CompleteCheckedParagraph">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="Dialog" type="xs:string" minOccurs="1" maxOccurs="1"  />
+                  <xs:element name="ControlKey" type="xs:string" minOccurs="1" maxOccurs="1"  />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="UserInterface.CloseAllDialogs" type="BaseTaskNodeType" />
+
+  <xs:element name="UserInterface.CollapseBannerControl">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="Dialog" type="xs:string" minOccurs="1" maxOccurs="1"  />
+                  <xs:element name="ControlKey" type="xs:string" minOccurs="1" maxOccurs="1"  />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="UserInterface.DeactivateCheckedParagraph">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="Dialog" type="xs:string" minOccurs="1" maxOccurs="1"  />
+                  <xs:element name="ControlKey" type="xs:string" minOccurs="1" maxOccurs="1"  />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="UserInterface.DisableBannerDialog">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="Dialog" type="xs:string" minOccurs="1" maxOccurs="1"  />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="UserInterface.DisableAllBannerDialogControls">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="Dialog" type="xs:string" minOccurs="1" maxOccurs="1"  />
+                  <xs:element name="ExcludeControlKey" type="xs:string" minOccurs="0" maxOccurs="unbounded"  />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="UserInterface.DisableCloseButton">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="Dialog" type="xs:string" minOccurs="1" maxOccurs="1"  />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="UserInterface.EnableBannerControl">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="Dialog" type="xs:string" minOccurs="1" maxOccurs="1"  />
+                  <xs:element name="ControlKey" type="xs:string" minOccurs="1" maxOccurs="1"  />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="UserInterface.DisableBannerControl">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="Dialog" type="xs:string" minOccurs="1" maxOccurs="1"  />
+                  <xs:element name="ControlKey" type="xs:string" minOccurs="1" maxOccurs="1"  />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="UserInterface.EnableBannerDialog">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="Dialog" type="xs:string" minOccurs="1" maxOccurs="1"  />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="UserInterface.EnableCloseButton">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="Dialog" type="xs:string" minOccurs="1" maxOccurs="1"  />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="UserInterface.HideBannerControl">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="Dialog" type="xs:string" minOccurs="1" maxOccurs="1"  />
+                  <xs:element name="ControlKey" type="xs:string" minOccurs="1" maxOccurs="1"  />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="UserInterface.HideDialog">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="Dialog" type="xs:string" minOccurs="1" maxOccurs="1"  />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="UserInterface.RemoveCheckedParagraphSubtitle">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="Dialog" type="xs:string" minOccurs="1" maxOccurs="1"  />
+                  <xs:element name="ControlKey" type="xs:string" minOccurs="1" maxOccurs="1"  />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="UserInterface.SetApplicationIcon">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="Icon" type="xs:string" minOccurs="1" maxOccurs="1"  />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="UserInterface.SetApplicationIconFromArchive">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="Archive" type="xs:string" minOccurs="1" maxOccurs="1"  />
+                  <xs:element name="Icon" type="xs:string" minOccurs="1" maxOccurs="1"  />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="UserInterface.SetApplicationProperties">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="Title" type="xs:string" minOccurs="0" maxOccurs="1"  />
+                  <xs:element name="Institution" type="xs:string" minOccurs="0" maxOccurs="1"  />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+
+  <xs:element name="UserInterface.SetCheckedParagraphSubtitle">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="Dialog" type="xs:string" minOccurs="1" maxOccurs="1"  />
+                  <xs:element name="ControlKey" type="xs:string" minOccurs="1" maxOccurs="1"  />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+            <xs:element name="Content">
+              <xs:complexType>
+                <xs:choice>
+                  <xs:element ref="SimpleParagraph" />
+                  <xs:element ref="ProgressParagraph" />
+                </xs:choice>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="UserInterface.SetParagraphText">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="Dialog" type="xs:string" minOccurs="1" maxOccurs="1"  />
+                  <xs:element name="ControlKey" type="xs:string" minOccurs="1" maxOccurs="1"  />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+            <xs:element name="Content" type="BaseTextContentType" maxOccurs="1" minOccurs="1" />
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="UserInterface.SetAdvancedMenuOptions">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="WindowTitle" type="xs:string" minOccurs="0" maxOccurs="1"  />
+                  <xs:element name="DefaultTitle" type="xs:string" minOccurs="0" maxOccurs="1"  />
+                  <xs:element name="DefaultDescription" type="xs:string" minOccurs="0" maxOccurs="1"  />
+                  <xs:element name="HelpTopic" type="xs:string" minOccurs="0" maxOccurs="1" />
+                  <xs:element name="InitialLeftOffset" type="xs:double" maxOccurs="1" minOccurs="0" />
+                  <xs:element name="InitialTopOffset" type="xs:double" maxOccurs="1" minOccurs="0" />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="UserInterface.SetColorValues">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="Setter" type="KeyedStringPropertyType" minOccurs="1" maxOccurs="unbounded" />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="UserInterface.SetDefaultFont">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="FontFamily" type="xs:string" minOccurs="1" maxOccurs="1" />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="UserInterface.ShowBannerControl">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="Dialog" type="xs:string" minOccurs="1" maxOccurs="1"  />
+                  <xs:element name="ControlKey" type="xs:string" minOccurs="1" maxOccurs="1"  />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="UserInterface.ShowBorderlessDialog">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="Dialog" type="xs:string" minOccurs="1" maxOccurs="1"  />
+                  <xs:element name="Banner" type="xs:string" minOccurs="1" maxOccurs="1"  />
+                  <xs:element name="Shadowed" type="xs:boolean" minOccurs="0" maxOccurs="1"  />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="UserInterface.ShowChildBannerModal">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="ParentDialog" type="xs:string" minOccurs="1" maxOccurs="1"  />
+                  <xs:element name="ChildDialog" type="xs:string" minOccurs="1" maxOccurs="1"  />
+                  <xs:element name="Banner" type="xs:string" minOccurs="1" maxOccurs="1"  />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="UserInterface.ShowChildBannerNonModal">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="ParentDialog" type="xs:string" minOccurs="1" maxOccurs="1"  />
+                  <xs:element name="ChildDialog" type="xs:string" minOccurs="1" maxOccurs="1"  />
+                  <xs:element name="Banner" type="xs:string" minOccurs="1" maxOccurs="1"  />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="UserInterface.ShowErrorDialog">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence minOccurs="0">
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="Dialog" type="xs:string" minOccurs="0" maxOccurs="1">
+                    <xs:annotation>
+                      <xs:documentation>The error dialog name.</xs:documentation>
+                    </xs:annotation>
+                  </xs:element>
+                  <xs:element name="Banner" type="xs:string" maxOccurs="1" minOccurs="0">
+                    <xs:annotation>
+                      <xs:documentation>The error banner name.</xs:documentation>
+                    </xs:annotation>
+                  </xs:element>
+                  <xs:element name="ErrorKey" type="xs:string" maxOccurs="1" minOccurs="0">
+                    <xs:annotation>
+                      <xs:documentation>The settings object key used to store the error for processing.</xs:documentation>
+                    </xs:annotation>
+                  </xs:element>
+                  <xs:element name="ErrorInfoKey" type="xs:string" maxOccurs="1" minOccurs="0">
+                    <xs:annotation>
+                      <xs:documentation>The settings object key used to store the error info wrapper for processing.</xs:documentation>
+                    </xs:annotation>
+                  </xs:element>
+                  <xs:element name="TopicKey" type="xs:string" maxOccurs="1" minOccurs="0">
+                    <xs:annotation>
+                      <xs:documentation>The settings object key used to store the help topic associated with the error</xs:documentation>
+                    </xs:annotation>
+                  </xs:element>
+                  <xs:element name="AdvancedMenuGroupKey" type="xs:string" maxOccurs="1" minOccurs="0">
+                    <xs:annotation>
+                      <xs:documentation>The settings object key used to store the advanced menu group associated with the error</xs:documentation>
+                    </xs:annotation>
+                  </xs:element>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="UserInterface.ShowBorderedBannerModal">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="Dialog" type="xs:string" minOccurs="1" maxOccurs="1"  />
+                  <xs:element name="Banner" type="xs:string" minOccurs="1" maxOccurs="1"  />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="UserInterface.ShowBorderedBannerNonModal">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="Dialog" type="xs:string" minOccurs="1" maxOccurs="1"  />
+                  <xs:element name="Banner" type="xs:string" minOccurs="1" maxOccurs="1"  />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="UserInterface.StartMessageTimer">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="SettingKey" type="xs:string" minOccurs="1" maxOccurs="1"  />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="UserInterface.StopMessageTimer">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="SettingKey" type="xs:string" minOccurs="1" maxOccurs="1"  />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="UserInterface.UpdateBoundText">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="Setter" type="KeyedStringPropertyType" minOccurs="1" maxOccurs="unbounded"  />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="UserInterface.UpdateDialogButtonText">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="Setter" type="KeyedDialogButtonSetter" minOccurs="1" maxOccurs="unbounded"  />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

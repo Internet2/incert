@@ -1,0 +1,23 @@
+﻿usage:
+
+-source=[url] -- specify source url
+-target=[target file] -- specify target file. If source url = file url, not necessary to specify target.  
+-exp=[regular expression] -- regular expression to use to get download url from source content
+-vital=[true/false] -- flag file as vital in file info wrapper. Optional.
+-version=[version string] -- version to assign to file in file info wrapper (for example, 1.0.2.0). Optional.
+-info=[file wrapper name] -- name of the file wrapper.  Optional.
+-requireSigned=[true/false] -- require that the file be signed. Default is true. Optional.
+
+examples:
+
+1) download 32-bit patterns from symantec website:
+
+-source=http://www.symantec.com/security_response/definitions/download/detail.jsp?gid=savce 
+-target=defs32.exe 
+-exp=http://definitions\.symantec\.com/defs/.*?v5i32\.exe
+
+2) download 64-bit patterns from symantec website:
+
+-source=http://www.symantec.com/security_response/definitions/download/detail.jsp?gid=savce 
+-target=defs64.exe 
+-exp=http://definitions\.symantec\.com/defs/.*?v5i64\.exe

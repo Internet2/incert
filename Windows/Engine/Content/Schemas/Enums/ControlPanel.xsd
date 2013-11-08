@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="ControlPanel" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:include schemaLocation="Settings.xsd" />
+  <xs:simpleType name="ExtendedControlPanelValues">
+    <xs:union memberTypes="ControlPanelValues SettingsStringPatternType" />
+  </xs:simpleType>
+
+  <xs:simpleType name="ControlPanelValues">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="DateTime" />
+      <xs:enumeration value="UserAccounts" />
+      <xs:enumeration value="SecurityCenter" />
+    </xs:restriction>
+  </xs:simpleType>
+  
+  
+</xs:schema>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Content xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://incert.incommon.org/schemas ../Schemas/tasklist.xsd">
+  <Branches>
+    <TaskBranch name="windowsupdate.configure">
+      <UserInterface.ActivateCheckedParagraph minimumTaskTime="1">
+        <Properties>
+          <Dialog>Main dialog</Dialog>
+          <ControlKey>Configuring windows update</ControlKey>
+        </Properties>
+      </UserInterface.ActivateCheckedParagraph>
+
+      <!-- this block clears settings that may have been set in registry by sys admins. 
+      We want to use the windows update api to set these settings.  -->
+      <WindowsUpdate.SetRegistryValues>
+        <Properties>
+          <Setter key="AUOptions" />
+          <Setter key="AutoInstallMinorUpdates" />
+          <Setter key="DetectionFrequency" />
+          <Setter key="DetectionFrequencyEnabled" />
+          <Setter key="NoAutoRebootWithLoggedOnUsers" />
+          <Setter key="NoAutoUpdate" />
+          <Setter key="RebootRelaunchTimeout" />
+          <Setter key="RebootRelaunchTimeoutEnabled" />
+          <Setter key="RebootWarningTimeout" />
+          <Setter key="RebootWarningTimeoutEnabled" />
+          <Setter key="RescheduleWaitTime" />
+          <Setter key="RescheduleWaitTimeEnabled" />
+          <Setter key="ScheduledInstallDay" />
+          <Setter key="ScheduledInstallTime" />
+          <Setter key="TargetGroup" />
+          <Setter key="TargetGroupEnabled" />
+        </Properties>
+      </WindowsUpdate.SetRegistryValues>
+
+      <!-- this task uses the Windows update api to schedule windows updates -->
+      <WindowsUpdate.ScheduleWindowsUpdates>
+        <Properties>
+          <InstallDay>ausidEveryDay</InstallDay>
+          <NotificationLevel>aunlScheduledInstallation</NotificationLevel>
+          <HourRange>2</HourRange>
+          <EarliestHour>2</EarliestHour>
+        </Properties>
+      </WindowsUpdate.ScheduleWindowsUpdates>
+
+      <!-- ensure the windows update service is set to auto-start -->
+      <WindowsUpdate.SetServiceStartupValue>
+        <Properties>
+          <StartupValue>Automatic</StartupValue>
+        </Properties>
+      </WindowsUpdate.SetServiceStartupValue>
+      
+      <!-- restart the windows update server so settings take effect immediately -->
+      <WindowsUpdate.RestartService />
+
+      <UserInterface.CompleteCheckedParagraph minimumTaskTime="1">
+        <Properties>
+          <Dialog>Main dialog</Dialog>
+          <ControlKey>Configuring windows update</ControlKey>
+        </Properties>
+      </UserInterface.CompleteCheckedParagraph>
+    </TaskBranch>
+  </Branches>
+  
+</Content>

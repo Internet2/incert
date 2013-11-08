@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Content xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://incert.incommon.org/schemas ./Schemas/tasklist.xsd">
+  <Branches>
+    <TaskBranch name="relaunch as admin">
+      <UserInterface.ShowBorderedBannerModal>
+        <Properties>
+          <Dialog>Issue dialog</Dialog>
+          <Banner>Relaunch as admin banner</Banner>
+        </Properties>
+      </UserInterface.ShowBorderedBannerModal>
+      <Settings.SetSettingText>
+        <Properties>
+          <Setter key="exit launch application">!ApplicationExecutable!</Setter>
+          <Setter key="exit launch application verb">runas</Setter>
+        </Properties>
+      </Settings.SetSettingText>
+      <Control.ReturnExitResult/>
+    </TaskBranch>
+  </Branches>
+
+  <Banners>
+    <SimpleBanner name="Relaunch as admin banner" width ="450" height="350" canClose="true" noCloseQuestion="true" margin="0,24,14,0">
+      <Content>
+        <EllipseGlyph glyph="!" dock="Left" alignment="Center" verticalAlignment="Top" fontSize="30" fontWeight="Bold" margin="24,36,24,0" />
+        <ContentBlockParagraph borderSize="0" banner="Relaunch as admin instructions" verticalAlignment="Stretch" margin="0,24,0,0" />
+
+      </Content>
+      <Buttons>
+        <ResultButton>
+          <Target>NextButton</Target>
+          <Text>Close</Text>
+          <Result>ControlResults.CloseResult</Result>
+          <IsCancelButton>true</IsCancelButton>
+        </ResultButton>
+        <ResultButton>
+          <Target>BackButton</Target>
+          <Text>Restart</Text>
+          <IsDefaultButton>true</IsDefaultButton>
+          <Result>ControlResults.NextResult</Result>
+        </ResultButton>
+        <UrlButton>
+          <Target>HelpButton</Target>
+          <Text>Help</Text>
+          <Value>http://kb.iu.edu/data/aorq.html</Value>
+        </UrlButton>
+      </Buttons>
+    </SimpleBanner>
+    
+    <SimpleBanner name="Relaunch as admin instructions">
+      <Content>
+        <SimpleParagraph alignment="Left" fontWeight="Bold" fontSize="14">
+          <Content>
+            <DirectTextContent>Elevated Permissions Required</DirectTextContent>
+          </Content>
+        </SimpleParagraph>
+        <SimpleParagraph>
+          <Content>
+            <DirectTextContent>!ApplicationTitle! requires administrative rights to configure your computer.</DirectTextContent>
+          </Content>
+        </SimpleParagraph>
+        <SimpleParagraph margin="0,24,0,0" dock="Bottom">
+          <Content>
+            <DirectTextContent>Click Restart to relaunch !ApplicationTitle! with elevated permissions.</DirectTextContent>
+          </Content>
+          <Links>
+            <BackButtonLink target="BackButton">
+              <DirectTextContent>Restart</DirectTextContent>
+            </BackButtonLink>
+          </Links>
+        </SimpleParagraph>
+      </Content>
+    </SimpleBanner>
+  </Banners>
+</Content>
+

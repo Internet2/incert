@@ -1,0 +1,334 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Content xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://incert.incommon.org/schemas ./Schemas/tasklist.xsd">
+
+  <Branches>
+    <TaskBranch name="reset generic diagnostics">
+      <Settings.ClearSettingText>
+        <Properties>
+          <SettingKey>generic diagnostics.auto target 1</SettingKey>
+          <SettingKey>generic diagnostics.auto target 2</SettingKey>
+          <SettingKey>generic diagnostics.auto target 3</SettingKey>
+          <SettingKey>generic diagnostics.auto target 4</SettingKey>
+          <SettingKey>generic diagnostics.auto text 1</SettingKey>
+          <SettingKey>generic diagnostics.auto text 2</SettingKey>
+          <SettingKey>generic diagnostics.auto text 3</SettingKey>
+          <SettingKey>generic diagnostics.auto text 4</SettingKey>
+          <SettingKey>generic diagnostics.control panel target 1</SettingKey>
+          <SettingKey>generic diagnostics.control panel target 2</SettingKey>
+          <SettingKey>generic diagnostics.control panel text 1</SettingKey>
+          <SettingKey>generic diagnostics.control panel text 2</SettingKey>
+          <SettingKey>generic diagnostics.help button url</SettingKey>
+          <SettingKey>generic diagnostics.skip target</SettingKey>
+          <SettingKey>generic diagnostics.skip text</SettingKey>
+        </Properties>
+      </Settings.ClearSettingText>
+
+      <Settings.SetSettingText>
+        <Properties>
+          <Setter key="generic diagnostics.cancel button text">Cancel</Setter>
+          <Setter key="generic diagnostics.next button text">Next</Setter>
+          <Setter key="generic diagnostics.help button text">Help</Setter>
+        </Properties>
+      </Settings.SetSettingText>
+      
+      <Control.PreserveArbitraryResult>
+        <Properties>
+          <ObjectKey>generic diagnostics.cancel result</ObjectKey>
+          <Result>Errors.General.Cancelled</Result>
+        </Properties>
+      </Control.PreserveArbitraryResult>
+      
+      <Control.PreserveArbitraryResult>
+        <Properties>
+          <ObjectKey>generic diagnostics.retry result</ObjectKey>
+          <Result>ControlResults.RepeatParentBranchResult</Result>
+        </Properties>
+      </Control.PreserveArbitraryResult>
+    </TaskBranch>
+
+    <TaskBranch name="suppress error result">
+      <Logging.LogWarningFromTaskResult>
+        <Properties>
+          <BaseText>Suppressing error result: {ErrorName} ({Issue})</BaseText>
+        </Properties>
+      </Logging.LogWarningFromTaskResult>
+    </TaskBranch>
+                
+  </Branches>
+
+  <Banners>
+    <SimpleBanner name="generic diagnostics.banner" noCloseQuestion="false" height="550" width="500" >
+      <Content>
+        <ContentBlockParagraph borderSize="0" banner="generic diagnostics.title banner" verticalAlignment="Top" margin="20,43,20,0"  />
+        <ContentBlockParagraph borderSize="0" banner="generic diagnostics.content banner" verticalAlignment="Top" margin="98,12,0,0" />
+      </Content>
+      <Buttons>
+        <StoredResultButton>
+          <Key>generic diagnostics.cancel result</Key>
+          <Target>NextButton</Target>
+          <Text>[generic diagnostics.cancel button text]</Text>
+          <IsCancelButton>true</IsCancelButton>
+        </StoredResultButton>
+        <StoredResultButton>
+          <Target>BackButton</Target>
+          <Text>[generic diagnostics.retry button text]</Text>
+          <Key>generic diagnostics.retry result</Key>
+          <IsDefaultButton>true</IsDefaultButton>
+        </StoredResultButton>
+        <UrlButton>
+          <Target>HelpButton</Target>
+          <Text>[generic diagnostics.help button text]</Text>
+          <Value>[generic diagnostics.help button url]</Value>
+        </UrlButton>
+      </Buttons>
+      <Actions>
+        <HideControlAction onetime="true">
+          <Conditions.All>
+            <Settings.SettingNotPresent key="generic diagnostics.auto target 1" />
+            <Settings.SettingNotPresent key="generic diagnostics.auto target 2" />
+            <Settings.SettingNotPresent key="generic diagnostics.auto target 3" />
+            <Settings.SettingNotPresent key="generic diagnostics.auto target 4" />
+          </Conditions.All>
+          <ControlKey>generic diagnostics.fix automatically subtitle</ControlKey>
+        </HideControlAction>
+
+        <HideControlAction onetime="true">
+          <Conditions.All>
+            <Settings.SettingNotPresent key="generic diagnostics.help button url" />
+          </Conditions.All>
+          <ControlKey>HelpButton</ControlKey>
+        </HideControlAction>
+
+        <HideControlAction onetime="true">
+          <Conditions.All>
+            <Settings.ObjectEntryNotPresent objectKey="generic diagnostics.cancel result" />
+          </Conditions.All>
+          <ControlKey>NextButton</ControlKey>
+        </HideControlAction>
+
+        <HideControlAction onetime="true">
+          <Conditions.All>
+            <Settings.ObjectEntryNotPresent objectKey="generic diagnostics.retry result" />
+          </Conditions.All>
+          <ControlKey>BackButton</ControlKey>
+        </HideControlAction>
+        
+        <HideControlAction onetime="true">
+          <Conditions.All>
+            <Settings.SettingNotPresent key="generic diagnostics.auto target 1" />
+          </Conditions.All>
+          <ControlKey>generic diagnostics.auto text 1</ControlKey>
+        </HideControlAction>
+
+        <HideControlAction onetime="true">
+          <Conditions.All>
+            <Settings.SettingNotPresent key="generic diagnostics.auto target 2" />
+          </Conditions.All>
+          <ControlKey>generic diagnostics.auto text 2</ControlKey>
+        </HideControlAction>
+
+        <HideControlAction onetime="true">
+          <Conditions.All>
+            <Settings.SettingNotPresent key="generic diagnostics.auto target 3" />
+          </Conditions.All>
+          <ControlKey>generic diagnostics.auto text 3</ControlKey>
+        </HideControlAction>
+
+        <HideControlAction onetime="true">
+          <Conditions.All>
+            <Settings.SettingNotPresent key="generic diagnostics.auto target 4" />
+          </Conditions.All>
+          <ControlKey>generic diagnostics.auto text 4</ControlKey>
+        </HideControlAction>
+
+        <HideControlAction onetime="true">
+          <Conditions.All>
+            <Settings.SettingNotPresent key="generic diagnostics.control panel target 1" />
+            <Settings.SettingNotPresent key="generic diagnostics.control panel target 2" />
+          </Conditions.All>
+          <ControlKey>generic diagnostics.fix manually subtitle</ControlKey>
+        </HideControlAction>
+
+        <HideControlAction onetime="true">
+          <Conditions.All>
+            <Settings.SettingNotPresent key="generic diagnostics.control panel target 1" />
+          </Conditions.All>
+          <ControlKey>generic diagnostics.control panel text 1</ControlKey>
+        </HideControlAction>
+
+        <HideControlAction onetime="true">
+          <Conditions.All>
+            <Settings.SettingNotPresent key="generic diagnostics.control panel target 2" />
+          </Conditions.All>
+          <ControlKey>generic diagnostics.control panel text 2</ControlKey>
+        </HideControlAction>
+
+        <HideControlAction onetime="true">
+          <Conditions.All>
+            <Settings.SettingNotPresent key="generic diagnostics.skip target" />
+          </Conditions.All>
+          <ControlKey>generic diagnostics.fix manually subtitle</ControlKey>
+          <ControlKey>generic diagnostics.skip text</ControlKey>
+        </HideControlAction>
+        
+        <ReturnResultAction result="ControlResults.NextResult">
+          <Conditions.All>
+            <Settings.SettingEquals key="[generic diagnostics.auto target 1]" value="true" ignoreCase="true" />
+          </Conditions.All>
+          <ControlKey>generic diagnostics.auto text 1</ControlKey>
+        </ReturnResultAction>
+        
+        <ReturnResultAction result="ControlResults.NextResult">
+          <Conditions.All>
+            <Settings.SettingEquals key="[generic diagnostics.auto target 2]" value="true" ignoreCase="true" />
+          </Conditions.All>
+          <ControlKey>generic diagnostics.auto text 2</ControlKey>
+        </ReturnResultAction>
+
+        <ReturnResultAction result="ControlResults.NextResult">
+          <Conditions.All>
+            <Settings.SettingEquals key="[generic diagnostics.auto target 3]" value="true" ignoreCase="true" />
+          </Conditions.All>
+          <ControlKey>generic diagnostics.auto text 3</ControlKey>
+        </ReturnResultAction>
+
+        <ReturnResultAction result="ControlResults.NextResult">
+          <Conditions.All>
+            <Settings.SettingEquals key="[generic diagnostics.auto target 4]" value="true" ignoreCase="true" />
+          </Conditions.All>
+          <ControlKey>generic diagnostics.auto text 4</ControlKey>
+        </ReturnResultAction>
+
+        <ReturnResultAction result="ControlResults.NextResult">
+          <Conditions.All>
+            <Settings.SettingEquals key="[generic diagnostics.skip target]" value="true" ignoreCase="true" />
+          </Conditions.All>
+          <ControlKey>generic diagnostics.skip text</ControlKey>
+        </ReturnResultAction>
+      </Actions>
+    </SimpleBanner>
+
+    <SimpleBanner name="generic diagnostics.title banner" >
+      <Content>
+        <EllipseGlyph dock="Left" glyph="!" fontSize="36" borderSize="2" fontWeight="Bold" verticalAlignment="Top" margin="0,0,16,0" />
+        <ContentBlockParagraph borderSize="0" banner="generic diagnostics.title content banner" verticalAlignment="Center" margin="0"  dock="Right" />
+      </Content>
+    </SimpleBanner>
+
+    <SimpleBanner name="generic diagnostics.title content banner">
+      <Content>
+        <SimpleParagraph alignment="Left" fontSize="24" fontWeight="Bold" margin="0" padding="0">
+          <Content>
+            <DirectTextContent>[generic diagnostics.title]</DirectTextContent>
+          </Content>
+        </SimpleParagraph>
+        <SimpleParagraph>
+          <Content>
+            <DirectTextContent>[generic diagnostics.text]</DirectTextContent>
+          </Content>
+        </SimpleParagraph>
+      </Content>
+    </SimpleBanner>
+
+    <SimpleBanner name="generic diagnostics.content banner" >
+      <Content>
+        <SimpleParagraph margin="0,24,0,0" fontWeight="Bold" fontSize="14" controlKey="generic diagnostics.fix automatically subtitle">
+          <Content>
+            <DirectTextContent>Fix automatically</DirectTextContent>
+          </Content>
+        </SimpleParagraph>
+
+        <BulletParagraph padding="4,8,0,0" controlKey="generic diagnostics.auto text 1">
+          <Content>
+            <DirectTextContent>[generic diagnostics.auto text 1]</DirectTextContent>
+          </Content>
+          <Links>
+            <SettingsLink target="[generic diagnostics.auto target 1]">
+              <DirectTextContent>[generic diagnostics.auto text 1]</DirectTextContent>
+            </SettingsLink>
+          </Links>
+        </BulletParagraph>
+
+        <BulletParagraph padding="4,8,0,0" controlKey="generic diagnostics.auto text 2">
+          <Content>
+            <DirectTextContent>[generic diagnostics.auto text 2]</DirectTextContent>
+          </Content>
+          <Links>
+            <SettingsLink target="[generic diagnostics.auto target 2]">
+              <DirectTextContent>[generic diagnostics.auto text 2]</DirectTextContent>
+            </SettingsLink>
+          </Links>
+        </BulletParagraph>
+
+        <BulletParagraph padding="4,8,0,0" controlKey="generic diagnostics.auto text 3">
+          <Content>
+            <DirectTextContent>[generic diagnostics.auto text 3]</DirectTextContent>
+          </Content>
+          <Links>
+            <SettingsLink target="[generic diagnostics.auto target 3]">
+              <DirectTextContent>[generic diagnostics.auto text 3]</DirectTextContent>
+            </SettingsLink>
+          </Links>
+        </BulletParagraph>
+
+        <BulletParagraph padding="4,8,0,0" controlKey="generic diagnostics.auto text 4">
+          <Content>
+            <DirectTextContent>[generic diagnostics.auto text 4]</DirectTextContent>
+          </Content>
+          <Links>
+            <SettingsLink target="[generic diagnostics.auto target 4]">
+              <DirectTextContent>[generic diagnostics.auto text 4]</DirectTextContent>
+            </SettingsLink>
+          </Links>
+        </BulletParagraph>
+
+        <SimpleParagraph margin="0,24,0,0" fontWeight="Bold" fontSize="14" controlKey="generic diagnostics.fix manually subtitle">
+          <Content>
+            <DirectTextContent>Fix manually</DirectTextContent>
+          </Content>
+        </SimpleParagraph>
+
+        <BulletParagraph padding="4,8,0,0" controlKey="generic diagnostics.control panel text 1">
+          <Content>
+            <DirectTextContent>[generic diagnostics.control panel text 1]</DirectTextContent>
+          </Content>
+          <Links>
+            <OpenControlPanelLink target="[generic diagnostics.control panel target 1]">
+              <DirectTextContent>[generic diagnostics.control panel text 1]</DirectTextContent>
+            </OpenControlPanelLink>
+          </Links>
+        </BulletParagraph>
+
+        <BulletParagraph padding="4,8,0,0" controlKey="generic diagnostics.control panel text 2">
+          <Content>
+            <DirectTextContent>[generic diagnostics.control panel text 2]</DirectTextContent>
+          </Content>
+          <Links>
+            <OpenControlPanelLink target="[generic diagnostics.control panel target 2]">
+              <DirectTextContent>[generic diagnostics.control panel text 2]</DirectTextContent>
+            </OpenControlPanelLink>
+          </Links>
+        </BulletParagraph>
+
+        <SimpleParagraph margin="0,24,0,0" fontWeight="Bold" fontSize="14" controlKey="generic diagnostics.skip subtitle">
+          <Content>
+            <DirectTextContent>Ignore and Continue</DirectTextContent>
+          </Content>
+        </SimpleParagraph>
+
+        <BulletParagraph padding="4,8,0,0" controlKey="generic diagnostics.skip text">
+          <Content>
+            <DirectTextContent>[generic diagnostics.skip text]</DirectTextContent>
+          </Content>
+          <Links>
+            <SettingsLink target="[generic diagnostics.skip target]">
+              <DirectTextContent>[generic diagnostics.skip text]</DirectTextContent>
+            </SettingsLink>
+          </Links>
+        </BulletParagraph>
+        
+      </Content>
+    </SimpleBanner>
+  </Banners>
+</Content>

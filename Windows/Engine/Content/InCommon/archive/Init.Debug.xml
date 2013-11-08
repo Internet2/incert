@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- For more information on using transformations 
+     see the web.config examples at http://go.microsoft.com/fwlink/?LinkId=214134. -->
+<Content xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
+  <Branches>
+    <TaskBranch name="initialize">
+      <WebServices.SetEndpointUrlForFunction xdt:Transform="Replace">
+        <Properties>
+          <Function>GetContent</Function>
+          <Url>https://certdev0.incommontest.org/incommon/windows/content/dev/</Url>
+        </Properties>
+      </WebServices.SetEndpointUrlForFunction>
+    </TaskBranch>
+  </Branches>
+</Content>

@@ -1,0 +1,1534 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{04D09615-BBC7-436A-9A77-42D93A317F2C}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Org.InCommon.InCert.Engine</RootNamespace>
+    <AssemblyName>Engine</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <!-- for msbuild community paths library -->
+    <MSBuildCommunityTasksPath Condition="'$(MSBuildCommunityTasksPath)' == ''">$(SolutionDir).build</MSBuildCommunityTasksPath>
+    <AppVersion Condition="'$(AppVersion)' == ''">13.2.0.0</AppVersion>
+    <IconPath Condition="'$(IconPath)' == ''">icon.ico</IconPath>
+    <IncertTargets Condition="'$(IncertTargets)' == '' or !Exists('$(IncertTargets)')">$(SolutionDir).build\InCert.targets</IncertTargets>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\$(Configuration)\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <Prefer32Bit>false</Prefer32Bit>
+    <!--<ProductName Condition="'$(ProductName)' == ''">InCert</ProductName>
+    <Institution Condition="'$(Institution)' == ''">InCommon</Institution>
+    <ArchivePath Condition="'$(ArchivePath)' == ''">content\Incommon\archive\</ArchivePath>-->
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\$(Configuration)\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <!--  <ProductName Condition="'$(ProductName)' == ''">InCert</ProductName>
+    <Institution Condition="'$(Institution)' == ''">InCommon</Institution>
+    <ArchivePath Condition="'$(ArchivePath)' == ''">content\Incommon\archive\</ArchivePath>-->
+  </PropertyGroup>
+  <!-- <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug.Indiana|x86'">
+    <OutputPath>bin\Debug\</OutputPath>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <Prefer32Bit>false</Prefer32Bit>
+    <Institution Condition="'$(Institution)' == ''">InCommon</Institution>
+    <ProductName Condition="'$(ProductName)' == ''">Get Connected</ProductName>
+    <ArchivePath Condition="'$(ArchivePath)' == ''">content\Indiana\archive\</ArchivePath>
+  </PropertyGroup>-->
+  <!-- <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release.Indiana|x86'">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <ProductName Condition="'$(ProductName)' == ''">Get Connected</ProductName>
+    <ArchivePath Condition="'$(ArchivePath)' == ''">content\Indiana\archive\</ArchivePath>
+  </PropertyGroup>-->
+  <PropertyGroup>
+    <StartupObject>Org.InCommon.InCert.Engine.App</StartupObject>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>$(IconPath)</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="BouncyCastle.Crypto, Version=1.7.4137.9688, Culture=neutral, PublicKeyToken=a4292a325f69b123, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\BouncyCastle.1.7.0\lib\Net40-Client\BouncyCastle.Crypto.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.12.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\log4net.2.0.2\lib\net40-full\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="Ninject, Version=3.0.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Ninject.3.0.1.10\lib\net45-full\Ninject.dll</HintPath>
+    </Reference>
+    <Reference Include="RestSharp, Version=104.3.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\RestSharp.104.3.3\lib\net4\RestSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Activities" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Activities" />
+    <Reference Include="System.ServiceModel.Channels" />
+    <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AdvancedMenu\AdvancedMenuItem.cs" />
+    <Compile Include="AdvancedMenu\AdvancedMenuManager.cs" />
+    <Compile Include="AdvancedMenu\IAdvancedMenuItem.cs" />
+    <Compile Include="AdvancedMenu\IAdvancedMenuManager.cs" />
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CommandLineProcessors\AbstractCommandLineProcessor.cs" />
+    <Compile Include="CommandLineProcessors\Composite\MultiProcessor.cs" />
+    <Compile Include="CommandLineProcessors\Engine\SetEngineMode.cs" />
+    <Compile Include="CommandLineProcessors\Engine\SetEngineModeFromValue.cs" />
+    <Compile Include="CommandLineProcessors\ICommandLineManager.cs" />
+    <Compile Include="CommandLineProcessors\ICommandLineProcessor.cs" />
+    <Compile Include="CommandLineProcessors\Settings\SetListProcessor.cs" />
+    <Compile Include="CommandLineProcessors\Settings\SetSettingProcessor.cs" />
+    <Compile Include="CommandLineProcessors\Settings\SetSettingValueProcessor.cs" />
+    <Compile Include="Conditions\AntiMalware\SecurityProviderNotHealthy.cs" />
+    <Compile Include="Conditions\AntiMalware\SecurityProviderHealthy.cs" />
+    <Compile Include="Conditions\Certificates\AbstractCertExistsCondition.cs" />
+    <Compile Include="Conditions\Certificates\CertificateThumbprintDoesNotExist.cs" />
+    <Compile Include="Conditions\Certificates\NoValidCertsExistForEmail.cs" />
+    <Compile Include="Conditions\Certificates\NoValidCertsExistForSubjectKey.cs" />
+    <Compile Include="Conditions\Certificates\ValidCertExistsForEmail.cs" />
+    <Compile Include="Conditions\Certificates\ValidCertExistsForSubjectKey.cs" />
+    <Compile Include="Conditions\Certificates\CertificateThumbprintExists.cs" />
+    <Compile Include="Conditions\Control\BranchNotExists.cs" />
+    <Compile Include="Conditions\Control\IsNotResultType.cs" />
+    <Compile Include="Conditions\Control\PreviousResultTypeOf.cs" />
+    <Compile Include="Conditions\Control\IsResultType.cs" />
+    <Compile Include="Conditions\Control\PreviousResultNotTypeOf.cs" />
+    <Compile Include="Conditions\Control\SecondsHaveElapsed.cs" />
+    <Compile Include="Conditions\Control\SecondsHaveNotElapsed.cs" />
+    <Compile Include="Conditions\Domain\IsCurrentUserDomainAccount.cs" />
+    <Compile Include="Conditions\Domain\IsCurrentUserLocalAccount.cs" />
+    <Compile Include="Conditions\Domain\IsInAnyDomain.cs" />
+    <Compile Include="Conditions\Domain\IsNotInAnyDomain.cs" />
+    <Compile Include="Conditions\Downloader\FileDoesNotExist.cs" />
+    <Compile Include="Conditions\Downloader\FileExists.cs" />
+    <Compile Include="Conditions\Encryption\AbstractEncryptionCondition.cs" />
+    <Compile Include="Conditions\Encryption\BitLocker\DrivesEncrypted.cs" />
+    <Compile Include="Conditions\Encryption\BitLocker\DrivesNotEncrypted.cs" />
+    <Compile Include="Conditions\Encryption\Pgp\AbstractPgpCondition.cs" />
+    <Compile Include="Conditions\Encryption\Pgp\DrivesEncrypted.cs" />
+    <Compile Include="Conditions\Encryption\Pgp\DrivesNotEncrypted.cs" />
+    <Compile Include="Conditions\Encryption\Pgp\PgpInstalled.cs" />
+    <Compile Include="Conditions\Encryption\Pgp\PgpNotInstalled.cs" />
+    <Compile Include="Conditions\Encryption\TrueCrypt\AbstractTrueCryptCondition.cs" />
+    <Compile Include="Conditions\Encryption\TrueCrypt\DriverNotPresent.cs" />
+    <Compile Include="Conditions\Encryption\TrueCrypt\DriverPresent.cs" />
+    <Compile Include="Conditions\Encryption\TrueCrypt\SystemDriveEncrypted.cs" />
+    <Compile Include="Conditions\Engine\ModeEquals.cs" />
+    <Compile Include="Conditions\Engine\ModeNotEqual.cs" />
+    <Compile Include="Conditions\FileAndPath\DirectoryDoesNotExist.cs" />
+    <Compile Include="Conditions\FileAndPath\DirectoryExists.cs" />
+    <Compile Include="Conditions\Grouping\AbstractGroupCondition.cs" />
+    <Compile Include="Conditions\Grouping\AllTrue.cs" />
+    <Compile Include="Conditions\Grouping\AnyTrue.cs" />
+    <Compile Include="Conditions\Identity\GroupNotPresent.cs" />
+    <Compile Include="Conditions\Identity\GroupPresent.cs" />
+    <Compile Include="Conditions\Misc\InvalidUrlString.cs" />
+    <Compile Include="Conditions\Misc\UrlStringValid.cs" />
+    <Compile Include="Conditions\Network\HostNotPingable.cs" />
+    <Compile Include="Conditions\Network\HostPingable.cs" />
+    <Compile Include="Conditions\Network\NtlmV2Enabled.cs" />
+    <Compile Include="Conditions\Network\NtlmV2NotEnabled.cs" />
+    <Compile Include="Conditions\Network\Offline.cs" />
+    <Compile Include="Conditions\Network\Online.cs" />
+    <Compile Include="Conditions\Control\IsExceptionResult.cs" />
+    <Compile Include="Conditions\Control\IsNotExceptionResult.cs" />
+    <Compile Include="Conditions\Services\ServiceNotStarted.cs" />
+    <Compile Include="Conditions\Services\ServiceStarted.cs" />
+    <Compile Include="Conditions\Services\StartupTypeIs.cs" />
+    <Compile Include="Conditions\Services\StartupTypeNot.cs" />
+    <Compile Include="Conditions\Settings\PersistedValueNotPresent.cs" />
+    <Compile Include="Conditions\Settings\PersistedValuePresent.cs" />
+    <Compile Include="Conditions\Settings\ValueNotPresentInStoredList.cs" />
+    <Compile Include="Conditions\Settings\ValuePresentInStoredList.cs" />
+    <Compile Include="Conditions\SystemInfo\IsNotProfessional.cs" />
+    <Compile Include="Conditions\SystemInfo\IsProcessRunningByName.cs" />
+    <Compile Include="Conditions\SystemInfo\IsProfessional.cs" />
+    <Compile Include="Conditions\Versioning\FileInfoVersionLessOrEqual.cs" />
+    <Compile Include="Conditions\Versioning\FileVersionAtLeast.cs" />
+    <Compile Include="Conditions\Versioning\FileVersionNotAtLeast.cs" />
+    <Compile Include="Conditions\Versioning\NoVersionInstalled.cs" />
+    <Compile Include="Conditions\Versioning\UninstallKeyDoesNotExist.cs" />
+    <Compile Include="Conditions\Versioning\UninstallValueEquals.cs" />
+    <Compile Include="Conditions\Versioning\UninstallKeyExists.cs" />
+    <Compile Include="Conditions\Versioning\UninstallVersionAtLeast.cs" />
+    <Compile Include="Conditions\Versioning\UninstallVersionLessThan.cs" />
+    <Compile Include="Conditions\WindowsRegistry\AbstractRegistryCondition.cs" />
+    <Compile Include="Conditions\WindowsRegistry\LongDateNotWithinRange.cs" />
+    <Compile Include="Conditions\WindowsRegistry\LongDateWithinRange.cs" />
+    <Compile Include="Conditions\WindowsRegistry\ValueDoesNotExist.cs" />
+    <Compile Include="Conditions\WindowsRegistry\ValueExists.cs" />
+    <Compile Include="Conditions\SecurityPolicies\PolicyApplied.cs" />
+    <Compile Include="Conditions\SecurityPolicies\PolicyNotApplied.cs" />
+    <Compile Include="Conditions\Settings\ObjectEntryNotPresent.cs" />
+    <Compile Include="Conditions\Settings\ObjectEntryPresent.cs" />
+    <Compile Include="Conditions\Settings\StoredDictionaryValueEquals.cs" />
+    <Compile Include="Conditions\Settings\StoredDictionaryValueNotEqual.cs" />
+    <Compile Include="Conditions\SystemInfo\IsNotWindows7.cs" />
+    <Compile Include="Conditions\SystemInfo\IsNotWindows8.cs" />
+    <Compile Include="Conditions\SystemInfo\IsNotWindowsVista.cs" />
+    <Compile Include="Conditions\SystemInfo\IsNotWindowsXp.cs" />
+    <Compile Include="Conditions\SystemInfo\IsWindows7.cs" />
+    <Compile Include="Conditions\SystemInfo\IsWindows8.cs" />
+    <Compile Include="Conditions\SystemInfo\IsWindowsVista.cs" />
+    <Compile Include="Conditions\SystemInfo\IsWindowsXp.cs" />
+    <Compile Include="Conditions\SystemInfo\ServicePackAtLeast.cs" />
+    <Compile Include="Conditions\SystemInfo\ServicePackLessThan.cs" />
+    <Compile Include="Conditions\UserInterface\InvalidColorString.cs" />
+    <Compile Include="Conditions\UserInterface\ValidColorString.cs" />
+    <Compile Include="Conditions\Versioning\AbstractMsiVersionCondition.cs" />
+    <Compile Include="Conditions\Versioning\AnyVersionInstalled.cs" />
+    <Compile Include="Conditions\Versioning\LatestVersionInstalled.cs" />
+    <Compile Include="Conditions\Versioning\FileInfoNotVital.cs" />
+    <Compile Include="Conditions\Versioning\FileInfoVersionAtLeast.cs" />
+    <Compile Include="Conditions\Versioning\FileInfoVersionGreater.cs" />
+    <Compile Include="Conditions\Versioning\FileInfoVersionLess.cs" />
+    <Compile Include="Conditions\Versioning\FileInfoVital.cs" />
+    <Compile Include="Conditions\Downloader\FileNotValid.cs" />
+    <Compile Include="Conditions\Downloader\FileValid.cs" />
+    <Compile Include="Conditions\FileAndPath\FileDoesNotExist.cs" />
+    <Compile Include="Conditions\Firewall\AbstractFirewallCondition.cs" />
+    <Compile Include="Conditions\Firewall\IsFirewallDisabled.cs" />
+    <Compile Include="Conditions\Firewall\IsFirewallEnabled.cs" />
+    <Compile Include="Conditions\Resources\EmbeddedResourceExists.cs" />
+    <Compile Include="Conditions\SystemInfo\Is64Bit.cs" />
+    <Compile Include="Conditions\SystemInfo\IsAdministrator.cs" />
+    <Compile Include="Conditions\SystemInfo\IsNot64Bit.cs" />
+    <Compile Include="Conditions\SystemInfo\IsNotAdministrator.cs" />
+    <Compile Include="Conditions\UserInterface\BannerControlDoesNotExist.cs" />
+    <Compile Include="Conditions\UserInterface\BannerControlExists.cs" />
+    <Compile Include="Conditions\UserInterface\TimedMessageDoesNotExist.cs" />
+    <Compile Include="Conditions\UserInterface\TimedMessageExists.cs" />
+    <Compile Include="Conditions\Versioning\InvalidVersionString.cs" />
+    <Compile Include="Conditions\Versioning\ValidVersionString.cs" />
+    <Compile Include="Conditions\WindowsUpdate\NoUpdatesPresent.cs" />
+    <Compile Include="Conditions\WindowsUpdate\RestartNotRequired.cs" />
+    <Compile Include="Conditions\WindowsUpdate\RestartRequired.cs" />
+    <Compile Include="Conditions\WindowsUpdate\UpdatesPresent.cs" />
+    <Compile Include="Conditions\Wireless\ConnectedToNetwork.cs" />
+    <Compile Include="Conditions\Wireless\PrimaryAdapterNotWireless.cs" />
+    <Compile Include="Conditions\Wireless\PrimaryAdapterWireless.cs" />
+    <Compile Include="Conditions\Wireless\ProfileNotEquivalent.cs" />
+    <Compile Include="Conditions\Wireless\NotConnectedToNetwork.cs" />
+    <Compile Include="Conditions\Wireless\NoWirelessAdaptersPresent.cs" />
+    <Compile Include="Conditions\Wireless\ProfileEquivalent.cs" />
+    <Compile Include="Conditions\Wireless\WirelessAdapterPresent.cs" />
+    <Compile Include="Dynamics\AbstractDynamicPropertyContainer.cs" />
+    <Compile Include="Dynamics\StandardTokens.cs" />
+    <Compile Include="Dynamics\StaticDynamicsResolver.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Engines\EngineModes.cs" />
+    <Compile Include="Engines\IEngine.cs" />
+    <Compile Include="Engines\IHasEngineFields.cs" />
+    <Compile Include="Engines\StandardEngine.cs" />
+    <Compile Include="Extensions\CursorExtensions.cs" />
+    <Compile Include="Extensions\DoEventsExtension.cs" />
+    <Compile Include="Conditions\Control\BranchExists.cs" />
+    <Compile Include="Conditions\FileAndPath\FileExists.cs" />
+    <Compile Include="Conditions\Settings\SettingNotEqual.cs" />
+    <Compile Include="Conditions\Settings\SettingEquals.cs" />
+    <Compile Include="Conditions\Settings\SettingNotPresent.cs" />
+    <Compile Include="Conditions\Settings\SettingPresent.cs" />
+    <Compile Include="Extensions\EngineExtensions.cs" />
+    <Compile Include="Extensions\GetApplicationInfoExtension.cs" />
+    <Compile Include="Extensions\IdentifierExtension.cs" />
+    <Compile Include="Extensions\KeyedSettingsPropertyExtensions.cs" />
+    <Compile Include="Extensions\ProcessExtensions.cs" />
+    <Compile Include="Extensions\ResultExtensions.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
+    <Compile Include="Extensions\TaskExtensions.cs" />
+    <Compile Include="Extensions\ThicknessExtensions.cs" />
+    <Compile Include="Extensions\XmlExtensions.cs" />
+    <Compile Include="Help\HelpTopic.cs" />
+    <Compile Include="Help\IHelpManager.cs" />
+    <Compile Include="Help\SchemeHandlers\ArchiveSchemeHandler.cs" />
+    <Compile Include="Help\SchemeHandlers\IHelpSchemeHandler.cs" />
+    <Compile Include="Help\IHelpTopic.cs" />
+    <Compile Include="Importables\PropertySetters\KeyedLiteralStringPropertyEntry.cs" />
+    <Compile Include="Importables\PropertySetters\KeyedStringPropertyEntry.cs" />
+    <Compile Include="Logging\BlockingLoggingEvent.cs" />
+    <Compile Include="Logging\SupportedLoggingLevels.cs" />
+    <Compile Include="NativeCode\InternetSecurityManager\IInternetSecurityManager.cs" />
+    <Compile Include="NativeCode\NativeWifi\Interop.cs" />
+    <Compile Include="NativeCode\NetConfig\BindingPathsFlags.cs" />
+    <Compile Include="NativeCode\NetConfig\ComponentCharacteristics.cs" />
+    <Compile Include="NativeCode\NetConfig\IEnumNetCfgBindingInterface.cs" />
+    <Compile Include="NativeCode\NetConfig\IEnumNetCfgBindingPath.cs" />
+    <Compile Include="NativeCode\NetConfig\IEnumNetCfgComponent.cs" />
+    <Compile Include="NativeCode\NetConfig\INetCfg.cs" />
+    <Compile Include="NativeCode\NetConfig\INetCfgBindingInterface.cs" />
+    <Compile Include="NativeCode\NetConfig\INetCfgBindingPath.cs" />
+    <Compile Include="NativeCode\NetConfig\INetCfgClass.cs" />
+    <Compile Include="NativeCode\NetConfig\INetCfgClassSetup.cs" />
+    <Compile Include="NativeCode\NetConfig\INetCfgComponent.cs" />
+    <Compile Include="NativeCode\NetConfig\INetCfgComponentBindings.cs" />
+    <Compile Include="NativeCode\NetConfig\INetCfgLock.cs" />
+    <Compile Include="NativeCode\NetConfig\INetCfgSysPrep.cs" />
+    <Compile Include="NativeCode\NetConfig\NcrpFlags.cs" />
+    <Compile Include="NativeCode\NetConfig\NetCfgGuids.cs" />
+    <Compile Include="NativeCode\NetConfig\NetConfigExtensions.cs" />
+    <Compile Include="NativeCode\NetConfig\SupportsBindingInterfaceFlags.cs" />
+    <Compile Include="NativeCode\ShellLink\IShellLink.cs" />
+    <Compile Include="NativeCode\Wmi\ComputerSystem.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="NativeCode\Wmi\EncryptableVolume.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="NativeCode\Wmi\SystemEnclosure.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Properties\Annotations.cs" />
+    <Compile Include="Results\ControlResults\LeaveBranchBackResult.cs" />
+    <Compile Include="Results\ControlResults\RepeatBranchingTaskResult.cs" />
+    <Compile Include="Results\ControlResults\RepeatCurrentTaskResult.cs" />
+    <Compile Include="Results\ControlResults\RestartComputerResult.cs" />
+    <Compile Include="Results\ControlResults\SilentRestartComputerResult.cs" />
+    <Compile Include="Results\Errors\AntiMalware\AntiSpywareHealthNotMonitored.cs" />
+    <Compile Include="Results\Errors\AntiMalware\AntiSpywareHealthPoor.cs" />
+    <Compile Include="Results\Errors\AntiMalware\AntiVirusHealthNotMonitored.cs" />
+    <Compile Include="Results\Errors\AntiMalware\AntiVirusHealthPoor.cs" />
+    <Compile Include="Results\Errors\AntiMalware\IssueScanningForMalware.cs" />
+    <Compile Include="Results\Errors\AntiMalware\MalwareDetected.cs" />
+    <Compile Include="Results\Errors\AntiMalware\SecurityCenterLibrariesAbsent.cs" />
+    <Compile Include="Results\Errors\AntiMalware\SecurityCenterNotActive.cs" />
+    <Compile Include="Results\Errors\Authentication\LocalAdminPasswordNotSet.cs" />
+    <Compile Include="Results\Errors\Certificates\UserCertNotPresent.cs" />
+    <Compile Include="Results\Errors\Certificates\UserCertWillExpire.cs" />
+    <Compile Include="Results\Errors\Downloader\CouldNotDownloadFile.cs" />
+    <Compile Include="Results\Errors\Downloader\CouldNotVerifyFile.cs" />
+    <Compile Include="Results\Errors\Services\ServiceInfoNotInRegistry.cs" />
+    <Compile Include="Results\Errors\Services\ServiceInstanceNotAvailable.cs" />
+    <Compile Include="Results\Errors\System\NotSupported.cs" />
+    <Compile Include="Results\Errors\Installer\CouldNotInstallPackage.cs" />
+    <Compile Include="Results\Errors\Mapping\IErrorManager.cs" />
+    <Compile Include="Results\Errors\Network\BridgedAdapterPresent.cs" />
+    <Compile Include="Results\Errors\Network\NetworkAddressTranslation.cs" />
+    <Compile Include="Results\Errors\Path\DirectoryNotFound.cs" />
+    <Compile Include="Results\Errors\Path\DiskSpaceLow.cs" />
+    <Compile Include="Results\Errors\Path\DriveNotEncrypted.cs" />
+    <Compile Include="Results\Errors\Path\EncryptionStatusNotAvailable.cs" />
+    <Compile Include="Results\Errors\SecurityPolicies\CouldNotSetSecurityPolicy.cs" />
+    <Compile Include="Results\Errors\System\Windows7ServicePackRequired.cs" />
+    <Compile Include="Results\Errors\System\WindowsVistaServicePackRequired.cs" />
+    <Compile Include="Results\Errors\Time\DaylightSavingsTimeWrong.cs" />
+    <Compile Include="Results\Errors\Time\TimezoneWrong.cs" />
+    <Compile Include="Results\Errors\Versioning\EngineUpdateAvailable.cs" />
+    <Compile Include="Results\Errors\WebServices\CouldNotUploadReport.cs" />
+    <Compile Include="Results\Errors\WindowsUpdate\AbstractWindowsUpdateIssue.cs" />
+    <Compile Include="Results\Errors\WindowsUpdate\UpdateInstallFailed.cs" />
+    <Compile Include="Results\Errors\WindowsUpdate\RestartPending.cs" />
+    <Compile Include="Results\Errors\WindowsUpdate\UpdateDownloadFailed.cs" />
+    <Compile Include="Results\Errors\WindowsUpdate\UpdateOperationCancelled.cs" />
+    <Compile Include="Results\Errors\WindowsUpdate\UpdateQueryFailed.cs" />
+    <Compile Include="Results\Errors\WindowsUpdate\UpdatesMissing.cs" />
+    <Compile Include="Results\Errors\Wireless\CouldNotAddWirelessProfile.cs" />
+    <Compile Include="Results\ControlResults\LeaveBranchNextResult.cs" />
+    <Compile Include="Settings\BindingSettingsProxy.cs" />
+    <Compile Include="CommandLineProcessors\CommandLineManager.cs" />
+    <Compile Include="Settings\ISettingsManager.cs" />
+    <Compile Include="Settings\SerializableDictionaries\SerializableStringDictionary.cs" />
+    <Compile Include="Importables\AbstractImportable.cs" />
+    <Compile Include="Importables\IImportable.cs" />
+    <Compile Include="Importables\MethodAllowedFromXml.cs" />
+    <Compile Include="Importables\PropertyAllowedFromXml.cs" />
+    <Compile Include="Conditions\AbstractCondition.cs" />
+    <Compile Include="Conditions\ICondition.cs" />
+    <Compile Include="Help\HelpManager.cs" />
+    <Compile Include="Logging\Logger.cs" />
+    <Compile Include="Logging\LoggingExtensions.cs" />
+    <Compile Include="Logging\WebServiceAppender.cs" />
+    <Compile Include="NativeCode\Wmi\Bios.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="NativeCode\Wmi\NetworkAdapterConfiguration.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Results\ControlResults\RepeatParentBranchResult.cs" />
+    <Compile Include="Results\ControlResults\ExitUtilityResult.cs" />
+    <Compile Include="Results\ControlResults\JumpResult.cs" />
+    <Compile Include="Results\ControlResults\RepeatCurrentBranchResult.cs" />
+    <Compile Include="Results\Errors\Authentication\CouldNotAuthenticateUser.cs" />
+    <Compile Include="Results\Errors\Certificates\CouldNotInstallCertificate.cs" />
+    <Compile Include="Results\Errors\Certificates\CouldNotRetrieveCertificate.cs" />
+    <Compile Include="Results\Errors\Control\CouldNotImportContent.cs" />
+    <Compile Include="Results\Errors\General\Cancelled.cs" />
+    <Compile Include="Results\Errors\General\ExceptionOccurred.cs" />
+    <Compile Include="Results\Errors\Mapping\AbstractErrorEntry.cs" />
+    <Compile Include="Results\Errors\Mapping\DefaultErrorEntry.cs" />
+    <Compile Include="Results\Errors\Mapping\ErrorManager.cs" />
+    <Compile Include="Results\Errors\Mapping\SimpleErrorEntry.cs" />
+    <Compile Include="Results\Errors\WindowsServices\ServiceIssue.cs" />
+    <Compile Include="Settings\SerializableDictionaries\SerializableTimestampDictionary.cs" />
+    <Compile Include="TaskBranches\AbstractBranch.cs" />
+    <Compile Include="TaskBranches\BranchRoles.cs" />
+    <Compile Include="TaskBranches\IBranchManager.cs" />
+    <Compile Include="TaskBranches\RoleBranch.cs" />
+    <Compile Include="Tasks\ActiveDirectory\SetComputerName.cs" />
+    <Compile Include="Tasks\AntiMalware\ScanComputerForMalware.cs" />
+    <Compile Include="Tasks\AntiMalware\SecurityEssentials\GetInstallFailureReason.cs" />
+    <Compile Include="Tasks\AntiMalware\VerifyAntiSpywareSoftware.cs" />
+    <Compile Include="Tasks\AntiMalware\VerifyAntiVirusSoftware.cs" />
+    <Compile Include="Tasks\AntiMalware\VerifySecurityCenter.cs" />
+    <Compile Include="Tasks\AntiMalware\WaitForProviderHealthy.cs" />
+    <Compile Include="Tasks\Authentication\AbstractWebServiceAuthenticationTask.cs" />
+    <Compile Include="Tasks\Authentication\AuthenticateUser.cs" />
+    <Compile Include="Tasks\Authentication\GetCampusForUser.cs" />
+    <Compile Include="Tasks\Authentication\IdentifyUser.cs" />
+    <Compile Include="Tasks\Certificates\AbstractCertificateTask.cs" />
+    <Compile Include="Tasks\Certificates\CreateCertificateInfoFile.cs" />
+    <Compile Include="Tasks\Certificates\CreateWrapperFromExistingUserCertificate.cs" />
+    <Compile Include="Tasks\Certificates\ExportCertificateToFile.cs" />
+    <Compile Include="Tasks\Certificates\GetSettingCertificateSubjectProperty.cs" />
+    <Compile Include="Tasks\Certificates\ImportUserCertificateFromFile.cs" />
+    <Compile Include="Tasks\Certificates\ImportCertificatesFromArchive.cs" />
+    <Compile Include="Tasks\Certificates\ImportCertificateFromSettings.cs" />
+    <Compile Include="Tasks\Certificates\RemoveSimiliarCertificatesFromStore.cs" />
+    <Compile Include="Tasks\Certificates\RetrieveUserCertificate.cs" />
+    <Compile Include="Tasks\Certificates\VerifyUserCertificate.cs" />
+    <Compile Include="Tasks\Control\GetContentFromEmbeddedResource.cs" />
+    <Compile Include="Tasks\Control\ImportContentFromSignedArchive.cs" />
+    <Compile Include="Tasks\Control\MoveToKeyedTask.cs" />
+    <Compile Include="Tasks\Control\PreserveArbitraryResult.cs" />
+    <Compile Include="Tasks\Control\PreserveLastResult.cs" />
+    <Compile Include="Tasks\Control\ProcessCommandLineArguments.cs" />
+    <Compile Include="Tasks\Control\ReturnErrorResult.cs" />
+    <Compile Include="Tasks\Control\ReturnExitResult.cs" />
+    <Compile Include="Tasks\Control\ReturnLeaveBranchBackResult.cs" />
+    <Compile Include="Tasks\Control\ReturnLeaveBranchNextResult.cs" />
+    <Compile Include="Tasks\Control\ReturnLeaveBranchRepeatTaskResult.cs" />
+    <Compile Include="Tasks\Control\ReturnPreservedResult.cs" />
+    <Compile Include="Tasks\Control\ReturnRepeatCurrentBranchResult.cs" />
+    <Compile Include="Tasks\Control\ReturnRepeatParentBranchResult.cs" />
+    <Compile Include="Tasks\Authentication\VerifyLocalPasswordSet.cs" />
+    <Compile Include="Tasks\Control\ReturnRepeatTaskResult.cs" />
+    <Compile Include="Tasks\Control\ReturnRestartComputerResult.cs" />
+    <Compile Include="Tasks\Control\ReturnRoleBranchResult.cs" />
+    <Compile Include="Tasks\Downloader\VerifyDownloadedFile.cs" />
+    <Compile Include="Tasks\FileAndPath\AddShortcut.cs" />
+    <Compile Include="Tasks\FileAndPath\CheckDriveSpace.cs" />
+    <Compile Include="Tasks\FileAndPath\CopyFile.cs" />
+    <Compile Include="Tasks\FileAndPath\CreateFolder.cs" />
+    <Compile Include="Tasks\FileAndPath\MoveFile.cs" />
+    <Compile Include="Tasks\FileAndPath\NormalizeSettingsPathValues.cs" />
+    <Compile Include="Tasks\FileAndPath\SetFileAttributes.cs" />
+    <Compile Include="Tasks\FileAndPath\SetFolderAttributes.cs" />
+    <Compile Include="Tasks\FileAndPath\SetFolderIcon.cs" />
+    <Compile Include="Tasks\Firewall\ConfigureIcmpV4.cs" />
+    <Compile Include="Tasks\Help\OpenContentInExternalWindow.cs" />
+    <Compile Include="Tasks\Help\SetHelpSettings.cs" />
+    <Compile Include="Tasks\Installer\InstallMsiPackage.cs" />
+    <Compile Include="Tasks\Internet\DisableProxies.cs" />
+    <Compile Include="Tasks\Location\GetCurrentLocation.cs" />
+    <Compile Include="Tasks\Logging\AbstractRemoteLoggingTask.cs" />
+    <Compile Include="Tasks\Logging\DisableRemoteLogging.cs" />
+    <Compile Include="Tasks\Logging\LogEvent.cs" />
+    <Compile Include="Tasks\Logging\LogWarningFromTaskResult.cs" />
+    <Compile Include="Tasks\Logging\SetRemoteLoggingLevel.cs" />
+    <Compile Include="Tasks\Logging\SetRemoteLoggingMessageFormat.cs" />
+    <Compile Include="Tasks\Internet\AddSitesToZone.cs" />
+    <Compile Include="Tasks\NamedPipes\SendMessage.cs" />
+    <Compile Include="Tasks\Network\CheckForBridgedInterfaces.cs" />
+    <Compile Include="Tasks\Network\CheckForNatDevice.cs" />
+    <Compile Include="Tasks\Network\Dhcp\ReleaseRenewLease.cs" />
+    <Compile Include="Tasks\Network\DisableAutoDial.cs" />
+    <Compile Include="Tasks\Network\DisableOfflineMode.cs" />
+    <Compile Include="Tasks\Network\DisableProxy.cs" />
+    <Compile Include="Tasks\Internet\ResetWinHttpSettings.cs" />
+    <Compile Include="Tasks\Registration\Legacy\IU\GetRegistrationQueryString.cs" />
+    <Compile Include="Tasks\Reporting\UploadMacAddressReport.cs" />
+    <Compile Include="Tasks\Reporting\UploadReportList.cs" />
+    <Compile Include="Tasks\Reporting\UploadReports.cs" />
+    <Compile Include="Tasks\Testing\TestTask.cs" />
+    <Compile Include="Tasks\Text\AddStringToList.cs" />
+    <Compile Include="Tasks\Text\ConvertListToString.cs" />
+    <Compile Include="Tasks\Text\TruncateStringLeft.cs" />
+    <Compile Include="Tasks\UserInterface\SetAdvancedMenuOptions.cs" />
+    <Compile Include="Tasks\Utility\OpenControlPanel.cs" />
+    <Compile Include="Tasks\Utility\OpenUrlInExternalBrowser.cs" />
+    <Compile Include="Tasks\Utility\ScheduleRunOnceUtility.cs" />
+    <Compile Include="Tasks\RegistryTasks\SetStringValues.cs" />
+    <Compile Include="Tasks\RegistryTasks\RemoveRegistryValue.cs" />
+    <Compile Include="Tasks\Services\FileAndPrintSharing\Configure.cs" />
+    <Compile Include="Tasks\Network\Ipv6\SetRegistryRestriction.cs" />
+    <Compile Include="Tasks\Network\Ipv6\ConfigureBindings.cs" />
+    <Compile Include="Tasks\Network\EnableNtlmV2.cs" />
+    <Compile Include="Tasks\Network\Ipv6\ConfigurePrivacyExtensions.cs" />
+    <Compile Include="Tasks\RegistryTasks\AbstractRegistryTask.cs" />
+    <Compile Include="Tasks\RegistryTasks\GetStringValue.cs" />
+    <Compile Include="Tasks\SecurityPolicies\ApplySecurityPolicy.cs" />
+    <Compile Include="Tasks\Services\SetServiceStartupValue.cs" />
+    <Compile Include="Tasks\Services\StartService.cs" />
+    <Compile Include="Tasks\Settings\AppendLineToSettingsText.cs" />
+    <Compile Include="Tasks\Settings\ClearObject.cs" />
+    <Compile Include="Tasks\Settings\CopyTempObject.cs" />
+    <Compile Include="Tasks\Settings\CreateGuidSettingsText.cs" />
+    <Compile Include="Tasks\Settings\GetSettingStringFromObjectField.cs" />
+    <Compile Include="Tasks\SystemRestore\EnableSystemRestore.cs" />
+    <Compile Include="Tasks\Time\AbstractTimeTask.cs" />
+    <Compile Include="Tasks\Time\SetSystemTime.cs" />
+    <Compile Include="Tasks\Time\SetTimeZone.cs" />
+    <Compile Include="Tasks\UserInterface\CloseAllDialogs.cs" />
+    <Compile Include="Tasks\UserInterface\SetApplicationIconFromArchive.cs" />
+    <Compile Include="Tasks\UserInterface\SetApplicationProperties.cs" />
+    <Compile Include="Tasks\UserInterface\ShowBorderedBannerNonModal.cs" />
+    <Compile Include="Tasks\UserInterface\UpdateBoundText.cs" />
+    <Compile Include="Tasks\UserInterface\UpdateDialogButtonText.cs" />
+    <Compile Include="Tasks\Utility\AbstractExecuteUtilityTask.cs" />
+    <Compile Include="Tasks\Utility\ArchiveFolderContents.cs" />
+    <Compile Include="Tasks\Utility\CloseExternalProcess.cs" />
+    <Compile Include="Tasks\Utility\ExecuteUtilityNoWait.cs" />
+    <Compile Include="Tasks\Utility\ExecuteUtility.cs" />
+    <Compile Include="Tasks\Utility\ExtractFileFromArchive.cs" />
+    <Compile Include="Tasks\Utility\GenerateFileWrapper.cs" />
+    <Compile Include="Tasks\Versioning\SetEffectiveEngineVersion.cs" />
+    <Compile Include="Tasks\Versioning\SetKeyedVersionFromApplication.cs" />
+    <Compile Include="Tasks\Downloader\DeleteDownloadedFile.cs" />
+    <Compile Include="Tasks\Downloader\DownloadFile.cs" />
+    <Compile Include="Tasks\Downloader\GetFileInfoFromUrl.cs" />
+    <Compile Include="Tasks\FileAndPath\RemoveFile.cs" />
+    <Compile Include="Tasks\Firewall\AbstractFirewallTask.cs" />
+    <Compile Include="Tasks\Firewall\AddRule.cs" />
+    <Compile Include="Tasks\Firewall\EnableFirewall.cs" />
+    <Compile Include="Tasks\Network\Dhcp\EnableDhcp.cs" />
+    <Compile Include="Tasks\Network\Dhcp\EnableDhcpService.cs" />
+    <Compile Include="Results\Errors\Network\CouldNotDetermineDefaultServer.cs" />
+    <Compile Include="Results\Errors\Network\NetworkNoConnection.cs" />
+    <Compile Include="Results\Errors\Network\NetworkNoHardware.cs" />
+    <Compile Include="Results\Errors\Path\FileNotFound.cs" />
+    <Compile Include="Results\Errors\Registration\CouldNotRegisterComputer.cs" />
+    <Compile Include="Results\Errors\ScreenSaver\CouldNotConfigureScreenSaver.cs" />
+    <Compile Include="Results\Errors\SystemRestore\CouldNotCreateRestorePoint.cs" />
+    <Compile Include="Results\Errors\SystemRestore\SystemRestoreDisabled.cs" />
+    <Compile Include="Results\Errors\Time\SystemClockWrong.cs" />
+    <Compile Include="Results\Errors\UserInterface\BannerNotDefined.cs" />
+    <Compile Include="Results\Errors\UserInterface\DialogInstanceNotFound.cs" />
+    <Compile Include="Results\Errors\Verification\CouldNotVerifyApplicationSignature.cs" />
+    <Compile Include="Results\Errors\WebServices\CouldNotLogMessage.cs" />
+    <Compile Include="Results\Errors\WebServices\CouldNotRetrieveContent.cs" />
+    <Compile Include="Results\Errors\WebServices\CouldNotRetrieveFileInfo.cs" />
+    <Compile Include="Results\Errors\WebServices\CouldNotRetrieveStatusInfo.cs" />
+    <Compile Include="TaskBranches\BranchStrategies\MoveToFirstTask.cs" />
+    <Compile Include="TaskBranches\BranchStrategies\RepeatCurrentTask.cs" />
+    <Compile Include="TaskBranches\BranchStrategies\MoveToKeyedTask.cs" />
+    <Compile Include="Results\Misc\BooleanReason.cs" />
+    <Compile Include="Results\ControlResults\BackResult.cs" />
+    <Compile Include="Results\ControlResults\BranchResult.cs" />
+    <Compile Include="Results\ControlResults\CloseResult.cs" />
+    <Compile Include="Results\ControlResults\NextResult.cs" />
+    <Compile Include="Results\ControlResults\SkipResult.cs" />
+    <Compile Include="Results\IResult.cs" />
+    <Compile Include="Results\AbstractTaskResult.cs" />
+    <Compile Include="Results\Errors\Control\BranchNotFound.cs" />
+    <Compile Include="Results\Errors\ErrorResult.cs" />
+    <Compile Include="Settings\SettingsManager.cs" />
+    <Compile Include="TaskBranches\BranchManager.cs" />
+    <Compile Include="TaskBranches\BranchStrategies\IBranchStrategy.cs" />
+    <Compile Include="TaskBranches\BranchStrategies\LeaveBranch.cs" />
+    <Compile Include="TaskBranches\BranchStrategies\MoveToPreviousTask.cs" />
+    <Compile Include="TaskBranches\BranchStrategies\MoveToNextTask.cs" />
+    <Compile Include="TaskBranches\ITaskBranch.cs" />
+    <Compile Include="TaskBranches\TaskBranch.cs" />
+    <Compile Include="Tasks\AbstractTask.cs" />
+    <Compile Include="Tasks\Control\GetContentFromEndpoint.cs" />
+    <Compile Include="Tasks\Control\ImportTasklistsFromFile.cs" />
+    <Compile Include="Tasks\Control\ReturnBranchResult.cs" />
+    <Compile Include="Tasks\ITask.cs" />
+    <Compile Include="Tasks\Logging\EnableRemoteLogging.cs" />
+    <Compile Include="Tasks\Logging\SetLogUsername.cs" />
+    <Compile Include="Tasks\Registration\RegisterComputer.cs" />
+    <Compile Include="Tasks\Settings\PersistSettingsString.cs" />
+    <Compile Include="Tasks\Settings\PersistSettingsTimestamp.cs" />
+    <Compile Include="Tasks\Settings\RetrieveSettingsString.cs" />
+    <Compile Include="Tasks\Settings\RetrieveSettingsTimestamp.cs" />
+    <Compile Include="Tasks\Time\CheckSystemTime.cs" />
+    <Compile Include="Tasks\Time\CheckTimeZone.cs" />
+    <Compile Include="Tasks\UserInterface\ChangeDialogCursor.cs" />
+    <Compile Include="Tasks\UserInterface\ChangeProgressMessage.cs" />
+    <Compile Include="Tasks\UserInterface\CollapseBannerControl.cs" />
+    <Compile Include="Tasks\UserInterface\DisableAllBannerDialogControls.cs" />
+    <Compile Include="Tasks\UserInterface\DisableBannerControl.cs" />
+    <Compile Include="Tasks\UserInterface\DisableCloseButton.cs" />
+    <Compile Include="Tasks\UserInterface\EnableBannerControl.cs" />
+    <Compile Include="Tasks\UserInterface\EnableCloseButton.cs" />
+    <Compile Include="Tasks\UserInterface\HideBannerControl.cs" />
+    <Compile Include="Tasks\UserInterface\HideDialog.cs" />
+    <Compile Include="Tasks\UserInterface\ShowBorderlessDialog.cs" />
+    <Compile Include="Tasks\UserInterface\SetApplicationIcon.cs" />
+    <Compile Include="Tasks\UserInterface\SetColorValues.cs" />
+    <Compile Include="Tasks\UserInterface\SetDefaultFont.cs" />
+    <Compile Include="Tasks\UserInterface\ShowBannerControl.cs" />
+    <Compile Include="Tasks\UserInterface\ShowChildBannerModal.cs" />
+    <Compile Include="Tasks\UserInterface\ShowChildBannerNonModal.cs" />
+    <Compile Include="Tasks\UserInterface\StartMessageTimer.cs" />
+    <Compile Include="Tasks\UserInterface\StopMessageTimer.cs" />
+    <Compile Include="Tasks\UserInterface\EnableBannerDialog.cs" />
+    <Compile Include="Tasks\UserInterface\DisableBannerDialog.cs" />
+    <Compile Include="Tasks\Versioning\SetKeyedVersionFromValue.cs" />
+    <Compile Include="Tasks\WebServices\AbstractContractConfigTask.cs" />
+    <Compile Include="Tasks\WebServices\AutoDetectBaseUrl.cs" />
+    <Compile Include="Tasks\Network\VerifyNetworkConnection.cs" />
+    <Compile Include="Tasks\ScreenSaver\ConfigureScreenSaver.cs" />
+    <Compile Include="Tasks\Settings\ClearSettingText.cs" />
+    <Compile Include="Tasks\Settings\SetSettingText.cs" />
+    <Compile Include="Settings\StringSettingWrapper.cs" />
+    <Compile Include="Tasks\SystemRestore\SetRestorePoint.cs" />
+    <Compile Include="NativeCode\Wmi\SystemRestore.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Tasks\UserInterface\ActivateCheckedParagraph.cs" />
+    <Compile Include="Tasks\UserInterface\ChangeBanner.cs" />
+    <Compile Include="Tasks\UserInterface\CompleteCheckedParagraph.cs" />
+    <Compile Include="Tasks\UserInterface\RemoveCheckedParagraphSubtitle.cs" />
+    <Compile Include="Tasks\UserInterface\DeactivateCheckedParagraph.cs" />
+    <Compile Include="Tasks\UserInterface\SetCheckedParagraphSubtitle.cs" />
+    <Compile Include="Tasks\UserInterface\SetParagraphText.cs" />
+    <Compile Include="Tasks\UserInterface\ShowBorderedBannerModal.cs" />
+    <Compile Include="Tasks\UserInterface\ShowErrorDialog.cs" />
+    <Compile Include="Tasks\Verification\VerifyApplicationSignature.cs" />
+    <Compile Include="Tasks\Verification\VerifyServerVersion.cs" />
+    <Compile Include="Tasks\WebServices\ConfigureAuthenticationContract.cs" />
+    <Compile Include="Tasks\WebServices\ConfigureComputerNameContract.cs" />
+    <Compile Include="Tasks\WebServices\ConfigureIdentityQueryContract.cs" />
+    <Compile Include="Tasks\WebServices\ConfigureRegistrationQueryStringContract.cs" />
+    <Compile Include="Tasks\WebServices\ConfigureLocationQueryContract.cs" />
+    <Compile Include="Tasks\WebServices\ConfigureLoggingContracts.cs" />
+    <Compile Include="Tasks\WebServices\ConfigureMacAddressReportingContract.cs" />
+    <Compile Include="Tasks\WebServices\ConfigureRegisterComputerContract.cs" />
+    <Compile Include="Tasks\WebServices\ConfigureReportingContract.cs" />
+    <Compile Include="Tasks\WebServices\ConfigureStatusInfoContract.cs" />
+    <Compile Include="Tasks\WebServices\ConfigureUserCampusContract.cs" />
+    <Compile Include="Tasks\WebServices\GetBaseUrlFromCertificate.cs" />
+    <Compile Include="Tasks\WebServices\SetDefaultEndpointUrl.cs" />
+    <Compile Include="Tasks\WebServices\SetEndpointUrlForFunction.cs" />
+    <Compile Include="Tasks\WindowsUpdate\AbstractWuApiTask.cs" />
+    <Compile Include="Tasks\WindowsUpdate\CheckForPendingRestarts.cs" />
+    <Compile Include="Tasks\WindowsUpdate\InstallMissingUpdates.cs" />
+    <Compile Include="Tasks\WindowsUpdate\RestartService.cs" />
+    <Compile Include="Tasks\WindowsUpdate\PerformQuery.cs" />
+    <Compile Include="Tasks\WindowsUpdate\ScheduleWindowsUpdates.cs" />
+    <Compile Include="Tasks\WindowsUpdate\SetMissingUpdatesCountText.cs" />
+    <Compile Include="Tasks\WindowsUpdate\SetServiceStartupValue.cs" />
+    <Compile Include="Tasks\WindowsUpdate\SetRegistryValues.cs" />
+    <Compile Include="Tasks\WindowsUpdate\StartService.cs" />
+    <Compile Include="Tasks\WindowsUpdate\StopService.cs" />
+    <Compile Include="Tasks\Wireless\AddWirelessProfile.cs" />
+    <Compile Include="UserInterface\ContentWrappers\BannerWrappers\BannerManager.cs" />
+    <Compile Include="UserInterface\ContentWrappers\BannerWrappers\IBannerManager.cs" />
+    <Compile Include="UserInterface\ContentWrappers\ButtonWrappers\AbstractButton.cs" />
+    <Compile Include="UserInterface\ContentWrappers\ButtonWrappers\OpenAdvancedMenuButton.cs" />
+    <Compile Include="UserInterface\ContentWrappers\ButtonWrappers\ButtonTargets.cs" />
+    <Compile Include="UserInterface\ContentWrappers\ButtonWrappers\CancelButton.cs" />
+    <Compile Include="UserInterface\ContentWrappers\ButtonWrappers\DisabledButton.cs" />
+    <Compile Include="UserInterface\ContentWrappers\ButtonWrappers\DoNothingButton.cs" />
+    <Compile Include="UserInterface\ContentWrappers\ButtonWrappers\HiddenButton.cs" />
+    <Compile Include="UserInterface\ContentWrappers\ButtonWrappers\ResultButton.cs" />
+    <Compile Include="UserInterface\ContentWrappers\ButtonWrappers\SettingsButton.cs" />
+    <Compile Include="UserInterface\ContentWrappers\ButtonWrappers\StoredResultButton.cs" />
+    <Compile Include="UserInterface\ContentWrappers\ButtonWrappers\TopicButton.cs" />
+    <Compile Include="UserInterface\ContentWrappers\ButtonWrappers\UrlButton.cs" />
+    <Compile Include="UserInterface\ContentWrappers\ContentControlWrappers\ErrorParagraph.cs" />
+    <Compile Include="UserInterface\ContentWrappers\ContentControlWrappers\OptionInputField.cs" />
+    <Compile Include="UserInterface\ContentWrappers\ImageWrappers\AbstractImageContent.cs" />
+    <Compile Include="UserInterface\ContentWrappers\ImageWrappers\BuiltInSystemIconImage.cs" />
+    <Compile Include="UserInterface\ContentWrappers\ImageWrappers\ApiSystemIconImage.cs" />
+    <Compile Include="UserInterface\ContentWrappers\LinkWrappers\AdvancedButtonLink.cs" />
+    <Compile Include="UserInterface\ContentWrappers\LinkWrappers\BackButtonLink.cs" />
+    <Compile Include="UserInterface\ContentWrappers\LinkWrappers\HelpButtonLink.cs" />
+    <Compile Include="UserInterface\ContentWrappers\LinkWrappers\NextButtonLink.cs" />
+    <Compile Include="UserInterface\ContentWrappers\LinkWrappers\OpenControlPanelLink.cs" />
+    <Compile Include="UserInterface\ContentWrappers\LinkWrappers\OpenFolderLink.cs" />
+    <Compile Include="UserInterface\ContentWrappers\LinkWrappers\SettingsLink.cs" />
+    <Compile Include="UserInterface\ContentWrappers\ContentControlWrappers\FileBrowseButton.cs" />
+    <Compile Include="UserInterface\ContentWrappers\ContentControlWrappers\FolderBrowseButton.cs" />
+    <Compile Include="UserInterface\ContentWrappers\ContentControlWrappers\FramedButton.cs" />
+    <Compile Include="UserInterface\ContentWrappers\ContentControlWrappers\CheckInputField.cs" />
+    <Compile Include="UserInterface\ContentWrappers\ContentControlWrappers\ContentBlockParagraph.cs" />
+    <Compile Include="UserInterface\ContentWrappers\ContentControlWrappers\EllipseGlyph.cs" />
+    <Compile Include="UserInterface\ContentWrappers\ContentControlWrappers\HorizontalDivider.cs" />
+    <Compile Include="UserInterface\ContentWrappers\ContentControlWrappers\ErrorInfoBulletedContent.cs" />
+    <Compile Include="UserInterface\ContentWrappers\ContentControlWrappers\LeftImageContentParagraph.cs" />
+    <Compile Include="UserInterface\ContentWrappers\ContentControlWrappers\PasswordInputField.cs" />
+    <Compile Include="UserInterface\ContentWrappers\LinkWrappers\AbstractLink.cs" />
+    <Compile Include="UserInterface\ContentWrappers\LinkWrappers\TopicLink.cs" />
+    <Compile Include="UserInterface\ContentWrappers\LinkWrappers\UrlLink.cs" />
+    <Compile Include="UserInterface\ContentWrappers\ContentControlWrappers\AbstractContentWrapper.cs" />
+    <Compile Include="UserInterface\ContentWrappers\ContentControlWrappers\BulletParagraph.cs" />
+    <Compile Include="UserInterface\ContentWrappers\ContentControlWrappers\ActiveCheckedParagraph.cs" />
+    <Compile Include="UserInterface\ContentWrappers\ContentControlWrappers\CheckedCheckedParagraph.cs" />
+    <Compile Include="UserInterface\ContentWrappers\ContentControlWrappers\DefaultCheckedParagraph.cs" />
+    <Compile Include="UserInterface\ContentWrappers\ContentControlWrappers\ProgressBar.cs" />
+    <Compile Include="UserInterface\ContentWrappers\ContentControlWrappers\ProgressParagraph.cs" />
+    <Compile Include="UserInterface\ContentWrappers\ContentControlWrappers\RightButtonInputField.cs" />
+    <Compile Include="UserInterface\ContentWrappers\ContentControlWrappers\SimpleParagraph.cs" />
+    <Compile Include="UserInterface\ContentWrappers\BannerWrappers\AbstractBanner.cs" />
+    <Compile Include="UserInterface\ContentWrappers\BannerWrappers\SimpleBanner.cs" />
+    <Compile Include="UserInterface\ContentWrappers\ContentControlWrappers\SimpleInputField.cs" />
+    <Compile Include="UserInterface\ContentWrappers\ContentControlWrappers\SystemIconParagraph.cs" />
+    <Compile Include="UserInterface\ContentWrappers\ContentControlWrappers\UpdatableParagraph.cs" />
+    <Compile Include="UserInterface\ContentWrappers\TextWrappers\AbstractTextContentWrapper.cs" />
+    <Compile Include="UserInterface\ContentWrappers\TextWrappers\DirectTextContent.cs" />
+    <Compile Include="UserInterface\ContentWrappers\TextWrappers\TempObjectFieldContent.cs" />
+    <Compile Include="UserInterface\Controls\NavigationBar.xaml.cs">
+      <DependentUpon>NavigationBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserInterface\Dialogs\Commands\ClearFocusCommand.cs" />
+    <Compile Include="UserInterface\Dialogs\Converters\AdditiveConverter.cs" />
+    <Compile Include="UserInterface\Dialogs\Converters\BorderThicknessToStrokeThicknessConverter.cs" />
+    <Compile Include="UserInterface\Dialogs\Converters\FontToLeftThicknessConverter.cs" />
+    <Compile Include="UserInterface\Dialogs\Converters\MultiEnabledConverter.cs" />
+    <Compile Include="UserInterface\Dialogs\Converters\SettingToBoolConverter.cs" />
+    <Compile Include="UserInterface\Dialogs\Instances\AdvancedMenuWindow.xaml.cs">
+      <DependentUpon>AdvancedMenuWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserInterface\Dialogs\Instances\CustomControls\AdvancedMenuItem.xaml.cs">
+      <DependentUpon>AdvancedMenuItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserInterface\Dialogs\Instances\CustomControls\AdvancedMenuItemContainer.xaml.cs">
+      <DependentUpon>AdvancedMenuItemContainer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserInterface\Dialogs\Instances\CustomControls\BorderedContentPanelInstance.xaml.cs">
+      <DependentUpon>BorderedContentPanelInstance.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserInterface\Dialogs\Instances\CustomControls\CheckboxParagraph.xaml.cs">
+      <DependentUpon>CheckboxParagraph.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserInterface\Dialogs\Instances\CustomControls\CheckedParagraph.xaml.cs">
+      <DependentUpon>CheckedParagraph.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserInterface\Dialogs\Instances\CustomControls\ContentPanelInstance.xaml.cs">
+      <DependentUpon>ContentPanelInstance.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserInterface\Dialogs\Instances\CustomControls\OptionParagraph.xaml.cs">
+      <DependentUpon>OptionParagraph.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserInterface\Dialogs\Instances\CustomControls\ScrollingBorderedContentPanel.xaml.cs">
+      <DependentUpon>ScrollingBorderedContentPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserInterface\Dialogs\Instances\CustomControls\TextBoxField.xaml.cs">
+      <DependentUpon>TextBoxField.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserInterface\Dialogs\Instances\HelpWindow.xaml.cs">
+      <DependentUpon>HelpWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserInterface\Dialogs\Instances\Pages\BannerPage.xaml.cs">
+      <DependentUpon>BannerPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="UserInterface\Dialogs\Models\CommandModels\AdvancedMenu\AbstractCommandModel.cs" />
+    <Compile Include="UserInterface\Dialogs\Models\CommandModels\AdvancedMenu\CloseCommandModel.cs" />
+    <Compile Include="UserInterface\Dialogs\Models\CommandModels\AdvancedMenu\HelpModel.cs" />
+    <Compile Include="UserInterface\Dialogs\Models\CommandModels\AdvancedMenu\RunModel.cs" />
+    <Compile Include="UserInterface\Dialogs\Models\CommandModels\CancelButtonModel.cs" />
+    <Compile Include="UserInterface\Dialogs\Models\CommandModels\DoNothingCommandModel.cs" />
+    <Compile Include="UserInterface\Dialogs\Models\CommandModels\ICommandModel.cs" />
+    <Compile Include="UserInterface\Dialogs\Models\CommandModels\OpenAdvancedButtonModel.cs" />
+    <Compile Include="UserInterface\Dialogs\Models\CommandModels\OpenTopicModel.cs" />
+    <Compile Include="UserInterface\Dialogs\Models\ContainerModels\ContentPanelModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="UserInterface\Dialogs\Models\ContentModels\AdvancedMenuGroupModel.cs" />
+    <Compile Include="UserInterface\Dialogs\Models\ContentModels\AdvancedMenuItemModel.cs" />
+    <Compile Include="UserInterface\Dialogs\Models\ContentModels\CheckedParagraphModel.cs" />
+    <Compile Include="UserInterface\Dialogs\Models\ContentModels\FileBrowseButtonModel.cs" />
+    <Compile Include="UserInterface\Dialogs\Models\ContentModels\FolderBrowseButtonModel.cs" />
+    <Compile Include="UserInterface\Dialogs\Models\ContentModels\OptionParagraphContentModel.cs" />
+    <Compile Include="UserInterface\Dialogs\Models\DialogModels\AdvancedMenuModel.cs" />
+    <Compile Include="UserInterface\Dialogs\Models\DialogModels\BorderedChildDialogModel.cs" />
+    <Compile Include="UserInterface\Dialogs\Models\DialogModels\BorderedDialogModel.cs" />
+    <Compile Include="UserInterface\Dialogs\Models\DialogModels\BorderlessChildDialogModel.cs" />
+    <Compile Include="UserInterface\Dialogs\Models\DialogModels\BorderlessDialogModel.cs" />
+    <Compile Include="UserInterface\Dialogs\Commands\AbstractButtonCommand.cs" />
+    <Compile Include="UserInterface\Dialogs\Commands\ButtonResultCommand.cs" />
+    <Compile Include="UserInterface\Dialogs\Commands\CommandGroup.cs" />
+    <Compile Include="UserInterface\Dialogs\Commands\RelayCommand.cs" />
+    <Compile Include="UserInterface\Dialogs\Comparers\SolidColorBrushColorComparer.cs" />
+    <Compile Include="UserInterface\Dialogs\Converters\AnyValueNotVisibleConverter.cs" />
+    <Compile Include="UserInterface\Dialogs\Converters\BooleanToBrushConverter.cs" />
+    <Compile Include="UserInterface\Dialogs\Converters\ColorFadingConverter.cs" />
+    <Compile Include="UserInterface\Dialogs\Converters\BooleanToColorConverter.cs" />
+    <Compile Include="UserInterface\Dialogs\Converters\BooleanToFadingBrushConverter.cs" />
+    <Compile Include="UserInterface\Dialogs\Converters\ReverseBooleanToFadingBrushConverter.cs" />
+    <Compile Include="UserInterface\Dialogs\Converters\FirstNonStandardValueConverter.cs" />
+    <Compile Include="UserInterface\Dialogs\Converters\SettingToIntegerConverter.cs" />
+    <Compile Include="UserInterface\Dialogs\Converters\SolidColorBrushToColorConverter.cs" />
+    <Compile Include="UserInterface\Dialogs\Converters\ValidWindowStyleConverter.cs" />
+    <Compile Include="UserInterface\Dialogs\Models\DialogModels\AbstractDialogModel.cs" />
+    <Compile Include="UserInterface\Dialogs\Instances\BorderlessWindow.xaml.cs">
+      <DependentUpon>BorderlessWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserInterface\Dialogs\Instances\StarkBorderedWindow.xaml.cs">
+      <DependentUpon>StarkBorderedWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserInterface\Dialogs\Managers\AppearanceManager.cs" />
+    <Compile Include="UserInterface\Dialogs\Commands\ButtonSettingsCommand.cs" />
+    <Compile Include="UserInterface\Dialogs\ControlActions\AbstractControlAction.cs" />
+    <Compile Include="UserInterface\Dialogs\ControlActions\DisableControlAction.cs" />
+    <Compile Include="UserInterface\Dialogs\ControlActions\EnableControlAction.cs" />
+    <Compile Include="UserInterface\Dialogs\ControlActions\HideControlAction.cs" />
+    <Compile Include="UserInterface\Dialogs\ControlActions\IControlAction.cs" />
+    <Compile Include="UserInterface\Dialogs\ControlActions\IHasControlActions.cs" />
+    <Compile Include="UserInterface\Dialogs\Assistants\PasswordHelper.cs" />
+    <Compile Include="UserInterface\Dialogs\ControlActions\ReturnResultAction.cs" />
+    <Compile Include="UserInterface\Dialogs\ControlActions\SelectAllContentAction.cs" />
+    <Compile Include="UserInterface\Dialogs\ControlActions\SetFocusAction.cs" />
+    <Compile Include="UserInterface\Dialogs\ControlActions\ShowControlAction.cs" />
+    <Compile Include="UserInterface\Dialogs\Converters\SettingsConverter.cs" />
+    <Compile Include="UserInterface\Dialogs\Managers\IAppearanceManager.cs" />
+    <Compile Include="UserInterface\Dialogs\Managers\IDialogsManager.cs" />
+    <Compile Include="Results\IHasResult.cs" />
+    <Compile Include="UserInterface\Dialogs\Managers\DialogsManager.cs" />
+    <Compile Include="UserInterface\Dialogs\Models\AbstractModel.cs" />
+    <Compile Include="UserInterface\Dialogs\Models\CommandModels\AbstractCommandModel.cs" />
+    <Compile Include="UserInterface\Dialogs\Models\CommandModels\DisabledCommandModel.cs" />
+    <Compile Include="UserInterface\Dialogs\Models\CommandModels\InvisibleCommandModel.cs" />
+    <Compile Include="UserInterface\Dialogs\Models\CommandModels\ModifySettingsModel.cs" />
+    <Compile Include="UserInterface\Dialogs\Models\CommandModels\ReturnResultModel.cs" />
+    <Compile Include="UserInterface\Dialogs\Models\CommandModels\ReturnStoredResultModel.cs" />
+    <Compile Include="UserInterface\Dialogs\Models\CommandModels\OpenLinkModel.cs" />
+    <Compile Include="UserInterface\Dialogs\Models\ContainerModels\AbstractContainerModel.cs" />
+    <Compile Include="UserInterface\Dialogs\Models\ContainerModels\BorderedPanelModel.cs" />
+    <Compile Include="UserInterface\Dialogs\Models\ContentModels\AbstractContentModel.cs" />
+    <Compile Include="UserInterface\Dialogs\Models\ContentModels\BulletedTextModel.cs" />
+    <Compile Include="UserInterface\Dialogs\Models\ContentModels\FramedButtonModel.cs" />
+    <Compile Include="UserInterface\Dialogs\Models\ContentModels\CheckBoxContentModel.cs" />
+    <Compile Include="UserInterface\Dialogs\Models\ContentModels\EllipseGlyphWrapper.cs" />
+    <Compile Include="UserInterface\Dialogs\Models\ContentModels\HorizontalDividerModel.cs" />
+    <Compile Include="UserInterface\Dialogs\Models\ContentModels\ImageContentModel.cs" />
+    <Compile Include="UserInterface\Dialogs\Models\ContentModels\InputContentModel.cs" />
+    <Compile Include="UserInterface\Dialogs\Models\ContentModels\PassphraseContentModel.cs" />
+    <Compile Include="UserInterface\Dialogs\Models\ContentModels\ProgressTextContentModel.cs" />
+    <Compile Include="UserInterface\Dialogs\Models\ContentModels\TextContentModel.cs" />
+    <Compile Include="UserInterface\Dialogs\Models\ContentModels\UpdatableTextContentModel.cs" />
+    <Compile Include="UserInterface\Dialogs\Models\DialogModels\HelpDialogModel.cs" />
+    <Compile Include="UserInterface\Dialogs\Models\HyperlinkModels\ControlPanelHyperlinkModel.cs" />
+    <Compile Include="UserInterface\Dialogs\Models\Mockup\ContentModels\MockAdvancedMenuGroupContainer.cs" />
+    <Compile Include="UserInterface\Dialogs\Models\Mockup\ContentModels\MockAdvancedMenuItem.cs" />
+    <Compile Include="UserInterface\Dialogs\Models\Mockup\ContentModels\MockBaseContentModel.cs" />
+    <Compile Include="UserInterface\Dialogs\Models\Mockup\ContentModels\MockBorderedContentPanelModel.cs" />
+    <Compile Include="UserInterface\Dialogs\Models\Mockup\ContentModels\MockContentPanelModel.cs" />
+    <Compile Include="UserInterface\Dialogs\Models\Mockup\ContentModels\MockInputFieldModel.cs" />
+    <Compile Include="UserInterface\Dialogs\Models\Mockup\ContentModels\MockScrollingContentPanelModel.cs" />
+    <Compile Include="UserInterface\Dialogs\Models\Mockup\ContentModels\MockStandardProperties.cs" />
+    <Compile Include="UserInterface\Dialogs\Models\Mockup\DialogModels\MockAdvancedMenuDialog.cs" />
+    <Compile Include="UserInterface\Dialogs\Models\Mockup\DialogModels\MockHelpDialogModel.cs" />
+    <Compile Include="UserInterface\Dialogs\Models\Mockup\ContentModels\MockCheckboxModel.cs" />
+    <Compile Include="UserInterface\Dialogs\Models\Mockup\ContentModels\MockCheckedParagraphModel.cs" />
+    <Compile Include="UserInterface\Dialogs\Models\Mockup\ContentModels\MockOptionParagraphModel.cs" />
+    <Compile Include="UserInterface\Dialogs\Models\Mockup\DialogModels\MockBorderedModel.cs" />
+    <Compile Include="UserInterface\Dialogs\Models\Mockup\DialogModels\MockBorderlessModel.cs" />
+    <Compile Include="UserInterface\Dialogs\Models\HyperlinkModels\AbstractHyperlinkModel.cs" />
+    <Compile Include="UserInterface\Dialogs\Models\HyperlinkModels\AdvancedButtonHyperlinkModel.cs" />
+    <Compile Include="UserInterface\Dialogs\Models\HyperlinkModels\BackButtonHyperlinkModel.cs" />
+    <Compile Include="UserInterface\Dialogs\Models\HyperlinkModels\HelpButtonHyperlinkModel.cs" />
+    <Compile Include="UserInterface\Dialogs\Models\HyperlinkModels\NextButtonHyperlinkModel.cs" />
+    <Compile Include="UserInterface\Dialogs\Models\HyperlinkModels\OpenFolderHyperlinkModel.cs" />
+    <Compile Include="UserInterface\Dialogs\Models\HyperlinkModels\SettingsValueHyperlinkModel.cs" />
+    <Compile Include="UserInterface\Dialogs\Models\HyperlinkModels\TopicHyperlinkModel.cs" />
+    <Compile Include="UserInterface\Dialogs\Models\HyperlinkModels\UrlHyperlinkModel.cs" />
+    <Compile Include="UserInterface\Dialogs\Models\Mockup\ContentModels\MockNavigationModel.cs" />
+    <Compile Include="UserInterface\Dialogs\Instances\Pages\ScratchPage.xaml.cs">
+      <DependentUpon>ScratchPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserInterface\Dialogs\Properties\PropertyNotifyBase.cs" />
+    <Compile Include="UserInterface\Dialogs\Wrappers\TimedMessageWrapper.cs" />
+    <Compile Include="Utilities\CertificateUtilities.cs" />
+    <Compile Include="Utilities\CabArchiveUtilities.cs" />
+    <Compile Include="Utilities\NetworkUtilities.cs" />
+    <Compile Include="Utilities\PathUtilities.cs" />
+    <Compile Include="Utilities\ReflectionUtilities.cs" />
+    <Compile Include="Utilities\RegistryUtilities.cs" />
+    <Compile Include="Utilities\SecurityUtilities.cs" />
+    <Compile Include="Utilities\ServiceUtilities.cs" />
+    <Compile Include="Utilities\SystemUtilities.cs" />
+    <Compile Include="Utilities\UriUtilities.cs" />
+    <Compile Include="Utilities\UserInterfaceUtilities.cs" />
+    <Compile Include="Utilities\XmlUtilities.cs" />
+    <Compile Include="WebServices\Contracts\AbstractAuthenticationContract.cs" />
+    <Compile Include="WebServices\Contracts\AbstractComputerNameContract.cs" />
+    <Compile Include="WebServices\Contracts\AbstractGetCertificateContract.cs" />
+    <Compile Include="WebServices\Contracts\AbstractIdentityQueryContract.cs" />
+    <Compile Include="WebServices\Contracts\AbstractLocationQueryContract.cs" />
+    <Compile Include="WebServices\Contracts\AbstractLoggingContract.cs" />
+    <Compile Include="WebServices\Contracts\AbstractMacAddressReportContract.cs" />
+    <Compile Include="WebServices\Contracts\AbstractRegistrationContract.cs" />
+    <Compile Include="WebServices\Contracts\AbstractReportingContract.cs" />
+    <Compile Include="WebServices\Contracts\AbstractStatusInfoContract.cs" />
+    <Compile Include="WebServices\Contracts\AbstractUrlContract.cs" />
+    <Compile Include="WebServices\Contracts\AbstractUserCampusContract.cs" />
+    <Compile Include="WebServices\Contracts\WebApi\AsyncReportingRequest.cs" />
+    <Compile Include="WebServices\Contracts\WebApi\ComputerNameRequest.cs" />
+    <Compile Include="WebServices\Contracts\WebApi\LocationQueryRequest.cs" />
+    <Compile Include="WebServices\Contracts\WebApi\MacAddressReport.cs" />
+    <Compile Include="WebServices\Contracts\WebApi\RegisterComputerRequest.cs" />
+    <Compile Include="WebServices\Contracts\WebApi\RegistrationQueryStringRequest.cs" />
+    <Compile Include="WebServices\Contracts\WebApi\ReportingRequest.cs" />
+    <Compile Include="WebServices\Contracts\WebApi\UserCampusRequest.cs" />
+    <Compile Include="WebServices\Contracts\WebApi\AsynchronousLogRequest.cs" />
+    <Compile Include="WebServices\Contracts\WebApi\AuthenticateUserRequest.cs" />
+    <Compile Include="WebServices\Contracts\WebApi\IdentityQueryRequest.cs" />
+    <Compile Include="WebServices\Contracts\WebApi\StatusInfoRequest.cs" />
+    <Compile Include="WebServices\Contracts\WebApi\SynchronousLogRequest.cs" />
+    <Compile Include="WebServices\DataWrappers\CertificateWrapper.cs" />
+    <Compile Include="WebServices\DataWrappers\NoContentWrapper.cs" />
+    <Compile Include="WebServices\Exceptions\WebServiceException.cs" />
+    <Compile Include="WebServices\Exceptions\AuthenticateUserRequestException.cs" />
+    <Compile Include="WebServices\Managers\EndPointFunctions.cs" />
+    <Compile Include="WebServices\Managers\EndpointManager.cs" />
+    <Compile Include="WebServices\Managers\IEndpointManager.cs" />
+    <Compile Include="WebServices\Contracts\InCommon\AuthenticateUserRequest.cs" />
+    <Compile Include="WebServices\Contracts\Generic\FileInfoUrlRequest.cs" />
+    <Compile Include="WebServices\Contracts\InCommon\GetCertificateRequest.cs" />
+    <Compile Include="WebServices\Contracts\AbstractContract.cs" />
+    <Compile Include="WebServices\DataWrappers\ContentDataWrapper.cs" />
+    <Compile Include="WebServices\Contracts\Generic\ContentRequest.cs" />
+    <Compile Include="WebServices\Deserializers\ImportableDeserializer.cs" />
+    <Compile Include="WebServices\Contracts\InCommon\AsynchronousLogRequest.cs" />
+    <Compile Include="WebServices\Contracts\InCommon\RegisterComputerRequest.cs" />
+    <Compile Include="WebServices\Contracts\InCommon\StatusInfoRequest.cs" />
+    <Compile Include="WebServices\Contracts\InCommon\SynchronousLogRequest.cs" />
+    <EmbeddedResource Include="Content\VerifyUserCertContent.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <None Include="Content\Documentation\webapi endpoints and contracts.docx" />
+    <None Include="Content\InCommon\archive\makesecurecab.bat" />
+    <None Include="Content\InCommon\archive\Init.Debug.xml">
+      <DependentUpon>Init.xml</DependentUpon>
+      <IsTransformFile>True</IsTransformFile>
+    </None>
+    <None Include="Content\InCommon\archive\Init.Release.xml">
+      <DependentUpon>Init.xml</DependentUpon>
+      <IsTransformFile>True</IsTransformFile>
+    </None>
+    <Compile Include="Tasks\Control\ReturnSilentRestartResult.cs" />
+    <None Include="Properties\SlowCheetah\SlowCheetah.Transforms.targets" />
+    <Resource Include="Content\InCommon\antimalware.xml" />
+    <Resource Include="Content\InCommon\systemintegrity.xml" />
+    <Resource Include="Content\InCommon\certificates.xml" />
+    <Resource Include="Content\InCommon\wireless.xml" />
+    <Resource Include="Content\InCommon\restorepoint.xml" />
+    <Resource Include="Content\InCommon\credentials.xml" />
+    <Resource Include="Content\InCommon\networksecurity.xml" />
+    <Resource Include="Content\InCommon\screensaver.xml" />
+    <Content Include="Content\InCommon\archive\icons\gc.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\InCommon\archive\icons\icon.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Resource Include="Content\InCommon\banners.xml" />
+    <Resource Include="Content\InCommon\windowsupdate.xml">
+      <SubType>Designer</SubType>
+    </Resource>
+    <None Include="Content\Schemas\Banners\Actions.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Content\Schemas\Banners\Buttons.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Content\Schemas\Banners\Content.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Content\Schemas\CommandLine\CommandLineProcessors.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Content\Schemas\Conditions\AntiMalware.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Content\Schemas\Conditions\Certificates.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Content\Schemas\Conditions\Conditions.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Content\Schemas\Conditions\Control.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Content\Schemas\Conditions\Downloader.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Content\Schemas\Conditions\Encryption.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Content\Schemas\Conditions\Engine.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Content\Schemas\Conditions\FileAndPath.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Content\Schemas\Conditions\Firewall.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Content\Schemas\Conditions\Identity.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Content\Schemas\Conditions\Misc.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Content\Schemas\Conditions\Network.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Content\Schemas\Conditions\Resources.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Content\Schemas\Conditions\SecurityPolicies.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Content\Schemas\Conditions\Services.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Content\Schemas\Conditions\Settings.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Content\Schemas\Conditions\SystemInfo.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Content\Schemas\Conditions\UserInterface.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Content\Schemas\Conditions\Versioning.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Content\Schemas\Conditions\WindowsRegistry.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Content\Schemas\Conditions\WindowsUpdate.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Content\Schemas\Conditions\Wireless.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Content\Schemas\Enums\ControlPanel.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Content\Schemas\Enums\EngineModes.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Content\Schemas\Branches\Base.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Content\Schemas\Enums\LoggingLevels.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Content\Schemas\Enums\RoleBranches.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Content\Schemas\Enums\Settings.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Content\Schemas\Enums\UserInterface.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Content\Schemas\Results\All.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Content\Schemas\Results\Control.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Content\Schemas\Results\Error.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Content\Schemas\Tasks\ActiveDirectory.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Content\Schemas\Tasks\AntiMalware.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Content\Schemas\Tasks\Authentication.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Content\Schemas\Tasks\Base.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Content\Schemas\Banners\Base.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Content\Schemas\Tasks\Certificates.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Content\Schemas\Tasks\Control.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Content\Schemas\Tasks\AdvancedMenu.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Content\Schemas\Tasks\Testing.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Content\Schemas\Tasks\Time.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Content\Schemas\Tasks\Text.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Content\Schemas\Tasks\SystemRestore.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Content\Schemas\Tasks\Services.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Content\Schemas\Tasks\Utility.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Content\Schemas\Tasks\Verification.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Content\Schemas\Tasks\Versioning.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Content\Schemas\Tasks\WebServices.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Content\Schemas\Tasks\WindowsUpdate.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Content\Schemas\Tasks\Wireless.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Content\Schemas\Tasks\UserInterface.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Content\Schemas\Tasks\Settings.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Content\Schemas\Tasks\SecurityPolicies.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Content\Schemas\Tasks\ScreenSaver.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Content\Schemas\Tasks\Reporting.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Content\Schemas\Tasks\Registry.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Content\Schemas\Tasks\Registration.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Content\Schemas\Tasks\Network.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Content\Schemas\Tasks\NamedPipes.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Content\Schemas\Tasks\Internet.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Content\Schemas\Tasks\Installer.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Content\Schemas\Tasks\Help.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Content\Schemas\Tasks\Firewall.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Content\Schemas\Tasks\FileAndPath.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Content\Schemas\Tasks\Logging.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Content\Schemas\Tasks\Downloader.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Content\Schemas\Tasks\Location.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Content\Schemas\UninstallSettings.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Content\Schemas\Wrappers\KeyedStringPropertyType.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Content\Schemas\Wrappers\KeyedWindowsUpdateRegistryType.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
+    <Content Include="Content\Utility.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <EmbeddedResource Include="Content\ConfirmCloseBanner.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Page Include="UserInterface\Controls\NavigationBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterface\Dialogs\Instances\AdvancedMenuWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterface\Dialogs\Instances\BorderlessWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterface\Dialogs\Instances\CommonResources.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterface\Dialogs\Instances\CustomControls\AdvancedMenuItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterface\Dialogs\Instances\CustomControls\AdvancedMenuItemContainer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterface\Dialogs\Instances\CustomControls\BorderedContentPanelInstance.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterface\Dialogs\Instances\CustomControls\CheckboxParagraph.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterface\Dialogs\Instances\CustomControls\CheckedParagraph.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserInterface\Dialogs\Instances\CustomControls\ContentPanelInstance.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterface\Dialogs\Instances\CustomControls\OptionParagraph.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterface\Dialogs\Instances\CustomControls\ScrollingBorderedContentPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterface\Dialogs\Instances\CustomControls\TextBoxField.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterface\Dialogs\Instances\HelpWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterface\Dialogs\Instances\Pages\BannerPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterface\Dialogs\Instances\StarkBorderedWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <EmbeddedResource Include="Content\DefaultStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <Page Include="UserInterface\Dialogs\Instances\Pages\ScratchPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Resource Include="icon.ico" />
+    <EmbeddedResource Include="Content\ErrorContent.xml" />
+    <EmbeddedResource Include="Content\SplashScreenBanner.xml" />
+    <EmbeddedResource Include="Content\GenericDownloader.xml" />
+    <EmbeddedResource Include="Content\GenericIssueRetryBanner.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Resource Include="Snippets\certutil_code.txt" />
+    <Resource Include="NativeCode\Tag Library Descriptors\readme.txt" />
+    <EmbeddedResource Include="Content\CommandLineProcessors.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Content\RelaunchAsAdminContent.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Content\CheckForUpgradeContent.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Content\CheckSystemTimeContent.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Content\GenericDiagnosticsContent.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Resource Include="Content\InCommon\tasklist.xml">
+      <SubType>Designer</SubType>
+    </Resource>
+    <Resource Include="Content\InCommon\license.xml">
+      <SubType>Designer</SubType>
+    </Resource>
+    <EmbeddedResource Include="Content\RestartComputerContent.xml" />
+    <Content Include="Content\Styles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="app.manifest">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="NativeCode\Tag Library Descriptors\wuapi.tlb" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+    <None Include="Content\Schemas\tasklist.xsd">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Content\Bootstrap.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="cert.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 Client Profile %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Content\Errors.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\InCommon\archive\Init.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <TransformOnBuild>true</TransformOnBuild>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DataContracts\DataContracts.csproj">
+      <Project>{ded72104-0ac1-469a-891e-45f4493f168c}</Project>
+      <Name>DataContracts %28DataContracts\DataContracts%29</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Elevator\Elevator.csproj">
+      <Project>{42385cbc-fcab-43cd-ba09-afc5cfe19d00}</Project>
+      <Name>Elevator %28Elevator\Elevator%29</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Content\Schemas\AdvancedMenu\" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="NetFwTypeLib">
+      <Guid>{58FBCF7C-E7A9-467C-80B3-FC65E8FCCA08}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="WUApiLib">
+      <Guid>{B596CC9F-56E5-419E-A622-E01BB457431E}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- Import the AssemblyInfo task -->
+  <Import Project="$(MSBuildCommunityTasksPath)\MSBuild.Community.Tasks.Targets" />
+  <PropertyGroup>
+    <PostBuildEvent>
+      <!-- "$(SIGNTOOLPATH)" sign /s MY /sha1 3f18cbe247ed8f32e77db94bbedcf847ebdc3182 /t http://timestamp.verisign.com/scripts/timstamp.dll "$(TargetPath)"
+      "$(SIGNTOOLPATH)" sign /s MY /sha1 3f18cbe247ed8f32e77db94bbedcf847ebdc3182 /t http://timestamp.verisign.com/scripts/timstamp.dll "$(TargetDir)elevator.exe"-->
+    </PostBuildEvent>
+  </PropertyGroup>
+  <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
+  <!-- Overriding the Microsoft.CSharp.targets target dependency chain -->
+  <!-- Call our custom AssemblyVersion target before build, even from VS -->
+  <PropertyGroup>
+    <BuildDependsOn>
+      AssemblyVersion;
+      $(BuildDependsOn)
+    </BuildDependsOn>
+  </PropertyGroup>
+  <ItemGroup>
+    <AssemblyVersionFiles Include="$(MSBuildProjectDirectory)\Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <Target Name="AssemblyVersion" Inputs="@(AssemblyVersionFiles)" Outputs="UpdatedAssemblyVersionFiles">
+    <Attrib Files="%(AssemblyVersionFiles.FullPath)" Normal="true" />
+    <AssemblyInfo CodeLanguage="CS" OutputFile="%(AssemblyVersionFiles.FullPath)" AssemblyCompany="$(Institution)" AssemblyVersion="$(AppVersion)" AssemblyFileVersion="$(AppVersion)" ComVisible="false" AssemblyTitle="$(ProductName)" AssemblyProduct="$(ProductName)">
+      <Output TaskParameter="OutputFile" ItemName="UpdatedAssemblyVersionFiles" />
+    </AssemblyInfo>
+  </Target>
+  <Import Project="$(SlowCheetahTargets)" Condition="Exists('$(SlowCheetahTargets)')" Label="SlowCheetah" />
+  <Import Project="$(IncertTargets)" Condition="Exists('$(IncertTargets)')" Label="Incert" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup Label="SlowCheetah">
+    <SlowCheetahToolsPath>$([System.IO.Path]::GetFullPath( $(MSBuildProjectDirectory)\..\packages\SlowCheetah.2.5.10.3\tools\))</SlowCheetahToolsPath>
+    <SlowCheetah_EnableImportFromNuGet Condition=" '$(SC_EnableImportFromNuGet)'=='' ">true</SlowCheetah_EnableImportFromNuGet>
+    <SlowCheetah_NuGetImportPath Condition=" '$(SlowCheetah_NuGetImportPath)'=='' ">$([System.IO.Path]::GetFullPath( $(MSBuildProjectDirectory)\Properties\SlowCheetah\SlowCheetah.Transforms.targets ))</SlowCheetah_NuGetImportPath>
+    <SlowCheetahTargets Condition=" '$(SlowCheetah_EnableImportFromNuGet)'=='true' and Exists('$(SlowCheetah_NuGetImportPath)') ">$(SlowCheetah_NuGetImportPath)</SlowCheetahTargets>
+  </PropertyGroup>
+  <Target Name="BeforeBuild">
+    <Warning Condition="!Exists('$(IncertTargets)')" Text="Could not load $(IncertTargets)" />
+    <Message Text="Engine: using Incert Target File: $(IncertTargets)" Importance="High" />
+    <Message Text="--- Engine base properties ----" Importance="high" />
+    <Message Text="App version = $(AppVersion)" Importance="high" />
+    <Message Text="Product name = $(ProductName)" Importance="high" />
+    <Message Text="Institution = $(Institution)" Importance="high" />
+    <Message Text="Icon = $(IconPath)" Importance="high" />
+    <Message Text=" " Importance="high" />
+  </Target>
+  <Target Name="WarnCannotBuildSettingsCab" AfterTargets="TransformAllFiles" DependsOnTargets="TransformAllFiles" Condition="Exists('$(ArchivePath)')">
+    <Warning Text="Cannot find or access archive path at '$(ArchivePath)'. Will not generate settings.cab archive." Condition="!Exists('$(SignToolPath)')" />
+  </Target>
+  <Target Name="BuildSettingsCab" AfterTargets="TransformAllFiles" DependsOnTargets="TransformAllFiles" Condition="Exists('$(ArchivePath)')">
+    <Exec Command="&quot;$(ProjectDir)$(ArchivePath)makesecurecab.bat&quot; &quot;settings.cab&quot; &quot;$(TargetDir)$(ArchivePath)&quot; &quot;$(TargetDir)&quot;" />
+  </Target>
+  <Target Name="WarnCannotSign" Condition="!Exists('$(SignToolPath)') or '$(CertThumbprint)' == ''" AfterTargets="AfterBuild" DependsOnTargets="AfterBuild">
+    <Warning Text="Cannot find or access signtool.exe at '$(SignToolPath)'. Engine output files will not be signed." Condition="!Exists('$(SignToolPath)')" />
+    <Warning Text="No certificate thumbprint defined. Engine output files will not be signed." Condition="'$(CertThumbprint)' == ''" />
+  </Target>
+  <Target Name="SignBinaries" Condition="Exists('$(SignToolPath)') and '$(CertThumbprint)' != ''" AfterTargets="AfterBuild" DependsOnTargets="AfterBuild">
+    <Exec Command="&quot;$(SignToolPath)&quot; sign /s MY /sha1 $(CertThumbprint) /t http://timestamp.verisign.com/scripts/timstamp.dll &quot;$(TargetPath)&quot;" />
+    <Exec Command="&quot;$(SignToolPath)&quot; sign /s MY /sha1 $(CertThumbprint) /t http://timestamp.verisign.com/scripts/timstamp.dll &quot;$(TargetDir)elevator.exe&quot;" />
+    <Exec Command="&quot;$(SignToolPath)&quot; sign /s MY /sha1 $(CertThumbprint) /t http://timestamp.verisign.com/scripts/timstamp.dll &quot;$(TargetDir)settings.cab&quot;" />
+  </Target>
+</Project>

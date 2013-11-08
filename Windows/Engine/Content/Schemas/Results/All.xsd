@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="AllResults" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:include schemaLocation="Control.xsd" />
+  <xs:include schemaLocation="Error.xsd" />
+   <xs:simpleType name="AllResultsList">
+    <xs:union memberTypes="ControlResultsList ErrorResultsList" />
+  </xs:simpleType>
+</xs:schema>

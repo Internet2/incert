@@ -1,0 +1,164 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="Firewall" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:include schemaLocation="Base.xsd" />
+  <xs:include schemaLocation="../Wrappers/KeyedWindowsUpdateRegistryType.xsd" />
+  <xs:element name="WindowsUpdate.PerformQuery">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="Query" type="xs:string" minOccurs="1" maxOccurs="1" />
+                  <xs:element name="ResultsObjectKey" type="xs:string" minOccurs="1" maxOccurs="1" />
+                  <xs:element name="ProxyServer" type="xs:string" maxOccurs="1" minOccurs="0" />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="WindowsUpdate.SetMissingUpdatesCountText">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="ObjectKey" type="xs:string" minOccurs="1" maxOccurs="1" />
+                  <xs:element name="SettingsKey" type="xs:string" minOccurs="1" maxOccurs="1" />
+                  <xs:element name="BaseText" type="xs:string" minOccurs="0" maxOccurs="1" />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="WindowsUpdate.InstallMissingUpdates">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="ToInstallObjectKey" type="xs:string" minOccurs="1" maxOccurs="1" />
+                  <xs:element name="InstalledObjectKey" type="xs:string" minOccurs="0" maxOccurs="1" />
+                  <xs:element name="ProxyServer" type="xs:string" maxOccurs="1" minOccurs="0" />
+                  <xs:element name="ProgressTextOutputKey" type="xs:string" minOccurs="0" maxOccurs="1" />
+                  <xs:element name="ProgressTitleOutputKey" type="xs:string" minOccurs="0" maxOccurs="1" />
+                  <xs:element name="DownloadProgressTitle" type="xs:string" minOccurs="0" maxOccurs="1" />
+                  <xs:element name="DownloadProgressText" type="xs:string" minOccurs="0" maxOccurs="1" />
+                  <xs:element name="PreInstallProgressTitle" type="xs:string" maxOccurs="1" minOccurs="0" />
+                  <xs:element name="PreInstallProgressText" type="xs:string" maxOccurs="1" minOccurs="0" />
+                  <xs:element name="InstallProgressTitle" type="xs:string" minOccurs="0" maxOccurs="1" />
+                  <xs:element name="InstallProgressText" type="xs:string" minOccurs="0" maxOccurs="1" />
+                  <xs:element name="DeferTextUpdates" type="xs:boolean" maxOccurs="1" minOccurs="0" />
+                  <xs:element name="DeferTitleUpdates" type="xs:boolean" maxOccurs="1" minOccurs="0" />
+                  <xs:element name="UseCreepTimer" type="xs:boolean" maxOccurs="1" minOccurs="0" />
+                  <xs:element name="CreepInterval" type="xs:int" maxOccurs="1" minOccurs="0" />
+                  <xs:element name="CreepTotalPercentIncrement" type="xs:int"  maxOccurs="1" minOccurs="0" />
+                  <xs:element name="CreepUpdatePercentIncrement" type="xs:int"  maxOccurs="1" minOccurs="0" />
+                  <xs:element name="CreepLimit" type="xs:int"  maxOccurs="1" minOccurs="0" />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="WindowsUpdate.ScheduleWindowsUpdates">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="InstallDay" type="AUScheduledInstallationDay" minOccurs="1" maxOccurs="1" />
+                  <xs:element name="NotificationLevel" type="AUNotificationLevel" minOccurs="1" maxOccurs="1" />
+                  <xs:element name="HourRange" type="xs:int" minOccurs="1" maxOccurs="1" />
+                  <xs:element name="EarliestHour" type="xs:int" minOccurs="1" maxOccurs="1" />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="WindowsUpdate.SetRegistryValues">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="Setter" type="KeyedWindowsUpdateRegistryType" minOccurs="1" maxOccurs="unbounded"  />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="WindowsUpdate.RestartService" type="BaseTaskNodeType" />
+  <xs:element name="WindowsUpdate.StartService" type="BaseTaskNodeType" />
+  <xs:element name="WindowsUpdate.StopService" type="BaseTaskNodeType" />
+
+  <xs:element name="WindowsUpdate.SetServiceStartupValue">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="StartupValue" type="WindowsUpdateServiceStartupValues" minOccurs="1" maxOccurs="1" />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:simpleType name="AUScheduledInstallationDay">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="ausidEveryDay" />
+      <xs:enumeration value="ausidEverySunday" />
+      <xs:enumeration value="ausidEveryMonday" />
+      <xs:enumeration value="ausidEveryTuesday" />
+      <xs:enumeration value="ausidEveryWednesday" />
+      <xs:enumeration value="ausidEveryThursday" />
+      <xs:enumeration value="ausidEveryFriday" />
+      <xs:enumeration value="ausidEverySaturday" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="AUNotificationLevel">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="aunlNotConfigured" />
+      <xs:enumeration value="aunlDisabled" />
+      <xs:enumeration value=" aunlNotifyBeforeDownload" />
+      <xs:enumeration value="aunlNotifyBeforeInstallation" />
+      <xs:enumeration value="aunlScheduledInstallation" />
+    </xs:restriction>
+  </xs:simpleType>
+
+</xs:schema>

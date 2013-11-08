@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Content xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://incert.incommon.org/schemas ./Schemas/tasklist.xsd">
+
+  <Branches>
+    <RoleBranch name="Show error banner" role="Error">
+      <Control.PreserveLastResult>
+        <Properties>
+          <SettingKey>CurrentIssue</SettingKey>
+        </Properties>
+      </Control.PreserveLastResult>
+      <UserInterface.CloseAllDialogs />
+      <UserInterface.ShowErrorDialog>
+        <Properties>
+          <ErrorKey>CurrentIssue</ErrorKey>
+        </Properties>
+      </UserInterface.ShowErrorDialog>
+
+      <Control.ReturnPreservedResult>
+        <Properties>
+          <SettingKey>CurrentIssue</SettingKey>
+        </Properties>
+      </Control.ReturnPreservedResult>
+    </RoleBranch>
+  </Branches>
+  
+  <Banners>
+    <SimpleBanner name="Error banner" noCloseQuestion="true" height="450" width="500" canClose="true" verticalAlignment="Stretch" margin="14,24,38,0">
+      <Content>
+        <SimpleParagraph dock="Left" alignment="Right" verticalAlignment="Top" fontSize="56" margin="30,48,18,0" padding="0">
+          <Content>
+            <DirectTextContent>&#9888;</DirectTextContent>
+          </Content>
+        </SimpleParagraph>
+        <ContentBlockParagraph banner="Error content banner" verticalAlignment="Stretch" margin="0,48,30,0" />
+        <ContentBlockParagraph banner="Error footer banner" verticalAlignment="Bottom" margin="0,0,0,24" dock="Bottom"/>
+      </Content>
+      <Buttons>
+        <ResultButton>
+          <Target>NextButton</Target>
+          <Text>Exit</Text>
+          <Result>ControlResults.ExitUtilityResult</Result>
+          <IsDefaultButton>true</IsDefaultButton>
+        </ResultButton>
+        <DisabledButton>
+          <Target>BackButton</Target>
+        </DisabledButton>
+
+        <OpenAdvancedMenuButton>
+          <Target>AdvancedButton</Target>
+          <Text>Advanced</Text>
+          <Group>[current issue advanced menu group]</Group>
+        </OpenAdvancedMenuButton>
+
+        <TopicButton>
+          <Target>HelpButton</Target>
+          <Text>Help</Text>
+          <Value>[current issue help topic]</Value>
+        </TopicButton>
+      </Buttons>
+    </SimpleBanner>
+
+    <SimpleBanner name="Error content banner">
+      <Content>
+        <SimpleParagraph alignment="Left" fontSize="18" fontWeight="Bold" margin="0,12,0,0" padding="0">
+          <Content>
+            <TempObjectFieldContent key="current issue info">Error: {Title}</TempObjectFieldContent>
+          </Content>
+        </SimpleParagraph>
+       
+        <ErrorParagraph margin="0,12,0,0" fontSize="12" padding="0" errorInfoKey="current issue info" />
+          
+      </Content>
+    </SimpleBanner>
+
+    <SimpleBanner name="Error footer banner" />
+      
+  </Banners>
+</Content>

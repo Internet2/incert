@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="Engine" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:include schemaLocation="../Enums/EngineModes.xsd" />
+  <xs:element name="Engine.ModeEquals">
+    <xs:complexType>
+      <xs:attribute name="value" type="EngineModes" use="required"   />
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Engine.ModeNotEqual">
+    <xs:complexType>
+      <xs:attribute name="value" type="EngineModes" use="required"   />
+    </xs:complexType>
+  </xs:element>
+
+</xs:schema>

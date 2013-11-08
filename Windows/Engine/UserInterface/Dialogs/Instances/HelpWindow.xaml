@@ -1,0 +1,82 @@
+﻿<Window x:Class="Org.InCommon.InCert.Engine.UserInterface.Dialogs.Instances.HelpWindow"
+         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:dialogModels="clr-namespace:Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.Mockup.DialogModels"
+
+
+        mc:Ignorable="d" 
+        Title="{Binding Title}" Height="360" Width="343" MinWidth="500" MinHeight="550"
+        d:DataContext="{d:DesignInstance Type=dialogModels:MockHelpDialogModel, IsDesignTimeCreatable=True}" 
+        WindowStyle="ToolWindow" 
+        ShowInTaskbar="False" 
+        ShowActivated="True" 
+        Closing="OnClosingHandler" 
+        WindowStartupLocation="Manual" 
+        Top ="{Binding Top, Mode=TwoWay}"
+        Left ="{Binding Left, Mode=TwoWay}"
+        >
+    <Window.Resources>
+        <Style TargetType="Label" x:Key="LabelStyle">
+            <Setter Property="FontFamily" Value="{Binding FontFamily}" />
+            <Setter Property="Foreground" Value="{Binding TextBrush}" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Padding" Value="0" />
+        </Style>
+
+        <Style TargetType="Hyperlink" x:Key="HelpBrowserControl">
+            <Setter Property="TextDecorations" Value="{x:Null}" />
+            <Setter Property="Foreground" Value="{Binding TextBrush}" />
+            <Style.Triggers>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"></Setter>
+                </Trigger>
+                <MultiTrigger>
+                    <MultiTrigger.Conditions>
+                        <Condition Property="IsEnabled" Value="True" />
+                        <Condition Property="IsMouseOver" Value="True" />
+                    </MultiTrigger.Conditions>
+                    <Setter Property="Foreground" Value="{Binding HighlightBrush}" />
+                </MultiTrigger>
+            </Style.Triggers>
+        </Style>
+
+    </Window.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions />
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <DockPanel Grid.Row="0" Background="{Binding Background}" Grid.ColumnSpan="2">
+            <Label Style="{StaticResource LabelStyle}" FontSize="18" DockPanel.Dock="Left" Margin="16,0,8,0" >
+                <Hyperlink IsEnabled="{Binding CanGoBack}" Style="{StaticResource HelpBrowserControl}" Command="{Binding BackCommand}">&#9664;</Hyperlink>
+            </Label>
+            <Label Style="{StaticResource LabelStyle}" FontSize="18" DockPanel.Dock="Left" Margin="0,0,8,0">
+                <Hyperlink IsEnabled="{Binding CanGoForward}" Style="{StaticResource HelpBrowserControl}" Command="{Binding ForwardCommand}">&#9654;</Hyperlink>
+            </Label>
+            <Label Style="{StaticResource LabelStyle}" FontSize="24" FontWeight="SemiBold" DockPanel.Dock="Left" Margin="0" Padding="0,0,0,3">
+                <Hyperlink Style="{StaticResource HelpBrowserControl}" Command="{Binding ReloadCommand}">&#8635;</Hyperlink>
+            </Label>
+            <Label Style="{StaticResource LabelStyle}" FontSize="10pt" DockPanel.Dock="Right" HorizontalContentAlignment="Right" Margin="0,0,16,0">
+                <Hyperlink Style="{StaticResource HelpBrowserControl}" Command="{Binding HomeCommand}">
+                    <TextBlock Text="{Binding TopBannerText}" />
+                </Hyperlink>
+            </Label>
+        </DockPanel>
+        <WebBrowser Name="Browser" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" />
+        <DockPanel Grid.Row="2" Background="{Binding Background}" VerticalAlignment="Center">
+            <CheckBox DockPanel.Dock="Left" Margin="12,8,4,8" Name="PreserveContentCheck" IsChecked="{Binding PreserveChecked, Mode=TwoWay}" />
+            <TextBlock DockPanel.Dock="Left" Foreground="{Binding TextBrush}" FontFamily="{Binding FontFamily}" FontSize="9pt" VerticalAlignment="Center" Margin="0,0,12,0">
+                <Hyperlink Style="{StaticResource HelpBrowserControl}" Command="{Binding PreserveCommand}">
+                    <TextBlock Text="{Binding PreserveText}"></TextBlock>
+                </Hyperlink>
+            </TextBlock>
+        </DockPanel>
+
+    </Grid>
+</Window>

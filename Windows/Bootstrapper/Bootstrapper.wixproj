@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <BootstrapperEngineFilesDir Condition=" '$(BootstrapperEngineFilesDir)' == ''">$(SolutionDir)\BootstrapperEngine\bin\$(Configuration)\</BootstrapperEngineFilesDir>
+    <FrameworkInstallerFile Condition=" '$(FrameworkInstallerFile)' == ''">$(MSBuildProjectDirectory)\FrameworkInstaller\dotnetfx45_full_x86_x64.exe</FrameworkInstallerFile>
+    <EngineInstallerFile Condition=" '$(InstallerFile)' == ''">$(SolutionDir)\Installer\bin\$(Configuration)\Installer.msi</EngineInstallerFile>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProjectGuid>e3db2230-4af7-4506-b8ae-4f07198cb975</ProjectGuid>
+    <SchemaVersion>2.0</SchemaVersion>
+    <OutputName>Bundle</OutputName>
+    <OutputType>Bundle</OutputType>
+    <WixTargetsPath Condition=" '$(WixTargetsPath)' == '' AND '$(MSBuildExtensionsPath32)' != '' ">$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.x\Wix.targets</WixTargetsPath>
+    <WixTargetsPath Condition=" '$(WixTargetsPath)' == '' ">$(MSBuildExtensionsPath)\Microsoft\WiX\v3.x\Wix.targets</WixTargetsPath>
+    <IncertTargets Condition="'$(IncertTargets)' == '' ">$(SolutionDir).build\InCert.targets</IncertTargets>
+    <MSBuildCommunityTasksPath Condition="'$(MSBuildCommunityTasksPath)' == ''">$(SolutionDir).build</MSBuildCommunityTasksPath>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <!-- import the InCert customizations -->
+  <Import Project="$(IncertTargets)" />
+  <!-- import msbuild community task -->
+  <Import Project="$(MSBuildCommunityTasksPath)\MSBuild.Community.Tasks.Targets" Condition="Exists('$(MSBuildCommunityTasksPath)')" />
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <OutputPath>bin\$(Configuration)\</OutputPath>
+    <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
+    <DefineConstants>Debug;AppVersion=$(AppVersion);BootstrapperEngineFilesDir=$(BootstrapperEngineFilesDir);ProductName=$(ProductName);BackgroundColor=$(BackgroundColor);TextColor=$(TextColor);HelpUrl=$(HelpUrl);EngineInstallerFile=$(EngineInstallerFile);FrameworkInstallerFile=$(FrameworkInstallerFile);IconPath=$(IconPath);Institution=$(Institution);LogUploader=$(LogUploader);LoggingUrl=$(LoggingUrl)</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <OutputPath>bin\$(Configuration)\</OutputPath>
+    <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
+    <DefineConstants>AppVersion=$(AppVersion);BootstrapperEngineFilesDir=$(BootstrapperEngineFilesDir);ProductName=$(ProductName);BackgroundColor=$(BackgroundColor);TextColor=$(TextColor);HelpUrl=$(HelpUrl);EngineInstallerFile=$(EngineInstallerFile);FrameworkInstallerFile=$(FrameworkInstallerFile);IconPath=$(IconPath);Institution=$(Institution);LogUploader=$(LogUploader);LoggingUrl=$(LoggingUrl)</DefineConstants>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Bundle.wxs" />
+  </ItemGroup>
+  <ItemGroup>
+    <WixExtension Include="WixUtilExtension">
+      <HintPath>$(WixExtDir)\WixUtilExtension.dll</HintPath>
+      <Name>WixUtilExtension</Name>
+    </WixExtension>
+    <WixExtension Include="WixNetFxExtension">
+      <HintPath>$(WixExtDir)\WixNetFxExtension.dll</HintPath>
+      <Name>WixNetFxExtension</Name>
+    </WixExtension>
+    <WixExtension Include="WixBalExtension">
+      <HintPath>$(WixExtDir)\WixBalExtension.dll</HintPath>
+      <Name>WixBalExtension</Name>
+    </WixExtension>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="FrameworkInstaller" />
+    <Folder Include="Resources" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="FrameworkInstaller\readme.txt" />
+    <Content Include="icon.ico" />
+    <Content Include="packages.config" />
+    <Content Include="Resources\HyperlinkTheme.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\HyperlinkTheme.wxl" />
+  </ItemGroup>
+  <Import Project="$(WixTargetsPath)" />
+  <PropertyGroup>
+    <PostBuildEvent />
+  </PropertyGroup>
+  <Target Name="BeforeBuild">
+    <Warning Condition="!Exists('$(IncertTargets)')" Text="Could not load $(IncertTargets)" />
+    <Message Text="Bootstrapper: using Incert Target File: $(IncertTargets)" Importance="High" />
+    <Message Text="--- Bootstrapper base properties ----" Importance="high" />
+    <Message Text="App version = $(AppVersion)" Importance="high" />
+    <Message Text="Product name = $(ProductName)" Importance="high" />
+    <Message Text="Institution = $(Institution)" Importance="high" />
+    <Message Text="Icon = $(IconPath)" Importance="high" />
+    <Message Text=" " Importance="high" />
+    <Message Text="--- Bootstrapper customizations ----" Importance="high" />
+    <Message Text="Help url = $(HelpUrl)" Importance="high" />
+    <Message Text="Text Color = $(TextColor)" Importance="high" />
+    <Message Text="Background Color = $(BackgroundColor)" Importance="high" />
+    <Message Text="Log Uploader = $(LogUploader)" Importance="high" />
+    <Message Text="Logging Url = $(LoggingUrl)" Importance="high" />
+    <Message Text=" " Importance="high" />
+  </Target>
+  <Target Name="DownloadNetInstaller" AfterTargets="BeforeBuild" DependsOnTargets="BeforeBuild" Condition="Exists('$(MSBuildCommunityTasksPath)') and $(NetFx45DownloadUrl) !='' and !Exists('$(MSBuildProjectDirectory)\FrameworkInstaller\dotnetfx45_full_x86_x64.exe')">
+    <Message Text="Downloading .net 4.5 installer to $(MSBuildProjectDirectory)\FrameworkInstaller\dotnetfx45_full_x86_x64.exe" Importance="high" />
+    <Message Text="Using download url: $(NetFx45DownloadUrl)" Importance="high" />
+    <WebDownload FileName="$(MSBuildProjectDirectory)\FrameworkInstaller\dotnetfx45_full_x86_x64.exe" FileUri="$(NetFx45DownloadUrl)" UseDefaultCredentials="True">
+    </WebDownload>
+  </Target>
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+</Project>

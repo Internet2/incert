@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="Settings" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+
+  <xs:element name="Settings.SettingEquals">
+    <xs:complexType>
+      <xs:attribute name="key" type="xs:string" use="required"   />
+      <xs:attribute name="value" type="xs:string" use="required"   />
+      <xs:attribute name="ignoreCase" type="xs:boolean" use="optional"   />
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Settings.SettingNotEqual">
+    <xs:complexType>
+      <xs:attribute name="key" type="xs:string" use="required"   />
+      <xs:attribute name="value" type="xs:string" use="required"   />
+      <xs:attribute name="ignoreCase" type="xs:boolean" use="optional"   />
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Settings.StoredDictionaryValueEquals">
+    <xs:complexType>
+      <xs:attribute name="objectkey" type="xs:string" use="required"   />
+      <xs:attribute name="valuekey" type="xs:string" use="required"   />
+      <xs:attribute name="value" type="xs:string" use="required"   />
+      <xs:attribute name="ignoreCase" type="xs:boolean" use="optional"   />
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Settings.StoredDictionaryValueNotEqual">
+    <xs:complexType>
+      <xs:attribute name="objectkey" type="xs:string" use="required"   />
+      <xs:attribute name="valuekey" type="xs:string" use="required"   />
+      <xs:attribute name="value" type="xs:string" use="required"   />
+      <xs:attribute name="ignoreCase" type="xs:boolean" use="optional"   />
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Settings.ValuePresentInStoredList">
+    <xs:complexType>
+      <xs:attribute name="objectKey" type="xs:string" use="required"   />
+      <xs:attribute name="value" type="xs:string" use="required"   />
+      <xs:attribute name="ignoreCase" type="xs:boolean" use="optional"   />
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Settings.ValueNotPresentInStoredList">
+    <xs:complexType>
+      <xs:attribute name="objectKey" type="xs:string" use="required"   />
+      <xs:attribute name="value" type="xs:string" use="required"   />
+      <xs:attribute name="ignoreCase" type="xs:boolean" use="optional"   />
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Settings.PersistedValuePresent">
+    <xs:complexType>
+      <xs:attribute name="persistedKey" type="xs:string" use="required"   />
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Settings.PersistedValueNotPresent">
+    <xs:complexType>
+      <xs:attribute name="persistedKey" type="xs:string" use="required"   />
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Settings.ObjectEntryPresent">
+    <xs:complexType>
+      <xs:attribute name="objectKey" type="xs:string" use="required"   />
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Settings.ObjectEntryNotPresent">
+    <xs:complexType>
+      <xs:attribute name="objectKey" type="xs:string" use="required"   />
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Settings.SettingNotPresent">
+    <xs:complexType>
+      <xs:attribute name="key" type="xs:string" use="required"   />
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Settings.SettingPresent">
+    <xs:complexType>
+      <xs:attribute name="key" type="xs:string" use="required"   />
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

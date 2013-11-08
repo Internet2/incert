@@ -1,0 +1,158 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="Authentication" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:include schemaLocation="Base.xsd" />
+  <xs:element name="Authentication.AuthenticateUser">
+    <xs:annotation>
+      <xs:documentation>Authenticates the user using the web-service.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="UsernameKey" type="xs:string" maxOccurs="1" minOccurs="1">
+                    <xs:annotation>
+                      <xs:documentation>The settings key containing the user's username</xs:documentation>
+                    </xs:annotation>
+                  </xs:element>
+                  <xs:element name="PassphraseKey" type="xs:string" maxOccurs="1" minOccurs="1">
+                    <xs:annotation>
+                      <xs:documentation>The settings key containing the user's password or passphrase</xs:documentation>
+                    </xs:annotation>
+                  </xs:element>
+                  <xs:element name="Credential2Key" type="xs:string" maxOccurs="1" minOccurs="0">
+                    <xs:annotation>
+                      <xs:documentation>The settings key containing the second credential string to use when authenticating the user</xs:documentation>
+                    </xs:annotation>
+                  </xs:element>
+                  <xs:element name="Credential3Key" type="xs:string" maxOccurs="1" minOccurs="0">
+                    <xs:annotation>
+                      <xs:documentation>The settings key containing the third credential string to use when authenticating the user</xs:documentation>
+                    </xs:annotation>
+                  </xs:element>
+                  <xs:element name="Credential4Key" type="xs:string" maxOccurs="1" minOccurs="0">
+                    <xs:annotation>
+                      <xs:documentation>The settings key containing the fourth credential string to use when authenticating the user</xs:documentation>
+                    </xs:annotation>
+                  </xs:element>
+                  <xs:element name="CertificateProvider" type="xs:string" maxOccurs="1" minOccurs="0">
+                    <xs:annotation>
+                      <xs:documentation>The provider to use when authenticating the user</xs:documentation>
+                    </xs:annotation>
+                  </xs:element>
+                </xs:sequence>
+              </xs:complexType>
+
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Authentication.IdentifyUser">
+    <xs:annotation>
+      <xs:documentation>Authenticates the user using the web-service and retrieves additional properties, etc. for the user.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="UsernameKey" type="xs:string" maxOccurs="1" minOccurs="1">
+                    <xs:annotation>
+                      <xs:documentation>The settings key containing the user's username</xs:documentation>
+                    </xs:annotation>
+                  </xs:element>
+                  <xs:element name="PassphraseKey" type="xs:string" maxOccurs="1" minOccurs="1">
+                    <xs:annotation>
+                      <xs:documentation>The settings key containing the user's password or passphrase</xs:documentation>
+                    </xs:annotation>
+                  </xs:element>
+                  <xs:element name="Credential2Key" type="xs:string" maxOccurs="1" minOccurs="0">
+                    <xs:annotation>
+                      <xs:documentation>The settings key containing the second credential string to use when authenticating the user</xs:documentation>
+                    </xs:annotation>
+                  </xs:element>
+                  <xs:element name="Credential3Key" type="xs:string" maxOccurs="1" minOccurs="0">
+                    <xs:annotation>
+                      <xs:documentation>The settings key containing the third credential string to use when authenticating the user</xs:documentation>
+                    </xs:annotation>
+                  </xs:element>
+                  <xs:element name="Credential4Key" type="xs:string" maxOccurs="1" minOccurs="0">
+                    <xs:annotation>
+                      <xs:documentation>The settings key containing the fourth credential string to use when authenticating the user</xs:documentation>
+                    </xs:annotation>
+                  </xs:element>
+                  <xs:element name="CertificateProvider" type="xs:string" maxOccurs="1" minOccurs="0">
+                    <xs:annotation>
+                      <xs:documentation>The provider to use when authenticating the user</xs:documentation>
+                    </xs:annotation>
+                  </xs:element>
+                  <xs:element name="UserPropertiesKey" type="xs:string" maxOccurs="1" minOccurs="1">
+                    <xs:annotation>
+                      <xs:documentation>The setting key used to store the returned user properties dictionary</xs:documentation>
+                    </xs:annotation>
+                  </xs:element>
+                  <xs:element name="GroupPathsKey" type="xs:string" maxOccurs="1" minOccurs="1">
+                    <xs:annotation>
+                      <xs:documentation>The setting key used to store the returned group paths list</xs:documentation>
+                    </xs:annotation>
+                  </xs:element>
+                  <xs:element name="Property" type="xs:string" maxOccurs="unbounded" minOccurs="0">
+                    <xs:annotation>
+                      <xs:documentation>Property to retrieve for the user</xs:documentation>
+                    </xs:annotation>
+                  </xs:element>
+                  <xs:element name="GroupPath" type="xs:string" maxOccurs="unbounded" minOccurs="0">
+                    <xs:annotation>
+                      <xs:documentation>Group to query to see if user is member of</xs:documentation>
+                    </xs:annotation>
+                  </xs:element>
+
+                </xs:sequence>
+              </xs:complexType>
+
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Authentication.VerifyLocalPasswordSet"  type="BaseTaskNodeType" />
+
+  <xs:element name="Authentication.GetCampusForUser">
+    <xs:annotation>
+      <xs:documentation>Executes a web-service query to determine the user's campus.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="Username" type="xs:string">
+                    <xs:annotation>
+                      <xs:documentation>The user's username</xs:documentation>
+                    </xs:annotation>
+                  </xs:element>
+                  <xs:element name="SettingKey">
+                    <xs:annotation>
+                      <xs:documentation>Setting key that will return the user's campus' shortname</xs:documentation>
+                    </xs:annotation>
+                  </xs:element>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

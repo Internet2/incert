@@ -1,0 +1,74 @@
+﻿<Page x:Class="Org.InCommon.InCert.BootstrapperEngine.Views.Pages.AskingPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mock="clr-namespace:Org.InCommon.InCert.BootstrapperEngine.Models.Mockup.Pages"
+      xmlns:converters="clr-namespace:Org.InCommon.InCert.BootstrapperEngine.Converters"
+      mc:Ignorable="d" 
+      d:DesignHeight="300" d:DesignWidth="400"
+      Margin="50,0,50,0"
+      d:DataContext="{d:DesignInstance Type=mock:MockAskingPage, IsDesignTimeCreatable=True}"
+	Title="AskingPage">
+    <Page.Resources>
+        <converters:StringNullOrEmptyToVisibilityConverter x:Key="StringEmptyToVisConverter" />
+    </Page.Resources>
+    <Grid Background="{Binding Background}" VerticalAlignment="Center">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Grid.Column="0" VerticalAlignment="Center">
+            <Ellipse Stroke="{Binding Foreground}" Fill="{Binding Background}" StrokeThickness="4" Width="48" Height="48"/>
+            <Label FontWeight="DemiBold" 
+                   VerticalAlignment="Stretch" 
+                   HorizontalAlignment="Stretch"
+                   VerticalContentAlignment="Center"
+                   HorizontalContentAlignment="Center" 
+                   Foreground="{Binding Foreground}"
+                   FontSize="36"
+                   Margin="0"
+                   Padding="0,0,0,0.75" 
+                   Content="{Binding Glyph}" />
+        </Grid>
+        <Label Grid.Row="0" Grid.Column="1" VerticalAlignment="Center"
+               HorizontalAlignment="Stretch"
+               VerticalContentAlignment="Center"
+               HorizontalContentAlignment="Left"
+               Foreground="{Binding Foreground}"
+               FontSize="12pt"
+               Padding="0"
+               Margin="12,0,0,4">
+            <TextBlock TextWrapping="Wrap" FontWeight="DemiBold" Text="{Binding Title}" />
+        </Label>
+        <Label Grid.Row="1" Grid.Column="1" MaxHeight="150" MinHeight="76"
+               VerticalAlignment="Stretch"
+               HorizontalAlignment="Stretch"
+               VerticalContentAlignment="Top"
+               HorizontalContentAlignment="Left"
+               Foreground="{Binding Foreground}"
+               FontSize="10pt"
+               Padding="0"
+               Margin="12,24,0,0"
+               Visibility="{Binding Details, Converter={StaticResource StringEmptyToVisConverter}}">
+            <TextBlock TextWrapping="Wrap" FontStyle="Italic" Text="{Binding Details}" />
+        </Label>
+        <Label Grid.Row="2" Grid.Column="1" VerticalAlignment="Stretch"
+               HorizontalAlignment="Stretch"
+               VerticalContentAlignment="Center"
+               HorizontalContentAlignment="Left"
+               Foreground="{Binding Foreground}"
+               FontSize="12pt"
+               Padding="0"
+               Margin="12,12,0,8"
+               Visibility="{Binding Question, Converter={StaticResource StringEmptyToVisConverter}}">
+            <TextBlock TextWrapping="Wrap" Text="{Binding Question}" />
+        </Label>
+    </Grid>
+
+</Page>

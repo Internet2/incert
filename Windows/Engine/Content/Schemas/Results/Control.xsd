@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="ControlResults" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:simpleType name="ControlResultsList">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="ControlResults.BackResult" />
+      <xs:enumeration value="ControlResults.BranchResult" />
+      <xs:enumeration value="ControlResults.CloseResult" />
+      <xs:enumeration value="ControlResults.ExitUtilityResult" />
+      <xs:enumeration value="ControlResults.JumpResult" />
+      <xs:enumeration value="ControlResults.NextResult" />
+      <xs:enumeration value="ControlResults.RepeatBranchingTaskResult" />
+      <xs:enumeration value="ControlResults.RepeatCurrentBranchResult" />
+      <xs:enumeration value="ControlResults.RepeatCurrentTaskResult" />
+      <xs:enumeration value="ControlResults.RepeatParentBranchResult" />
+      <xs:enumeration value="ControlResults.SkipResult" />
+      <xs:enumeration value="ControlResults.LeaveBranchNextResult"/>
+      <xs:enumeration value="ControlResults.LeaveBranchBackResult"/>
+      <xs:enumeration value="ControlResults.RestartComputerResult" />
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>

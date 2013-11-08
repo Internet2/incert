@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Content xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://incert.incommon.org/schemas ../Schemas/tasklist.xsd">
+  <Branches>
+    <RoleBranch name="main" role="Remote" roleMode="Normal">
+      <Control.GetContentFromEndpoint>
+        <Properties>
+          <ContentName>banners.xml</ContentName>
+          <ContentName>credentials.xml</ContentName>
+          <ContentName>certificates.xml</ContentName>
+          <ContentName>restorepoint.xml</ContentName>
+          <ContentName>wireless.xml</ContentName>
+          <ContentName>systemintegrity.xml</ContentName>
+          <ContentName>antimalware.xml</ContentName>
+          <ContentName>license.xml</ContentName>
+          <ContentName>networksecurity.xml</ContentName>
+          <ContentName>screensaver.xml</ContentName>
+          <ContentName>windowsupdate.xml</ContentName>
+        </Properties>
+      </Control.GetContentFromEndpoint>
+
+      <Settings.SetSettingText>
+        <Properties>
+          <Setter key="certificate provider">incommontest.org</Setter>
+          <Setter key="credential2">cred2</Setter>
+          <Setter key="credential3">cred3</Setter>
+          <Setter key="credential4">cred4</Setter>
+        </Properties>
+      </Settings.SetSettingText>
+
+      <!-- hide the splash screen dialog raised by bootstrap tasklist -->
+      <UserInterface.StopMessageTimer>
+        <Properties>
+          <SettingKey>Splash screen progress text</SettingKey>
+        </Properties>
+      </UserInterface.StopMessageTimer>
+
+      <UserInterface.HideDialog>
+        <Properties>
+          <Dialog>Splash screen dialog</Dialog>
+        </Properties>
+      </UserInterface.HideDialog>
+
+      <Control.ReturnBranchResult errorBranch="handle authentication issues">
+        <Properties>
+          <Branch>Authenticate</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+
+      <Logging.SetLogUsername forwardOnly="true">
+        <Properties>
+          <Username>[username]</Username>
+        </Properties>
+      </Logging.SetLogUsername>
+
+      <Settings.RetrieveSettingsString forwardOnly="true">
+        <Properties>
+          <Setter key="agree to license">LicenseAccepted</Setter>
+        </Properties>
+      </Settings.RetrieveSettingsString>
+
+      <UserInterface.ShowBorderedBannerModal>
+        <Properties>
+          <Dialog>Main dialog</Dialog>
+          <Banner>LicenseDialog</Banner>
+        </Properties>
+      </UserInterface.ShowBorderedBannerModal>
+
+      <Settings.PersistSettingsString forwardOnly="true">
+        <Properties>
+          <Setter key="agree to license">LicenseAccepted</Setter>
+        </Properties>
+      </Settings.PersistSettingsString>
+
+      <UserInterface.ShowBorderedBannerModal>
+        <Properties>
+          <Dialog>Main dialog</Dialog>
+          <Banner>ReadyBanner</Banner>
+        </Properties>
+      </UserInterface.ShowBorderedBannerModal>
+
+      <UserInterface.ChangeBanner minimumTaskTime="1">
+        <Properties>
+          <Dialog>Main dialog</Dialog>
+          <Banner>ConfirmSettingsProgressBanner</Banner>
+        </Properties>
+      </UserInterface.ChangeBanner>
+
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>restorepoint.set restore point</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>credentials.verify admin account credentials</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>antimalware.evaluate</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>systemintegrity.verify security center</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>systemintegrity.verify anti-virus software</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>systemintegrity.verify anti-spyware software</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+
+      <UserInterface.ChangeBanner>
+        <Properties>
+          <Dialog>Main dialog</Dialog>
+          <Banner>ConfigureProgressBanner</Banner>
+        </Properties>
+      </UserInterface.ChangeBanner>
+
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>networksecurity.configure</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>windowsupdate.configure</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>screensaver.configure</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>certificates.configure</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>wireless.add profiles</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+
+      <UserInterface.ActivateCheckedParagraph minimumTaskTime="1">
+        <Properties>
+          <Dialog>Main dialog</Dialog>
+          <ControlKey>Registering computer</ControlKey>
+        </Properties>
+      </UserInterface.ActivateCheckedParagraph>
+
+      <Registration.RegisterComputer>
+        <Properties>
+          <UsernameKey>username</UsernameKey>
+          <PassphraseKey>passphrase</PassphraseKey>
+          <Credential2Key>credential2</Credential2Key>
+          <Credential3Key>credential3</Credential3Key>
+          <Credential4Key>credential4</Credential4Key>
+          <CertificateProvider>[certificate provider]</CertificateProvider>
+        </Properties>
+      </Registration.RegisterComputer>
+
+      <UserInterface.CompleteCheckedParagraph minimumTaskTime="1">
+        <Properties>
+          <Dialog>Main dialog</Dialog>
+          <ControlKey>Registering computer</ControlKey>
+        </Properties>
+      </UserInterface.CompleteCheckedParagraph>
+
+      <UserInterface.ShowBorderedBannerModal>
+        <Properties>
+          <Dialog>Main dialog</Dialog>
+          <Banner>FinishBanner</Banner>
+        </Properties>
+      </UserInterface.ShowBorderedBannerModal>
+    </RoleBranch>
+
+    <TaskBranch name="Authenticate">
+      <Settings.RetrieveSettingsString>
+        <Properties>
+          <Setter key="username">Username</Setter>
+        </Properties>
+      </Settings.RetrieveSettingsString>
+
+      <UserInterface.StopMessageTimer>
+        <Conditions.Any>
+          <UserInterface.TimedMessageExists key="AuthenticatingMessage" />
+        </Conditions.Any>
+        <Properties>
+          <SettingKey>AuthenticatingMessage</SettingKey>
+        </Properties>
+      </UserInterface.StopMessageTimer>
+
+      <UserInterface.HideBannerControl>
+        <Conditions.Any>
+          <UserInterface.BannerControlExists key="AuthenticatingMessage" dialog="Main dialog" />
+        </Conditions.Any>
+        <Properties>
+          <Dialog>Main dialog</Dialog>
+          <ControlKey>AuthenticatingMessage</ControlKey>
+        </Properties>
+      </UserInterface.HideBannerControl>
+
+      <UserInterface.ShowBannerControl>
+        <Conditions.Any>
+          <UserInterface.BannerControlExists key="Instructions" dialog="Main dialog" />
+        </Conditions.Any>
+        <Properties>
+          <Dialog>Main dialog</Dialog>
+          <ControlKey>Instructions</ControlKey>
+        </Properties>
+      </UserInterface.ShowBannerControl>
+
+      <Settings.SetSettingText>
+        <Properties>
+          <Setter key="authenticating">false</Setter>
+        </Properties>
+      </Settings.SetSettingText>
+
+      <UserInterface.ShowBorderedBannerModal>
+        <Properties>
+          <Dialog>Main dialog</Dialog>
+          <Banner>LoginBanner</Banner>
+        </Properties>
+      </UserInterface.ShowBorderedBannerModal>
+
+      <Settings.SetSettingText>
+        <Properties>
+          <Setter key="authenticating">true</Setter>
+        </Properties>
+      </Settings.SetSettingText>
+
+      <Settings.PersistSettingsString>
+        <Properties>
+          <Setter key="username">Username</Setter>
+        </Properties>
+      </Settings.PersistSettingsString>
+
+      <UserInterface.DisableAllBannerDialogControls forwardOnly="true">
+        <Properties>
+          <Dialog>Main dialog</Dialog>
+          <ExcludeControlKey>HelpButton</ExcludeControlKey>
+        </Properties>
+      </UserInterface.DisableAllBannerDialogControls>
+
+      <UserInterface.CollapseBannerControl>
+        <Properties>
+          <Dialog>Main dialog</Dialog>
+          <ControlKey>Instructions</ControlKey>
+        </Properties>
+      </UserInterface.CollapseBannerControl>
+
+      <UserInterface.ShowBannerControl>
+        <Properties>
+          <Dialog>Main dialog</Dialog>
+          <ControlKey>AuthenticatingMessage</ControlKey>
+        </Properties>
+      </UserInterface.ShowBannerControl>
+
+      <UserInterface.EnableBannerControl>
+        <Properties>
+          <Dialog>Main dialog</Dialog>
+          <ControlKey>AuthenticatingMessage</ControlKey>
+        </Properties>
+      </UserInterface.EnableBannerControl>
+
+      <UserInterface.StartMessageTimer forwardOnly="true">
+        <Properties>
+          <SettingKey>AuthenticatingMessage</SettingKey>
+        </Properties>
+      </UserInterface.StartMessageTimer>
+
+      <Authentication.AuthenticateUser>
+        <Properties>
+          <UsernameKey>username</UsernameKey>
+          <PassphraseKey>passphrase</PassphraseKey>
+          <Credential2Key>credential2</Credential2Key>
+          <Credential3Key>credential3</Credential3Key>
+          <Credential4Key>credential4</Credential4Key>
+          <CertificateProvider>[certificate provider]</CertificateProvider>
+        </Properties>
+      </Authentication.AuthenticateUser>
+
+      <UserInterface.StopMessageTimer>
+        <Properties>
+          <SettingKey>AuthenticatingMessage</SettingKey>
+        </Properties>
+      </UserInterface.StopMessageTimer>
+    </TaskBranch>
+
+    <TaskBranch name="handle authentication issues">
+      <Control.PreserveLastResult>
+        <Properties>
+          <SettingKey>generic issue retry banner stored result</SettingKey>
+        </Properties>
+      </Control.PreserveLastResult>
+
+      <UserInterface.StopMessageTimer>
+        <Properties>
+          <SettingKey>AuthenticatingMessage</SettingKey>
+        </Properties>
+      </UserInterface.StopMessageTimer>
+
+      <Settings.SetSettingText>
+        <Properties>
+          <Setter key="generic issue retry banner title">Authentication Failed - Retry?</Setter>
+          <Setter key="generic issue retry banner description">!ApplicationTitle! could not verify your network credentials.</Setter>
+          <Setter key="generic issue retry banner retry cancel text">Click Retry to try again or Cancel to exit.</Setter>
+        </Properties>
+      </Settings.SetSettingText>
+
+      <UserInterface.ShowChildBannerModal>
+        <Properties>
+          <ParentDialog>Main dialog</ParentDialog>
+          <ChildDialog>notification dialog manager</ChildDialog>
+          <Banner>Generic issue retry banner</Banner>
+        </Properties>
+      </UserInterface.ShowChildBannerModal>
+    </TaskBranch>
+  </Branches>
+</Content>

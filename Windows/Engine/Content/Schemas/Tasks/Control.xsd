@@ -1,0 +1,218 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="Control" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:include schemaLocation="Base.xsd" />
+  <xs:include schemaLocation="../Enums/RoleBranches.xsd" />
+  <xs:include schemaLocation="../Wrappers/KeyedStringPropertyType.xsd" />
+  <xs:element name="Control.ImportTasklistsFromFile">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="TargetPath" type="xs:string" maxOccurs="1" minOccurs="1" />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Control.ImportContentFromSignedArchive">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="TargetPath" type="xs:string" maxOccurs="1" minOccurs="1" />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Control.GetContentFromEmbeddedResource">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="ResourcePath" type="xs:string" maxOccurs="unbounded" minOccurs="1" />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Control.GetContentFromEndpoint">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="ContentName" type="xs:string" maxOccurs="unbounded" minOccurs="1" />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Control.PreserveLastResult">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="SettingKey" type="xs:string" maxOccurs="1" minOccurs="1" />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Control.PreserveArbitraryResult">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="ObjectKey" type="xs:string" maxOccurs="1" minOccurs="1" />
+                  <xs:element name="Result" type="AllResultsList" maxOccurs="1" minOccurs="1" />
+                  <xs:element name="PropertySetter" type="KeyedStringPropertyType" minOccurs="0" maxOccurs="unbounded"  />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Control.ProcessCommandLineArguments" type="BaseTaskNodeType" />
+
+  <xs:element name="Control.ReturnPreservedResult">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="SettingKey" type="xs:string" maxOccurs="1" minOccurs="1" />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Control.ReturnBranchResult">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="Branch" type="xs:string" maxOccurs="1" minOccurs="1" />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Control.ReturnRoleBranchResult">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="Role" type="BranchRoles" maxOccurs="1" minOccurs="1" />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Control.ReturnErrorResult">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="Result" type="ErrorResultsList" maxOccurs="1" minOccurs="1" />
+                  <xs:element name="PropertySetter" type="KeyedStringPropertyType" minOccurs="0" maxOccurs="unbounded"  />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Control.MoveToKeyedTask">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="NavPoint" type="xs:string" maxOccurs="1" minOccurs="1" />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Control.ReturnLeaveBranchNextResult" type="BaseTaskNodeType" />
+  <xs:element name="Control.ReturnLeaveBranchBackResult" type="BaseTaskNodeType" />
+  <xs:element name="Control.ReturnExitResult"  type="BaseTaskNodeType" />
+  <xs:element name="Control.ReturnRepeatCurrentBranchResult"  type="BaseTaskNodeType" />
+  <xs:element name="Control.ReturnRepeatParentBranchResult"  type="BaseTaskNodeType" />
+  <xs:element name="Control.ReturnRepeatTaskResult"  type="BaseTaskNodeType" />
+  <xs:element name="Control.ReturnLeaveBranchRepeatTaskResult"  type="BaseTaskNodeType" />
+  <xs:element name="Control.ReturnRestartComputerResult"  type="BaseTaskNodeType" />
+  <xs:element name="Control.ReturnSilentRestartResult"  type="BaseTaskNodeType" />
+</xs:schema>

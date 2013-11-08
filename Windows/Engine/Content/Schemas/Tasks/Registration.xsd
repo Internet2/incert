@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="Installer" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:include schemaLocation="Base.xsd" />
+  <xs:element name="Registration.Legacy.IU.GetRegistrationQueryString">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="UsernameKey" type="xs:string" maxOccurs="1" minOccurs="1">
+                    <xs:annotation>
+                      <xs:documentation>The settings key containing the user's username</xs:documentation>
+                    </xs:annotation>
+                  </xs:element>
+                  <xs:element name="PassphraseKey" type="xs:string" maxOccurs="1" minOccurs="1">
+                    <xs:annotation>
+                      <xs:documentation>The settings key containing the user's password or passphrase</xs:documentation>
+                    </xs:annotation>
+                  </xs:element>
+                  <xs:element name="Credential2Key" type="xs:string" maxOccurs="1" minOccurs="0">
+                    <xs:annotation>
+                      <xs:documentation>The settings key containing the second credential string to use when authenticating the user</xs:documentation>
+                    </xs:annotation>
+                  </xs:element>
+                  <xs:element name="Credential3Key" type="xs:string" maxOccurs="1" minOccurs="0">
+                    <xs:annotation>
+                      <xs:documentation>The settings key containing the third credential string to use when authenticating the user</xs:documentation>
+                    </xs:annotation>
+                  </xs:element>
+                  <xs:element name="Credential4Key" type="xs:string" maxOccurs="1" minOccurs="0">
+                    <xs:annotation>
+                      <xs:documentation>The settings key containing the fourth credential string to use when authenticating the user</xs:documentation>
+                    </xs:annotation>
+                  </xs:element>
+                  <xs:element name="CertificateProvider" type="xs:string" maxOccurs="1" minOccurs="0">
+                    <xs:annotation>
+                      <xs:documentation>The provider to use when authenticating the user  for registration</xs:documentation>
+                    </xs:annotation>
+                  </xs:element>
+                  <xs:element name="ResultKey" type="xs:string" minOccurs="1" maxOccurs="1" />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Registration.RegisterComputer">
+    <xs:annotation>
+      <xs:documentation>Performs a web-service-based registration request.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="UsernameKey" type="xs:string" maxOccurs="1" minOccurs="1">
+                    <xs:annotation>
+                      <xs:documentation>The settings key containing the user's username</xs:documentation>
+                    </xs:annotation>
+                  </xs:element>
+                  <xs:element name="PassphraseKey" type="xs:string" maxOccurs="1" minOccurs="1">
+                    <xs:annotation>
+                      <xs:documentation>The settings key containing the user's password or passphrase</xs:documentation>
+                    </xs:annotation>
+                  </xs:element>
+                  <xs:element name="Credential2Key" type="xs:string" maxOccurs="1" minOccurs="0">
+                    <xs:annotation>
+                      <xs:documentation>The settings key containing the second credential string to use when authenticating the user</xs:documentation>
+                    </xs:annotation>
+                  </xs:element>
+                  <xs:element name="Credential3Key" type="xs:string" maxOccurs="1" minOccurs="0">
+                    <xs:annotation>
+                      <xs:documentation>The settings key containing the third credential string to use when authenticating the user</xs:documentation>
+                    </xs:annotation>
+                  </xs:element>
+                  <xs:element name="Credential4Key" type="xs:string" maxOccurs="1" minOccurs="0">
+                    <xs:annotation>
+                      <xs:documentation>The settings key containing the fourth credential string to use when authenticating the user</xs:documentation>
+                    </xs:annotation>
+                  </xs:element>
+                  <xs:element name="CertificateProvider" type="xs:string" maxOccurs="1" minOccurs="0">
+                    <xs:annotation>
+                      <xs:documentation>The provider to use when authenticating the user  for registration</xs:documentation>
+                    </xs:annotation>
+                  </xs:element>
+                </xs:sequence>
+              </xs:complexType>
+
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

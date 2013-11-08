@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:include schemaLocation="../Enums/EngineModes.xsd" />
+
+  <xs:complexType name="CommandLineProcessors">
+    <xs:sequence maxOccurs="unbounded" minOccurs="1">
+      <xs:choice>
+        <xs:element ref="Composite.MultiProcessor" />
+        <xs:element ref="Engine.SetEngineMode" />
+        <xs:element ref="Engine.SetEngineModeFromValue" />
+        <xs:element ref="Settings.SetSettingProcessor" />
+        <xs:element ref="Settings.SetSettingValueProcessor" />
+        <xs:element ref="Settings.SetListProcessor" />
+      </xs:choice>
+    </xs:sequence>
+  </xs:complexType>
+
+
+  <xs:element name="Composite.MultiProcessor">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Processors" type="CommandLineProcessors" maxOccurs="1" minOccurs="1" />
+      </xs:sequence>
+      <xs:attribute name="key" type="xs:string" use="required" />
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Engine.SetEngineModeFromValue">
+    <xs:complexType>
+      <xs:attribute name="key" type="xs:string" use="required" />
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Engine.SetEngineMode">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Properties" maxOccurs="1" minOccurs="1">
+          <xs:complexType>
+            <xs:all>
+              <xs:element name="Mode" type="EngineModes" minOccurs="1" maxOccurs="1" />
+            </xs:all>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute name="key" type="xs:string" use="required" />
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Settings.SetSettingProcessor">
+    <xs:complexType>
+      <xs:sequence maxOccurs="1" minOccurs="1">
+        <xs:element name="Properties" maxOccurs="1" minOccurs="1">
+          <xs:complexType>
+            <xs:all>
+              <xs:element name="SettingKey" type="xs:string" />
+            </xs:all>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute name="key" type="xs:string" use="required" />
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Settings.SetSettingValueProcessor">
+    <xs:complexType>
+      <xs:sequence maxOccurs="1" minOccurs="1">
+        <xs:element name="Properties" maxOccurs="1" minOccurs="1">
+          <xs:complexType>
+            <xs:all>
+              <xs:element name="SettingKey" type="xs:string" />
+              <xs:element name="SettingValue" type="xs:string" />
+            </xs:all>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute name="key" type="xs:string" use="required" />
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Settings.SetListProcessor">
+    <xs:complexType>
+      <xs:sequence maxOccurs="1" minOccurs="1">
+        <xs:element name="Properties" maxOccurs="1" minOccurs="1">
+          <xs:complexType>
+            <xs:all>
+              <xs:element name="SettingKey" type="xs:string" />
+            </xs:all>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute name="key" type="xs:string" use="required" />
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

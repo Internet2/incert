@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Product Id="*"
+           Name="$(var.ProductName)"
+           Language="1033"
+           Version="$(var.AppVersion)"
+           Manufacturer="$(var.Institution)"
+           UpgradeCode="231a4966-1cf6-4956-be83-747998e49636">
+
+    <Package InstallerVersion="200" InstallScope="perMachine" Compressed="yes"   />
+
+    <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+
+    <MediaTemplate EmbedCab="yes" />
+
+    <Feature Id="ProductFeature" Title="Installer" Level="1">
+      <ComponentGroupRef Id="ProductComponents" />
+      <ComponentGroupRef Id="Shortcuts"/>
+    </Feature>
+
+    <CustomAction Id="SetARPINSTALLLOCATION" Property="ARPINSTALLLOCATION" Value="[INSTALLLOCATION]" />
+
+    <InstallExecuteSequence>
+      <Custom Action="SetARPINSTALLLOCATION" After="InstallValidate" />
+    </InstallExecuteSequence>
+  </Product>
+
+  <Fragment>
+    <Icon Id="icon.exe" SourceFile="$(var.IconPath)" />
+
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="ManufacturerFolder" Name="$(var.Institution)">
+          <Directory Id="INSTALLLOCATION" Name="$(var.ProductName)" />
+        </Directory>
+      </Directory>
+      <Directory Id="DesktopFolder" />
+      <Directory Id="ProgramMenuFolder">
+        <Directory Id="ManufacturerProgramsFolder" Name="$(var.Institution)">
+          <Directory Id="ApplicationProgramsFolder" Name="$(var.ProductName)" />
+        </Directory>
+      </Directory>
+    </Directory>
+
+  </Fragment>
+
+  <Fragment>
+    <ComponentGroup Id="ProductComponents" Directory="INSTALLLOCATION">
+      <Component Id="EngineFiles" Guid="5F26DEB9-C31C-4F88-BFE0-9A3F9C770776">
+        <File Id="Engine.exe" Name="Engine.exe" Source="$(var.EngineFilesDir)\Engine.exe" />
+        <File Id="Engine.exe.config" Name="Engine.exe.config" Source="$(var.EngineFilesDir)\Engine.exe.config" />
+        <File Id="Log4net.dll" Name="Log4net.dll" Source="$(var.EngineFilesDir)\Log4net.dll" />
+        <File Id="Ninject.dll" Name="Ninject.dll" Source="$(var.EngineFilesDir)\Ninject.dll" />
+        <File Id="RestSharp.dll" Name="RestSharp.dll" Source="$(var.EngineFilesDir)\RestSharp.dll" />
+        <File Id="BouncyCastle.Crypto.dll" Name="BouncyCastle.Crypto.dll" Source="$(var.EngineFilesDir)\BouncyCastle.Crypto.dll" />
+        <File Id="DataContracts.dll" Name="DataContracts.dll" Source="$(var.EngineFilesDir)\DataContracts.dll" />
+      </Component>
+      <Component Id="Elevator.exe" Guid="FF8117E5-D4C1-4705-9DBB-89622C3C1230">
+        <File Id="Elevator.exe" Name="Elevator.exe" Source="$(var.EngineFilesDir)\Elevator.exe" />
+      </Component>
+      <Component Id="Settings.cab" Guid="A7CF6E13-5A70-4EE6-85FA-A897032B9BF0">
+        <File Id="Settings.cab" Name="settings.cab" Source="$(var.EngineFilesDir)\Settings.cab" />
+      </Component>
+      <Component Id="Icon.ico" Guid="DDBD2C83-A528-4150-AB4C-B362756E2BBE">
+        <File Id="Icon.ico" Name="Icon.ico" Source="$(var.IconPath)" />
+      </Component>
+    </ComponentGroup>
+
+    <ComponentGroup Id="Shortcuts" Directory="ApplicationProgramsFolder">
+      <Component Id="StartMenuShortcuts" Guid="D8207931-56FD-46F6-AB7C-881181B35EAD">
+        <Condition>STARTMENUSHORTCUT = 1</Condition>
+        <Shortcut Id="StartMenuShortcut1" Name="Launch $(var.ProductName)" Target="[INSTALLLOCATION]Elevator.exe" WorkingDirectory="INSTALLLOCATION" Directory="ApplicationProgramsFolder" Icon="icon.exe" />
+        <RemoveFile Id="RemoveStartMenuShortcut1" Name="*.lnk" Directory="ApplicationProgramsFolder" On="uninstall"/>
+        <RemoveFolder Id="ManufacturerProgramsFolder" On="uninstall" Directory="ManufacturerProgramsFolder" />
+        <RemoveFolder Id="ApplicationProgramsFolder" On="uninstall" Directory="ApplicationProgramsFolder" />
+        <RegistryValue Root="HKCU" Key="Software\[Manufacturer]\[ProductName]" Name="StartMenuShortcut" Type="integer" Value="1" KeyPath="yes" />
+      </Component>
+
+      <Component Id="DesktopShortcuts" Guid="F9C16EA5-1706-4884-9A99-218A063CE83E">
+        <Condition>DESKTOPSHORTCUT = 1</Condition>
+        <Shortcut Id="DesktopShortcut1" Name="Launch $(var.ProductName)" Target="[INSTALLLOCATION]Elevator.exe" WorkingDirectory="INSTALLLOCATION" Directory="DesktopFolder" Icon="icon.exe" />
+        <RemoveFile Id="RemoveDesktopShortcut1" Name="Launch $(var.ProductName).lnk" Directory="DesktopFolder" On="uninstall"/>
+        <RegistryValue Root="HKCU" Key="Software\[Manufacturer]\[ProductName]" Name="DesktopShortcut" Type="integer" Value="1" KeyPath="yes"/>
+      </Component>
+    </ComponentGroup>
+
+    <Property Id="STARTMENUSHORTCUT" Value="$(var.StartMenuShortcut)" />
+    <Property Id="DESKTOPSHORTCUT" Value="$(var.DesktopShortcut)" />
+  </Fragment>
+</Wix>

@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="Network" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="Network.Online" />
+  <xs:element name="Network.NotOnline" />
+
+  <xs:element name="Network.HostPingable">
+    <xs:complexType>
+      <xs:attribute name="host" type="xs:string" use="required"   />
+      <xs:attribute name="timeout" type="xs:integer" use="optional"   />
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Network.HostNotPingable">
+    <xs:complexType>
+      <xs:attribute name="host" type="xs:string" use="required"   />
+      <xs:attribute name="timeout" type="xs:integer" use="optional"   />
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Network.NtlmV2Enabled" />
+  <xs:element name="Network.NtlmV2NotEnabled" />
+</xs:schema>

@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="SystemInfo" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="SystemInfo.IsNotAdministrator" />
+  <xs:element name="SystemInfo.IsAdministrator" />
+  <xs:element name="SystemInfo.Is64Bit" />
+  <xs:element name="SystemInfo.IsNot64Bit" />
+  <xs:element name="SystemInfo.IsWindowsXp" />
+  <xs:element name="SystemInfo.IsNotWindowsXp" />
+  <xs:element name="SystemInfo.IsWindowsVista" />
+  <xs:element name="SystemInfo.IsNotWindowsVista" />
+  <xs:element name="SystemInfo.IsWindows7" />
+  <xs:element name="SystemInfo.IsNotWindows7" />
+  <xs:element name="SystemInfo.IsWindows8" />
+  <xs:element name="SystemInfo.IsNotWindows8" />
+  <xs:element name="SystemInfo.IsProfessional" />
+  <xs:element name="SystemInfo.IsNotProfessional" />
+
+  <xs:element name="SystemInfo.ServicePackAtLeast">
+    <xs:complexType>
+      <xs:attribute name="value" type="xs:int" />
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="SystemInfo.ServicePackLessThan">
+    <xs:complexType>
+      <xs:attribute name="value" type="xs:int" />
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="SystemInfo.IsProcessRunning">
+    <xs:complexType>
+      <xs:attribute name="processName" type="xs:string" />
+    </xs:complexType>
+  </xs:element>
+
+
+</xs:schema>

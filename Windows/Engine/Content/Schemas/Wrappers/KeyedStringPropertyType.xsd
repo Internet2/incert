@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="KeyedStringPropertyType" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="KeyedStringPropertyType">
+    <xs:annotation>
+      <xs:documentation>Represents a key-value pair.</xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="key" type="xs:string"  use="required">
+          <xs:annotation>
+            <xs:documentation>The key to be associated with the value.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="resolve" type="xs:boolean" use="optional">
+          <xs:annotation>
+            <xs:documentation>Whether the engine should attempt to resolve the entry immediately or on demand.</xs:documentation>
+            <xs:documentation>Generally, this value should be true (default), but there may be some instances (for example, storing a setting property that contains a reference to another setting property that has yet to be defined) where you will want to set this to false.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+</xs:schema>

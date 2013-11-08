@@ -1,0 +1,2929 @@
+<?xml version="1.0" encoding="us-ascii" ?>
+<Content xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://incert.incommon.org/schemas ./Schemas/tasklist.xsd">
+
+  <Branches>
+    <RoleBranch name="main" role="Remote" roleMode="Utility">
+      <Settings.ClearSettingText>
+        <Properties>
+          <SettingKey>utility branch</SettingKey>
+        </Properties>
+      </Settings.ClearSettingText>
+      <UserInterface.ShowBorderedBannerModal forwardOnly="true">
+        <Properties>
+          <Dialog>utilities dialog</Dialog>
+          <Banner>utilities menu banner</Banner>
+        </Properties>
+      </UserInterface.ShowBorderedBannerModal>
+
+      <Control.ReturnBranchResult forwardOnly="true">
+        <Properties>
+          <Branch>[utility branch]</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+    </RoleBranch>
+
+    <TaskBranch name="Hash target file">
+      <Settings.RetrieveSettingsString>
+        <Properties>
+          <Setter key="hasher target file" />
+          <Setter key="hasher output folder" />
+        </Properties>
+      </Settings.RetrieveSettingsString>
+
+      <Settings.SetSettingText>
+        <Properties>
+          <Setter key="hasher vital">True</Setter>
+        </Properties>
+      </Settings.SetSettingText>
+
+      <Control.ReturnBranchResult errorBranch="hasher error branch">
+        <Properties>
+          <Branch>Hasher branch</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+
+    </TaskBranch>
+
+    <TaskBranch name="hasher branch">
+      <UserInterface.ShowBorderedBannerModal>
+        <Properties>
+          <Dialog>utilities dialog</Dialog>
+          <Banner>Hasher banner</Banner>
+        </Properties>
+      </UserInterface.ShowBorderedBannerModal>
+
+      <Settings.PersistSettingsString>
+        <Properties>
+          <Setter key="hasher target file" />
+          <Setter key="hasher output folder" />
+        </Properties>
+      </Settings.PersistSettingsString>
+
+      <UserInterface.DisableAllBannerDialogControls>
+        <Properties>
+          <Dialog>utilities dialog</Dialog>
+        </Properties>
+      </UserInterface.DisableAllBannerDialogControls>
+
+      <Utility.GenerateFileWrapper>
+        <Properties>
+          <Target>[hasher target file]</Target>
+          <Version>[hasher version]</Version>
+          <Vital>[hasher vital]</Vital>
+          <OutputKey>hasher result</OutputKey>
+          <OutputFolder>[hasher output folder]</OutputFolder>
+        </Properties>
+      </Utility.GenerateFileWrapper>
+
+      <Control.ReturnRepeatCurrentBranchResult />
+    </TaskBranch>
+
+    <TaskBranch name="hasher error branch">
+      <Control.PreserveLastResult>
+        <Properties>
+          <SettingKey>generic issue retry banner stored result</SettingKey>
+        </Properties>
+      </Control.PreserveLastResult>
+
+      <Settings.SetSettingText>
+        <Properties>
+          <Setter key="generic issue retry banner title">Wrapper Generation Failed - Retry?</Setter>
+          <Setter key="generic issue retry banner description">{0} could not generate a file info wrapper.</Setter>
+          <Setter key="generic issue retry banner retry cancel text">Click Retry to try again or Cancel to exit.</Setter>
+        </Properties>
+      </Settings.SetSettingText>
+
+      <UserInterface.ShowChildBannerModal>
+        <Properties>
+          <ParentDialog>utilities dialog</ParentDialog>
+          <ChildDialog>notification dialog manager</ChildDialog>
+          <Banner>Generic issue retry banner</Banner>
+        </Properties>
+      </UserInterface.ShowChildBannerModal>
+    </TaskBranch>
+
+    <TaskBranch name="build package">
+      <Settings.RetrieveSettingsString>
+        <Properties>
+          <Setter key="certificate thumbprint" />
+          <Setter key="certificate timestamp server" />
+          <Setter key="wix path" />
+          <Setter key="signtool path" />
+          <Setter key="engine files path" />
+          <Setter key="secure files path" />
+          <Setter key="installer files path" />
+          <Setter key="output path" />
+          <Setter key="installer version" />
+          <Setter key="installer display name" />
+          <Setter key="installer institution name" />
+          <Setter key="installer help url" />
+          <Setter key="installer foreground color" />
+          <Setter key="installer background color" />
+          <Setter key="installer icon path" />
+          <Setter key="output name" />
+          <Setter key="download content files" />
+          <Setter key="create desktop shortcut" />
+          <Setter key="create start-menu shortcut" />
+        </Properties>
+      </Settings.RetrieveSettingsString>
+
+      <RegistryTasks.GetStringValue>
+        <Conditions.Any>
+          <Settings.SettingNotPresent key="wix path" />
+          <FileAndPath.DirectoryDoesNotExist path="[wix path]" />
+        </Conditions.Any>
+        <Properties>
+          <SettingKey>wix path</SettingKey>
+          <RegistryRoot>LocalMachine</RegistryRoot>
+          <RegistryKey>SOFTWARE\Microsoft\Windows Installer XML\3.7</RegistryKey>
+          <RegistryValue>InstallRoot</RegistryValue>
+        </Properties>
+      </RegistryTasks.GetStringValue>
+
+      <RegistryTasks.GetStringValue>
+        <Conditions.All>
+          <FileAndPath.DirectoryDoesNotExist path="[wix path]" />
+        </Conditions.All>
+        <Properties>
+          <SettingKey>wix path</SettingKey>
+          <RegistryRoot>LocalMachine</RegistryRoot>
+          <RegistryKey>SOFTWARE\Wow6432Node\Microsoft\Windows Installer XML\3.7</RegistryKey>
+          <RegistryValue>InstallRoot</RegistryValue>
+        </Properties>
+      </RegistryTasks.GetStringValue>
+
+      <Control.ReturnBranchResult>
+        <Conditions.All>
+          <FileAndPath.FileDoesNotExist key="[signtool path]" />
+        </Conditions.All>
+        <Properties>
+          <Branch>set signtool path</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+
+      <FileAndPath.NormalizeSettingsPathValues>
+        <Properties>
+          <SettingKey>wix path</SettingKey>
+          <SettingKey>signtool path</SettingKey>
+          <SettingKey>engine files path</SettingKey>
+          <SettingKey>secure files path</SettingKey>
+          <SettingKey>installer files path</SettingKey>
+          <SettingKey>output path</SettingKey>
+          <SettingKey>installer icon path</SettingKey>
+        </Properties>
+      </FileAndPath.NormalizeSettingsPathValues>
+
+      <Settings.SetSettingText>
+        <Conditions.All>
+          <Settings.SettingNotPresent key="download content files" />
+        </Conditions.All>
+        <Properties>
+          <Setter key="download content files">True</Setter>
+        </Properties>
+      </Settings.SetSettingText>
+
+      <Settings.SetSettingText>
+        <Conditions.All>
+          <Settings.SettingNotPresent key="output name" />
+        </Conditions.All>
+        <Properties>
+          <Setter key="output name">InCertInstaller.exe</Setter>
+        </Properties>
+      </Settings.SetSettingText>
+
+      <Settings.SetSettingText>
+        <Conditions.All>
+          <Settings.SettingNotPresent key="installer background color" />
+        </Conditions.All>
+        <Properties>
+          <Setter key="installer background color">#4f7fb0</Setter>
+        </Properties>
+      </Settings.SetSettingText>
+
+      <Settings.SetSettingText>
+        <Conditions.All>
+          <Settings.SettingNotPresent key="installer foreground color" />
+        </Conditions.All>
+        <Properties>
+          <Setter key="installer foreground color">White</Setter>
+        </Properties>
+      </Settings.SetSettingText>
+
+      <Settings.SetSettingText>
+        <Conditions.All>
+          <Settings.SettingNotPresent key="installer display name" />
+        </Conditions.All>
+        <Properties>
+          <Setter key="installer display name">InCert</Setter>
+        </Properties>
+      </Settings.SetSettingText>
+
+      <Settings.SetSettingText>
+        <Conditions.All>
+          <Settings.SettingNotPresent key="installer institution name" />
+        </Conditions.All>
+        <Properties>
+          <Setter key="installer institution name">InCommon</Setter>
+        </Properties>
+      </Settings.SetSettingText>
+
+      <UserInterface.ShowBorderedBannerModal>
+        <Properties>
+          <Dialog>utilities dialog</Dialog>
+          <Banner>certificate banner</Banner>
+        </Properties>
+      </UserInterface.ShowBorderedBannerModal>
+
+      <Settings.PersistSettingsString forwardOnly="true">
+        <Properties>
+          <Setter key="certificate thumbprint" />
+          <Setter key="certificate timestamp server" />
+        </Properties>
+      </Settings.PersistSettingsString>
+
+      <UserInterface.ShowBorderedBannerModal>
+        <Properties>
+          <Dialog>utilities dialog</Dialog>
+          <Banner>utility paths banner</Banner>
+        </Properties>
+      </UserInterface.ShowBorderedBannerModal>
+
+      <Settings.PersistSettingsString forwardOnly="true">
+        <Properties>
+          <Setter key="wix path" />
+          <Setter key="signtool path" />
+        </Properties>
+      </Settings.PersistSettingsString>
+
+      <UserInterface.ShowBorderedBannerModal>
+        <Properties>
+          <Dialog>utilities dialog</Dialog>
+          <Banner>input paths banner</Banner>
+        </Properties>
+      </UserInterface.ShowBorderedBannerModal>
+
+      <Settings.PersistSettingsString forwardOnly="true">
+        <Properties>
+          <Setter key="secure files path" />
+          <Setter key="engine files path" />
+          <Setter key="installer files path" />
+          <Setter key="download content files" />
+        </Properties>
+      </Settings.PersistSettingsString>
+
+      <UserInterface.ShowBorderedBannerModal>
+        <Properties>
+          <Dialog>utilities dialog</Dialog>
+          <Banner>output paths banner</Banner>
+        </Properties>
+      </UserInterface.ShowBorderedBannerModal>
+
+      <Settings.PersistSettingsString forwardOnly="true">
+        <Properties>
+          <Setter key="output path" />
+          <Setter key="output name" />
+        </Properties>
+      </Settings.PersistSettingsString>
+
+      <UserInterface.ShowBorderedBannerModal>
+        <Properties>
+          <Dialog>utilities dialog</Dialog>
+          <Banner>installer version and name banner</Banner>
+        </Properties>
+      </UserInterface.ShowBorderedBannerModal>
+
+      <Settings.PersistSettingsString forwardOnly="true">
+        <Properties>
+          <Setter key="installer version" />
+          <Setter key="installer display name" />
+          <Setter key="installer institution name" />
+        </Properties>
+      </Settings.PersistSettingsString>
+
+      <UserInterface.ShowBorderedBannerModal>
+        <Properties>
+          <Dialog>utilities dialog</Dialog>
+          <Banner>installer customizations banner</Banner>
+        </Properties>
+      </UserInterface.ShowBorderedBannerModal>
+
+      <Settings.PersistSettingsString forwardOnly="true">
+        <Properties>
+          <Setter key="installer icon path" />
+          <Setter key="installer help url" />
+          <Setter key="installer foreground color" />
+          <Setter key="installer background color" />
+          <Setter key="create desktop shortcut" />
+          <Setter key="create start-menu shortcut" />
+        </Properties>
+      </Settings.PersistSettingsString>
+
+      <UserInterface.ShowBorderedBannerModal>
+        <Properties>
+          <Dialog>utilities dialog</Dialog>
+          <Banner>Build ready banner</Banner>
+        </Properties>
+      </UserInterface.ShowBorderedBannerModal>
+
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>execute build</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+
+      <UserInterface.ShowBorderedBannerModal>
+        <Properties>
+          <Dialog>utilities dialog</Dialog>
+          <Banner>build complete banner</Banner>
+        </Properties>
+      </UserInterface.ShowBorderedBannerModal>
+    </TaskBranch>
+
+    <TaskBranch name="execute build">
+      <Settings.SetSettingText>
+        <Properties>
+          <Setter key="engine close question">Are you sure that you want to cancel the !ApplicationTitle! build?</Setter>
+        </Properties>
+      </Settings.SetSettingText>
+
+      <Settings.SetSettingText>
+        <Conditions.All>
+          <Settings.SettingPresent key="certificate timestamp server" />
+        </Conditions.All>
+        <Properties>
+          <Setter key="timestamp server argument">/t [certificate timestamp server]</Setter>
+        </Properties>
+      </Settings.SetSettingText>
+
+      <UserInterface.ChangeDialogCursor>
+        <Properties>
+          <Dialog>utilities dialog</Dialog>
+          <Cursor>Wait</Cursor>
+        </Properties>
+      </UserInterface.ChangeDialogCursor>
+
+      <Settings.ClearSettingText>
+        <Properties>
+          <SettingKey>progress text</SettingKey>
+        </Properties>
+      </Settings.ClearSettingText>
+
+      <UserInterface.ShowBorderedBannerNonModal>
+        <Properties>
+          <Dialog>utilities dialog</Dialog>
+          <Banner>progress banner</Banner>
+        </Properties>
+      </UserInterface.ShowBorderedBannerNonModal>
+
+      <UserInterface.StartMessageTimer>
+        <Properties>
+          <SettingKey>build progress ticker</SettingKey>
+        </Properties>
+      </UserInterface.StartMessageTimer>
+
+      <Settings.AppendLineToSettingsText>
+        <Properties>
+          <SettingKey>progress text</SettingKey>
+          <Line>Package build started !Timestamp!</Line>
+          <Line>-----------------------------------------------</Line>
+        </Properties>
+      </Settings.AppendLineToSettingsText>
+
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>create secure cab</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+
+      <Control.ReturnBranchResult>
+        <Conditions.All>
+          <Settings.SettingEquals key="download content files" value="true" ignoreCase="true" />
+        </Conditions.All>
+        <Properties>
+          <Branch>download content files</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>Copy and sign engine files</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>build installer</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>build bootstrapper package</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+
+      <Settings.AppendLineToSettingsText>
+        <Properties>
+          <SettingKey>progress text</SettingKey>
+          <Line>-----------------------------------------------</Line>
+          <Line>Package build completed !Timestamp!</Line>
+        </Properties>
+      </Settings.AppendLineToSettingsText>
+
+      <UserInterface.StopMessageTimer>
+        <Properties>
+          <SettingKey>build progress ticker</SettingKey>
+        </Properties>
+      </UserInterface.StopMessageTimer>
+
+      <UserInterface.ChangeDialogCursor>
+        <Properties>
+          <Dialog>utilities dialog</Dialog>
+          <Cursor>Arrow</Cursor>
+        </Properties>
+      </UserInterface.ChangeDialogCursor>
+    </TaskBranch>
+
+    <TaskBranch name="create secure cab">
+      <Settings.AppendLineToSettingsText>
+        <Properties>
+          <SettingKey>progress text</SettingKey>
+          <Line>Creating staging folder in temp directory</Line>
+        </Properties>
+      </Settings.AppendLineToSettingsText>
+
+      <Settings.CreateGuidSettingsText>
+        <Properties>
+          <SettingKey>build staging folder</SettingKey>
+        </Properties>
+      </Settings.CreateGuidSettingsText>
+
+      <FileAndPath.CreateFolder>
+        <Properties>
+          <TargetPath>!TemporaryDirectory![build staging folder]</TargetPath>
+        </Properties>
+      </FileAndPath.CreateFolder>
+
+      <UserInterface.ChangeProgressMessage>
+        <Properties>
+          <SettingKey>build progress ticker</SettingKey>
+          <Value>Creating secure archive</Value>
+        </Properties>
+      </UserInterface.ChangeProgressMessage>
+
+      <Settings.AppendLineToSettingsText>
+        <Properties>
+          <SettingKey>progress text</SettingKey>
+          <Line>Staging folder (!TemporaryDirectory![build staging folder]) created</Line>
+          <Line>Archiving files in [secure files path]</Line>
+        </Properties>
+      </Settings.AppendLineToSettingsText>
+
+      <Utility.ArchiveFolderContents>
+        <Properties>
+          <TargetPath>[secure files path]</TargetPath>
+          <ArchivePath>!TemporaryDirectory![build staging folder]\settings.cab</ArchivePath>
+        </Properties>
+      </Utility.ArchiveFolderContents>
+
+      <Settings.AppendLineToSettingsText>
+        <Properties>
+          <SettingKey>progress text</SettingKey>
+          <Line>Signing settings.cab</Line>
+        </Properties>
+      </Settings.AppendLineToSettingsText>
+
+      <Settings.SetSettingText>
+        <Properties>
+          <Setter key="generic signtool branch target">!TemporaryDirectory![build staging folder]\settings.cab</Setter>
+        </Properties>
+      </Settings.SetSettingText>
+
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>generic signing branch</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+
+      <Settings.SetSettingText>
+        <Properties>
+          <Setter key="engine close question">Are you sure that you want to close !ApplicationTitle!?</Setter>
+        </Properties>
+      </Settings.SetSettingText>
+    </TaskBranch>
+
+    <TaskBranch name="generic signing branch">
+      <Utility.ExecuteUtility>
+        <Properties>
+          <TargetPath>[signtool path]</TargetPath>
+          <Argument>sign /s MY</Argument>
+          <Argument>/sha1 [certificate thumbprint]</Argument>
+          <Argument>[timestamp server argument]</Argument>
+          <Argument>"[generic signtool branch target]"</Argument>
+          <ResultKey>signtool result</ResultKey>
+          <OutputKey>sign file output</OutputKey>
+          <HideWindow>true</HideWindow>
+        </Properties>
+      </Utility.ExecuteUtility>
+    </TaskBranch>
+
+    <TaskBranch name="set signtool path">
+      <RegistryTasks.GetStringValue>
+        <Conditions.All>
+          <FileAndPath.FileDoesNotExist key="[signtool path]" />
+        </Conditions.All>
+        <Properties>
+          <SettingKey>windows sdk path</SettingKey>
+          <RegistryRoot>LocalMachine</RegistryRoot>
+          <RegistryKey>SOFTWARE\Microsoft\Windows Kits\Installed Roots</RegistryKey>
+          <RegistryValue>KitsRoot</RegistryValue>
+        </Properties>
+      </RegistryTasks.GetStringValue>
+
+      <Settings.SetSettingText>
+        <Conditions.All>
+          <FileAndPath.FileExists key="[windows sdk path]\bin\x86\signtool.exe" />
+        </Conditions.All>
+        <Properties>
+          <Setter key="signtool path">[windows sdk path]\bin\x86\signtool.exe</Setter>
+        </Properties>
+      </Settings.SetSettingText>
+    </TaskBranch>
+
+    <TaskBranch name="Copy and sign engine files">
+      <UserInterface.ChangeProgressMessage>
+        <Properties>
+          <SettingKey>build progress ticker</SettingKey>
+          <Value>Processing engine files</Value>
+        </Properties>
+      </UserInterface.ChangeProgressMessage>
+
+      <Settings.AppendLineToSettingsText>
+        <Properties>
+          <SettingKey>progress text</SettingKey>
+          <Line>Copying and signing engine.exe</Line>
+        </Properties>
+      </Settings.AppendLineToSettingsText>
+
+      <FileAndPath.CopyFile>
+        <Properties>
+          <SourcePath>[engine files path]\engine.exe</SourcePath>
+          <DestinationPath>!TemporaryDirectory![build staging folder]\engine.exe</DestinationPath>
+        </Properties>
+      </FileAndPath.CopyFile>
+
+      <Settings.SetSettingText>
+        <Properties>
+          <Setter key="generic signtool branch target">!TemporaryDirectory![build staging folder]\engine.exe</Setter>
+        </Properties>
+      </Settings.SetSettingText>
+
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>generic signing branch</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+
+      <Settings.AppendLineToSettingsText>
+        <Properties>
+          <SettingKey>progress text</SettingKey>
+          <Line>Copying and signing engine.exe.config</Line>
+        </Properties>
+      </Settings.AppendLineToSettingsText>
+
+      <FileAndPath.CopyFile>
+        <Properties>
+          <SourcePath>[engine files path]\engine.exe.config</SourcePath>
+          <DestinationPath>!TemporaryDirectory![build staging folder]\engine.exe.config</DestinationPath>
+        </Properties>
+      </FileAndPath.CopyFile>
+
+      <Settings.AppendLineToSettingsText>
+        <Properties>
+          <SettingKey>progress text</SettingKey>
+          <Line>Copying and signing elevator.exe</Line>
+        </Properties>
+      </Settings.AppendLineToSettingsText>
+
+      <FileAndPath.CopyFile>
+        <Properties>
+          <SourcePath>[engine files path]\elevator.exe</SourcePath>
+          <DestinationPath>!TemporaryDirectory![build staging folder]\elevator.exe</DestinationPath>
+        </Properties>
+      </FileAndPath.CopyFile>
+
+      <Settings.SetSettingText>
+        <Properties>
+          <Setter key="generic signtool branch target">!TemporaryDirectory![build staging folder]\elevator.exe</Setter>
+        </Properties>
+      </Settings.SetSettingText>
+
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>generic signing branch</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+
+      <Settings.AppendLineToSettingsText>
+        <Properties>
+          <SettingKey>progress text</SettingKey>
+          <Line>Copying and signing log4net.dll</Line>
+        </Properties>
+      </Settings.AppendLineToSettingsText>
+
+      <FileAndPath.CopyFile>
+        <Properties>
+          <SourcePath>[engine files path]\log4net.dll</SourcePath>
+          <DestinationPath>!TemporaryDirectory![build staging folder]\log4net.dll</DestinationPath>
+        </Properties>
+      </FileAndPath.CopyFile>
+
+      <Settings.SetSettingText>
+        <Properties>
+          <Setter key="generic signtool branch target">!TemporaryDirectory![build staging folder]\log4net.dll</Setter>
+        </Properties>
+      </Settings.SetSettingText>
+
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>generic signing branch</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+
+      <Settings.AppendLineToSettingsText>
+        <Properties>
+          <SettingKey>progress text</SettingKey>
+          <Line>Copying and signing Ninject.dll</Line>
+        </Properties>
+      </Settings.AppendLineToSettingsText>
+
+      <FileAndPath.CopyFile>
+        <Properties>
+          <SourcePath>[engine files path]\Ninject.dll</SourcePath>
+          <DestinationPath>!TemporaryDirectory![build staging folder]\Ninject.dll</DestinationPath>
+        </Properties>
+      </FileAndPath.CopyFile>
+
+      <Settings.SetSettingText>
+        <Properties>
+          <Setter key="generic signtool branch target">!TemporaryDirectory![build staging folder]\Ninject.dll</Setter>
+        </Properties>
+      </Settings.SetSettingText>
+
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>generic signing branch</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+
+      <Settings.AppendLineToSettingsText>
+        <Properties>
+          <SettingKey>progress text</SettingKey>
+          <Line>Copying and signing RestSharp.dll</Line>
+        </Properties>
+      </Settings.AppendLineToSettingsText>
+
+      <FileAndPath.CopyFile>
+        <Properties>
+          <SourcePath>[engine files path]\RestSharp.dll</SourcePath>
+          <DestinationPath>!TemporaryDirectory![build staging folder]\Restsharp.dll</DestinationPath>
+        </Properties>
+      </FileAndPath.CopyFile>
+
+      <Settings.SetSettingText>
+        <Properties>
+          <Setter key="generic signtool branch target">!TemporaryDirectory![build staging folder]\Restsharp.dll</Setter>
+        </Properties>
+      </Settings.SetSettingText>
+
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>generic signing branch</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+
+      <Settings.AppendLineToSettingsText>
+        <Properties>
+          <SettingKey>progress text</SettingKey>
+          <Line>Copying and signing BouncyCastle.Crypto.dll</Line>
+        </Properties>
+      </Settings.AppendLineToSettingsText>
+
+      <FileAndPath.CopyFile>
+        <Properties>
+          <SourcePath>[engine files path]\BouncyCastle.Crypto.dll</SourcePath>
+          <DestinationPath>!TemporaryDirectory![build staging folder]\BouncyCastle.Crypto.dll</DestinationPath>
+        </Properties>
+      </FileAndPath.CopyFile>
+
+      <Settings.SetSettingText>
+        <Properties>
+          <Setter key="generic signtool branch target">!TemporaryDirectory![build staging folder]\BouncyCastle.Crypto.dll</Setter>
+        </Properties>
+      </Settings.SetSettingText>
+
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>generic signing branch</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+
+      <Settings.AppendLineToSettingsText>
+        <Properties>
+          <SettingKey>progress text</SettingKey>
+          <Line>Copying and signing DataContracts.dll</Line>
+        </Properties>
+      </Settings.AppendLineToSettingsText>
+
+      <FileAndPath.CopyFile>
+        <Properties>
+          <SourcePath>[engine files path]\DataContracts.dll</SourcePath>
+          <DestinationPath>!TemporaryDirectory![build staging folder]\DataContracts.dll</DestinationPath>
+        </Properties>
+      </FileAndPath.CopyFile>
+
+      <Settings.SetSettingText>
+        <Properties>
+          <Setter key="generic signtool branch target">!TemporaryDirectory![build staging folder]\DataContracts.dll</Setter>
+        </Properties>
+      </Settings.SetSettingText>
+
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>generic signing branch</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+    </TaskBranch>
+
+    <TaskBranch name="build installer">
+      <UserInterface.ChangeProgressMessage>
+        <Properties>
+          <SettingKey>build progress ticker</SettingKey>
+          <Value>Building installer</Value>
+        </Properties>
+      </UserInterface.ChangeProgressMessage>
+
+      <Settings.AppendLineToSettingsText>
+        <Properties>
+          <SettingKey>progress text</SettingKey>
+          <Line>Building installer (step 1 of 2)</Line>
+        </Properties>
+      </Settings.AppendLineToSettingsText>
+
+      <FileAndPath.CreateFolder>
+        <Properties>
+          <TargetPath>!TemporaryDirectory![build staging folder]\Installer</TargetPath>
+        </Properties>
+      </FileAndPath.CreateFolder>
+
+      <Settings.SetSettingText>
+        <Properties>
+          <Setter key="create desktop shortcut value">1</Setter>
+          <Setter key="create start-menu shortcut value">1</Setter>
+        </Properties>
+      </Settings.SetSettingText>
+
+      <Settings.SetSettingText>
+        <Conditions.All>
+          <Settings.SettingNotEqual key="create desktop shortcut" value="true" ignoreCase="true"/>
+        </Conditions.All>
+        <Properties>
+          <Setter key="create desktop shortcut value">0</Setter>
+        </Properties>
+      </Settings.SetSettingText>
+
+      <Settings.SetSettingText>
+        <Conditions.All>
+          <Settings.SettingNotEqual key="create start-menu shortcut" value="true" ignoreCase="true"/>
+        </Conditions.All>
+        <Properties>
+          <Setter key="create start-menu shortcut value">0</Setter>
+        </Properties>
+      </Settings.SetSettingText>
+
+      <Utility.ExecuteUtility>
+        <Properties>
+          <TargetPath>[wix path]\candle.exe</TargetPath>
+          <Argument>"[installer files path]\Installer.wxs"</Argument>
+          <Argument>-dAppVersion=[installer version]</Argument>
+          <Argument>-dEngineFilesDir="!TemporaryDirectory![build staging folder]"</Argument>
+          <Argument>-dInstitutionName="[installer institution name]"</Argument>
+          <Argument>-dProductName="[installer display name]"</Argument>
+          <Argument>-dStartMenuShortcut="[create start-menu shortcut value]"</Argument>
+          <Argument>-dDesktopShortcut="[create desktop shortcut value]"</Argument>
+          <Argument>-dIconFile="[installer icon path]"</Argument>
+          <ResultKey>installer candle result</ResultKey>
+          <OutputKey>installer candle output</OutputKey>
+          <WorkingDirectory>!TemporaryDirectory![build staging folder]\Installer</WorkingDirectory>
+          <HideWindow>true</HideWindow>
+        </Properties>
+      </Utility.ExecuteUtility>
+
+      <Settings.AppendLineToSettingsText>
+        <Properties>
+          <SettingKey>progress text</SettingKey>
+          <Line>Building installer (step 2 of 2)</Line>
+        </Properties>
+      </Settings.AppendLineToSettingsText>
+
+      <Utility.ExecuteUtility>
+        <Properties>
+          <TargetPath>[wix path]\light.exe</TargetPath>
+          <Argument>Installer.wixobj</Argument>
+          <ResultKey>installer light result</ResultKey>
+          <OutputKey>installer light output</OutputKey>
+          <WorkingDirectory>!TemporaryDirectory![build staging folder]\Installer</WorkingDirectory>
+          <HideWindow>true</HideWindow>
+        </Properties>
+      </Utility.ExecuteUtility>
+
+      <Settings.AppendLineToSettingsText>
+        <Properties>
+          <SettingKey>progress text</SettingKey>
+          <Line>Signing installer</Line>
+        </Properties>
+      </Settings.AppendLineToSettingsText>
+
+      <Settings.SetSettingText>
+        <Properties>
+          <Setter key="generic signtool branch target">!TemporaryDirectory![build staging folder]\Installer\Installer.msi</Setter>
+        </Properties>
+      </Settings.SetSettingText>
+
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>generic signing branch</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+    </TaskBranch>
+
+    <TaskBranch name="build bootstrapper package">
+      <UserInterface.ChangeProgressMessage>
+        <Properties>
+          <SettingKey>build progress ticker</SettingKey>
+          <Value>Building package</Value>
+        </Properties>
+      </UserInterface.ChangeProgressMessage>
+
+      <Settings.AppendLineToSettingsText>
+        <Properties>
+          <SettingKey>progress text</SettingKey>
+          <Line>Copying Microsoft.Deployment.WindowsInstaller.dll</Line>
+        </Properties>
+      </Settings.AppendLineToSettingsText>
+
+      <FileAndPath.CreateFolder>
+        <Properties>
+          <TargetPath>!TemporaryDirectory![build staging folder]\Package</TargetPath>
+        </Properties>
+      </FileAndPath.CreateFolder>
+
+      <FileAndPath.CopyFile>
+        <Properties>
+          <SourcePath>[wix path]\Microsoft.Deployment.WindowsInstaller.dll</SourcePath>
+          <DestinationPath>[installer files path]\Microsoft.Deployment.WindowsInstaller.dll</DestinationPath>
+        </Properties>
+      </FileAndPath.CopyFile>
+
+      <Settings.AppendLineToSettingsText>
+        <Properties>
+          <SettingKey>progress text</SettingKey>
+          <Line>Generating staging package (step 1 of 2)</Line>
+        </Properties>
+      </Settings.AppendLineToSettingsText>
+
+      <Utility.ExecuteUtility>
+        <Properties>
+          <TargetPath>[wix path]\candle.exe</TargetPath>
+          <Argument>"[installer files path]\Bundle.wxs"</Argument>
+          <Argument>-dAppVersion=[installer version]</Argument>
+          <Argument>-dBootstrapperEngineFilesDir="[installer files path]"</Argument>
+          <Argument>-dDisplayName="[installer display name]"</Argument>
+          <Argument>-dInstitutionName="[installer institution name]"</Argument>
+          <Argument>-dBackgroundColor=[installer background color]</Argument>
+          <Argument>-dTextColor=[installer foreground color]</Argument>
+          <Argument>-dHelpUrl="[installer help url]"</Argument>
+          <Argument>-dEngineInstallerFile="!TemporaryDirectory![build staging folder]\Installer\Installer.msi"</Argument>
+          <Argument>-dFrameworkInstallerFile="[installer files path]\dotnetfx45_full_x86_x64.exe"</Argument>
+          <Argument>-dIconFile="[installer icon path]"</Argument>
+          <Argument>-ext WixUtilExtension</Argument>
+          <ResultKey>bootstrapper candle result</ResultKey>
+          <OutputKey>bootstrapper candle output</OutputKey>
+          <WorkingDirectory>!TemporaryDirectory![build staging folder]\Package</WorkingDirectory>
+          <HideWindow>true</HideWindow>
+        </Properties>
+      </Utility.ExecuteUtility>
+
+      <Settings.AppendLineToSettingsText>
+        <Properties>
+          <SettingKey>progress text</SettingKey>
+          <Line>Generating staging package (step 2 of 2)</Line>
+        </Properties>
+      </Settings.AppendLineToSettingsText>
+
+      <Utility.ExecuteUtility>
+        <Properties>
+          <TargetPath>[wix path]\light.exe</TargetPath>
+          <Argument>Bundle.wixobj</Argument>
+          <Argument>-ext "[wix path]\WixUtilExtension.dll"</Argument>
+          <Argument>-ext "[wix path]\WixBalExtension.dll"</Argument>
+          <Argument>-ext "[wix path]\WixNetFxExtension.dll"</Argument>
+          <ResultKey>bootstrapper light result</ResultKey>
+          <OutputKey>bootstrapper light output</OutputKey>
+          <WorkingDirectory>!TemporaryDirectory![build staging folder]\Package</WorkingDirectory>
+          <HideWindow>true</HideWindow>
+        </Properties>
+      </Utility.ExecuteUtility>
+
+      <Settings.AppendLineToSettingsText>
+        <Properties>
+          <SettingKey>progress text</SettingKey>
+          <Line>Unbundling bootstrapper engine from staging package</Line>
+        </Properties>
+      </Settings.AppendLineToSettingsText>
+
+      <Utility.ExecuteUtility>
+        <Properties>
+          <TargetPath>[wix path]\insignia.exe</TargetPath>
+          <Argument>-ib Bundle.exe</Argument>
+          <Argument>-o engine.exe</Argument>
+          <ResultKey>insignia extract result</ResultKey>
+          <OutputKey>insignia extract output</OutputKey>
+          <WorkingDirectory>!TemporaryDirectory![build staging folder]\Package</WorkingDirectory>
+          <HideWindow>true</HideWindow>
+        </Properties>
+      </Utility.ExecuteUtility>
+
+      <Settings.AppendLineToSettingsText>
+        <Properties>
+          <SettingKey>progress text</SettingKey>
+          <Line>Signing bootstrapper engine</Line>
+        </Properties>
+      </Settings.AppendLineToSettingsText>
+
+      <Settings.SetSettingText>
+        <Properties>
+          <Setter key="generic signtool branch target">!TemporaryDirectory![build staging folder]\Package\engine.exe</Setter>
+        </Properties>
+      </Settings.SetSettingText>
+
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>generic signing branch</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+
+      <Settings.AppendLineToSettingsText>
+        <Properties>
+          <SettingKey>progress text</SettingKey>
+          <Line>Creating final package</Line>
+        </Properties>
+      </Settings.AppendLineToSettingsText>
+
+      <Utility.ExecuteUtility>
+        <Properties>
+          <TargetPath>[wix path]\insignia.exe</TargetPath>
+          <Argument>-ab engine.exe bundle.exe</Argument>
+          <Argument>-o [output name]</Argument>
+          <ResultKey>insignia rebundle result</ResultKey>
+          <OutputKey>insignia rebundle output</OutputKey>
+          <WorkingDirectory>!TemporaryDirectory![build staging folder]\Package</WorkingDirectory>
+          <HideWindow>true</HideWindow>
+        </Properties>
+      </Utility.ExecuteUtility>
+
+      <Settings.AppendLineToSettingsText>
+        <Properties>
+          <SettingKey>progress text</SettingKey>
+          <Line>Signing final package</Line>
+        </Properties>
+      </Settings.AppendLineToSettingsText>
+
+      <Settings.SetSettingText>
+        <Properties>
+          <Setter key="generic signtool branch target">!TemporaryDirectory![build staging folder]\Package\[output name]</Setter>
+        </Properties>
+      </Settings.SetSettingText>
+
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>generic signing branch</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+
+      <Settings.AppendLineToSettingsText>
+        <Properties>
+          <SettingKey>progress text</SettingKey>
+          <Line>Copying final package to output folder</Line>
+        </Properties>
+      </Settings.AppendLineToSettingsText>
+
+      <FileAndPath.CopyFile>
+        <Properties>
+          <SourcePath>!TemporaryDirectory![build staging folder]\Package\[output name]</SourcePath>
+          <DestinationPath>[output path]\[output name]</DestinationPath>
+        </Properties>
+      </FileAndPath.CopyFile>
+
+      <Settings.AppendLineToSettingsText>
+        <Properties>
+          <SettingKey>progress text</SettingKey>
+          <Line>Generating info wrapper for final package</Line>
+        </Properties>
+      </Settings.AppendLineToSettingsText>
+
+      <Utility.GenerateFileWrapper>
+        <Properties>
+          <Target>[output path]\[output name]</Target>
+          <Version>[installer version]</Version>
+          <Vital>true</Vital>
+          <OutputFolder>[output path]</OutputFolder>
+          <OutputFilename>Installer.info.xml</OutputFilename>
+        </Properties>
+      </Utility.GenerateFileWrapper>
+    </TaskBranch>
+
+    <TaskBranch name="download content files">
+      <UserInterface.ChangeProgressMessage>
+        <Properties>
+          <SettingKey>build progress ticker</SettingKey>
+          <Value>Downloading content</Value>
+        </Properties>
+      </UserInterface.ChangeProgressMessage>
+
+      <Settings.SetSettingText>
+        <Properties>
+          <Setter key="engine files path">!DownloadFolder!</Setter>
+          <Setter key="installer files path">!DownloadFolder!</Setter>
+        </Properties>
+      </Settings.SetSettingText>
+      <Settings.SetSettingText>
+        <Properties>
+          <Setter key="show generic download banner">false</Setter>
+        </Properties>
+      </Settings.SetSettingText>
+
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>download BootstrapperCore.config</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>download BootstrapperEngine.dll</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>download Bundle.wxs</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>download Installer.wxs</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>download Elevator.exe</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>download Engine.exe</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>download Engine.exe.config</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>download log4net.dll</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>download RestSharp.dll</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>download Ninject.dll</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>download BouncyCastle.Crypto.dll</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>download DataContracts.dll</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>download net framework installer</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+    </TaskBranch>
+
+    <TaskBranch name="download BootstrapperCore.config">
+      <Settings.SetSettingText>
+        <Properties>
+          <Setter key="generic download branch info key">BootstrapperCore.config.info.xml</Setter>
+          <Setter key="generic download branch target url">build/BootstrapperCore.config.info.xml</Setter>
+          <Setter key="generic download branch display name">BootstrapperCore.config</Setter>
+        </Properties>
+      </Settings.SetSettingText>
+
+      <Settings.AppendLineToSettingsText>
+        <Properties>
+          <SettingKey>progress text</SettingKey>
+          <Line>Downloading [generic download branch display name]</Line>
+        </Properties>
+      </Settings.AppendLineToSettingsText>
+
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>generic download branch</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+
+    </TaskBranch>
+
+    <TaskBranch name="download BootstrapperEngine.dll">
+      <Settings.SetSettingText>
+        <Properties>
+          <Setter key="generic download branch info key">BootstrapperEngine.dll.info.xml</Setter>
+          <Setter key="generic download branch target url">build/BootstrapperEngine.dll.info.xml</Setter>
+          <Setter key="generic download branch display name">BootstrapperEngine.dll</Setter>
+        </Properties>
+      </Settings.SetSettingText>
+
+      <Settings.AppendLineToSettingsText>
+        <Properties>
+          <SettingKey>progress text</SettingKey>
+          <Line>Downloading [generic download branch display name]</Line>
+        </Properties>
+      </Settings.AppendLineToSettingsText>
+
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>generic download branch</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+    </TaskBranch>
+
+    <TaskBranch name="download Bundle.wxs">
+      <Settings.SetSettingText>
+        <Properties>
+          <Setter key="generic download branch info key">bundle.wxs.info.xml</Setter>
+          <Setter key="generic download branch target url">build/bundle.wxs.info.xml</Setter>
+          <Setter key="generic download branch display name">bundle.wxs</Setter>
+        </Properties>
+      </Settings.SetSettingText>
+
+      <Settings.AppendLineToSettingsText>
+        <Properties>
+          <SettingKey>progress text</SettingKey>
+          <Line>Downloading [generic download branch display name]</Line>
+        </Properties>
+      </Settings.AppendLineToSettingsText>
+
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>generic download branch</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+    </TaskBranch>
+
+    <TaskBranch name="download Installer.wxs">
+      <Settings.SetSettingText>
+        <Properties>
+          <Setter key="generic download branch info key">installer.wxs.info.xml</Setter>
+          <Setter key="generic download branch target url">build/installer.wxs.info.xml</Setter>
+          <Setter key="generic download branch display name">installer.wxs</Setter>
+        </Properties>
+      </Settings.SetSettingText>
+
+      <Settings.AppendLineToSettingsText>
+        <Properties>
+          <SettingKey>progress text</SettingKey>
+          <Line>Downloading [generic download branch display name]</Line>
+        </Properties>
+      </Settings.AppendLineToSettingsText>
+
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>generic download branch</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+    </TaskBranch>
+
+    <TaskBranch name="download Elevator.exe">
+      <Settings.SetSettingText>
+        <Properties>
+          <Setter key="generic download branch info key">Elevator.exe.info.xml</Setter>
+          <Setter key="generic download branch target url">build/Elevator.exe.info.xml</Setter>
+          <Setter key="generic download branch display name">Elevator.exe</Setter>
+        </Properties>
+      </Settings.SetSettingText>
+
+      <Settings.AppendLineToSettingsText>
+        <Properties>
+          <SettingKey>progress text</SettingKey>
+          <Line>Downloading [generic download branch display name]</Line>
+        </Properties>
+      </Settings.AppendLineToSettingsText>
+
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>generic download branch</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+    </TaskBranch>
+
+    <TaskBranch name="download Engine.exe">
+      <Settings.SetSettingText>
+        <Properties>
+          <Setter key="generic download branch info key">Engine.exe.info.xml</Setter>
+          <Setter key="generic download branch target url">build/Engine.exe.info.xml</Setter>
+          <Setter key="generic download branch display name">Engine.exe</Setter>
+        </Properties>
+      </Settings.SetSettingText>
+
+      <Settings.AppendLineToSettingsText>
+        <Properties>
+          <SettingKey>progress text</SettingKey>
+          <Line>Downloading [generic download branch display name]</Line>
+        </Properties>
+      </Settings.AppendLineToSettingsText>
+
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>generic download branch</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+    </TaskBranch>
+
+    <TaskBranch name="download Engine.exe.config">
+      <Settings.SetSettingText>
+        <Properties>
+          <Setter key="generic download branch info key">Engine.exe.config.info.xml</Setter>
+          <Setter key="generic download branch target url">build/Engine.exe.config.info.xml</Setter>
+          <Setter key="generic download branch display name">Engine.exe.config</Setter>
+        </Properties>
+      </Settings.SetSettingText>
+
+      <Settings.AppendLineToSettingsText>
+        <Properties>
+          <SettingKey>progress text</SettingKey>
+          <Line>Downloading [generic download branch display name]</Line>
+        </Properties>
+      </Settings.AppendLineToSettingsText>
+
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>generic download branch</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+    </TaskBranch>
+
+    <TaskBranch name="download log4net.dll">
+      <Settings.SetSettingText>
+        <Properties>
+          <Setter key="generic download branch info key">log4net.dll.info.xml</Setter>
+          <Setter key="generic download branch target url">build/log4net.dll.info.xml</Setter>
+          <Setter key="generic download branch display name">log4net.dll</Setter>
+        </Properties>
+      </Settings.SetSettingText>
+
+      <Settings.AppendLineToSettingsText>
+        <Properties>
+          <SettingKey>progress text</SettingKey>
+          <Line>Downloading [generic download branch display name]</Line>
+        </Properties>
+      </Settings.AppendLineToSettingsText>
+
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>generic download branch</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+    </TaskBranch>
+
+    <TaskBranch name="download RestSharp.dll">
+      <Settings.SetSettingText>
+        <Properties>
+          <Setter key="generic download branch info key">RestSharp.dll.info.xml</Setter>
+          <Setter key="generic download branch target url">build/RestSharp.dll.info.xml</Setter>
+          <Setter key="generic download branch display name">RestSharp.dll</Setter>
+        </Properties>
+      </Settings.SetSettingText>
+
+      <Settings.AppendLineToSettingsText>
+        <Properties>
+          <SettingKey>progress text</SettingKey>
+          <Line>Downloading [generic download branch display name]</Line>
+        </Properties>
+      </Settings.AppendLineToSettingsText>
+
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>generic download branch</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+    </TaskBranch>
+
+    <TaskBranch name="download Ninject.dll">
+      <Settings.SetSettingText>
+        <Properties>
+          <Setter key="generic download branch info key">Ninject.dll.info.xml</Setter>
+          <Setter key="generic download branch target url">build/Ninject.dll.info.xml</Setter>
+          <Setter key="generic download branch display name">Ninject.dll</Setter>
+        </Properties>
+      </Settings.SetSettingText>
+
+      <Settings.AppendLineToSettingsText>
+        <Properties>
+          <SettingKey>progress text</SettingKey>
+          <Line>Downloading [generic download branch display name]</Line>
+        </Properties>
+      </Settings.AppendLineToSettingsText>
+
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>generic download branch</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+    </TaskBranch>
+
+    <TaskBranch name="download BouncyCastle.Crypto.dll">
+      <Settings.SetSettingText>
+        <Properties>
+          <Setter key="generic download branch info key">BouncyCastle.Crypto.dll.info.xml</Setter>
+          <Setter key="generic download branch target url">build/BouncyCastle.Crypto.dll.info.xml</Setter>
+          <Setter key="generic download branch display name">BouncyCastle.Crypto.dll</Setter>
+        </Properties>
+      </Settings.SetSettingText>
+
+      <Settings.AppendLineToSettingsText>
+        <Properties>
+          <SettingKey>progress text</SettingKey>
+          <Line>Downloading [generic download branch display name]</Line>
+        </Properties>
+      </Settings.AppendLineToSettingsText>
+
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>generic download branch</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+    </TaskBranch>
+
+    <TaskBranch name="download DataContracts.dll">
+      <Settings.SetSettingText>
+        <Properties>
+          <Setter key="generic download branch info key">DataContracts.dll.info.xml</Setter>
+          <Setter key="generic download branch target url">build/DataContracts.dll.info.xml</Setter>
+          <Setter key="generic download branch display name">DataContracts.dll</Setter>
+        </Properties>
+      </Settings.SetSettingText>
+
+      <Settings.AppendLineToSettingsText>
+        <Properties>
+          <SettingKey>progress text</SettingKey>
+          <Line>Downloading [generic download branch display name]</Line>
+        </Properties>
+      </Settings.AppendLineToSettingsText>
+
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>generic download branch</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+    </TaskBranch>
+
+    <TaskBranch name="download net framework installer">
+      <Settings.SetSettingText>
+        <Properties>
+          <Setter key="generic download branch info key">dotnetfx45_full_x86_x64.exe.info.xml</Setter>
+          <Setter key="generic download branch target url">build/dotnetfx45_full_x86_x64.exe.info.xml</Setter>
+          <Setter key="generic download branch display name">dotnetfx45_full_x86_x64.exe</Setter>
+          <Setter key="generic download branch output filename">dotnetfx45_full_x86_x64.exe</Setter>
+        </Properties>
+      </Settings.SetSettingText>
+
+      <Settings.AppendLineToSettingsText>
+        <Properties>
+          <SettingKey>progress text</SettingKey>
+          <Line>Downloading [generic download branch display name]</Line>
+        </Properties>
+      </Settings.AppendLineToSettingsText>
+
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>generic download branch</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+    </TaskBranch>
+
+    <TaskBranch name="generate content folder branch">
+      <Settings.RetrieveSettingsString>
+        <Properties>
+          <Setter key="content folder path" />
+          <Setter key="engine components path" />
+          <Setter key="bootstrapper engine components path" />
+          <Setter key="installer.wxs path" />
+          <Setter key="bundle.wxs path" />
+        </Properties>
+      </Settings.RetrieveSettingsString>
+
+      <UserInterface.ShowBorderedBannerModal forwardOnly="true">
+        <Properties>
+          <Dialog>utilities dialog</Dialog>
+          <Banner>generate content folder banner</Banner>
+        </Properties>
+      </UserInterface.ShowBorderedBannerModal>
+
+      <Settings.PersistSettingsString>
+        <Properties>
+          <Setter key="content folder path" />
+          <Setter key="engine components path" />
+          <Setter key="bootstrapper engine components path" />
+          <Setter key="installer.wxs path" />
+          <Setter key="bundle.wxs path" />
+        </Properties>
+      </Settings.PersistSettingsString>
+
+      <UserInterface.ShowBorderedBannerNonModal>
+        <Properties>
+          <Dialog>utilities dialog</Dialog>
+          <Banner>progress banner</Banner>
+        </Properties>
+      </UserInterface.ShowBorderedBannerNonModal>
+
+      <UserInterface.StartMessageTimer>
+        <Properties>
+          <SettingKey>build progress ticker</SettingKey>
+        </Properties>
+      </UserInterface.StartMessageTimer>
+
+      <Settings.AppendLineToSettingsText>
+        <Properties>
+          <SettingKey>progress text</SettingKey>
+          <Line>Generate content folder started !Timestamp!</Line>
+          <Line>-----------------------------------------------</Line>
+        </Properties>
+      </Settings.AppendLineToSettingsText>
+
+      <UserInterface.ChangeProgressMessage>
+        <Properties>
+          <SettingKey>build progress ticker</SettingKey>
+          <Value>Processing engine components</Value>
+        </Properties>
+      </UserInterface.ChangeProgressMessage>
+
+      <Settings.AppendLineToSettingsText minimumTaskTime="1">
+        <Properties>
+          <SettingKey>progress text</SettingKey>
+          <Line />
+          <Line>Processing engine.exe</Line>
+        </Properties>
+      </Settings.AppendLineToSettingsText>
+
+      <FileAndPath.CopyFile>
+        <Properties>
+          <SourcePath>[engine components path]\Engine.exe</SourcePath>
+          <DestinationPath>[content folder path]\Engine.exe</DestinationPath>
+        </Properties>
+      </FileAndPath.CopyFile>
+
+      <Utility.GenerateFileWrapper>
+        <Properties>
+          <Target>[content folder path]\Engine.exe</Target>
+          <Version />
+          <Vital>true</Vital>
+          <OutputFolder>[content folder path]</OutputFolder>
+        </Properties>
+      </Utility.GenerateFileWrapper>
+
+      <Settings.AppendLineToSettingsText minimumTaskTime="1">
+        <Properties>
+          <SettingKey>progress text</SettingKey>
+          <Line>Processing engine.exe.config</Line>
+        </Properties>
+      </Settings.AppendLineToSettingsText>
+
+      <FileAndPath.CopyFile>
+        <Properties>
+          <SourcePath>[engine components path]\Engine.exe.config</SourcePath>
+          <DestinationPath>[content folder path]\Engine.exe.config</DestinationPath>
+        </Properties>
+      </FileAndPath.CopyFile>
+
+      <Utility.GenerateFileWrapper>
+        <Properties>
+          <Target>[content folder path]\Engine.exe.config</Target>
+          <Version />
+          <Vital>true</Vital>
+          <OutputFolder>[content folder path]</OutputFolder>
+        </Properties>
+      </Utility.GenerateFileWrapper>
+
+      <Settings.AppendLineToSettingsText minimumTaskTime="1">
+        <Properties>
+          <SettingKey>progress text</SettingKey>
+          <Line>Processing elevator.exe</Line>
+        </Properties>
+      </Settings.AppendLineToSettingsText>
+
+      <FileAndPath.CopyFile>
+        <Properties>
+          <SourcePath>[engine components path]\Elevator.exe</SourcePath>
+          <DestinationPath>[content folder path]\Elevator.exe</DestinationPath>
+        </Properties>
+      </FileAndPath.CopyFile>
+
+      <Utility.GenerateFileWrapper>
+        <Properties>
+          <Target>[content folder path]\Elevator.exe</Target>
+          <Version />
+          <Vital>true</Vital>
+          <OutputFolder>[content folder path]</OutputFolder>
+        </Properties>
+      </Utility.GenerateFileWrapper>
+
+      <Settings.AppendLineToSettingsText minimumTaskTime="1">
+        <Properties>
+          <SettingKey>progress text</SettingKey>
+          <Line>Processing BouncyCastle.Crypto.dll</Line>
+        </Properties>
+      </Settings.AppendLineToSettingsText>
+
+      <FileAndPath.CopyFile>
+        <Properties>
+          <SourcePath>[engine components path]\BouncyCastle.Crypto.dll</SourcePath>
+          <DestinationPath>[content folder path]\BouncyCastle.Crypto.dll</DestinationPath>
+        </Properties>
+      </FileAndPath.CopyFile>
+
+      <Utility.GenerateFileWrapper>
+        <Properties>
+          <Target>[content folder path]\BouncyCastle.Crypto.dll</Target>
+          <Version />
+          <Vital>true</Vital>
+          <OutputFolder>[content folder path]</OutputFolder>
+        </Properties>
+      </Utility.GenerateFileWrapper>
+
+      <Settings.AppendLineToSettingsText minimumTaskTime="1">
+        <Properties>
+          <SettingKey>progress text</SettingKey>
+          <Line>Processing log4net.dll</Line>
+        </Properties>
+      </Settings.AppendLineToSettingsText>
+
+      <FileAndPath.CopyFile>
+        <Properties>
+          <SourcePath>[engine components path]\log4net.dll</SourcePath>
+          <DestinationPath>[content folder path]\log4net.dll</DestinationPath>
+        </Properties>
+      </FileAndPath.CopyFile>
+
+      <Utility.GenerateFileWrapper>
+        <Properties>
+          <Target>[content folder path]\log4net.dll</Target>
+          <Version />
+          <Vital>true</Vital>
+          <OutputFolder>[content folder path]</OutputFolder>
+        </Properties>
+      </Utility.GenerateFileWrapper>
+
+      <Settings.AppendLineToSettingsText minimumTaskTime="1">
+        <Properties>
+          <SettingKey>progress text</SettingKey>
+          <Line>Processing Ninject.dll</Line>
+        </Properties>
+      </Settings.AppendLineToSettingsText>
+
+      <FileAndPath.CopyFile>
+        <Properties>
+          <SourcePath>[engine components path]\Ninject.dll</SourcePath>
+          <DestinationPath>[content folder path]\Ninject.dll</DestinationPath>
+        </Properties>
+      </FileAndPath.CopyFile>
+
+      <Utility.GenerateFileWrapper>
+        <Properties>
+          <Target>[content folder path]\Ninject.dll</Target>
+          <Version />
+          <Vital>true</Vital>
+          <OutputFolder>[content folder path]</OutputFolder>
+        </Properties>
+      </Utility.GenerateFileWrapper>
+
+      <Settings.AppendLineToSettingsText minimumTaskTime="1">
+        <Properties>
+          <SettingKey>progress text</SettingKey>
+          <Line>Processing Restsharp.dll</Line>
+        </Properties>
+      </Settings.AppendLineToSettingsText>
+
+      <FileAndPath.CopyFile>
+        <Properties>
+          <SourcePath>[engine components path]\RestSharp.dll</SourcePath>
+          <DestinationPath>[content folder path]\RestSharp.dll</DestinationPath>
+        </Properties>
+      </FileAndPath.CopyFile>
+
+      <Utility.GenerateFileWrapper>
+        <Properties>
+          <Target>[content folder path]\RestSharp.dll</Target>
+          <Version />
+          <Vital>true</Vital>
+          <OutputFolder>[content folder path]</OutputFolder>
+        </Properties>
+      </Utility.GenerateFileWrapper>
+
+      <Settings.AppendLineToSettingsText minimumTaskTime="1">
+        <Properties>
+          <SettingKey>progress text</SettingKey>
+          <Line>Processing DataContracts.dll</Line>
+        </Properties>
+      </Settings.AppendLineToSettingsText>
+
+      <FileAndPath.CopyFile>
+        <Properties>
+          <SourcePath>[engine components path]\DataContracts.dll</SourcePath>
+          <DestinationPath>[content folder path]\DataContracts.dll</DestinationPath>
+        </Properties>
+      </FileAndPath.CopyFile>
+
+      <Utility.GenerateFileWrapper>
+        <Properties>
+          <Target>[content folder path]\DataContracts.dll</Target>
+          <Version />
+          <Vital>true</Vital>
+          <OutputFolder>[content folder path]</OutputFolder>
+        </Properties>
+      </Utility.GenerateFileWrapper>
+
+      <UserInterface.ChangeProgressMessage>
+        <Properties>
+          <SettingKey>build progress ticker</SettingKey>
+          <Value>Processing installer.wxs</Value>
+        </Properties>
+      </UserInterface.ChangeProgressMessage>
+
+      <Settings.AppendLineToSettingsText minimumTaskTime="1">
+        <Properties>
+          <SettingKey>progress text</SettingKey>
+          <Line>Processing installer.wxs</Line>
+        </Properties>
+      </Settings.AppendLineToSettingsText>
+
+      <FileAndPath.CopyFile>
+        <Properties>
+          <SourcePath>[installer.wxs path]</SourcePath>
+          <DestinationPath>[content folder path]\installer.wxs</DestinationPath>
+        </Properties>
+      </FileAndPath.CopyFile>
+
+      <Utility.GenerateFileWrapper>
+        <Properties>
+          <Target>[content folder path]\installer.wxs</Target>
+          <Version />
+          <Vital>true</Vital>
+          <OutputFolder>[content folder path]</OutputFolder>
+        </Properties>
+      </Utility.GenerateFileWrapper>
+
+      <UserInterface.ChangeProgressMessage>
+        <Properties>
+          <SettingKey>build progress ticker</SettingKey>
+          <Value>Processing bundle.wxs</Value>
+        </Properties>
+      </UserInterface.ChangeProgressMessage>
+
+      <Settings.AppendLineToSettingsText  minimumTaskTime="1">
+        <Properties>
+          <SettingKey>progress text</SettingKey>
+          <Line>Processing bundle.wxs</Line>
+        </Properties>
+      </Settings.AppendLineToSettingsText>
+
+      <FileAndPath.CopyFile>
+        <Properties>
+          <SourcePath>[bundle.wxs path]</SourcePath>
+          <DestinationPath>[content folder path]\bundle.wxs</DestinationPath>
+        </Properties>
+      </FileAndPath.CopyFile>
+
+      <Utility.GenerateFileWrapper>
+        <Properties>
+          <Target>[content folder path]\bundle.wxs</Target>
+          <Version />
+          <Vital>true</Vital>
+          <OutputFolder>[content folder path]</OutputFolder>
+        </Properties>
+      </Utility.GenerateFileWrapper>
+
+      <UserInterface.ChangeProgressMessage>
+        <Properties>
+          <SettingKey>build progress ticker</SettingKey>
+          <Value>Processing bootstrapper engine components</Value>
+        </Properties>
+      </UserInterface.ChangeProgressMessage>
+
+      <Settings.AppendLineToSettingsText minimumTaskTime="1">
+        <Properties>
+          <SettingKey>progress text</SettingKey>
+          <Line>Processing BootstrapperCore.dll</Line>
+        </Properties>
+      </Settings.AppendLineToSettingsText>
+
+      <FileAndPath.CopyFile>
+        <Properties>
+          <SourcePath>[bootstrapper engine components path]\BootstrapperCore.dll</SourcePath>
+          <DestinationPath>[content folder path]\BootstrapperCore.dll</DestinationPath>
+        </Properties>
+      </FileAndPath.CopyFile>
+
+      <Utility.GenerateFileWrapper>
+        <Properties>
+          <Target>[content folder path]\BootstrapperCore.dll</Target>
+          <Version />
+          <Vital>true</Vital>
+          <OutputFolder>[content folder path]</OutputFolder>
+        </Properties>
+      </Utility.GenerateFileWrapper>
+
+      <Settings.AppendLineToSettingsText minimumTaskTime="1">
+        <Properties>
+          <SettingKey>progress text</SettingKey>
+          <Line>Processing BootstrapperCore.config</Line>
+        </Properties>
+      </Settings.AppendLineToSettingsText>
+
+      <FileAndPath.CopyFile>
+        <Properties>
+          <SourcePath>[bootstrapper engine components path]\BootstrapperCore.config</SourcePath>
+          <DestinationPath>[content folder path]\BootstrapperCore.config</DestinationPath>
+        </Properties>
+      </FileAndPath.CopyFile>
+
+      <Utility.GenerateFileWrapper>
+        <Properties>
+          <Target>[content folder path]\BootstrapperCore.config</Target>
+          <Version />
+          <Vital>true</Vital>
+          <OutputFolder>[content folder path]</OutputFolder>
+        </Properties>
+      </Utility.GenerateFileWrapper>
+
+      <Settings.AppendLineToSettingsText minimumTaskTime="1">
+        <Properties>
+          <SettingKey>progress text</SettingKey>
+          <Line>Processing BootstrapperEngine.dll</Line>
+        </Properties>
+      </Settings.AppendLineToSettingsText>
+
+      <FileAndPath.CopyFile>
+        <Properties>
+          <SourcePath>[bootstrapper engine components path]\BootstrapperEngine.dll</SourcePath>
+          <DestinationPath>[content folder path]\BootstrapperEngine.dll</DestinationPath>
+        </Properties>
+      </FileAndPath.CopyFile>
+
+      <Utility.GenerateFileWrapper>
+        <Properties>
+          <Target>[content folder path]\BootstrapperEngine.dll</Target>
+          <Version />
+          <Vital>true</Vital>
+          <OutputFolder>[content folder path]</OutputFolder>
+        </Properties>
+      </Utility.GenerateFileWrapper>
+
+      <UserInterface.ChangeProgressMessage>
+        <Properties>
+          <SettingKey>build progress ticker</SettingKey>
+          <Value>Finalizing</Value>
+        </Properties>
+      </UserInterface.ChangeProgressMessage>
+
+      <Settings.AppendLineToSettingsText minimumTaskTime="3">
+        <Properties>
+          <SettingKey>progress text</SettingKey>
+          <Line />
+          <Line>-----------------------------------------------</Line>
+          <Line>Generate content folder finished !Timestamp!</Line>
+        </Properties>
+      </Settings.AppendLineToSettingsText>
+
+      <UserInterface.StopMessageTimer>
+        <Properties>
+          <SettingKey>build progress ticker</SettingKey>
+        </Properties>
+      </UserInterface.StopMessageTimer>
+
+      <UserInterface.ShowBorderedBannerModal forwardOnly="true">
+        <Properties>
+          <Dialog>utilities dialog</Dialog>
+          <Banner>generate content folder complete banner</Banner>
+        </Properties>
+      </UserInterface.ShowBorderedBannerModal>
+    </TaskBranch>
+  </Branches>
+
+  <Banners>
+    <SimpleBanner name="Build ready banner" height="450" width="500">
+      <Content>
+        <FramedButton controlKey="ready button" settingKey="start build" verticalAlignment="Center" alignment="Center" fontSize="32" margin="0,75,0,0" defaultButton="true">
+          <Content>
+            <DirectTextContent>Build</DirectTextContent>
+          </Content>
+        </FramedButton>
+
+        <SimpleParagraph style="Body">
+          <Content>
+            <DirectTextContent />
+          </Content>
+        </SimpleParagraph>
+        <SimpleParagraph alignment="Center" margin="0,24,0,0">
+          <Content>
+            <DirectTextContent>Click build to create the !ApplicationTitle! installation package.</DirectTextContent>
+          </Content>
+        </SimpleParagraph>
+      </Content>
+
+      <Buttons>
+        <ResultButton>
+          <Target>AdvancedButton</Target>
+          <Text>Main Menu</Text>
+          <Result>ControlResults.RepeatParentBranchResult</Result>
+        </ResultButton>
+
+        <DisabledButton>
+          <Target>NextButton</Target>
+          <Text>Next</Text>
+        </DisabledButton>
+
+        <ResultButton>
+          <Target>BackButton</Target>
+          <Text>Back</Text>
+          <Result>ControlResults.BackResult</Result>
+        </ResultButton>
+      </Buttons>
+
+      <Actions>
+        <ReturnResultAction result="ControlResults.NextResult">
+          <Conditions.All>
+            <Settings.SettingEquals key="start build" value="true" ignoreCase="true" />
+          </Conditions.All>
+          <ControlKey>ready button</ControlKey>
+        </ReturnResultAction>
+      </Actions>
+    </SimpleBanner>
+
+    <SimpleBanner name="certificate banner" width="500" height="450">
+      <Content>
+        <SimpleParagraph fontSize="24" alignment="Center" margin="0,24,0,0">
+          <Content>
+            <DirectTextContent>Certificate Details</DirectTextContent>
+          </Content>
+        </SimpleParagraph>
+
+        <SimpleParagraph dock="Top" margin="0,24,0,0">
+          <Content>
+            <DirectTextContent>Certificate thumbprint:</DirectTextContent>
+          </Content>
+        </SimpleParagraph>
+
+        <SimpleInputField  maxLines="1" settingKey="certificate thumbprint" />
+        <SimpleParagraph dock="Top" fontSize="10">
+          <Content>
+            <DirectTextContent>The thumbprint of the code-signing certificate to be used to sign the package. This certificate should be installed in your personal store.</DirectTextContent>
+          </Content>
+        </SimpleParagraph>
+
+        <SimpleParagraph margin="0,12,0,0">
+          <Content>
+            <DirectTextContent>Timestamp server:</DirectTextContent>
+          </Content>
+        </SimpleParagraph>
+
+        <SimpleInputField  maxLines="1" settingKey="certificate timestamp server" />
+        <SimpleParagraph dock="Top" fontSize="10">
+          <Content>
+            <DirectTextContent>The timestamp server to use when signing the package and its components. If this field is blank, no timestamp server will be specified.</DirectTextContent>
+          </Content>
+        </SimpleParagraph>
+      </Content>
+      <Actions>
+        <EnableControlAction>
+          <Conditions.All>
+            <Certificates.CertificateThumbprintExists thumbprint="[certificate thumbprint]" />
+          </Conditions.All>
+          <ControlKey>NextButton</ControlKey>
+        </EnableControlAction>
+
+        <DisableControlAction>
+          <Conditions.All>
+            <Certificates.CertificateThumbprintDoesNotExist thumbprint="[certificate thumbprint]" />
+          </Conditions.All>
+          <ControlKey>NextButton</ControlKey>
+        </DisableControlAction>
+      </Actions>
+      <Buttons>
+        <ResultButton>
+          <Target>AdvancedButton</Target>
+          <Text>Main Menu</Text>
+          <Result>ControlResults.RepeatParentBranchResult</Result>
+        </ResultButton>
+
+        <ResultButton>
+          <Target>NextButton</Target>
+          <Result>ControlResults.NextResult</Result>
+          <IsDefaultButton>true</IsDefaultButton>
+          <Text>Next</Text>
+        </ResultButton>
+      </Buttons>
+    </SimpleBanner>
+
+    <SimpleBanner name="utility paths banner" width="500" height="450">
+      <Content>
+        <SimpleParagraph fontSize="24" alignment="Center" margin="0,24,0,0">
+          <Content>
+            <DirectTextContent>Utility Folders</DirectTextContent>
+          </Content>
+        </SimpleParagraph>
+
+        <SimpleParagraph dock="Top" margin="0,24,0,0">
+          <Content>
+            <DirectTextContent>Signtool path:</DirectTextContent>
+          </Content>
+        </SimpleParagraph>
+        <ContentBlockParagraph banner="signtool path banner" />
+        <SimpleParagraph dock="Top" fontSize="10">
+          <Content>
+            <DirectTextContent>Path to signtool.exe.  This utility is required to sign package components.</DirectTextContent>
+          </Content>
+        </SimpleParagraph>
+
+        <SimpleParagraph dock="Top" margin="0,12,0,0">
+          <Content>
+            <DirectTextContent>Windows Installer Xml (WiX) toolset folder:</DirectTextContent>
+          </Content>
+        </SimpleParagraph>
+        <ContentBlockParagraph banner="wix path banner" />
+        <SimpleParagraph dock="Top" fontSize="10">
+          <Content>
+            <DirectTextContent>Path to the Windows Installer Xml (WiX) toolset directory.</DirectTextContent>
+          </Content>
+        </SimpleParagraph>
+      </Content>
+
+      <Actions>
+        <EnableControlAction>
+          <Conditions.All>
+            <FileAndPath.DirectoryExists path="[wix path]" />
+            <FileAndPath.FileExists key="[signtool path]" />
+          </Conditions.All>
+          <ControlKey>NextButton</ControlKey>
+        </EnableControlAction>
+        <DisableControlAction>
+          <Conditions.Any>
+            <FileAndPath.DirectoryDoesNotExist path="[wix path]" />
+            <FileAndPath.FileDoesNotExist key="[signtool path]" />
+          </Conditions.Any>
+          <ControlKey>NextButton</ControlKey>
+        </DisableControlAction>
+      </Actions>
+      <Buttons>
+        <ResultButton>
+          <Target>AdvancedButton</Target>
+          <Text>Main Menu</Text>
+          <Result>ControlResults.RepeatParentBranchResult</Result>
+        </ResultButton>
+
+        <ResultButton>
+          <Target>NextButton</Target>
+          <Result>ControlResults.NextResult</Result>
+          <IsDefaultButton>true</IsDefaultButton>
+          <Text>Next</Text>
+        </ResultButton>
+
+        <ResultButton>
+          <Target>BackButton</Target>
+          <Result>ControlResults.BackResult</Result>
+          <Text>Back</Text>
+        </ResultButton>
+      </Buttons>
+    </SimpleBanner>
+
+    <SimpleBanner name="input paths banner" width="500" height="450">
+      <Content>
+        <SimpleParagraph fontSize="24" alignment="Center" margin="0,24,0,24">
+          <Content>
+            <DirectTextContent>Input Folders</DirectTextContent>
+          </Content>
+        </SimpleParagraph>
+
+        <SimpleParagraph dock="Top" margin="0,0,0,0" controlKey="engine folder title label">
+          <Content>
+            <DirectTextContent>Engine files folder:</DirectTextContent>
+          </Content>
+        </SimpleParagraph>
+        <ContentBlockParagraph banner="engine files path banner" controlKey="engine folder content panel" />
+        <SimpleParagraph dock="Top" fontSize="10" controlKey="engine folder instructions">
+          <Content>
+            <DirectTextContent>Path to folder containing the engine files to package.</DirectTextContent>
+          </Content>
+        </SimpleParagraph>
+
+        <SimpleParagraph dock="Top" margin="0,12,0,0" controlKey="installer folder title label">
+          <Content>
+            <DirectTextContent>Installer files folder:</DirectTextContent>
+          </Content>
+        </SimpleParagraph>
+        <ContentBlockParagraph banner="installer files path banner" controlKey="installer folder content panel" />
+        <SimpleParagraph dock="Top" fontSize="10" controlKey="installer folder instructions" margin="0,0,0,12">
+          <Content>
+            <DirectTextContent>Path to folder containing the files needed to build the installer package.</DirectTextContent>
+          </Content>
+        </SimpleParagraph>
+
+        <SimpleParagraph dock="Top" margin="0,0,0,0">
+          <Content>
+            <DirectTextContent>Secure files folder:</DirectTextContent>
+          </Content>
+        </SimpleParagraph>
+        <ContentBlockParagraph banner="secure files path banner" />
+        <SimpleParagraph dock="Top" fontSize="10">
+          <Content>
+            <DirectTextContent>Path to folder containing files to compress into settings.cab.</DirectTextContent>
+          </Content>
+        </SimpleParagraph>
+        <CheckInputField settingKey="download content files" margin="0,12,0,0" padding="4,0,0,0">
+          <Content>
+            <DirectTextContent>Download engine and installer files</DirectTextContent>
+          </Content>
+        </CheckInputField>
+      </Content>
+
+      <Actions>
+        <HideControlAction>
+          <Conditions.All>
+            <Settings.SettingEquals key="download content files" value="true" ignoreCase="true" />
+          </Conditions.All>
+          <ControlKey>engine folder title label</ControlKey>
+          <ControlKey>engine folder content panel</ControlKey>
+          <ControlKey>engine folder instructions</ControlKey>
+          <ControlKey>installer folder title label</ControlKey>
+          <ControlKey>installer folder content panel</ControlKey>
+          <ControlKey>installer folder instructions</ControlKey>
+        </HideControlAction>
+
+        <ShowControlAction >
+          <Conditions.All>
+            <Settings.SettingEquals key="download content files" value="False" />
+          </Conditions.All>
+          <ControlKey>engine folder title label</ControlKey>
+          <ControlKey>engine folder content panel</ControlKey>
+          <ControlKey>engine folder instructions</ControlKey>
+          <ControlKey>installer folder title label</ControlKey>
+          <ControlKey>installer folder content panel</ControlKey>
+          <ControlKey>installer folder instructions</ControlKey>
+        </ShowControlAction>
+
+        <EnableControlAction>
+          <Conditions.Any>
+            <Grouping.AllTrue>
+              <Settings.SettingNotEqual key="download content files" value="true" ignoreCase="true" />
+              <FileAndPath.DirectoryExists path="[engine files path]" />
+              <FileAndPath.DirectoryExists path="[installer files path]" />
+              <FileAndPath.DirectoryExists path="[secure files path]" />
+            </Grouping.AllTrue>
+            <Grouping.AllTrue>
+              <Settings.SettingEquals key="download content files" value="true" ignoreCase="true" />
+              <FileAndPath.DirectoryExists path="[secure files path]" />
+            </Grouping.AllTrue>
+          </Conditions.Any>
+          <ControlKey>NextButton</ControlKey>
+        </EnableControlAction>
+
+        <DisableControlAction>
+          <Conditions.Any>
+            <Grouping.AllTrue>
+              <Settings.SettingNotEqual key="download content files" value="true" ignoreCase="true" />
+              <Grouping.AnyTrue>
+                <FileAndPath.DirectoryDoesNotExist path="[engine files path]" />
+                <FileAndPath.DirectoryDoesNotExist path="[installer files path]" />
+                <FileAndPath.DirectoryDoesNotExist path="[secure files path]" />
+              </Grouping.AnyTrue>
+            </Grouping.AllTrue>
+            <Grouping.AllTrue>
+              <Settings.SettingEquals key="download content files" value="true" ignoreCase="true" />
+              <Grouping.AllTrue>
+                <FileAndPath.DirectoryDoesNotExist path="[secure files path]" />
+              </Grouping.AllTrue>
+            </Grouping.AllTrue>
+          </Conditions.Any>
+          <ControlKey>NextButton</ControlKey>
+        </DisableControlAction>
+      </Actions>
+
+      <Buttons>
+        <ResultButton>
+          <Target>AdvancedButton</Target>
+          <Text>Main Menu</Text>
+          <Result>ControlResults.RepeatParentBranchResult</Result>
+        </ResultButton>
+
+        <ResultButton>
+          <Target>NextButton</Target>
+          <Result>ControlResults.NextResult</Result>
+          <IsDefaultButton>true</IsDefaultButton>
+          <Text>Next</Text>
+        </ResultButton>
+
+        <ResultButton>
+          <Target>BackButton</Target>
+          <Result>ControlResults.BackResult</Result>
+          <Text>Back</Text>
+        </ResultButton>
+      </Buttons>
+    </SimpleBanner>
+
+    <SimpleBanner name="output paths banner" width="500" height="450">
+      <Content>
+        <SimpleParagraph fontSize="24" alignment="Center" margin="0,24,0,0">
+          <Content>
+            <DirectTextContent>Output Name and Folder</DirectTextContent>
+          </Content>
+        </SimpleParagraph>
+
+        <SimpleParagraph dock="Top" margin="0,24,0,0">
+          <Content>
+            <DirectTextContent>Output Name:</DirectTextContent>
+          </Content>
+        </SimpleParagraph>
+        <SimpleInputField  maxLines="1" settingKey="output name" />
+        <SimpleParagraph dock="Top" fontSize="10">
+          <Content>
+            <DirectTextContent>Name of the assembled package.</DirectTextContent>
+          </Content>
+        </SimpleParagraph>
+
+        <SimpleParagraph dock="Top" margin="0,12,0,0">
+          <Content>
+            <DirectTextContent>Output folder:</DirectTextContent>
+          </Content>
+        </SimpleParagraph>
+        <ContentBlockParagraph banner="output path banner" />
+        <SimpleParagraph dock="Top" fontSize="10">
+          <Content>
+            <DirectTextContent>Path to folder where assembled package will be saved.</DirectTextContent>
+          </Content>
+        </SimpleParagraph>
+      </Content>
+
+      <Actions>
+        <EnableControlAction>
+          <Conditions.All>
+            <FileAndPath.DirectoryExists path="[output path]" />
+            <Settings.SettingPresent key="output name" />
+          </Conditions.All>
+          <ControlKey>NextButton</ControlKey>
+        </EnableControlAction>
+        <DisableControlAction>
+          <Conditions.Any>
+            <FileAndPath.DirectoryDoesNotExist path="[output path]" />
+            <Settings.SettingNotPresent key="output name" />
+          </Conditions.Any>
+          <ControlKey>NextButton</ControlKey>
+        </DisableControlAction>
+      </Actions>
+      <Buttons>
+        <ResultButton>
+          <Target>AdvancedButton</Target>
+          <Text>Main Menu</Text>
+          <Result>ControlResults.RepeatParentBranchResult</Result>
+        </ResultButton>
+
+        <ResultButton>
+          <Target>NextButton</Target>
+          <Result>ControlResults.NextResult</Result>
+          <IsDefaultButton>true</IsDefaultButton>
+          <Text>Next</Text>
+        </ResultButton>
+
+        <ResultButton>
+          <Target>BackButton</Target>
+          <Result>ControlResults.BackResult</Result>
+          <Text>Back</Text>
+        </ResultButton>
+      </Buttons>
+    </SimpleBanner>
+
+    <SimpleBanner name="installer version and name banner" width="500" height="450">
+      <Content>
+        <SimpleParagraph fontSize="24" alignment="Center" margin="0,24,0,0">
+          <Content>
+            <DirectTextContent>Installer Details</DirectTextContent>
+          </Content>
+        </SimpleParagraph>
+
+        <SimpleParagraph margin="0,24,0,0">
+          <Content>
+            <DirectTextContent>Version</DirectTextContent>
+          </Content>
+        </SimpleParagraph>
+
+        <SimpleInputField  maxLines="1" settingKey="installer version" />
+        <SimpleParagraph  fontSize="10">
+          <Content>
+            <DirectTextContent>The version to assign to the installer package. This value should be in standard version format ("1.1.1.0," for example). This value should be greater than the version that is assigned to your current, active installation.</DirectTextContent>
+          </Content>
+        </SimpleParagraph>
+
+        <SimpleParagraph margin="0,12,0,0">
+          <Content>
+            <DirectTextContent>Display name</DirectTextContent>
+          </Content>
+        </SimpleParagraph>
+        <SimpleInputField  maxLines="1" settingKey="installer display name" />
+        <SimpleParagraph  fontSize="10">
+          <Content>
+            <DirectTextContent>The product display name for the installer.</DirectTextContent>
+          </Content>
+        </SimpleParagraph>
+
+        <SimpleParagraph margin="0,12,0,0">
+          <Content>
+            <DirectTextContent>Institution name</DirectTextContent>
+          </Content>
+        </SimpleParagraph>
+        <SimpleInputField  maxLines="1" settingKey="installer institution name" />
+        <SimpleParagraph  fontSize="10">
+          <Content>
+            <DirectTextContent>The institution display name for the installer.</DirectTextContent>
+          </Content>
+        </SimpleParagraph>
+      </Content>
+      <Actions>
+        <DisableControlAction>
+          <Conditions.Any>
+            <Versioning.InvalidVersionString value="[installer version]" />
+            <Settings.SettingNotPresent key="installer display name" />
+            <Settings.SettingNotPresent key="installer institution name" />
+          </Conditions.Any>
+          <ControlKey>NextButton</ControlKey>
+        </DisableControlAction>
+
+        <EnableControlAction>
+          <Conditions.All>
+            <Versioning.ValidVersionString value="[installer version]" />
+            <Settings.SettingPresent key="installer display name" />
+            <Settings.SettingPresent key="installer institution name" />
+          </Conditions.All>
+          <ControlKey>NextButton</ControlKey>
+        </EnableControlAction>
+      </Actions>
+
+      <Buttons>
+        <ResultButton>
+          <Target>AdvancedButton</Target>
+          <Text>Main Menu</Text>
+          <Result>ControlResults.RepeatParentBranchResult</Result>
+        </ResultButton>
+
+        <ResultButton>
+          <Target>NextButton</Target>
+          <Result>ControlResults.NextResult</Result>
+          <IsDefaultButton>true</IsDefaultButton>
+          <Text>Next</Text>
+        </ResultButton>
+
+        <ResultButton>
+          <Target>BackButton</Target>
+          <Result>ControlResults.BackResult</Result>
+          <Text>Back</Text>
+        </ResultButton>
+      </Buttons>
+
+    </SimpleBanner>
+
+    <SimpleBanner name="installer customizations banner" width="500" height="575">
+      <Content>
+        <SimpleParagraph fontSize="24" alignment="Center" margin="0,24,0,0">
+          <Content>
+            <DirectTextContent>Installer Customizations</DirectTextContent>
+          </Content>
+        </SimpleParagraph>
+
+        <SimpleParagraph dock="Top" margin="0,24,0,0">
+          <Content>
+            <DirectTextContent>Installer Icon:</DirectTextContent>
+          </Content>
+        </SimpleParagraph>
+        <ContentBlockParagraph banner="icon path banner" />
+        <SimpleParagraph dock="Top" fontSize="10">
+          <Content>
+            <DirectTextContent>Icon to assign to the installer.</DirectTextContent>
+          </Content>
+        </SimpleParagraph>
+
+        <SimpleParagraph margin="0,12,0,0">
+          <Content>
+            <DirectTextContent>Help url</DirectTextContent>
+          </Content>
+        </SimpleParagraph>
+        <SimpleInputField  maxLines="1" settingKey="installer help url" />
+        <SimpleParagraph  fontSize="10">
+          <Content>
+            <DirectTextContent>The installer's help url.</DirectTextContent>
+          </Content>
+        </SimpleParagraph>
+
+        <SimpleParagraph margin="0,12,0,0">
+          <Content>
+            <DirectTextContent>Foreground Color</DirectTextContent>
+          </Content>
+        </SimpleParagraph>
+        <SimpleInputField  maxLines="1" settingKey="installer foreground color" />
+        <SimpleParagraph  fontSize="10">
+          <Content>
+            <DirectTextContent>The color for the installer's text and ui elements.</DirectTextContent>
+          </Content>
+        </SimpleParagraph>
+
+        <SimpleParagraph margin="0,12,0,0">
+          <Content>
+            <DirectTextContent>Background Color</DirectTextContent>
+          </Content>
+        </SimpleParagraph>
+        <SimpleInputField  maxLines="1" settingKey="installer background color" />
+        <SimpleParagraph  fontSize="10">
+          <Content>
+            <DirectTextContent>The installer's background color.</DirectTextContent>
+          </Content>
+        </SimpleParagraph>
+
+        <CheckInputField margin="0,12,0,0" padding="4,0,0,0" settingKey="create desktop shortcut">
+          <Content>
+            <DirectTextContent>Create desktop shortcut</DirectTextContent>
+          </Content>
+        </CheckInputField>
+        <SimpleParagraph fontSize="10" margin="20,0,0,0">
+          <Content>
+            <DirectTextContent>Create a desktop shortcut to the engine when the product is installed.</DirectTextContent>
+          </Content>
+        </SimpleParagraph>
+
+        <CheckInputField margin="0,12,0,0" settingKey="create start-menu shortcut" padding="4,0,0,0">
+          <Content>
+            <DirectTextContent>Create start-menu shortcut</DirectTextContent>
+          </Content>
+        </CheckInputField>
+        <SimpleParagraph fontSize="10" margin="20,0,0,0">
+          <Content>
+            <DirectTextContent>Create a start-menu shortcut to the engine when the product is installed.</DirectTextContent>
+          </Content>
+        </SimpleParagraph>
+      </Content>
+      <Actions>
+        <DisableControlAction>
+          <Conditions.Any>
+            <UserInterface.InvalidColorString value="[installer foreground color]" />
+            <UserInterface.InvalidColorString value="[installer background color]" />
+            <Misc.InvalidUrlString value="[installer help url]" />
+            <FileAndPath.FileDoesNotExist key="[installer icon path]" />
+          </Conditions.Any>
+          <ControlKey>NextButton</ControlKey>
+        </DisableControlAction>
+        <EnableControlAction>
+          <Conditions.All>
+            <UserInterface.ValidColorString value="[installer foreground color]" />
+            <UserInterface.ValidColorString value="[installer background color]" />
+            <Misc.ValidUrlString value="[installer help url]" />
+            <FileAndPath.FileExists key="[installer icon path]" />
+          </Conditions.All>
+          <ControlKey>NextButton</ControlKey>
+        </EnableControlAction>
+      </Actions>
+      <Buttons>
+        <ResultButton>
+          <Target>AdvancedButton</Target>
+          <Text>Main Menu</Text>
+          <Result>ControlResults.RepeatParentBranchResult</Result>
+        </ResultButton>
+
+        <ResultButton>
+          <Target>NextButton</Target>
+          <Result>ControlResults.NextResult</Result>
+          <IsDefaultButton>true</IsDefaultButton>
+          <Text>Next</Text>
+        </ResultButton>
+
+        <ResultButton>
+          <Target>BackButton</Target>
+          <Result>ControlResults.BackResult</Result>
+          <Text>Back</Text>
+        </ResultButton>
+      </Buttons>
+    </SimpleBanner>
+
+    <SimpleBanner name="output path banner">
+      <Content>
+        <FolderBrowseButton width="24" height="24" settingKey="output path" dock="Right" verticalAlignment="Center" alignment="Center"
+          margin="8,0,0,2" borderSize="1" glowEffect="false" glowColor="Transparent" caption="..."
+          description="Select the destination folder for the installer package." />
+        <SimpleInputField  maxLines="1" settingKey="output path" dock="Left" alignment="Stretch" verticalAlignment="Center" />
+      </Content>
+    </SimpleBanner>
+
+    <SimpleBanner name="secure files path banner">
+      <Content>
+        <FolderBrowseButton width="24" height="24" settingKey="secure files path" dock="Right" verticalAlignment="Center" alignment="Center"
+          margin="8,0,0,2" borderSize="1" glowEffect="false" glowColor="Transparent" caption="..."
+          description="Select the folder that contains the files that you wish to compress into the secure archive." />
+        <SimpleInputField  maxLines="1" settingKey="secure files path" dock="Left" alignment="Stretch" verticalAlignment="Center" />
+      </Content>
+    </SimpleBanner>
+
+    <SimpleBanner name="installer files path banner">
+      <Content>
+        <FolderBrowseButton width="24" height="24" settingKey="installer files path" dock="Right" verticalAlignment="Center" alignment="Center"
+          margin="8,0,0,2" borderSize="1" glowEffect="false" glowColor="Transparent" caption="..."
+          description="Select the folder that contains the files needed to build the installer." />
+        <SimpleInputField  maxLines="1" settingKey="installer files path" dock="Left" alignment="Stretch" verticalAlignment="Center" />
+      </Content>
+    </SimpleBanner>
+
+    <SimpleBanner name="engine files path banner">
+      <Content>
+        <FolderBrowseButton width="24" height="24" settingKey="engine files path" dock="Right" verticalAlignment="Center" alignment="Center"
+          margin="8,0,0,2" borderSize="1" glowEffect="false" glowColor="Transparent" caption="..."
+          description="Select the folder that contains the core engine files." />
+        <SimpleInputField  maxLines="1" settingKey="engine files path" dock="Left" alignment="Stretch" verticalAlignment="Center" />
+      </Content>
+    </SimpleBanner>
+
+    <SimpleBanner name="content folder path banner">
+      <Content>
+        <FolderBrowseButton width="24" height="24" settingKey="content folder path" dock="Right" verticalAlignment="Center" alignment="Center"
+          margin="8,0,0,2" borderSize="1" glowEffect="false" glowColor="Transparent" caption="..."
+          description="Select the folder that will store the generated content files." />
+        <SimpleInputField  maxLines="1" settingKey="content folder path" dock="Left" alignment="Stretch" verticalAlignment="Center" />
+      </Content>
+    </SimpleBanner>
+
+    <SimpleBanner name="engine components folder path banner">
+      <Content>
+        <FolderBrowseButton width="24" height="24" settingKey="engine components path" dock="Right" verticalAlignment="Center" alignment="Center"
+          margin="8,0,0,2" borderSize="1" glowEffect="false" glowColor="Transparent" caption="..."
+          description="Select the folder that contains the engine components to process." />
+        <SimpleInputField  maxLines="1" settingKey="engine components path" dock="Left" alignment="Stretch" verticalAlignment="Center" />
+      </Content>
+    </SimpleBanner>
+
+    <SimpleBanner name="bootstrapper engine components folder path banner">
+      <Content>
+        <FolderBrowseButton width="24" height="24" settingKey="bootstrapper engine components path" dock="Right" verticalAlignment="Center" alignment="Center"
+          margin="8,0,0,2" borderSize="1" glowEffect="false" glowColor="Transparent" caption="..."
+          description="Select the folder that contains the bootstrapper engine components to process." />
+        <SimpleInputField  maxLines="1" settingKey="bootstrapper engine components path" dock="Left" alignment="Stretch" verticalAlignment="Center" />
+      </Content>
+    </SimpleBanner>
+
+    <SimpleBanner name="installer.wxs path banner">
+      <Content>
+        <FileBrowseButton width="24" height="24" settingKey="installer.wxs path" dock="Right" verticalAlignment="Center" alignment="Center"
+          margin="8,0,0,2" borderSize="1" glowEffect="false" glowColor="Transparent" caption="..."
+          title="Locate installer.wxs"
+          filter = "installer.wxs|installer.wxs" />
+        <SimpleInputField  maxLines="1" settingKey="installer.wxs path" dock="Left" alignment="Stretch" verticalAlignment="Center" />
+      </Content>
+    </SimpleBanner>
+
+    <SimpleBanner name="bundle.wxs path banner">
+      <Content>
+        <FileBrowseButton width="24" height="24" settingKey="bundle.wxs path" dock="Right" verticalAlignment="Center" alignment="Center"
+          margin="8,0,0,2" borderSize="1" glowEffect="false" glowColor="Transparent" caption="..."
+          title="Locate bundle.wxs"
+          filter = "bundle.wxs|bundle.wxs" />
+        <SimpleInputField  maxLines="1" settingKey="bundle.wxs path" dock="Left" alignment="Stretch" verticalAlignment="Center" />
+      </Content>
+    </SimpleBanner>
+
+    <SimpleBanner name="signtool path banner">
+      <Content>
+        <FileBrowseButton width="24" height="24" settingKey="signtool path" dock="Right" verticalAlignment="Center" alignment="Center"
+          margin="8,0,0,2" borderSize="1" glowEffect="false" glowColor="Transparent" caption="..."
+          title="Locate Signtool Utility"
+          filter = "Signtool Utility|signtool.exe" />
+
+        <SimpleInputField  maxLines="1" settingKey="signtool path" dock="Left" alignment="Stretch" verticalAlignment="Center" />
+      </Content>
+    </SimpleBanner>
+
+    <SimpleBanner name="icon path banner">
+      <Content>
+        <FileBrowseButton width="24" height="24" settingKey="installer icon path" dock="Right" verticalAlignment="Center" alignment="Center"
+          margin="8,0,0,2" borderSize="1" glowEffect="false" glowColor="Transparent" caption="..."
+          title="Locate Installer Icon"
+          filter = "Icon Files (*.ico)|*.ico" />
+        <SimpleInputField  maxLines="1" settingKey="installer icon path" dock="Left" alignment="Stretch" verticalAlignment="Center" />
+      </Content>
+    </SimpleBanner>
+
+    <SimpleBanner name="wix path banner">
+      <Content>
+        <FolderBrowseButton width="24" height="24" settingKey="wix path" dock="Right" verticalAlignment="Center" alignment="Center"
+          margin="8,0,0,2" borderSize="1" glowEffect="false" glowColor="Transparent" caption="..."
+          description="Select the Windows Installer Xml (WiX) toolset installation folder." />
+        <SimpleInputField  maxLines="1" settingKey="wix path" dock="Left" alignment="Stretch" verticalAlignment="Center" />
+      </Content>
+    </SimpleBanner>
+
+    <SimpleBanner name="hasher target file banner">
+      <Content>
+        <FileBrowseButton width="24" height="24" settingKey="hasher target file" dock="Right" verticalAlignment="Center" alignment="Center"
+          margin="8,0,0,2" borderSize="1" glowEffect="false" glowColor="Transparent" caption="..."
+          title="Locate File To Process" />
+        <SimpleInputField  maxLines="1" settingKey="hasher target file" dock="Left" alignment="Stretch" verticalAlignment="Center" />
+      </Content>
+    </SimpleBanner>
+
+    <SimpleBanner name="hasher output path banner">
+      <Content>
+        <FolderBrowseButton width="24" height="24" settingKey="hasher output folder" dock="Right" verticalAlignment="Center" alignment="Center"
+          margin="8,0,0,2" borderSize="1" glowEffect="false" glowColor="Transparent" caption="..."
+          description="Select the destination folder for the installer package." />
+        <SimpleInputField  maxLines="1" settingKey="hasher output folder" dock="Left" alignment="Stretch" verticalAlignment="Center" />
+      </Content>
+    </SimpleBanner>
+
+    <SimpleBanner name="Hasher banner" height="650" width="600" noCloseQuestion="true">
+      <Content>
+        <SimpleParagraph fontSize="24" alignment="Center" margin="0,24,0,0">
+          <Content>
+            <DirectTextContent>Generate File Info Wrapper</DirectTextContent>
+          </Content>
+        </SimpleParagraph>
+
+        <SimpleParagraph dock="Top" margin="0,24,0,0">
+          <Content>
+            <DirectTextContent>Target File:</DirectTextContent>
+          </Content>
+        </SimpleParagraph>
+        <ContentBlockParagraph banner="hasher target file banner" />
+        <SimpleParagraph dock="Top" fontSize="10">
+          <Content>
+            <DirectTextContent>Target file to use when generating wrapper.</DirectTextContent>
+          </Content>
+        </SimpleParagraph>
+
+        <SimpleParagraph dock="Top" margin="0,12,0,0">
+          <Content>
+            <DirectTextContent>Output Folder:</DirectTextContent>
+          </Content>
+        </SimpleParagraph>
+        <ContentBlockParagraph banner="hasher output path banner" />
+        <SimpleParagraph dock="Top" fontSize="10">
+          <Content>
+            <DirectTextContent>Folder where generated wrapper will be saved.</DirectTextContent>
+          </Content>
+        </SimpleParagraph>
+
+        <SimpleParagraph dock="Top" margin="0,12,0,0">
+          <Content>
+            <DirectTextContent>Version:</DirectTextContent>
+          </Content>
+        </SimpleParagraph>
+        <SimpleInputField  maxLines="1" settingKey="hasher version" />
+        <SimpleParagraph dock="Top" fontSize="10">
+          <Content>
+            <DirectTextContent>Version to assign to file. Leave blank to use file version or 1.0.0.0 if the file lacks version information.</DirectTextContent>
+          </Content>
+        </SimpleParagraph>
+
+        <CheckInputField settingKey="hasher vital" margin="0,12,0,0" padding="4,0,0,0">
+          <Content>
+            <DirectTextContent>Flag version as vital</DirectTextContent>
+          </Content>
+        </CheckInputField>
+        <SimpleParagraph dock="Top" fontSize="10">
+          <Content>
+            <DirectTextContent>Vital versions will be flagged to be updated if they are out-of-date.</DirectTextContent>
+          </Content>
+        </SimpleParagraph>
+        <SimpleParagraph dock="Top" margin="0,12,0,2">
+          <Content>
+            <DirectTextContent>Result:</DirectTextContent>
+          </Content>
+        </SimpleParagraph>
+        <SimpleInputField settingKey="hasher result" minLines="10" readOnly="true" canScroll="true" />
+
+      </Content>
+      <Buttons>
+        <ResultButton>
+          <Target>NextButton</Target>
+          <Text>Generate Wrapper</Text>
+          <Result>ControlResults.NextResult</Result>
+        </ResultButton>
+        <ResultButton>
+          <Target>AdvancedButton</Target>
+          <Text>Main Menu</Text>
+          <Result>ControlResults.RepeatParentBranchResult</Result>
+        </ResultButton>
+      </Buttons>
+      <Actions>
+        <DisableControlAction>
+          <Conditions.Any>
+            <FileAndPath.FileDoesNotExist key="[hasher target file] " />
+            <FileAndPath.DirectoryDoesNotExist path="[hasher output folder]" />
+          </Conditions.Any>
+          <ControlKey>NextButton</ControlKey>
+        </DisableControlAction>
+        <EnableControlAction>
+          <Conditions.All>
+            <FileAndPath.FileExists key="[hasher target file]" />
+            <FileAndPath.DirectoryExists path ="[hasher output folder]" />
+          </Conditions.All>
+          <ControlKey>NextButton</ControlKey>
+        </EnableControlAction>
+      </Actions>
+    </SimpleBanner>
+
+    <SimpleBanner name="progress banner" width="500" height="450">
+      <Content>
+        <SimpleInputField settingKey="progress text" readOnly="true" canScroll="true" minLines="25" maxLines="25" fontFamily="Courier" fontSize="12" scrollToEnd="true" />
+        <ProgressParagraph controlKey="build progress text" settingKey="build progress ticker" dock="Bottom" margin="0,12,0,0">
+          <Content>
+            <DirectTextContent>Initializing</DirectTextContent>
+          </Content>
+        </ProgressParagraph>
+      </Content>
+      <Buttons>
+        <DisabledButton>
+          <Target>AdvancedButton</Target>
+          <Text>Main Menu</Text>
+        </DisabledButton>
+
+        <CancelButton>
+          <Target>NextButton</Target>
+          <Text>Cancel</Text>
+        </CancelButton>
+      </Buttons>
+    </SimpleBanner>
+
+    <SimpleBanner name="build complete banner" width="500" height="450">
+      <Content>
+        <SimpleParagraph fontSize="24" alignment="Center" margin="0,24,0,0">
+          <Content>
+            <DirectTextContent>Build Complete!</DirectTextContent>
+          </Content>
+        </SimpleParagraph>
+        <SimpleParagraph margin="0,12,0,0">
+          <Content>
+            <DirectTextContent>The build completed without issue. Click here to open the output folder.</DirectTextContent>
+          </Content>
+          <Links>
+            <OpenFolderLink target="[output path]" >
+              <DirectTextContent>here</DirectTextContent>
+            </OpenFolderLink>
+          </Links>
+        </SimpleParagraph>
+      </Content>
+      <Buttons>
+        <ResultButton>
+          <Target>AdvancedButton</Target>
+          <Text>Main Menu</Text>
+          <Result>ControlResults.RepeatParentBranchResult</Result>
+        </ResultButton>
+      </Buttons>
+    </SimpleBanner>
+
+    <SimpleBanner name="generate content folder complete banner" width="500" height="450">
+      <Content>
+        <SimpleParagraph fontSize="24" alignment="Center" margin="0,24,0,0">
+          <Content>
+            <DirectTextContent>Content Folder Generation Complete!</DirectTextContent>
+          </Content>
+        </SimpleParagraph>
+        <SimpleParagraph margin="0,12,0,0">
+          <Content>
+            <DirectTextContent>The operation completed without issue. Click here to open the content folder.</DirectTextContent>
+          </Content>
+          <Links>
+            <OpenFolderLink target="[content folder path]" >
+              <DirectTextContent>here</DirectTextContent>
+            </OpenFolderLink>
+          </Links>
+        </SimpleParagraph>
+      </Content>
+      <Buttons>
+        <ResultButton>
+          <Target>AdvancedButton</Target>
+          <Text>Main Menu</Text>
+          <Result>ControlResults.RepeatParentBranchResult</Result>
+        </ResultButton>
+      </Buttons>
+    </SimpleBanner>
+
+    <SimpleBanner name="utilities menu banner" width="500" height="450">
+      <Content>
+        <SimpleParagraph fontSize="24" alignment="Center" margin="0,24,0,0">
+          <Content>
+            <DirectTextContent>Utilities</DirectTextContent>
+          </Content>
+        </SimpleParagraph>
+        <SimpleParagraph margin="0,24,0,0" fontSize="18" padding="0" controlKey="generate wrapper">
+          <Content>
+            <DirectTextContent>Generate File Wrapper</DirectTextContent>
+          </Content>
+          <Links>
+            <SettingsLink target="utility branch" value="hasher branch">
+              <DirectTextContent>Generate File Wrapper</DirectTextContent>
+            </SettingsLink>
+          </Links>
+        </SimpleParagraph>
+        <SimpleParagraph>
+          <Content>
+            <DirectTextContent>Generate a download info wrapper for a file.</DirectTextContent>
+          </Content>
+        </SimpleParagraph>
+
+        <SimpleParagraph margin="0,12,0,0" fontSize="18" padding="0" controlKey="generate content folder">
+          <Content>
+            <DirectTextContent>Generate Content Folder</DirectTextContent>
+          </Content>
+          <Links>
+            <SettingsLink target="utility branch" value="generate content folder branch">
+              <DirectTextContent>Generate Content Folder</DirectTextContent>
+            </SettingsLink>
+          </Links>
+        </SimpleParagraph>
+        <SimpleParagraph>
+          <Content>
+            <DirectTextContent>Copy the various engine and installer files to a folder and generate their info wrappers.</DirectTextContent>
+          </Content>
+        </SimpleParagraph>
+
+        <SimpleParagraph margin="0,12,0,0" fontSize="18" padding="0">
+          <Content>
+            <DirectTextContent>Build Engine Package</DirectTextContent>
+          </Content>
+          <Links>
+            <SettingsLink target="utility branch" value="build package">
+              <DirectTextContent>Build Engine Package</DirectTextContent>
+            </SettingsLink>
+          </Links>
+        </SimpleParagraph>
+        <SimpleParagraph>
+          <Content>
+            <DirectTextContent>Build an installation package for the current engine.</DirectTextContent>
+          </Content>
+        </SimpleParagraph>
+      </Content>
+      <Actions>
+        <ReturnResultAction result="ControlResults.NextResult">
+          <Conditions.All>
+            <Settings.SettingPresent key="utility branch" />
+          </Conditions.All>
+          <ControlKey>generate wrapper</ControlKey>
+          <ControlKey>generate installer</ControlKey>
+        </ReturnResultAction>
+      </Actions>
+    </SimpleBanner>
+
+    <SimpleBanner name="generate content folder banner" width="500" height="575">
+      <Content>
+        <SimpleParagraph fontSize="24" alignment="Center" margin="0,24,0,0">
+          <Content>
+            <DirectTextContent>Generate Content Folder</DirectTextContent>
+          </Content>
+        </SimpleParagraph>
+        <SimpleParagraph dock="Top" margin="0,32,0,0">
+          <Content>
+            <DirectTextContent>Engine components path:</DirectTextContent>
+          </Content>
+        </SimpleParagraph>
+        <ContentBlockParagraph banner="engine components folder path banner" />
+        <SimpleParagraph dock="Top" fontSize="10">
+          <Content>
+            <DirectTextContent>Folder containing engine components to process.</DirectTextContent>
+          </Content>
+        </SimpleParagraph>
+
+        <SimpleParagraph dock="Top" margin="0,14,0,0">
+          <Content>
+            <DirectTextContent>Installer.wxs path:</DirectTextContent>
+          </Content>
+        </SimpleParagraph>
+        <ContentBlockParagraph banner="installer.wxs path banner" />
+        <SimpleParagraph dock="Top" fontSize="10">
+          <Content>
+            <DirectTextContent>Path to installer.wxs.</DirectTextContent>
+          </Content>
+        </SimpleParagraph>
+
+        <SimpleParagraph dock="Top" margin="0,14,0,0">
+          <Content>
+            <DirectTextContent>Bundle.wxs path:</DirectTextContent>
+          </Content>
+        </SimpleParagraph>
+        <ContentBlockParagraph banner="bundle.wxs path banner" />
+        <SimpleParagraph dock="Top" fontSize="10">
+          <Content>
+            <DirectTextContent>Path to bundle.wxs.</DirectTextContent>
+          </Content>
+        </SimpleParagraph>
+
+        <SimpleParagraph dock="Top" margin="0,14,0,0">
+          <Content>
+            <DirectTextContent>Bootstrapper engine components path:</DirectTextContent>
+          </Content>
+        </SimpleParagraph>
+        <ContentBlockParagraph banner="bootstrapper engine components folder path banner" />
+        <SimpleParagraph dock="Top" fontSize="10">
+          <Content>
+            <DirectTextContent>Folder containing Bootstrapper engine components to process.</DirectTextContent>
+          </Content>
+        </SimpleParagraph>
+
+
+
+        <SimpleParagraph dock="Top" margin="0,14,0,0">
+          <Content>
+            <DirectTextContent>Output path:</DirectTextContent>
+          </Content>
+        </SimpleParagraph>
+        <ContentBlockParagraph banner="content folder path banner" />
+        <SimpleParagraph dock="Top" fontSize="10">
+          <Content>
+            <DirectTextContent>Folder where content files will be stored.</DirectTextContent>
+          </Content>
+        </SimpleParagraph>
+      </Content>
+      <Actions>
+        <DisableControlAction>
+          <Conditions.Any>
+            <FileAndPath.DirectoryDoesNotExist path="[content folder path]" />
+            <FileAndPath.DirectoryDoesNotExist path="[engine components path]" />
+            <FileAndPath.DirectoryDoesNotExist path="[bootstrapper engine components path]" />
+            <FileAndPath.FileDoesNotExist key="[installer.wxs path]" />
+            <FileAndPath.FileDoesNotExist key="[bundle.wxs path]" />
+          </Conditions.Any>
+          <ControlKey>NextButton</ControlKey>
+        </DisableControlAction>
+        <EnableControlAction>
+          <Conditions.All>
+            <FileAndPath.DirectoryExists path="[content folder path]" />
+            <FileAndPath.DirectoryExists path="[engine components path]" />
+            <FileAndPath.DirectoryExists path="[bootstrapper engine components path]" />
+            <FileAndPath.FileExists key="[installer.wxs path]" />
+            <FileAndPath.FileExists key="[bundle.wxs path]" />
+          </Conditions.All>
+          <ControlKey>NextButton</ControlKey>
+        </EnableControlAction>
+      </Actions>
+      <Buttons>
+        <ResultButton>
+          <Target>AdvancedButton</Target>
+          <Text>Main Menu</Text>
+          <Result>ControlResults.RepeatParentBranchResult</Result>
+        </ResultButton>
+
+        <ResultButton>
+          <Target>NextButton</Target>
+          <Result>ControlResults.NextResult</Result>
+          <IsDefaultButton>true</IsDefaultButton>
+          <Text>Next</Text>
+        </ResultButton>
+      </Buttons>
+    </SimpleBanner>
+  </Banners>
+
+
+</Content>
+

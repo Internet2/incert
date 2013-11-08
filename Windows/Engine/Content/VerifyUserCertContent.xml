@@ -1,0 +1,267 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Content xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://incert.incommon.org/schemas ./Schemas/tasklist.xsd">
+
+  <Branches>
+    <TaskBranch name="verify user certificate">
+      <Certificates.VerifyUserCertificate errorBranch="prompt to run utility">
+        <Conditions.All logLevel="Debug">
+          <Grouping.AllTrue>
+            <FileAndPath.FileExists key="[UserCertInfoFile]" />
+            <Network.Online />
+          </Grouping.AllTrue>
+          <Grouping.AnyTrue logLevel="Debug">
+            <Grouping.AllTrue>
+              <Settings.SettingNotPresent key="FullNetworkingPingTarget1" />
+              <Settings.SettingNotPresent key="FullNetworkingPingTarget2" />
+              <Settings.SettingNotPresent key="FullNetworkingPingTarget3" />
+            </Grouping.AllTrue>
+            <Grouping.AllTrue logLevel="Debug">
+              <Settings.SettingPresent key="FullNetworkingPingTarget1" />
+              <Network.HostPingable host="[FullNetworkingPingTarget1]" />
+            </Grouping.AllTrue>
+            <Grouping.AllTrue logLevel="Debug">
+              <Settings.SettingPresent key="FullNetworkingPingTarget2" />
+              <Network.HostPingable host="[FullNetworkingPingTarget2]" />
+            </Grouping.AllTrue>
+            <Grouping.AllTrue logLevel="Debug">
+              <Settings.SettingPresent key="FullNetworkingPingTarget3" />
+              <Network.HostPingable host="[FullNetworkingPingTarget3]" />
+            </Grouping.AllTrue>
+          </Grouping.AnyTrue>
+        </Conditions.All>
+        <Properties>
+          <TargetPath>[UserCertInfoFile]</TargetPath>
+          <DaysToWarnBeforeExpires>45</DaysToWarnBeforeExpires>
+        </Properties>
+      </Certificates.VerifyUserCertificate>
+
+      <Control.ReturnExitResult />
+    </TaskBranch>
+
+    <TaskBranch name="prompt to run utility">
+      <Control.PreserveLastResult>
+        <Conditions.All>
+          <Control.PreviousResultNotTypeOf resultType="ControlResults.RepeatCurrentBranchResult" />
+        </Conditions.All>
+        <Properties>
+          <SettingKey>verify user certificate result</SettingKey>
+        </Properties>
+      </Control.PreserveLastResult>
+
+      <Logging.LogWarningFromTaskResult>
+        <Conditions.All>
+          <Control.IsNotResultType resultKey="verify user certificate result" resultType="Errors.Certificates.UserCertWillExpire" />
+          <Control.IsNotResultType resultKey="verify user certificate result" resultType="Errors.Certificates.UserCertNotPresent" />
+        </Conditions.All>
+        <Properties>
+          <BaseText>An issue occurred while attempting to verify the user's certificate: {Issue}</BaseText>
+          <ResultKey>verify user certificate result</ResultKey>
+        </Properties>
+      </Logging.LogWarningFromTaskResult>
+
+      <Control.ReturnExitResult>
+        <Conditions.All>
+          <Control.IsNotResultType resultKey="verify user certificate result" resultType="Errors.Certificates.UserCertWillExpire" />
+          <Control.IsNotResultType resultKey="verify user certificate result" resultType="Errors.Certificates.UserCertNotPresent" />
+        </Conditions.All>
+      </Control.ReturnExitResult>
+      
+      <Settings.ClearSettingText>
+        <Properties>
+          <SettingKey>change certificate monitor options</SettingKey>
+          <SettingKey>renew certificate</SettingKey>
+        </Properties>
+      </Settings.ClearSettingText>
+
+      <Settings.SetSettingText>
+        <Conditions.All>
+          <Control.IsResultType resultKey="verify user certificate result" resultType="Errors.Certificates.UserCertWillExpire" />
+        </Conditions.All>
+        <Properties>
+          <Setter key="renew certificate title">Renew Certificate?</Setter>
+          <Setter key="renew certificate question">Click renew to update your certificate.</Setter>
+        </Properties>
+      </Settings.SetSettingText>
+
+      <Settings.GetSettingStringFromObjectField>
+        <Conditions.All>
+          <Control.IsResultType resultKey="verify user certificate result" resultType="Errors.Certificates.UserCertWillExpire" />
+        </Conditions.All>
+        <Properties>
+          <ObjectKey>verify user certificate result</ObjectKey>
+          <SettingKey>renew certificate text</SettingKey>
+          <BaseText>Your user authentication certificate will&#10;expire {Estimate}.</BaseText>
+        </Properties>
+      </Settings.GetSettingStringFromObjectField>
+
+      <Settings.SetSettingText>
+        <Conditions.All>
+          <Control.IsResultType resultKey="verify user certificate result" resultType="Errors.Certificates.UserCertNotPresent" />
+        </Conditions.All>
+        <Properties>
+          <Setter key="renew certificate title">Renew Certificate?</Setter>
+          <Setter key="renew certificate text">Your user authentication certificate&#10;is missing or invalid.</Setter>
+          <Setter key="renew certificate question">Click renew to get a new certificate.</Setter>
+        </Properties>
+      </Settings.SetSettingText>
+
+      <UserInterface.ShowBorderedBannerModal>
+        <Properties>
+          <Dialog>Renew certificate dialog</Dialog>
+          <Banner>Renew certificate banner</Banner>
+        </Properties>
+      </UserInterface.ShowBorderedBannerModal>
+
+      <Control.ReturnBranchResult>
+        <Conditions.All>
+          <Settings.SettingEquals key="change certificate monitor options" value="true" ignoreCase="true"/>
+        </Conditions.All>
+        <Properties>
+          <Branch>Show renew certificate options dialog</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+
+      <Settings.SetSettingText>
+        <Properties>
+          <Setter key="exit launch application">!ApplicationExecutable!</Setter>
+          <Setter key="exit launch application verb">runas</Setter>
+        </Properties>
+      </Settings.SetSettingText>
+      <Control.ReturnExitResult/>
+    </TaskBranch>
+
+    <TaskBranch name="Show renew certificate options dialog">
+      <Settings.SetSettingText>
+        <Conditions.All>
+          <FileAndPath.FileExists key="[UserCertMonitorShortcutPath]" />
+        </Conditions.All>
+        <Properties>
+          <Setter key="monitor certificate on login">True</Setter>
+        </Properties>
+      </Settings.SetSettingText>
+      
+      <UserInterface.ShowChildBannerModal>
+        <Properties>
+          <ParentDialog>Renew certificate dialog</ParentDialog>
+          <ChildDialog>Renew certificate options dialog</ChildDialog>
+          <Banner>Renew certificate options banner</Banner>
+        </Properties>
+      </UserInterface.ShowChildBannerModal>
+
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>Manage utility shortcut</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+      <Control.ReturnRepeatParentBranchResult />
+    </TaskBranch>
+
+    <TaskBranch name="Manage utility shortcut">
+      <FileAndPath.RemoveFile>
+        <Conditions.All>
+          <Settings.SettingNotEqual key="monitor certificate on login" value="true" ignoreCase="true"/>
+        </Conditions.All>
+        <Properties>
+          <TargetPath>[UserCertMonitorShortcutPath]</TargetPath>
+        </Properties>
+      </FileAndPath.RemoveFile>
+
+      <FileAndPath.AddShortcut>
+        <Conditions.All>
+          <Settings.SettingEquals key="monitor certificate on login" value="true" ignoreCase="true"/>
+          <FileAndPath.FileDoesNotExist key="[UserCertMonitorShortcutPath]"/>
+        </Conditions.All>
+        <Properties>
+          <ShortcutPath>[UserCertMonitorShortcutPath]</ShortcutPath>
+          <SourcePath>!ApplicationExecutable!</SourcePath>
+          <Arguments>-certmon</Arguments>
+          <Description>Verifies that your user authentication certificate is valid and up-to-date</Description>
+        </Properties>
+      </FileAndPath.AddShortcut>
+    </TaskBranch>
+  </Branches>
+
+  <Banners>
+    <SimpleBanner name="Renew certificate banner" width ="450" height="425" canClose="true" noCloseQuestion="true" margin="0,24,14,0">
+      <Content>
+        <FramedButton controlKey="renew certificate button" caption="Renew" fontSize="24" settingKey="renew certificate" width="130" height="130" alignment="Center" verticalAlignment="Center" margin="0,40,0,0" />
+        <SimpleParagraph alignment="Center" fontSize="14" margin="0,36,0,0">
+          <Content>
+            <DirectTextContent>[renew certificate text]</DirectTextContent>
+          </Content>
+        </SimpleParagraph>
+        <SimpleParagraph alignment="Center" margin="0,14,0,0">
+          <Content>
+            <DirectTextContent>[renew certificate question]</DirectTextContent>
+          </Content>
+          <Links>
+            <SettingsLink target="renew certificate">
+              <DirectTextContent>renew</DirectTextContent>
+            </SettingsLink>
+          </Links>
+        </SimpleParagraph>
+      </Content>
+      <Buttons>
+        <ResultButton>
+          <Target>NextButton</Target>
+          <Text>Close</Text>
+          <Result>ControlResults.CloseResult</Result>
+          <IsCancelButton>true</IsCancelButton>
+        </ResultButton>
+        <SettingsButton>
+          <Key>change certificate monitor options</Key>
+          <Target>AdvancedButton</Target>
+          <Text>Options</Text>
+          <IsCancelButton>true</IsCancelButton>
+        </SettingsButton>
+        <UrlButton>
+          <Target>HelpButton</Target>
+          <Text>Help</Text>
+          <Value>http://kb.iu.edu/data/aorq.html</Value>
+        </UrlButton>
+      </Buttons>
+
+      <Actions>
+        <ReturnResultAction result="ControlResults.NextResult">
+          <Conditions.Any>
+            <Settings.SettingEquals key="change certificate monitor options" value="true" ignoreCase="true" />
+            <Settings.SettingEquals key="renew certificate" value="true" ignoreCase="true" />
+          </Conditions.Any>
+          <ControlKey>AdvancedButton</ControlKey>
+          <ControlKey>renew certificate button</ControlKey>
+
+        </ReturnResultAction>
+      </Actions>
+    </SimpleBanner>
+
+    <SimpleBanner name="Renew certificate options banner" height="300" width="350" canClose="false">
+      <Content>
+        <CheckInputField settingKey="monitor certificate on login" padding="8,0,0,0" margin="12,48,12,0">
+          <Content>
+            <DirectTextContent>Validate my user certificate when I log onto this computer.</DirectTextContent>
+          </Content>
+        </CheckInputField>
+        <SimpleParagraph margin="36,20,12,0">
+          <Content>
+            <DirectTextContent>If this option is checked, !ApplicationTitle! will verify that your user authentication certificate is present and valid when you log onto this computer.</DirectTextContent>
+          </Content>
+        </SimpleParagraph>
+      </Content>
+      <Buttons>
+        <UrlButton>
+          <Target>HelpButton</Target>
+          <Text>Help</Text>
+          <Value>http://kb.iu.edu/data/aorq.html</Value>
+        </UrlButton>
+        <ResultButton>
+          <Target>NextButton</Target>
+          <Text>Close</Text>
+          <Result>ControlResults.NextResult</Result>
+          <IsCancelButton>true</IsCancelButton>
+        </ResultButton>
+      </Buttons>
+    </SimpleBanner>
+  </Banners>
+</Content>
+

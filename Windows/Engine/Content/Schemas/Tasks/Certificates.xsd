@@ -1,0 +1,408 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="Certificates" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:include schemaLocation="Base.xsd" />
+  <xs:element name="CertificateWrapperKey" type="xs:string">
+    <xs:annotation>
+      <xs:documentation>The settings key used to store the instantiated certificate object</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+  <xs:element name="CredentialsKey" type="xs:string">
+    <xs:annotation>
+      <xs:documentation>The settings key that stores the certificate's password or passphrase</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+  <xs:element name="Certificates.ImportCertificateFromSettings">
+    <xs:annotation>
+      <xs:documentation>Imports a certificate to the user's my store from stored settings data.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element ref="CertificateWrapperKey" maxOccurs="1" minOccurs="0" />
+                  <xs:element ref="CredentialsKey" maxOccurs="1" minOccurs="0" />
+                  <xs:element name="FriendlyName" type="xs:string" maxOccurs="1" minOccurs="0">
+                    <xs:annotation>
+                      <xs:documentation>The friendly name for the certificate.</xs:documentation>
+                    </xs:annotation>
+                  </xs:element>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Certificates.ImportUserCertificateFromFile">
+    <xs:annotation>
+      <xs:documentation>Imports a certificate from a file into the local user's personal store.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="Target" type="xs:string" minOccurs="1" maxOccurs="1" />
+                  <xs:element ref="CredentialsKey" minOccurs="0" maxOccurs="1" />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Certificates.ImportCertificatesFromArchive">
+    <xs:annotation>
+      <xs:documentation>Imports a certificate from a file into the local user's personal store.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="Archive" type="xs:string" minOccurs="1" maxOccurs="1">
+                    <xs:annotation>
+                      <xs:documentation>The path to the .cab archive.</xs:documentation>
+                    </xs:annotation>
+                  </xs:element>
+                  <xs:element name="StoreName" type="X509StoreName" minOccurs="1" maxOccurs="1">
+                    <xs:annotation>
+                      <xs:documentation>The certificate store.</xs:documentation>
+                    </xs:annotation>
+                  </xs:element>
+                  <xs:element name="StoreLocation" type="X509StoreLocation" minOccurs="1" maxOccurs="1">
+                    <xs:annotation>
+                      <xs:documentation>The certificate location.</xs:documentation>
+                    </xs:annotation>
+                  </xs:element>
+                  <xs:element name="Certificate" minOccurs="1" maxOccurs="unbounded">
+                    <xs:annotation>
+                      <xs:documentation>The name of the certificate in the archive.</xs:documentation>
+                    </xs:annotation>
+                  </xs:element>
+                  <xs:element name="FriendlyName" type="xs:string" maxOccurs="1" minOccurs="0">
+                    <xs:annotation>
+                      <xs:documentation>The friendly name to assign to each certificate.</xs:documentation>
+                    </xs:annotation>
+                  </xs:element>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Certificates.ExportCertificateToFile">
+    <xs:annotation>
+      <xs:documentation>Exports certificate text-data to a file.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element ref="CertificateWrapperKey" maxOccurs="1" minOccurs="1" />
+                  <xs:element name="Target" type="xs:string" minOccurs="1" maxOccurs="1">
+                    <xs:annotation>
+                      <xs:documentation>Path to the certificate data file.</xs:documentation>
+                    </xs:annotation>
+                  </xs:element>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Certificates.CreateCertificateInfoFile">
+    <xs:annotation>
+      <xs:documentation>Exports a certificate info file. This file is used by certificate management functions to locate the correct user cert to examine.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element ref="CertificateWrapperKey" minOccurs="1" maxOccurs="1" />
+                  <xs:element name="TargetPath" type="xs:string" minOccurs="0" maxOccurs="1">
+                    <xs:annotation>
+                      <xs:documentation>Path to the certificate info file.</xs:documentation>
+                    </xs:annotation>
+                  </xs:element>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Certificates.CreateWrapperFromExistingUserCertificate">
+    <xs:annotation>
+      <xs:documentation>Exports a certificate info file. This file is used by certificate management functions to locate the correct user cert to examine.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element ref="CertificateWrapperKey" minOccurs="1" maxOccurs="1" />
+                  <xs:element name="AuthorityKey" type="xs:string" minOccurs="1" maxOccurs="1">
+                    <xs:annotation>
+                      <xs:documentation>Authority key identifying certificate issuer.</xs:documentation>
+                    </xs:annotation>
+                  </xs:element>
+                  <xs:element name="EmailAddress" type="xs:string" minOccurs="1" maxOccurs="1">
+                    <xs:annotation>
+                      <xs:documentation>E-mail address identifying certificate subject.</xs:documentation>
+                    </xs:annotation>
+                  </xs:element>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Certificates.GetSettingCertificateSubjectProperty">
+    <xs:annotation>
+      <xs:documentation>Persists certificate info fields to the temporary settings store.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element ref="CertificateWrapperKey" maxOccurs="1" minOccurs="1" />
+                  <xs:element name="SettingKey" type="xs:string" minOccurs="1" maxOccurs="1">
+                    <xs:annotation>
+                      <xs:documentation>The setting key associated with the stored field</xs:documentation>
+                    </xs:annotation>
+                  </xs:element>
+                  <xs:element name="Property" type="X509NameType" minOccurs="1" maxOccurs="1">
+                    <xs:annotation>
+                      <xs:documentation>The field in question.</xs:documentation>
+                    </xs:annotation>
+                  </xs:element>
+                  <xs:element name="ForIssuer" type="xs:boolean" maxOccurs="1" minOccurs="0">
+                    <xs:annotation>
+                      <xs:documentation>If true, the issue name will be included.</xs:documentation>
+                    </xs:annotation>
+                  </xs:element>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Certificates.RemoveSimiliarCertificatesFromStore">
+    <xs:annotation>
+      <xs:documentation>Removes certificates with the same authority and subject keys for a stored certificate from a given store and location.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="StoreName" type="X509StoreName" minOccurs="0" maxOccurs="1">
+                    <xs:annotation>
+                      <xs:documentation>The certificate store.</xs:documentation>
+                    </xs:annotation>
+                  </xs:element>
+                  <xs:element name="StoreLocation" type="X509StoreLocation" minOccurs="0" maxOccurs="1">
+                    <xs:annotation>
+                      <xs:documentation>The certificate location.</xs:documentation>
+                    </xs:annotation>
+                  </xs:element>
+                  <xs:element ref="CertificateWrapperKey" maxOccurs="1" minOccurs="1" />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Certificates.RetrieveUserCertificate">
+    <xs:annotation>
+      <xs:documentation>Retrieves a new user certificate from the web-service.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="UsernameKey" type="xs:string" maxOccurs="1" minOccurs="1">
+                    <xs:annotation>
+                      <xs:documentation>The username to use when requesting the certificate</xs:documentation>
+                    </xs:annotation>
+                  </xs:element>
+                  <xs:element name="PassphraseKey" type="xs:string" maxOccurs="1" minOccurs="1">
+                    <xs:annotation>
+                      <xs:documentation>The password or passphrase to use when requesting the certificate</xs:documentation>
+                    </xs:annotation>
+                  </xs:element>
+                  <xs:element name="Credential2Key" type="xs:string" maxOccurs="1" minOccurs="0">
+                    <xs:annotation>
+                      <xs:documentation>The second credential string to use when requesting the certificate</xs:documentation>
+                    </xs:annotation>
+                  </xs:element>
+                  <xs:element name="Credential3Key" type="xs:string" maxOccurs="1" minOccurs="0">
+                    <xs:annotation>
+                      <xs:documentation>The third credential string to use when requesting the certificate</xs:documentation>
+                    </xs:annotation>
+                  </xs:element>
+                  <xs:element name="Credential4Key" type="xs:string" maxOccurs="1" minOccurs="0">
+                    <xs:annotation>
+                      <xs:documentation>The fourth credential string to use when requesting the certificate</xs:documentation>
+                    </xs:annotation>
+                  </xs:element>
+                  <xs:element name="CertificateProvider" type="xs:string" maxOccurs="1" minOccurs="0">
+                    <xs:annotation>
+                      <xs:documentation>The provider to use when requesting the certificate</xs:documentation>
+                    </xs:annotation>
+                  </xs:element>
+                  <xs:element name="EncryptCertificate" type="xs:boolean" maxOccurs="1" minOccurs="0">
+                    <xs:annotation>
+                      <xs:documentation>Request a certificate from the server that is secured with the user's password or passphrase</xs:documentation>
+                    </xs:annotation>
+                  </xs:element>
+                  <xs:element name="Timeout" type="xs:integer" maxOccurs="1" minOccurs="0">
+                    <xs:annotation>
+                      <xs:documentation>The timeout (in milliseconds) to use when requesting the certificate.</xs:documentation>
+                      <xs:documentation>This number should be set relative highly, as it can take the server some time to retrieve the certificate.</xs:documentation>
+                      <xs:documentation>The default is 90,000 ms (90 seconds).</xs:documentation>
+                    </xs:annotation>
+                  </xs:element>
+                  <xs:element ref="CertificateWrapperKey" maxOccurs="1" minOccurs="1" />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Certificates.VerifyUserCertificate">
+    <xs:annotation>
+      <xs:documentation>Verifies the user's certificate using the certificate info file.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence>
+
+                  <xs:element name="TargetPath" type="xs:string" minOccurs="0" maxOccurs="1">
+                    <xs:annotation>
+                      <xs:documentation>Path to the certificate info file.</xs:documentation>
+                    </xs:annotation>
+                  </xs:element>
+                  <xs:element name="Timeout" type="xs:integer" minOccurs="0" maxOccurs="1">
+                    <xs:annotation>
+                      <xs:documentation>The timeout to use when Online mode is specified.</xs:documentation>
+                    </xs:annotation>
+                  </xs:element>
+                  <xs:element name="Mode" type="X509RevocationMode" maxOccurs="1" minOccurs="0">
+                    <xs:annotation>
+                      <xs:documentation>The mode to use when verifying the certificate</xs:documentation>
+                    </xs:annotation>
+                  </xs:element>
+                  <xs:element name="Validate" type="X509RevocationFlag" maxOccurs="1" minOccurs="0">
+                    <xs:annotation>
+                      <xs:documentation>What to validate when verifying the certificate</xs:documentation>
+                    </xs:annotation>
+                  </xs:element>
+                  <xs:element name="Flags" type="X509VerificationFlagList" maxOccurs="1" minOccurs="0">
+                    <xs:annotation>
+                      <xs:documentation>How to verify the certificate.</xs:documentation>
+                    </xs:annotation>
+                  </xs:element>
+                  <xs:element name="DaysToWarnBeforeExpires" type="xs:integer" maxOccurs="1" minOccurs="0">
+                    <xs:annotation>
+                      <xs:documentation>Days to use when determining when to warn user before cert expires.</xs:documentation>
+                    </xs:annotation>
+                  </xs:element>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:simpleType name="X509NameType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="SimpleName">
+        <xs:annotation>
+          <xs:documentation>The simple name of a subject or issuer of an X509 certificate.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="EmailName">
+        <xs:annotation>
+          <xs:documentation>The email address of the subject or issuer associated of an X509 certificate.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="UpnName">
+        <xs:annotation>
+          <xs:documentation>The UPN name of the subject or issuer of an X509 certificate.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DnsName">
+        <xs:annotation>
+          <xs:documentation>The DNS name associated with the alternative name of either the subject or issuer of an X509 certificate.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DnsFromAlternativeName">
+        <xs:annotation>
+          <xs:documentation>The DNS name associated with the alternative name of either the subject or the issuer of an X.509 certificate. This value is equivalent to the DnsName value.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="UrlName">
+        <xs:annotation>
+          <xs:documentation>The URL address associated with the alternative name of either the subject or issuer of an X509 certificate.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>

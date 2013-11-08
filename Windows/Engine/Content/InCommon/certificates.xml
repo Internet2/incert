@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Content xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://incert.incommon.org/schemas ../Schemas/tasklist.xsd">
+  <Branches>
+    <TaskBranch name="certificates.configure">
+      <UserInterface.SetCheckedParagraphSubtitle>
+        <Conditions.All>
+          <Certificates.ValidCertExistsForEmail authorityKey="e8d7bd96aaddd008efa1339e5e59983c12b79b91" address="[username]@incommontest.org" mode="Offline" />
+        </Conditions.All>
+        <Properties>
+          <Dialog>Main dialog</Dialog>
+          <ControlKey>Installing certificate</ControlKey>
+        </Properties>
+        <Content>
+          <SimpleParagraph style="InsetText" margin="0,0,0,0" padding="0,0,0,0">
+            <Content>
+              <DirectTextContent>A valid certificate already exists. There is no need to provision a new one.</DirectTextContent>
+            </Content>
+          </SimpleParagraph>
+        </Content>
+      </UserInterface.SetCheckedParagraphSubtitle>
+
+      <Certificates.CreateWrapperFromExistingUserCertificate>
+        <Conditions.All>
+          <Certificates.ValidCertExistsForEmail authorityKey="e8d7bd96aaddd008efa1339e5e59983c12b79b91" address="[username]@incommontest.org" mode="Offline" />
+        </Conditions.All>
+        <Properties>
+          <CertificateWrapperKey>user certificate</CertificateWrapperKey>
+          <AuthorityKey>e8d7bd96aaddd008efa1339e5e59983c12b79b91</AuthorityKey>
+          <EmailAddress>[username]@incommontest.org</EmailAddress>
+        </Properties>
+      </Certificates.CreateWrapperFromExistingUserCertificate>
+
+      <Control.ReturnBranchResult>
+        <Conditions.All>
+          <Certificates.NoValidCertsExistForEmail authorityKey="e8d7bd96aaddd008efa1339e5e59983c12b79b91" address="[username]@incommontest.org" mode="Offline" />
+        </Conditions.All>
+        <Properties>
+          <Branch>certificates.install</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+
+      <Control.ReturnBranchResult>
+        <Conditions.All>
+          <Certificates.ValidCertExistsForEmail authorityKey="e8d7bd96aaddd008efa1339e5e59983c12b79b91" address="[username]@incommontest.org" mode="Offline" />
+        </Conditions.All>
+        <Properties>
+          <Branch>Enable certificate monitor</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+    </TaskBranch>
+    
+    <TaskBranch name="certificates.install">
+      <UserInterface.ActivateCheckedParagraph minimumTaskTime="1">
+        <Properties>
+          <Dialog>Main dialog</Dialog>
+          <ControlKey>Installing certificate</ControlKey>
+        </Properties>
+      </UserInterface.ActivateCheckedParagraph>
+
+      <UserInterface.SetCheckedParagraphSubtitle>
+        <Properties>
+          <Dialog>Main dialog</Dialog>
+          <ControlKey>Installing certificate</ControlKey>
+        </Properties>
+        <Content>
+          <ProgressParagraph settingKey="installing certificate message" style="InsetText" margin="0,0,0,0" padding="0,0,0,0">
+            <Content>
+              <DirectTextContent>Acquiring new user authentication certificate</DirectTextContent>
+            </Content>
+          </ProgressParagraph>
+        </Content>
+      </UserInterface.SetCheckedParagraphSubtitle>
+
+      <UserInterface.StartMessageTimer>
+        <Properties>
+          <SettingKey>installing certificate message</SettingKey>
+        </Properties>
+      </UserInterface.StartMessageTimer>
+
+      <Certificates.RetrieveUserCertificate minimumTaskTime="3">
+        <Properties>
+          <UsernameKey>username</UsernameKey>
+          <PassphraseKey>passphrase</PassphraseKey>
+          <Credential2Key>credential2</Credential2Key>
+          <Credential3Key>credential3</Credential3Key>
+          <Credential4Key>credential4</Credential4Key>
+          <CertificateProvider>[certificate provider]</CertificateProvider>
+          <EncryptCertificate>true</EncryptCertificate>
+          <CertificateWrapperKey>user certificate</CertificateWrapperKey>
+        </Properties>
+      </Certificates.RetrieveUserCertificate>
+
+      <Certificates.ExportCertificateToFile>
+        <Properties>
+          <CertificateWrapperKey>user certificate</CertificateWrapperKey>
+          <Target>[username].pfx</Target>
+        </Properties>
+      </Certificates.ExportCertificateToFile>
+
+      <UserInterface.StopMessageTimer>
+        <Properties>
+          <SettingKey>installing certificate message</SettingKey>
+        </Properties>
+      </UserInterface.StopMessageTimer>
+
+      <Certificates.GetSettingCertificateSubjectProperty>
+        <Properties>
+          <CertificateWrapperKey>user certificate</CertificateWrapperKey>
+          <SettingKey>user certificate subject name</SettingKey>
+          <Property>SimpleName</Property>
+        </Properties>
+      </Certificates.GetSettingCertificateSubjectProperty>
+
+      <UserInterface.SetCheckedParagraphSubtitle>
+        <Properties>
+          <Dialog>Main dialog</Dialog>
+          <ControlKey>Installing certificate</ControlKey>
+        </Properties>
+        <Content>
+          <ProgressParagraph settingKey="installing certificate message" style="InsetText" margin="0,0,0,0" padding="0,0,0,0">
+            <Content>
+              <DirectTextContent>Installing certificate for [user certificate subject name]</DirectTextContent>
+            </Content>
+          </ProgressParagraph>
+        </Content>
+      </UserInterface.SetCheckedParagraphSubtitle>
+
+      <UserInterface.StartMessageTimer>
+        <Properties>
+          <SettingKey>installing certificate message</SettingKey>
+        </Properties>
+      </UserInterface.StartMessageTimer>
+
+      <Certificates.ImportCertificateFromSettings minimumTaskTime="3">
+        <Properties>
+          <CertificateWrapperKey>user certificate</CertificateWrapperKey>
+          <CredentialsKey>passphrase</CredentialsKey>
+          <FriendlyName>InCommon authentication certificate for [subject name]</FriendlyName>
+        </Properties>
+      </Certificates.ImportCertificateFromSettings>
+
+      <Certificates.RemoveSimiliarCertificatesFromStore>
+        <Properties>
+          <CertificateWrapperKey>user certificate</CertificateWrapperKey>
+        </Properties>
+      </Certificates.RemoveSimiliarCertificatesFromStore>
+
+      <UserInterface.StopMessageTimer>
+        <Properties>
+          <SettingKey>installing certificate message</SettingKey>
+        </Properties>
+      </UserInterface.StopMessageTimer>
+
+      <UserInterface.RemoveCheckedParagraphSubtitle>
+        <Properties>
+          <Dialog>Main dialog</Dialog>
+          <ControlKey>Installing certificate</ControlKey>
+        </Properties>
+      </UserInterface.RemoveCheckedParagraphSubtitle>
+
+      <UserInterface.CompleteCheckedParagraph minimumTaskTime="1">
+        <Properties>
+          <Dialog>Main dialog</Dialog>
+          <ControlKey>Installing certificate</ControlKey>
+        </Properties>
+      </UserInterface.CompleteCheckedParagraph>
+    </TaskBranch>
+
+    <TaskBranch name="Enable certificate monitor">
+      <Certificates.CreateCertificateInfoFile>
+        <Properties>
+          <CertificateWrapperKey>user certificate</CertificateWrapperKey>
+          <TargetPath>[UserCertInfoFile]</TargetPath>
+        </Properties>
+      </Certificates.CreateCertificateInfoFile>
+
+      <FileAndPath.AddShortcut>
+        <Properties>
+          <ShortcutPath>[UserCertMonitorShortcutPath]</ShortcutPath>
+          <SourcePath>!ApplicationExecutable!</SourcePath>
+          <Arguments>-certmon</Arguments>
+          <Description>Verifies that your user authentication certificate is valid and up-to-date</Description>
+        </Properties>
+      </FileAndPath.AddShortcut>
+    </TaskBranch>
+
+  </Branches>
+</Content>

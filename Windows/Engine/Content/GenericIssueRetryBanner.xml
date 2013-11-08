@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Content xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://incert.incommon.org/schemas ./Schemas/tasklist.xsd">
+  <Banners>
+    <SimpleBanner name="Generic issue retry banner" width ="450" height="350" canClose="false" margin="14,24,38,0">
+      <Content>
+        <EllipseGlyph glyph="!" dock="Left" alignment="Right" verticalAlignment="Top" fontSize="30" fontWeight="Bold" margin="24,36,14,0" padding="0" />
+        <ContentBlockParagraph borderSize="0" banner="Generic issue retry content banner" verticalAlignment="Top" margin="0,32,0,0" padding="0" />
+      </Content>
+      <Buttons>
+        <ResultButton>
+          <Target>BackButton</Target>
+          <Result>ControlResults.RepeatBranchingTaskResult</Result>
+          <Text>Retry</Text>
+          <IsDefaultButton>true</IsDefaultButton>
+        </ResultButton>
+        <StoredResultButton>
+          <Key>generic issue retry banner stored result</Key>
+          <Target>NextButton</Target>
+          <Text>Cancel</Text>
+          <IsCancelButton>true</IsCancelButton>
+        </StoredResultButton>
+        <TopicButton>
+          <Target>HelpButton</Target>
+          <Text>Help</Text>
+          <Value>[generic issue retry banner help topic]</Value>
+        </TopicButton>
+      </Buttons>
+    </SimpleBanner>
+
+    <SimpleBanner name="Generic issue retry content banner">
+      <Content>
+        <SimpleParagraph alignment="Left" fontSize="14" fontWeight="Bold">
+          <Content>
+            <DirectTextContent>[generic issue retry banner title]</DirectTextContent>
+          </Content>
+        </SimpleParagraph>
+
+        <SimpleParagraph>
+          <Content>
+            <DirectTextContent>[generic issue retry banner description]</DirectTextContent>
+          </Content>
+        </SimpleParagraph>
+
+        <SimpleParagraph margin="0,12,0,0" fontWeight="Bold">
+          <Content>
+            <DirectTextContent>Issue:</DirectTextContent>
+          </Content>  
+        </SimpleParagraph>
+        
+        <SimpleParagraph fontSize="12" margin="0,12,0,0" verticalAlignment="Top" padding="0,0,0,0">
+          <Content>
+            <TempObjectFieldContent key="generic issue retry banner stored result">{Issue}</TempObjectFieldContent>
+          </Content>
+        </SimpleParagraph>
+      </Content>
+    </SimpleBanner>
+  </Banners>
+</Content>

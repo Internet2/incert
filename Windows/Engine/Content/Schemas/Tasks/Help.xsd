@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="Help" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:include schemaLocation="Base.xsd" />
+  <xs:include schemaLocation="../Wrappers/KeyedStringPropertyType.xsd" />
+  <xs:element name="Help.SetHelpSettings">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="BannerEntry" type="KeyedStringPropertyType" minOccurs="1" maxOccurs="1" />
+                  <xs:element name="BaseHelpUrl" type="xs:string" minOccurs="0" maxOccurs="1" />
+                  <xs:element name="DialogTitle" type="xs:string" minOccurs="0" maxOccurs="1" />
+                  <xs:element name="PreserveContentText" type="xs:string" maxOccurs="1" minOccurs="0" />
+                  <xs:element name="AppendWhenShowingExternal" type="xs:string" maxOccurs="1" minOccurs="0" />
+                  <xs:element name="InitialLeftOffset" type="xs:double" maxOccurs="1" minOccurs="0" />
+                  <xs:element name="InitialTopOffset" type="xs:double" maxOccurs="1" minOccurs="0" />
+                  <xs:element name="ReportingEntry" type="xs:string" maxOccurs="1" minOccurs="0" />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Help.OpenContentInExternalWindow" type="BaseTaskNodeType" />
+</xs:schema>

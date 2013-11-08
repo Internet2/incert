@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="Verification" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:include schemaLocation="Base.xsd" />
+  <xs:element name="Verification.VerifyApplicationSignature" type="BaseTaskNodeType" />
+  <xs:element name="Verification.VerifyServerVersion" type="BaseTaskNodeType" />
+</xs:schema>

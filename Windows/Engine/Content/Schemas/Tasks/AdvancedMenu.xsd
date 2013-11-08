@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="AdvancedMenu" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:include schemaLocation="Base.xsd" />
+  <xs:element name="AdvancedMenuItem">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="Title" type="xs:string" minOccurs="1" maxOccurs="1"  />
+                  <xs:element name="ButtonText" type="xs:string" minOccurs="1" maxOccurs="1"  />
+                  <xs:element name="Group" type="xs:string" minOccurs="1" maxOccurs="1"  />
+                  <xs:element name="Branch" type="xs:string" minOccurs="1" maxOccurs="1"  />
+                  <xs:element name="Description" type="xs:string" minOccurs="1" maxOccurs="1"  />
+                  <xs:element name="WorkingTitle" type="xs:string" minOccurs="1" maxOccurs="1" />
+                  <xs:element name="WorkingDescription" type="xs:string" minOccurs="1" maxOccurs="1" />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

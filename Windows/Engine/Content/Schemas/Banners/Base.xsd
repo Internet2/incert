@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="Base" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:include schemaLocation="../Conditions/Conditions.xsd" />
+  <xs:include schemaLocation="Content.xsd" />
+  <xs:include schemaLocation="../Enums/UserInterface.xsd" />
+  <xs:include schemaLocation="Actions.xsd" />
+  <xs:include schemaLocation="Buttons.xsd" />
+  <xs:element name="Banners">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="SimpleBanner" maxOccurs="unbounded" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence maxOccurs="unbounded">
+              <xs:choice>
+                <xs:element name="Content" type="BannerContentType" minOccurs="1" maxOccurs="1" />
+                <xs:element ref="Buttons" minOccurs="0" maxOccurs="1" />
+                <xs:element ref="Actions" minOccurs="0" maxOccurs="1" />
+              </xs:choice>
+            </xs:sequence>
+            <xs:attribute name="name" use="required" type="xs:string" />
+            <xs:attribute name="background" use="optional" type="xs:string" />
+            <xs:attribute name="activate" use="optional" type="xs:string" />
+            <xs:attribute name="alwaysRefresh" use="optional" type="xs:boolean" />
+            <xs:attribute name="scrollable" use="optional" type="xs:boolean" />
+            <xs:attribute name="width" use="optional" type="xs:int" />
+            <xs:attribute name="height" use="optional" type="xs:int" />
+            <xs:attribute name="canClose" use="optional" type="xs:boolean" />
+            <xs:attribute name="margin" use="optional" type="Padding" />
+            <xs:attribute name="noCloseQuestion" use="optional" type="xs:boolean" />
+            <xs:attribute name="cursor" use="optional" type="Cursors" />
+            <xs:attribute name="horizontalAlignment" type="HorizontalAlignmentValues"  use="optional" />
+            <xs:attribute name="verticalAlignment" type="VerticalAlignmentValues" use="optional" />
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

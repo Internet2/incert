@@ -1,0 +1,90 @@
+﻿<Window x:Class="Org.InCommon.InCert.BootstrapperEngine.Views.PagedView"
+       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:mockup="clr-namespace:Org.InCommon.InCert.BootstrapperEngine.Models.Mockup"
+        mc:Ignorable="d"
+        d:DataContext="{d:DesignInstance Type=mockup:MockPagedView, IsDesignTimeCreatable=True}"
+        Height="425"
+        Width="475"
+        Title="{Binding WindowTitle}"
+        FontFamily="Verdana"
+        FontSize="{Binding FontSize}"
+        WindowStyle="ToolWindow"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        ShowActivated="True" Closed="ClosedHandler">
+    <Window.Resources>
+        <ResourceDictionary Source="Resources.xaml" />
+    </Window.Resources>
+
+    <Grid Background="{Binding Background}" Cursor="{Binding Cursor}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Frame Margin="0" Grid.Row="0" DataContext="{Binding PageModel}" Content="{Binding Page}" NavigationUIVisibility="Hidden" />
+        <DockPanel Name="CommandsPanel" Grid.Row="2" LastChildFill="False" DataContext="{Binding BottomButtonsModel}">
+            <Label DockPanel.Dock="Left" HorizontalAlignment="Left" Height="Auto" Margin="12,0,0,6" VerticalAlignment="Top" Width="Auto"
+                DataContext="{Binding Button1Model}"
+                Visibility="{Binding Visible, Converter={StaticResource BooleanToVisibilityConverter}}" >
+                <TextBlock>
+                    <Hyperlink   
+                        Foreground="{Binding Foreground}"
+                        Command="{Binding Command}">
+                        <TextBlock Text="{Binding Text}"></TextBlock>
+                    </Hyperlink>
+                </TextBlock>
+            </Label>
+
+            <Label DockPanel.Dock="Left" HorizontalAlignment="Left" Height="Auto" Margin="12,0,0,0" VerticalAlignment="Top" Width="Auto"
+                Foreground="{Binding Foreground}"
+                DataContext="{Binding Button2Model}"
+                Visibility="{Binding Visible, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <TextBlock>
+                <Hyperlink Foreground="{Binding Foreground}" Name="RepairLink" Command="{Binding Command}">
+                    <TextBlock Text="{Binding Text}"></TextBlock>
+                </Hyperlink>
+                </TextBlock>
+            </Label>
+
+            <Label DockPanel.Dock="Left" HorizontalAlignment="Left" Height="Auto" Margin="12,0,0,0" 
+                VerticalAlignment="Top" Width="Auto" 
+                DataContext="{Binding Button3Model}"
+                Visibility="{Binding Visible, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <TextBlock>
+                <Hyperlink Foreground="{Binding Foreground}" Command="{Binding Command}">
+                    <TextBlock Text="{Binding Text}"></TextBlock>
+                </Hyperlink>
+                </TextBlock>
+            </Label>
+
+            <Label DockPanel.Dock="Right" Margin="0,0,12,6" VerticalAlignment="Top" 
+                   DataContext="{Binding Button5Model}"
+                   Visibility="{Binding Visible, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <TextBlock>
+                    <Hyperlink Foreground="{Binding Foreground}" Command="{Binding Command}">
+                        <TextBlock Text="{Binding Text}"></TextBlock>
+                    </Hyperlink>
+                </TextBlock>
+            </Label>
+
+            <Label DockPanel.Dock="Right" Margin="0,0,12,6" VerticalAlignment="Top" 
+                   DataContext="{Binding Button4Model}"
+                   Visibility="{Binding Visible, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <TextBlock>
+                    <Hyperlink Foreground="{Binding Foreground}" Command="{Binding Command}">
+                        <TextBlock Text="{Binding Text}"></TextBlock>
+                    </Hyperlink>
+                </TextBlock>
+            </Label>
+        </DockPanel>
+
+
+    </Grid>
+</Window>

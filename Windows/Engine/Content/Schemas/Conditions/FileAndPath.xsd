@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="FileAndPath" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="FileAndPath.FileExists">
+    <xs:complexType>
+      <xs:attribute name="key" type="xs:string" use="required"   />
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="FileAndPath.FileDoesNotExist">
+    <xs:complexType>
+      <xs:attribute name="key" type="xs:string" use="required"   />
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="FileAndPath.DirectoryExists">
+    <xs:complexType>
+      <xs:attribute name="path" type="xs:string" use="required"   />
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="FileAndPath.DirectoryDoesNotExist">
+    <xs:complexType>
+      <xs:attribute name="path" type="xs:string" use="required"   />
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:include schemaLocation="./CommandLine/CommandLineProcessors.xsd" />
+  <xs:include schemaLocation="./Branches/Base.xsd" />
+  <xs:include schemaLocation="./Banners/Base.xsd" />
+  <xs:element name="Content">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="Branches" maxOccurs="1" minOccurs="0" />
+        <xs:element ref="Banners" maxOccurs="1" minOccurs="0" />
+        <xs:element name="Errors" maxOccurs="1" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence maxOccurs="unbounded" minOccurs="1">
+              <xs:element ref="SimpleErrorEntry" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+
+        <xs:element name="CommandLineProcessors" type="CommandLineProcessors" maxOccurs="1" minOccurs="0" />
+
+        <xs:element name="HelpTopics" maxOccurs="1" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence maxOccurs="unbounded" minOccurs="1">
+              <xs:element ref="HelpTopic" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+
+        <xs:element name="AdvancedMenuItems" maxOccurs="1" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence maxOccurs="unbounded" minOccurs="1">
+              <xs:element ref="AdvancedMenuItem" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <!-- Simple Error Entry -->
+  <xs:element name="SimpleErrorEntry">
+    <xs:complexType>
+      <xs:sequence maxOccurs="1" minOccurs="1">
+        <xs:element name="Properties" maxOccurs="1" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence maxOccurs="unbounded" minOccurs="1">
+              <xs:choice>
+                <xs:element name="Key" type="ErrorResultsList" />
+                <xs:element name="Title" type="xs:string" />
+                <xs:element name="Summary" type="xs:string" />
+                <xs:element name="Topic" type="xs:string" />
+                <xs:element name="AdvancedMenuGroup" type="xs:string" />
+              </xs:choice>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Content" type="BaseTextContentType" />
+        <xs:element ref="Links" maxOccurs="1" minOccurs="0" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
+
+
+
+
+
+
+
+
+
+
+
+

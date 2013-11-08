@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="EngineModes" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:simpleType name="EngineModes">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Normal">
+        <xs:annotation>
+          <xs:documentation>This role branch should be invoked when running in the 'normal' engine mode.</xs:documentation>
+          <xs:documentation>'Normal' engine mode is generally meant for longer running applications where the engine needs elevated priviliges to configure the user's computer.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="All">
+        <xs:annotation>
+          <xs:documentation>This role branch applies to all engine modes. The engine will first attempt to find a role branch that applies to its specific mode, but will fall back to this branch.</xs:documentation>
+          <xs:documentation>This is the default value.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Unconfigure">
+        <xs:annotation>
+          <xs:documentation>This role branch should be invoked when running in the 'unconfigure' engine mode</xs:documentation>
+          <xs:documentation>'Unconfigure' mode is generally invoked by the installer to allow users to undo changes that the engine makes to their computers.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Utility">
+        <xs:annotation>
+          <xs:documentation>This role branch should be invoked when running in the 'utility' engine mode.</xs:documentation>
+          <xs:documentation>'Utility' mode is generally meant for applications that need to run briefly and without elevation.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>

@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="Network" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:include schemaLocation="Base.xsd" />
+  <xs:element name="Network.EnableNtlmV2" type="BaseTaskNodeType" />
+  <xs:element name="Network.CheckForNatDevice" type="BaseTaskNodeType" />
+  <xs:element name="Network.CheckForBridgedInterfaces" type="BaseTaskNodeType" />
+  <xs:element name="Network.DisableAutoDial" type="BaseTaskNodeType" />
+  <xs:element name="Network.DisableOfflineMode" type="BaseTaskNodeType" />
+  <xs:element name="Network.DisableProxy" type="BaseTaskNodeType" />
+  <xs:element name="Network.Dhcp.EnableDhcp"  type="BaseTaskNodeType" />
+  <xs:element name="Network.Dhcp.EnableDhcpService"  type="BaseTaskNodeType"/>
+  <xs:element name="Network.Dhcp.ReleaseRenewLease"  type="BaseTaskNodeType"/>
+
+  <xs:element name="Network.Ipv6.ConfigureBindings">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="EnableBindings" type="xs:boolean" minOccurs="1" maxOccurs="1" />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Network.Ipv6.SetRegistryRestriction">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="Restriction" type="Ipv6RegistryRestriction" minOccurs="1" maxOccurs="1" />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Network.Ipv6.ConfigurePrivacyExtensions">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="Enabled" type="xs:boolean" minOccurs="1" maxOccurs="1" />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

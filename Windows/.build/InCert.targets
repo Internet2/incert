@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <!-- Basic properties -->
+    <ProductName Condition="'$(ProductName)' == ''">InCert</ProductName>
+    <Institution Condition="'$(Institution)' == ''">InCommon</Institution>
+    <ArchivePath Condition="'$(ArchivePath)' == ''">content\Incommon\archive\</ArchivePath>
+    <AppVersion Condition=" '$(AppVersion)' == '' ">13.3.3.0</AppVersion>
+    <IconPath Condition=" '$(IconPath)' == ''">$(SolutionDir)Engine\Icon.ico</IconPath>
+    
+    <!-- Bootstrap customizations, etc. -->
+    <HelpUrl Condition=" '$(HelpUrl)' == ''">https://certdev0.incommontest.org/incommon/index.html</HelpUrl>
+    <BackgroundColor Condition=" '$(BackgroundColor)' == ''">#4f7fb0</BackgroundColor>
+    <TextColor Condition=" '$(TextColor)' == ''">White</TextColor>
+    <LogUploader Condition=" '$(LogUploader)' == ''">none</LogUploader>
+    <LoggingUrl Condition=" '$(LoggingUrl)' == ''">none</LoggingUrl>
+    
+    <!--Installer customizations -->
+    <StartMenuShortcut Condition=" '$(StartMenuShortcut)'== ''">1</StartMenuShortcut>
+    <DesktopShortcut Condition=" '$(DesktopShortcut)'== ''">1</DesktopShortcut>
+    
+    <!--certificate thumprint -->
+    <CertThumbprint Condition="'$(CertThumbprint)' == ''"></CertThumbprint>
+    
+    <!--.net 4.5 framework installer download url-->
+    <NetFx45DownloadUrl>http://go.microsoft.com/?linkid=9816306</NetFx45DownloadUrl>
+
+    <!--SigntoolPath -->
+    <SignToolPath Condition="'$(SignToolPath)' ==''">$(SIGNTOOLPATH)</SignToolPath>
+    <SignToolPath Condition=" Exists('$(WindowsSDK80Path)bin\x86\signtool.exe') and '$(SignToolPath)'=='' and '$(PROCESSOR_ARCHITECTURE)'=='x86' ">$(WindowsSDK80Path)bin\x86\signtool.exe</SignToolPath>
+    <SignToolPath Condition=" Exists('$(WindowsSDK80Path)bin\x64\signtool.exe') and '$(SignToolPath)'=='' and '$(PROCESSOR_ARCHITECTURE)'=='AMD64' ">$(WindowsSDK80Path)bin\x64\signtool.exe</SignToolPath>
+  </PropertyGroup>
+</Project>

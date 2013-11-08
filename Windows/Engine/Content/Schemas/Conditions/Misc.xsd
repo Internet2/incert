@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="Misc" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="Misc.ValidUrlString">
+    <xs:complexType>
+      <xs:attribute name="value" type="xs:string" use="required"   />
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Misc.InvalidUrlString">
+    <xs:complexType>
+      <xs:attribute name="value" type="xs:string" use="required"   />
+    </xs:complexType>
+  </xs:element>
+
+</xs:schema>

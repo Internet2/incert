@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="Location" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:include schemaLocation="Base.xsd" />
+  <xs:element name="Firewall.EnableFirewall">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="Profile" type="NetFwProfileType" maxOccurs="unbounded" minOccurs="1" />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Firewall.AddRule">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="Action" type="NetFwAction" maxOccurs="1" minOccurs="0" />
+                  <xs:element name="ApplicationName" type="xs:string" maxOccurs="1" minOccurs="0"   />
+                  <xs:element name="Description" type="xs:string" maxOccurs="1" minOccurs="0" />
+                  <xs:element name="Direction" type="NetFwDirection" maxOccurs="1" minOccurs="0" />
+                  <xs:element name="EdgeTraversal" type="xs:boolean" maxOccurs="1" minOccurs="0" />
+                  <xs:element name="Enabled" type="xs:boolean" maxOccurs="1" minOccurs="0" />
+                  <xs:element name="Grouping" type="xs:string" maxOccurs="1" minOccurs="0" />
+                  <xs:element name="IcmpTypesAndCodes" type="xs:string" maxOccurs="1" minOccurs="0" />
+                  <xs:element name="Interfaces" type="xs:string" maxOccurs="1" minOccurs="0" />
+                  <xs:element name="InterfaceTypes" type="xs:string" maxOccurs="1" minOccurs="0" />
+                  <xs:element name="LocalAddresses" type="xs:string" maxOccurs="1" minOccurs="0" />
+                  <xs:element name="LocalPorts" type="xs:string" maxOccurs="1" minOccurs="0" />
+                  <xs:element name="Name" type="xs:string" maxOccurs="1" minOccurs="1" />
+                  <xs:element name="Profile" type="NetFwProfileType" maxOccurs="unbounded" minOccurs="0" />
+                  <xs:element name="Protocol" type="NetFwIpProtocol" minOccurs="0" maxOccurs="1" />
+                  <xs:element name="RemoteAddresses" type="xs:string" maxOccurs="1" minOccurs="0" />
+                  <xs:element name="RemotePorts" type="xs:string" maxOccurs="1" minOccurs="0" />
+                  <xs:element name="ServiceName" type="xs:string" maxOccurs="1" minOccurs="0" />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Firewall.ConfigureIcmpV4">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="Action" type="NetFwAction" maxOccurs="1" minOccurs="0" />
+                  <xs:element name="Description" type="xs:string" maxOccurs="1" minOccurs="0" />
+                  <xs:element name="Enabled" type="xs:boolean" maxOccurs="1" minOccurs="0" />
+                  <xs:element name="Grouping" type="xs:string" maxOccurs="1" minOccurs="0" />
+                  <xs:element name="Name" type="xs:string" maxOccurs="1" minOccurs="1" />
+                  <xs:element name="Profile" type="NetFwProfileType" maxOccurs="unbounded" minOccurs="0" />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:simpleType name="NetFwIpProtocol">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="NET_FW_IP_PROTOCOL_ANY" />
+      <xs:enumeration value="NET_FW_IP_PROTOCOL_TCP" />
+      <xs:enumeration value="NET_FW_IP_PROTOCOL_UDP" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="NetFwDirection">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="NET_FW_RULE_DIR_IN" />
+      <xs:enumeration value="NET_FW_RULE_DIR_OUT" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="NetFwAction">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="NET_FW_ACTION_BLOCK" />
+      <xs:enumeration value="NET_FW_ACTION_ALLOW" />
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>

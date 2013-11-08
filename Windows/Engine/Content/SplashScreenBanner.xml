@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Content xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://incert.incommon.org/schemas ./Schemas/tasklist.xsd">
+  <Banners>
+      <SimpleBanner name="Splash screen banner" width="400" height="250" margin="0" background="Transparent" verticalAlignment="Stretch" cursor="Wait">
+      <Content>
+        <ContentBlockParagraph banner ="Splash screen wrapper banner" cornerRadius="4" verticalAlignment="Stretch" />
+      </Content>
+    </SimpleBanner>
+
+    <SimpleBanner name="Splash screen wrapper banner" margin="0">
+      <Content>
+        <SimpleParagraph margin="0,88,0,0" color="InverseTitleTextColor" padding="0" fontSize="36" alignment="Center">
+          <Content>
+            <DirectTextContent>!ApplicationTitle!</DirectTextContent>
+          </Content>
+        </SimpleParagraph>
+        <SimpleParagraph style="Body" color="InverseTitleTextColor" alignment="Right" margin="0,0,48,60">
+          <Content>
+            <DirectTextContent>!ApplicationCompany!</DirectTextContent>
+          </Content>
+        </SimpleParagraph>
+        
+        <ProgressParagraph settingKey="Splash screen progress text" margin="12,0,0,8" dock="Bottom" verticalAlignment="Bottom">
+          <Content>
+            <DirectTextContent>Initializing</DirectTextContent>
+          </Content>
+        </ProgressParagraph>
+      </Content>
+
+    </SimpleBanner>
+
+    
+  </Banners>
+</Content>

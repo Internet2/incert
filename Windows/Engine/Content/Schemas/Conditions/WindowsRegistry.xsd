@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="WindowsRegistry" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="WindowsRegistry.ValueExists">
+    <xs:complexType>
+      <xs:attribute name="root" type="RegistryRootValues" use="required" />
+      <xs:attribute name="keyPath" type="xs:string" use="required" />
+      <xs:attribute name="valueName" type="xs:string" use="required" />
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="WindowsRegistry.ValueDoesNotExist">
+    <xs:complexType>
+      <xs:attribute name="root" type="RegistryRootValues" use="required" />
+      <xs:attribute name="keyPath" type="xs:string" use="required" />
+      <xs:attribute name="valueName" type="xs:string" use="required" />
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="WindowsRegistry.LongDateWithinRange">
+    <xs:complexType>
+      <xs:attribute name="root" type="RegistryRootValues" use="required" />
+      <xs:attribute name="keyPath" type="xs:string" use="required" />
+      <xs:attribute name="valueName" type="xs:string" use="required" />
+      <xs:attribute name="range" type="TimeSpan" use="required" />
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="WindowsRegistry.LongDateNotWithinRange">
+    <xs:complexType>
+      <xs:attribute name="root" type="RegistryRootValues" use="required" />
+      <xs:attribute name="keyPath" type="xs:string" use="required" />
+      <xs:attribute name="valueName" type="xs:string" use="required" />
+      <xs:attribute name="range" type="TimeSpan" use="required" />
+    </xs:complexType>
+  </xs:element>
+
+  <xs:simpleType name="TimeSpan">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="^\d{1,3}\.\d{1,2}:\d{2}:\d{2}$" />
+    </xs:restriction>
+  </xs:simpleType>
+
+
+  <xs:simpleType name="RegistryRootValues">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="LocalMachine" />
+      <xs:enumeration value="CurrentUser" />
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>

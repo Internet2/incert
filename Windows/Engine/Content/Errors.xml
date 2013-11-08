@@ -1,0 +1,612 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Content xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://incert.incommon.org/schemas ./Schemas/tasklist.xsd">
+  <Errors>
+    <SimpleErrorEntry>
+      <Properties>
+        <Key>Errors.AntiMalware.MalwareDetected</Key>
+        <Title>Malicious Software Detected</Title>
+        <Summary>The malicious software removal tool found instances of malicious software</Summary>
+      </Properties>
+      <Content>
+        <DirectTextContent>The Microsoft Malicious Software Removal Tool reports that this computer is infected with malicious software.</DirectTextContent>
+        <TempObjectFieldContent key="CurrentIssue">Detected Malware: {Issue}.</TempObjectFieldContent>
+      </Content>
+    </SimpleErrorEntry>
+    
+    <SimpleErrorEntry>
+      <Properties>
+        <Key>Errors.AntiMalware.SecurityCenterLibrariesAbsent</Key>
+        <Title>Security Center Libraries Missing or Not Valid</Title>
+        <Summary>Windows reports that it cannot find or access this computer's security center libraries.</Summary>
+      </Properties>
+      <Content>
+        <DirectTextContent>Windows reports that it cannot find or access your computer's Security Center libraries</DirectTextContent>
+      </Content>
+    </SimpleErrorEntry>
+
+    <SimpleErrorEntry>
+      <Properties>
+        <Key>Errors.System.NotSupported</Key>
+        <Title>Operating System Not Supported</Title>
+        <Summary>The engine is not designed for the computer's operating system</Summary>
+      </Properties>
+      <Content>
+        <TempObjectFieldContent key="CurrentIssue">{Issue}</TempObjectFieldContent>
+      </Content>
+    </SimpleErrorEntry>
+
+    <SimpleErrorEntry>
+      <Properties>
+        <Key>Errors.Path.DiskSpaceLow</Key>
+        <Title>Disk Space Low</Title>
+        <Summary>There is less than 5% or 5 GB of space remaining on this computer's system drive</Summary>
+      </Properties>
+      <Content>
+        <DirectTextContent>This computer's system drive is running low on disk space.</DirectTextContent>
+        <DirectTextContent>Please free up some disk space before continuing.</DirectTextContent>
+      </Content>
+    </SimpleErrorEntry>
+
+    <SimpleErrorEntry>
+      <Properties>
+        <Key>Errors.General.Cancelled</Key>
+        <Title>Utility Cancelled</Title>
+        <Summary>The user cancelled the utility before it could complete</Summary>
+      </Properties>
+      <Content>
+        <DirectTextContent>You have opted to cancel !ApplicationTitle! before it could complete its configuration tasks.</DirectTextContent>
+      </Content>
+    </SimpleErrorEntry>
+
+    <SimpleErrorEntry>
+      <Properties>
+        <Key>Errors.Verification.CouldNotVerifyApplicationSignature</Key>
+        <Title>Could Not Verify Utility Signature</Title>
+        <Summary>The signature for this version of the utility is missing or invalid</Summary>
+      </Properties>
+      <Content>
+        <DirectTextContent>This version of !ApplicationTitle! is not signed or has an invalid signature.</DirectTextContent>
+      </Content>
+    </SimpleErrorEntry>
+
+    <SimpleErrorEntry>
+      <Properties>
+        <Key>Errors.Versioning.EngineUpdateAvailable</Key>
+        <Title>Newer Version Available</Title>
+        <Summary>A newer version of the utility is available</Summary>
+      </Properties>
+      <Content>
+        <DirectTextContent>A newer version of !ApplicationTitle! is available.</DirectTextContent>
+        <DirectTextContent>Please update !ApplicationTitle! before continuing.</DirectTextContent>
+      </Content>
+    </SimpleErrorEntry>
+
+    <SimpleErrorEntry>
+      <Properties>
+        <Key>Errors.Network.NetworkNoHardware</Key>
+        <Title>No Networking Hardware Present</Title>
+        <Summary>Windows reports that this computer does not have a valid network interface</Summary>
+      </Properties>
+      <Content>
+        <DirectTextContent>Windows reports that this computer does not have a valid network interface.</DirectTextContent>
+        <DirectTextContent>Please ensure that your networking hardware is enabled.</DirectTextContent>
+      </Content>
+    </SimpleErrorEntry>
+
+    <SimpleErrorEntry>
+      <Properties>
+        <Key>Errors.Network.NetworkNoConnection</Key>
+        <Title>No Networking Hardware Present</Title>
+        <Summary>Windows reports that this computer is not currently connected to the network</Summary>
+      </Properties>
+      <Content>
+        <DirectTextContent>Windows reports that this computer is not currently connected to the network.</DirectTextContent>
+        <DirectTextContent>Please verify that your computer is connected to the network before running !ApplicationTitle!.</DirectTextContent>
+      </Content>
+    </SimpleErrorEntry>
+
+    <SimpleErrorEntry>
+      <Properties>
+        <Key>Errors.Network.NetworkAddressTranslation</Key>
+        <Title>Network Address Translation</Title>
+        <Summary>This computer is behind a NAT device</Summary>
+      </Properties>
+      <Content>
+        <DirectTextContent>This computer is connected to a personal router or some other network address translation device.</DirectTextContent>
+        <DirectTextContent>Network address translation is not allowed on the campus network.  Please connect your computer directly to the campus network and run !ApplicationTitle! again.</DirectTextContent>
+      </Content>
+    </SimpleErrorEntry>
+
+    <SimpleErrorEntry>
+      <Properties>
+        <Key>Errors.Network.BridgedAdapterPresent</Key>
+        <Title>Network Bridging Detected</Title>
+        <Summary>One of this computer's network adapters is configured to do network bridging</Summary>
+      </Properties>
+      <Content>
+        <DirectTextContent>One or more of this computer's network adapter has network bridging enabled.</DirectTextContent>
+        <DirectTextContent>Network bridging is not allowed on the campus network.  Please disable network bridging and run !ApplicationTitle! again.</DirectTextContent>
+      </Content>
+    </SimpleErrorEntry>
+
+    <SimpleErrorEntry>
+      <Properties>
+        <Key>Errors.UserInterface.BannerNotDefined</Key>
+        <Title>Banner Not Found</Title>
+        <Summary>A named banner was not found in the utility's list of available banners</Summary>
+      </Properties>
+      <Content>
+        <DirectTextContent>The utility could not locate one of its banners</DirectTextContent>
+        <TempObjectFieldContent key="CurrentIssue">Banner: {Banner}</TempObjectFieldContent>
+      </Content>
+    </SimpleErrorEntry>
+
+    <SimpleErrorEntry>
+      <Properties>
+        <Key>Errors.SystemRestore.SystemRestoreDisabled</Key>
+        <Title>System Restore Disabled</Title>
+        <Summary>The system restore service is disabled</Summary>
+      </Properties>
+      <Content>
+        <DirectTextContent>This computer's System Restore service is disabled.</DirectTextContent>
+      </Content>
+    </SimpleErrorEntry>
+
+    <SimpleErrorEntry>
+      <Properties>
+        <Key>Errors.Time.SystemClockWrong</Key>
+        <Title>Computer's System Time Not Correct</Title>
+        <Summary>The computer's system time is wrong</Summary>
+        <Topic>campus support</Topic>
+      </Properties>
+      <Content>
+        <TempObjectFieldContent key="CurrentIssue">Your computer's clock is {Issue}.</TempObjectFieldContent>
+        <DirectTextContent>If your computer's system time is wrong, you may experience issues accessing certificate-protected network resources or websites.</DirectTextContent>
+        <DirectTextContent>Please correct your computer's clock before continuing.</DirectTextContent>
+      </Content>
+    </SimpleErrorEntry>
+
+    <SimpleErrorEntry>
+      <Properties>
+        <Key>Errors.General.ExceptionOccurred</Key>
+        <Title>Handled Exception Occurred</Title>
+        <Summary>The utility encountered a critical, but handled exception</Summary>
+        <Topic>campus support</Topic>
+      </Properties>
+      <Content>
+        <DirectTextContent>!ApplicationTitle! has encountered a critical issue and cannot continue.</DirectTextContent>
+        <TempObjectFieldContent key="CurrentIssue">Issue: {Issue}</TempObjectFieldContent>
+      </Content>
+    </SimpleErrorEntry>
+
+    <SimpleErrorEntry>
+      <Properties>
+        <Key>Errors.Control.BranchNotFound</Key>
+        <Title>Branch Not Found</Title>
+        <Summary>There was an issue loading or initialzing a task branch</Summary>
+      </Properties>
+      <Content>
+        <DirectTextContent>
+          An issue occurred while attempting to load or initialize a task branch.
+        </DirectTextContent>
+        <TempObjectFieldContent key="CurrentIssue">Branch: {Branch}</TempObjectFieldContent>
+      </Content>
+    </SimpleErrorEntry>
+
+    <SimpleErrorEntry>
+      <Properties>
+        <Key>Errors.WebServices.CouldNotRetrieveContent</Key>
+        <Title>Could Not Retrieve Content</Title>
+        <Summary>!ApplicationTitle! could not retrieve content from its server</Summary>
+      </Properties>
+      <Content>
+        <DirectTextContent>An issue occurred while attempting to retrieve content from the !ApplicationTitle! server.</DirectTextContent>
+        <TempObjectFieldContent key="CurrentIssue">Issue: {Issue}</TempObjectFieldContent>
+        <TempObjectFieldContent key="CurrentIssue">Target: {Target}</TempObjectFieldContent>
+      </Content>
+    </SimpleErrorEntry>
+
+    <SimpleErrorEntry>
+      <Properties>
+        <Key>Errors.WebServices.CouldNotLogMessage</Key>
+        <Title>Could Not Record Log Entry</Title>
+        <Summary>!ApplicationTitle! could not record a log entry</Summary>
+      </Properties>
+      <Content>
+        <DirectTextContent>An issue occurred while attempting to record a log entry.</DirectTextContent>
+        <TempObjectFieldContent key="CurrentIssue">Issue: {Issue}</TempObjectFieldContent>
+      </Content>
+    </SimpleErrorEntry>
+
+    <SimpleErrorEntry>
+      <Properties>
+        <Key>Errors.SystemRestore.CouldNotCreateRestorePoint</Key>
+        <Title>Could Not Record Create Restore Point</Title>
+        <Summary>!ApplicationTitle! could not create a system restore point</Summary>
+      </Properties>
+      <Content>
+        <DirectTextContent>An issue occurred while attempting to create a system restore point.</DirectTextContent>
+        <TempObjectFieldContent key="CurrentIssue">Issue: {Issue}</TempObjectFieldContent>
+      </Content>
+    </SimpleErrorEntry>
+
+    <SimpleErrorEntry>
+      <Properties>
+        <Key>Errors.ScreenSaver.CouldNotConfigureScreenSaver</Key>
+        <Title>Could Not Configure Screen-Saver</Title>
+        <Summary>!ApplicationTitle! could not configure the Windows screen-saver</Summary>
+      </Properties>
+      <Content>
+        <DirectTextContent>An issue occurred while attempting to configure your screen-saver.</DirectTextContent>
+        <TempObjectFieldContent key="CurrentIssue">Issue: {Issue}</TempObjectFieldContent>
+      </Content>
+    </SimpleErrorEntry>
+
+    <SimpleErrorEntry>
+      <Properties>
+        <Key>Errors.UserInterface.DialogInstanceNotFound</Key>
+        <Title>Dialog Manager Not Present</Title>
+        <Summary>The specified dialog manager is missing or not instantiated</Summary>
+      </Properties>
+      <Content>
+        <TempObjectFieldContent key="CurrentIssue">A dialog instance ({Dialog}) is missing or not instantiated.</TempObjectFieldContent>
+      </Content>
+    </SimpleErrorEntry>
+
+    <SimpleErrorEntry>
+      <Properties>
+        <Key>Errors.WebServices.CouldNotRetrieveFileInfo</Key>
+        <Title>Could Not Retrieve File Information</Title>
+        <Summary>!ApplicationTitle! could not retrieve file information from its server</Summary>
+      </Properties>
+      <Content>
+        <DirectTextContent>An issue occurred while attempting to retrieve file information from the !ApplicationTitle! server.</DirectTextContent>
+        <TempObjectFieldContent key="CurrentIssue">Issue: {Issue}</TempObjectFieldContent>
+      </Content>
+    </SimpleErrorEntry>
+
+    <SimpleErrorEntry>
+      <Properties>
+        <Key>Errors.WebServices.CouldNotRetrieveStatusInfo</Key>
+        <Title>Could Not Retrieve Status Information</Title>
+        <Summary>!ApplicationTitle! could not retrieve status information from its server</Summary>
+      </Properties>
+      <Content>
+        <DirectTextContent>An issue occurred while attempting to retrieve status information from the !ApplicationTitle! server.</DirectTextContent>
+        <TempObjectFieldContent key="CurrentIssue">Issue: {Issue}</TempObjectFieldContent>
+      </Content>
+    </SimpleErrorEntry>
+
+    <SimpleErrorEntry>
+      <Properties>
+        <Key>Errors.Registration.CouldNotRegisterComputer</Key>
+        <Title>Could Not Register Computer</Title>
+        <Summary>!ApplicationTitle! could not register this computer for network access</Summary>
+      </Properties>
+      <Content>
+        <DirectTextContent>An issue occurred while attempting to register this computer for network access.</DirectTextContent>
+        <TempObjectFieldContent key="CurrentIssue">Issue: {Issue}</TempObjectFieldContent>
+      </Content>
+    </SimpleErrorEntry>
+
+    <SimpleErrorEntry>
+      <Properties>
+        <Key>Errors.Path.FileNotFound</Key>
+        <Title>File Not Found</Title>
+        <Summary>!ApplicationTitle! could not find or access a required file</Summary>
+      </Properties>
+      <Content>
+        <DirectTextContent>!ApplicationTitle! could not find or access a required file.</DirectTextContent>
+        <TempObjectFieldContent key="CurrentIssue">File: {Target}</TempObjectFieldContent>
+      </Content>
+    </SimpleErrorEntry>
+
+    <SimpleErrorEntry>
+      <Properties>
+        <Key>Errors.Path.DirectoryNotFound</Key>
+        <Title>Directory Not Found</Title>
+        <Summary>!ApplicationTitle! could not find or access a required directory</Summary>
+      </Properties>
+      <Content>
+        <DirectTextContent>!ApplicationTitle! could not find or access a required directory.</DirectTextContent>
+        <TempObjectFieldContent key="CurrentIssue">Directory: {Target}</TempObjectFieldContent>
+      </Content>
+    </SimpleErrorEntry>
+
+    <SimpleErrorEntry>
+      <Properties>
+        <Key>Errors.Certificates.CouldNotRetrieveCertificate</Key>
+        <Title>Could Not Retrieve User Certificate</Title>
+        <Summary>!ApplicationTitle! could not retrieve a valid certificate for this user</Summary>
+      </Properties>
+      <Content>
+        <DirectTextContent>An issue occurred while attempting to retrieve a user certificate.</DirectTextContent>
+        <TempObjectFieldContent key="CurrentIssue">Issue: {Issue}</TempObjectFieldContent>
+      </Content>
+    </SimpleErrorEntry>
+
+    <SimpleErrorEntry>
+      <Properties>
+        <Key>Errors.Certificates.CouldNotInstallCertificate</Key>
+        <Title>Could Not Install User Certificate</Title>
+        <Summary>!ApplicationTitle! could not install a certificate for this user</Summary>
+      </Properties>
+      <Content>
+        <DirectTextContent>An issue occurred while attempting to install a user certificate.</DirectTextContent>
+        <TempObjectFieldContent key="CurrentIssue">Issue: {Issue}</TempObjectFieldContent>
+      </Content>
+    </SimpleErrorEntry>
+
+    <SimpleErrorEntry>
+      <Properties>
+        <Key>Errors.Authentication.CouldNotAuthenticateUser</Key>
+        <Title>Could Not Verify User Credentials</Title>
+        <Summary>!ApplicationTitle! could not verify this user's credentials</Summary>
+        <Topic>network id</Topic>
+        <AdvancedMenuGroup>Other Support Tools</AdvancedMenuGroup>
+      </Properties>
+      <Content>
+        <DirectTextContent>An issue occurred while attempting to verify your network credentials.</DirectTextContent>
+        <TempObjectFieldContent key="CurrentIssue">Issue: {Issue}</TempObjectFieldContent>
+      </Content>
+    </SimpleErrorEntry>
+
+    <SimpleErrorEntry>
+      <Properties>
+        <Key>Errors.Downloader.CouldNotDownloadFile</Key>
+        <Title>Could Not Download Content</Title>
+        <Summary>!ApplicationTitle! could not download required content.</Summary>
+      </Properties>
+      <Content>
+        <TempObjectFieldContent key="CurrentIssue">!ApplicationTitle! could not download the content file, {Target}.</TempObjectFieldContent>
+        <TempObjectFieldContent key="CurrentIssue">Issue: {Issue}</TempObjectFieldContent>
+      </Content>
+    </SimpleErrorEntry>
+
+    <SimpleErrorEntry>
+      <Properties>
+        <Key>Errors.Wireless.CouldNotAddWirelessProfile</Key>
+        <Title>Could Not Add Wireless Profile</Title>
+        <Summary>!ApplicationTitle! could not add a wireless profile</Summary>
+      </Properties>
+      <Content>
+        <DirectTextContent>An issue occurred while attempting to add a wireless profile.</DirectTextContent>
+        <TempObjectFieldContent key="CurrentIssue">Issue: {Issue}</TempObjectFieldContent>
+      </Content>
+    </SimpleErrorEntry>
+
+    <SimpleErrorEntry>
+      <Properties>
+        <Key>Errors.WindowsServices.ServiceIssue</Key>
+        <Title>Service Configuration Issue</Title>
+        <Summary>!ApplicationTitle! could not modify or configure a windows service</Summary>
+      </Properties>
+      <Content>
+        <TempObjectFieldContent key="CurrentIssue">An issue occurred while attempting to configure the {Name} service.</TempObjectFieldContent>
+        <TempObjectFieldContent key="CurrentIssue">Issue: {Issue}</TempObjectFieldContent>
+      </Content>
+    </SimpleErrorEntry>
+
+    <SimpleErrorEntry>
+      <Properties>
+        <Key>Errors.Network.CouldNotDetermineDefaultServer</Key>
+        <Title>Unable to Determine Server Address</Title>
+        <Summary>The utility could not determine its default server address</Summary>
+      </Properties>
+      <Content>
+        <DirectTextContent>!ApplicationTitle! could not determine its default server address.</DirectTextContent>
+        <TempObjectFieldContent key="CurrentIssue">Issue: {Issue}</TempObjectFieldContent>
+      </Content>
+    </SimpleErrorEntry>
+
+    <SimpleErrorEntry>
+      <Properties>
+        <Key>Errors.Control.CouldNotImportContent</Key>
+        <Title>Unable to Import Content</Title>
+        <Summary>The utility could not import one of its content files</Summary>
+      </Properties>
+      <Content>
+        <DirectTextContent>!ApplicationTitle! could not import a required content resource.</DirectTextContent>
+        <TempObjectFieldContent key="CurrentIssue">Issue: {Issue}</TempObjectFieldContent>
+      </Content>
+    </SimpleErrorEntry>
+
+    <SimpleErrorEntry>
+      <Properties>
+        <Key>Errors.Authentication.LocalAdminPasswordNotSet</Key>
+        <Title>No Administrator Password Set</Title>
+        <Summary>The local account running the utility has not administrator password set</Summary>
+      </Properties>
+      <Content>
+        <DirectTextContent>Windows reports that you have no administrator password set.</DirectTextContent>
+        <TempObjectFieldContent key="CurrentIssue">Username: {Username}</TempObjectFieldContent>
+        <TempObjectFieldContent key="CurrentIssue">Display name: {DisplayName}</TempObjectFieldContent>
+      </Content>
+    </SimpleErrorEntry>
+
+    <SimpleErrorEntry>
+      <Properties>
+        <Key>Errors.AntiMalware.SecurityCenterNotActive</Key>
+        <Title>Security Center Not Active</Title>
+        <Summary>The Windows Security Center is not active</Summary>
+      </Properties>
+      <Content>
+        <DirectTextContent>Windows reports that its Security Center is not active.</DirectTextContent>
+      </Content>
+    </SimpleErrorEntry>
+
+    <SimpleErrorEntry>
+      <Properties>
+        <Key>Errors.AntiMalware.AntiVirusHealthPoor</Key>
+        <Title>Anti-Virus Health is Poor</Title>
+        <Summary>Windows reports that this computer's anti-virus software is in poor health.</Summary>
+      </Properties>
+      <Content>
+        <DirectTextContent>Windows reports that this computer's anti-virus software is in poor health.</DirectTextContent>
+        <DirectTextContent>This may mean that this computer's anti-virus software is out-of-date and/or inactive.</DirectTextContent>
+      </Content>
+    </SimpleErrorEntry>
+
+    <SimpleErrorEntry>
+      <Properties>
+        <Key>Errors.AntiMalware.AntiVirusHealthNotMonitored</Key>
+        <Title>Anti-Virus Health is Not Monitored</Title>
+        <Summary>Windows reports that it is not monitoring the status of this computer's anti-virus health.</Summary>
+      </Properties>
+      <Content>
+        <DirectTextContent>Windows reports that it is not monitoring the status of this computer's anti-virus health.</DirectTextContent>
+      </Content>
+    </SimpleErrorEntry>
+
+    <SimpleErrorEntry>
+      <Properties>
+        <Key>Errors.AntiMalware.AntiSpywareHealthPoor</Key>
+        <Title>Anti-Spyware Health is Poor</Title>
+        <Summary>Windows reports that this computer's anti-sSpyware software is in poor health.</Summary>
+      </Properties>
+      <Content>
+        <DirectTextContent>Windows reports that this computer's anti-spyware software is in poor health.</DirectTextContent>
+        <DirectTextContent>This may mean that this computer's anti-Spyware software is out-of-date and/or inactive.</DirectTextContent>
+      </Content>
+    </SimpleErrorEntry>
+
+    <SimpleErrorEntry>
+      <Properties>
+        <Key>Errors.AntiMalware.AntiSpywareHealthNotMonitored</Key>
+        <Title>Anti-Spyware Health is Not Monitored</Title>
+        <Summary>Windows reports that it is not monitoring the status of this computer's anti-spyware health.</Summary>
+      </Properties>
+      <Content>
+        <DirectTextContent>Windows reports that it is not monitoring the status of this computer's anti-spyware health.</DirectTextContent>
+      </Content>
+    </SimpleErrorEntry>
+
+    <SimpleErrorEntry>
+      <Properties>
+        <Key>Errors.SecurityPolicies.CouldNotSetSecurityPolicy</Key>
+        <Title>Could Not Apply Security Policy</Title>
+        <Summary>The utility could not supply a security policy</Summary>
+      </Properties>
+      <Content>
+        <DirectTextContent>!ApplicationTitle! could not apply its Windows security policies.</DirectTextContent>
+        <TempObjectFieldContent key="CurrentIssue">Issue: {Issue}</TempObjectFieldContent>
+      </Content>
+    </SimpleErrorEntry>
+
+    <SimpleErrorEntry>
+      <Properties>
+        <Key>Errors.WindowsUpdate.RestartPending</Key>
+        <Title>Restart Pending</Title>
+        <Summary>A windows restart is pending</Summary>
+      </Properties>
+      <Content>
+        <DirectTextContent>Windows indicates that a system restart is pending. </DirectTextContent>
+        <DirectTextContent>Please restart your computer before running !ApplicationTitle!.</DirectTextContent>
+      </Content>
+    </SimpleErrorEntry>
+
+    <SimpleErrorEntry>
+      <Properties>
+        <Key>Errors.Installer.CouldNotInstallPackage</Key>
+        <Title>Software Installation Failed</Title>
+        <Summary>A software package failed to install</Summary>
+      </Properties>
+      <Content>
+        <TempObjectFieldContent key="CurrentIssue">!ApplicationTitle! could not install {Package}.</TempObjectFieldContent>
+        <DirectTextContent />
+        <TempObjectFieldContent key="CurrentIssue">Issue: {Issue}.</TempObjectFieldContent>
+      </Content>
+    </SimpleErrorEntry>
+
+    <SimpleErrorEntry>
+      <Properties>
+        <Key>Errors.Path.DriveNotEncrypted</Key>
+        <Title>BitLocker Encryption Not Preset</Title>
+        <Summary>Windows reports that one or more drives on this computer are not secured with BitLocker Drive Encryption</Summary>
+      </Properties>
+      <Content>
+        <DirectTextContent>Windows reports that your computer's drives are not secured with BitLocker Drive Encryption.</DirectTextContent>
+      </Content>
+    </SimpleErrorEntry>
+
+    <SimpleErrorEntry>
+      <Properties>
+        <Key>Errors.Path.EncryptionStatusNotAvailable</Key>
+        <Title>BitLocker Encryption Status Not Available</Title>
+        <Summary>The utility could not determine the BitLocker encryption status for one or more of this computer's drives</Summary>
+      </Properties>
+      <Content>
+        <DirectTextContent>!ApplicationTitle! could not determine whether or not one or more of this computer's drives are secured with BitLocker Drive Encryption.</DirectTextContent>
+      </Content>
+    </SimpleErrorEntry>
+
+    <SimpleErrorEntry>
+      <Properties>
+        <Key>Errors.System.Windows7ServicePackRequired</Key>
+        <Title>Windows 7 Service Pack 1 Required</Title>
+        <Summary>The utility requires Windows 7 Service Pack 1</Summary>
+      </Properties>
+      <Content>
+        <DirectTextContent>!ApplicationTitle! requires Windows 7 Service Pack 1.  Please install this service pack before continuing.</DirectTextContent>
+      </Content>
+    </SimpleErrorEntry>
+
+    <SimpleErrorEntry>
+      <Properties>
+        <Key>Errors.System.WindowsVistaServicePackRequired</Key>
+        <Title>Windows Vista Service Pack 2 Required</Title>
+        <Summary>The utility requires Windows Vista Service Pack 2</Summary>
+      </Properties>
+      <Content>
+        <DirectTextContent>!ApplicationTitle! requires Windows Vista Service Pack 2.  Please install this service pack before continuing.</DirectTextContent>
+      </Content>
+    </SimpleErrorEntry>
+
+    <SimpleErrorEntry>
+      <Properties>
+        <Key>Errors.WindowsUpdate.UpdateInstallFailed</Key>
+        <Title>Update Failed</Title>
+        <Summary>The utility could not install one of more Windows updates</Summary>
+      </Properties>
+      <Content>
+        <DirectTextContent>!ApplicationTitle! could not install one or more Windows updates.</DirectTextContent>
+        <TempObjectFieldContent key="CurrentIssue">Issue: {Issue}.</TempObjectFieldContent>
+      </Content>
+    </SimpleErrorEntry>
+
+    <SimpleErrorEntry>
+      <Properties>
+        <Key>Errors.WindowsUpdate.UpdatesMissing</Key>
+        <Title>Critical Updates Not Installed</Title>
+        <Summary>Windows reports that one or more critical updates are not installed on this computer</Summary>
+      </Properties>
+      <Content>
+        <TempObjectFieldContent key="CurrentIssue">{Issue}</TempObjectFieldContent>
+      </Content>
+    </SimpleErrorEntry>
+
+    <SimpleErrorEntry>
+      <Properties>
+        <Key>Errors.Services.ServiceInfoNotInRegistry</Key>
+        <Title>Service Configuration Missing</Title>
+        <Summary>The registry configuration section for a service is missing on this computer</Summary>
+      </Properties>
+      <Content>
+        <TempObjectFieldContent key="CurrentIssue">Your computer is missing a registry configuration key for the {ServiceName} service.</TempObjectFieldContent>
+        <DirectTextContent>!ApplicationTitle! requires that this key be present so that it can modify this service.</DirectTextContent>
+      </Content>
+    </SimpleErrorEntry>
+
+    <SimpleErrorEntry>
+      <Properties>
+        <Key>Errors.Services.ServiceInstanceNotAvailable</Key>
+        <Title>Service Instance Unavailable</Title>
+        <Summary>the utility could not find or instantiate and instance of a windows service</Summary>
+      </Properties>
+      <Content>
+        <TempObjectFieldContent key="CurrentIssue">!ApplicationTitle! could not locate or instatiate an instance of the {ServiceName} service.</TempObjectFieldContent>
+      </Content>
+    </SimpleErrorEntry>
+  </Errors>
+</Content>

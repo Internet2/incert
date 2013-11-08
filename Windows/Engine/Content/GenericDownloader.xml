@@ -1,0 +1,163 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Content xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://incert.incommon.org/schemas ./Schemas/tasklist.xsd">
+  <Branches>
+
+    <TaskBranch name="generic download branch">
+      <Downloader.GetFileInfoFromUrl>
+        <Properties>
+          <SettingKey>[generic download branch info key]</SettingKey>
+          <Url>[generic download branch target url]</Url>
+        </Properties>
+      </Downloader.GetFileInfoFromUrl>
+
+      <Control.ReturnLeaveBranchNextResult>
+        <Conditions.All>
+          <Downloader.FileExists key="[generic download branch info key]" />
+          <Downloader.FileValid key="[generic download branch info key]" />
+        </Conditions.All>
+      </Control.ReturnLeaveBranchNextResult>
+
+      <Downloader.DeleteDownloadedFile>
+        <Conditions.All>
+          <Downloader.FileExists key="[generic download branch info key]" />
+        </Conditions.All>
+        <Properties>
+          <SettingKey>[generic download branch info key]</SettingKey>
+        </Properties>
+      </Downloader.DeleteDownloadedFile>
+
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>Reset downloader settings</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+
+      <UserInterface.ShowChildBannerNonModal>
+        <Conditions.All>
+          <Settings.SettingEquals key="show generic download banner" value="true" />
+        </Conditions.All>
+        <Properties>
+          <ParentDialog>[generic downloader parent dialog]</ParentDialog>
+          <ChildDialog>generic download dialog</ChildDialog>
+          <Banner>generic download banner</Banner>
+        </Properties>
+      </UserInterface.ShowChildBannerNonModal>
+
+      <Downloader.DownloadFile>
+        <Properties>
+          <SettingKey>[generic download branch info key]</SettingKey>
+          <DisplayName>[generic download branch display name]</DisplayName>
+          <ProgressPercentKey>generic download progress bar value</ProgressPercentKey>
+          <ProgressTextKey>generic download banner progress text</ProgressTextKey>
+          <TimeEstimateKey>generic download banner time estimate text</TimeEstimateKey>
+          <CancelKey>generic download cancel key</CancelKey>
+        </Properties>
+      </Downloader.DownloadFile>
+
+      <Downloader.VerifyDownloadedFile>
+        <Properties>
+          <SettingKey>[generic download branch info key]</SettingKey>
+        </Properties>
+      </Downloader.VerifyDownloadedFile>
+      
+      <UserInterface.HideDialog>
+        <Conditions.All>
+          <Settings.SettingEquals key="show generic download banner" value="true" />
+        </Conditions.All>
+        <Properties>
+          <Dialog>generic download dialog</Dialog>
+        </Properties>
+      </UserInterface.HideDialog>
+    </TaskBranch>
+
+    <TaskBranch name="Reset downloader settings">
+      <Settings.ClearSettingText>
+        <Properties>
+          <SettingKey>generic download banner time estimate text</SettingKey>
+        </Properties>
+      </Settings.ClearSettingText>
+
+      <Settings.ClearSettingText>
+        <Properties>
+          <SettingKey>generic download cancel key</SettingKey>
+        </Properties>
+      </Settings.ClearSettingText>
+
+      <Settings.SetSettingText>
+        <Properties>
+          <Setter key="generic download banner progress text">Initializing - please wait</Setter>
+          <Setter key="generic download progress bar value">0</Setter>
+        </Properties>
+      </Settings.SetSettingText>
+    </TaskBranch>
+
+    <TaskBranch name="generic download error branch">
+      <Control.PreserveLastResult>
+        <Properties>
+          <SettingKey>generic issue retry banner stored result</SettingKey>
+        </Properties>
+      </Control.PreserveLastResult>
+
+      <UserInterface.HideDialog>
+        <Conditions.All>
+          <Settings.SettingEquals key="show generic download banner" value="true" />
+        </Conditions.All>
+        <Properties>
+          <Dialog>generic download dialog</Dialog>
+        </Properties>
+      </UserInterface.HideDialog>
+
+      <Settings.SetSettingText>
+        <Properties>
+          <Setter key="generic issue retry banner title">Download Failed - Retry?</Setter>
+          <Setter key="generic issue retry banner description">!ApplicationTitle! could not download [generic download branch display name].</Setter>
+          <Setter key="generic issue retry banner retry cancel text">Click Retry to try to download the file again.</Setter>
+        </Properties>
+      </Settings.SetSettingText>
+
+      <UserInterface.ShowChildBannerModal>
+        <Properties>
+          <ParentDialog>[generic downloader parent dialog]</ParentDialog>
+          <ChildDialog>notification dialog manager</ChildDialog>
+          <Banner>Generic issue retry banner</Banner>
+        </Properties>
+      </UserInterface.ShowChildBannerModal>
+    </TaskBranch>
+  </Branches>
+
+  <Banners>
+    <SimpleBanner name="generic download banner" width ="450" height="350" canClose="false">
+      <Content>
+        <SimpleParagraph style="Body" margin="0,20,0,20">
+          <Content>
+            <DirectTextContent>Downloading [generic download branch display name]</DirectTextContent>
+          </Content>
+        </SimpleParagraph>
+
+        <ProgressBar settingKey="generic download progress bar value" color="DarkGreen" />
+
+        <UpdatableParagraph style="Body" settingKey="generic download banner progress text" margin="0,2,0,0" />
+        <UpdatableParagraph style="Body" settingKey="generic download banner time estimate text" margin="0,12,0,0" />
+      </Content>
+      <Buttons>
+        <DisabledButton>
+          <Target>BackButton</Target>
+        </DisabledButton>
+        <SettingsButton>
+          <Target>NextButton</Target>
+          <Key>generic download cancel key</Key>
+          <Text>Cancel</Text>
+        </SettingsButton>
+      </Buttons>
+      <Actions>
+        <DisableControlAction>
+          <Conditions.All>
+            <Settings.SettingEquals key="generic download cancel key" value="true" ignoreCase="true" />
+          </Conditions.All>
+          <ControlKey>NextButton</ControlKey>
+        </DisableControlAction>
+      </Actions>
+    </SimpleBanner>
+  </Banners>
+</Content>

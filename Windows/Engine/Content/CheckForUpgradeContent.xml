@@ -1,0 +1,177 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Content xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://incert.incommon.org/schemas ./Schemas/tasklist.xsd">
+
+  <Branches>
+    <TaskBranch name="Check for update">
+      <Control.ReturnLeaveBranchNextResult>
+        <Conditions.All>
+          <Settings.SettingEquals key="engine.ignoreupdatecheck" value="true" ignoreCase="true"/>
+        </Conditions.All>
+      </Control.ReturnLeaveBranchNextResult>
+      
+      <Settings.SetSettingText>
+        <Conditions.All>
+          <Settings.SettingNotPresent key="Engine update info file" />
+        </Conditions.All>
+        <Properties>
+          <Setter key="Engine update info file">Installer.info.xml</Setter>
+        </Properties>
+      </Settings.SetSettingText>
+
+      <Downloader.GetFileInfoFromUrl>
+        <Properties>
+          <SettingKey>Engine update info</SettingKey>
+          <Url>[Engine update info file]</Url>
+        </Properties>
+      </Downloader.GetFileInfoFromUrl>
+
+      <Control.ReturnBranchResult>
+        <Conditions.All>
+          <Versioning.FileInfoVersionGreater key="Engine update info" version="!EffectiveEngineVersion!" />
+          <Versioning.FileInfoVital key="Engine update info" />
+        </Conditions.All>
+        <Properties>
+          <Branch>Prompt to upgrade</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+    </TaskBranch>
+
+    <TaskBranch name="Prompt to upgrade">
+      <UserInterface.HideDialog>
+        <Properties>
+          <Dialog>Splash screen dialog</Dialog>
+        </Properties>
+      </UserInterface.HideDialog>
+
+      <UserInterface.StopMessageTimer>
+        <Conditions.All>
+          <UserInterface.TimedMessageExists key="Splash screen progress text" />
+        </Conditions.All>
+        <Properties>
+          <SettingKey>Splash screen progress text</SettingKey>
+        </Properties>
+      </UserInterface.StopMessageTimer>
+
+      <UserInterface.ShowBorderedBannerModal>
+        <Properties>
+          <Dialog>Main dialog</Dialog>
+          <Banner>Prompt to upgrade banner</Banner>
+        </Properties>
+      </UserInterface.ShowBorderedBannerModal>
+
+      <UserInterface.HideDialog>
+        <Properties>
+          <Dialog>Main dialog</Dialog>
+        </Properties>
+      </UserInterface.HideDialog>
+
+      <UserInterface.ShowBorderlessDialog>
+        <Properties>
+          <Dialog>Splash screen dialog</Dialog>
+          <Banner>Splash screen banner</Banner>
+        </Properties>
+      </UserInterface.ShowBorderlessDialog>
+
+      <UserInterface.ChangeProgressMessage>
+        <Properties>
+          <SettingKey>Splash screen progress text</SettingKey>
+          <Value>Downloading new version</Value>
+        </Properties>
+      </UserInterface.ChangeProgressMessage>
+
+      <UserInterface.StartMessageTimer>
+        <Properties>
+          <SettingKey>Splash screen progress text</SettingKey>
+        </Properties>
+      </UserInterface.StartMessageTimer>
+
+      <Downloader.DownloadFile>
+        <Conditions.All>
+          <Downloader.FileNotValid key="Engine update info" />
+        </Conditions.All>
+        <Properties>
+          <SettingKey>Engine update info</SettingKey>
+        </Properties>
+      </Downloader.DownloadFile>
+
+      <Settings.GetSettingStringFromObjectField>
+        <Properties>
+          <ObjectKey>Engine update info</ObjectKey>
+          <SettingKey>update installer</SettingKey>
+          <BaseText>{FileName}</BaseText>
+        </Properties>
+      </Settings.GetSettingStringFromObjectField>
+
+      <Settings.SetSettingText>
+        <Properties>
+          <Setter key="exit launch application">!DownloadFolder!\[update installer]</Setter>
+          <Setter key="exit launch application verb">runas</Setter>
+        </Properties>
+      </Settings.SetSettingText>
+
+      <Control.ReturnExitResult/>
+    </TaskBranch>
+
+
+  </Branches>
+
+  <Banners>
+    <SimpleBanner name="Prompt to upgrade banner" width ="475" height="360" canClose="true" noCloseQuestion="true" margin="14,24,34,0">
+      <Content>
+        <EllipseGlyph glyph="!" dock="Left" alignment="Center" verticalAlignment="Top" fontSize="30" fontWeight="Bold" margin="20,36,14,0" />
+        <ContentBlockParagraph borderSize="0" banner="Prompt to upgrade banner instructions" verticalAlignment="Stretch" margin="0,26,0,0" />
+
+      </Content>
+      <Buttons>
+        <ResultButton>
+          <Target>NextButton</Target>
+          <Text>Cancel</Text>
+          <IsCancelButton>true</IsCancelButton>
+          <Result>Errors.Versioning.EngineUpdateAvailable</Result>
+        </ResultButton>
+      <ResultButton>
+          <Target>BackButton</Target>
+          <Text>Upgrade</Text>
+          <IsDefaultButton>true</IsDefaultButton>
+          <Result>ControlResults.NextResult</Result>
+        </ResultButton>
+        <TopicButton>
+          <Target>HelpButton</Target>
+          <Text>Help</Text>
+          <Value>upgrade</Value>
+        </TopicButton>
+      </Buttons>
+    </SimpleBanner>
+
+    <SimpleBanner name="Prompt to upgrade banner instructions">
+      <Content>
+        <SimpleParagraph alignment="Left" fontWeight="Bold" fontSize="24" margin="0,8,0,2" padding="0">
+          <Content>
+            <DirectTextContent>Upgrade !ApplicationTitle!?</DirectTextContent>
+          </Content>
+        </SimpleParagraph>
+        <SimpleParagraph>
+          <Content>
+            <DirectTextContent>A newer version of !ApplicationTitle! is available.</DirectTextContent>
+          </Content>
+        </SimpleParagraph>
+        <SimpleParagraph margin="0,24,0,0" dock="Bottom">
+          <Content>
+            <DirectTextContent>Click upgrade to download and install the most recent version of !ApplicationTitle!.</DirectTextContent>
+          </Content>
+          <Links>
+            <BackButtonLink target="BackButton">
+              <DirectTextContent>upgrade</DirectTextContent>
+            </BackButtonLink>
+            <NextButtonLink target="NextButton">
+              <DirectTextContent>cancel</DirectTextContent>
+            </NextButtonLink>
+          </Links>
+        </SimpleParagraph>
+      </Content>
+    </SimpleBanner>
+
+   
+  </Banners>
+</Content>

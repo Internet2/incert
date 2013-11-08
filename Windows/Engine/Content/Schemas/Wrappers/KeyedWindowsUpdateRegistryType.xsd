@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="KeyedWindowsUpdateRegistryType" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="KeyedWindowsUpdateRegistryType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="key" type="ValidWindowsUpdateRegistryValueNames"  use="required" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+
+  <xs:simpleType name="ValidWindowsUpdateRegistryValueNames">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="AUOptions" />
+      <xs:enumeration value="AutoInstallMinorUpdates" />
+      <xs:enumeration value="DetectionFrequency" />
+      <xs:enumeration value="DetectionFrequencyEnabled" />
+      <xs:enumeration value="NoAutoRebootWithLoggedOnUsers" />
+      <xs:enumeration value="NoAutoUpdate" />
+      <xs:enumeration value="RebootRelaunchTimeout" />
+      <xs:enumeration value="RebootRelaunchTimeoutEnabled" />
+      <xs:enumeration value="RebootWarningTimeout" />
+      <xs:enumeration value="RebootWarningTimeoutEnabled" />
+      <xs:enumeration value="RescheduleWaitTime" />
+      <xs:enumeration value="RescheduleWaitTimeEnabled" />
+      <xs:enumeration value="ScheduledInstallDay" />
+      <xs:enumeration value="ScheduledInstallTime" />
+      <xs:enumeration value="UseWUServer" />
+      <xs:enumeration value="ElevateNonAdmins" />
+      <xs:enumeration value="TargetGroup" />
+      <xs:enumeration value="TargetGroupEnabled" />
+      <xs:enumeration value="WUServer" />
+      <xs:enumeration value="WUStatusServer" />
+      <xs:enumeration value="AcceptTrustedPublisherCerts" />
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>

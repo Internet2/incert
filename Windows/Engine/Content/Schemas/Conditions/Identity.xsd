@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="Identity" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="Identity.GroupPresent">
+    <xs:complexType>
+      <xs:attribute name="userGroupsKey" type="xs:string" use="required" />
+      <xs:attribute name="groupPath" type="xs:string" use="required" />
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Identity.GroupNotPresent">
+    <xs:complexType>
+      <xs:attribute name="userGroupsKey" type="xs:string" use="required" />
+      <xs:attribute name="groupPath" type="xs:string" use="required" />
+    </xs:complexType>
+  </xs:element>
+  
+</xs:schema>

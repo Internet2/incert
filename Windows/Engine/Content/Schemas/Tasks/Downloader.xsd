@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="Downloader" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+ <xs:include schemaLocation="Base.xsd" />
+  <xs:element name="Downloader.DeleteDownloadedFile">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="SettingKey" type="xs:string" maxOccurs="1" minOccurs="1" />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Downloader.DownloadFile">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="SettingKey" type="xs:string" maxOccurs="1" minOccurs="1">
+                    <xs:annotation>
+                      <xs:documentation>The settings key that will resolve the file info object for the content to be downloaded.</xs:documentation>
+                    </xs:annotation>
+                  </xs:element>
+                  <xs:element name="DisplayName" type="xs:string" maxOccurs="1" minOccurs="0">
+                    <xs:annotation>
+                      <xs:documentation>The display name to use for the download user interface.</xs:documentation>
+                    </xs:annotation>
+                  </xs:element>
+                  <xs:element name="ProgressPercentKey" type="xs:string" maxOccurs="1" minOccurs="0">
+                    <xs:annotation>
+                      <xs:documentation>The settings key to update when the download progress percent changes.</xs:documentation>
+                    </xs:annotation>
+                  </xs:element>
+                  <xs:element name="ProgressTextKey" type="xs:string" maxOccurs="1" minOccurs="0">
+                    <xs:annotation>
+                      <xs:documentation>The settings key to update when download progress text changes.</xs:documentation>
+                    </xs:annotation>
+                  </xs:element>
+                  <xs:element name="TimeEstimateKey" type="xs:string" maxOccurs="1" minOccurs="0">
+                    <xs:annotation>
+                      <xs:documentation>The settings key to update when the download time estimate changes.</xs:documentation>
+                    </xs:annotation>
+                  </xs:element>
+                  <xs:element name="CancelKey" type="xs:string" maxOccurs="1" minOccurs="0">
+                    <xs:annotation>
+                      <xs:documentation>The settings key to update if the user requests to cancel the download.</xs:documentation>
+                    </xs:annotation>
+                  </xs:element>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Downloader.GetFileInfoFromUrl">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="SettingKey" type="xs:string" maxOccurs="1" minOccurs="1" />
+                  <xs:element name="Url" type="xs:string" maxOccurs="1" minOccurs="1"  />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Downloader.VerifyDownloadedFile">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="SettingKey" type="xs:string" maxOccurs="1" minOccurs="1">
+                    <xs:annotation>
+                      <xs:documentation>The settings key that will resolve the file info object for the content to be verified.</xs:documentation>
+                    </xs:annotation>
+                  </xs:element>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

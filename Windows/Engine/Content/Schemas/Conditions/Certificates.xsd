@@ -1,0 +1,249 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="Certificates" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="BaseValidCertExistsType">
+    <xs:attribute name="authorityKey" type="xs:string" use="required" />
+    <xs:attribute name="validate" type="X509RevocationFlag" use="optional" />
+    <xs:attribute name="mode" type="X509RevocationMode" use="optional" />
+    <xs:attribute name="flags" type="X509VerificationFlagList" use="optional" />
+    <xs:attribute name="store" type="X509StoreName" use="optional" />
+    <xs:attribute name="location" type="X509StoreLocation" use="optional" />
+    <xs:attribute name="timeout" type="xs:integer" use="optional" />
+  </xs:complexType>
+
+  <xs:element name="Certificates.NoValidCertsExistForSubjectKey">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseValidCertExistsType">
+          <xs:attribute name="subjectKey" type="xs:string" use="required" />
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Certificates.ValidCertExistsForSubjectKey">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseValidCertExistsType">
+          <xs:attribute name="subjectKey" type="xs:string" use="required" />
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Certificates.ValidCertExistsForEmail">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseValidCertExistsType">
+          <xs:attribute name="address" type="xs:string" use="required" />
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Certificates.NoValidCertsExistForEmail">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseValidCertExistsType">
+          <xs:attribute name="address" type="xs:string" use="required" />
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Certificates.CertificateThumbprintExists">
+    <xs:complexType>
+      <xs:attribute name="thumbprint" type="xs:string" use="required" />
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Certificates.CertificateThumbprintDoesNotExist">
+    <xs:complexType>
+      <xs:attribute name="thumbprint" type="xs:string" use="required" />
+    </xs:complexType>
+  </xs:element>
+
+  <xs:simpleType name="X509RevocationMode">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="NoCheck">
+        <xs:annotation>
+          <xs:documentation>No revocation check is performed on the certificate.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Online">
+        <xs:annotation>
+          <xs:documentation>A revocation check is made using an online certificate revocation list (CRL).</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Offline">
+        <xs:annotation>
+          <xs:documentation>A revocation check is made using a cached certificate revocation list (CRL).</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="X509RevocationFlag">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="EndCertificateOnly">
+        <xs:annotation>
+          <xs:documentation>Only the end certificate is checked for revocation.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="EntireChain">
+        <xs:annotation>
+          <xs:documentation>The entire chain of certificates is checked for revocation.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ExcludeRoot">
+        <xs:annotation>
+          <xs:documentation>The entire chain, except the root certificate, is checked for revocation.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="X509StoreName">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="AddressBook">
+        <xs:annotation>
+          <xs:documentation>The X.509 certificate store for other users.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="AuthRoot">
+        <xs:annotation>
+          <xs:documentation>The X.509 certificate store for third-party certificate authorities (CAs).</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CertificateAuthority">
+        <xs:annotation>
+          <xs:documentation>The X.509 certificate store for intermediate certificate authorities (CAs).</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Disallowed">
+        <xs:annotation>
+          <xs:documentation>The X.509 certificate store for revoked certificates.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="My">
+        <xs:annotation>
+          <xs:documentation>The X.509 certificate store for personal certificates.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Root">
+        <xs:annotation>
+          <xs:documentation>The X.509 certificate store for trusted root certificate authorities (CAs).</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TrustedPeople">
+        <xs:annotation>
+          <xs:documentation>The X.509 certificate store for directly trusted people and resources.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TrustedPublisher">
+        <xs:annotation>
+          <xs:documentation>The X.509 certificate store for directly trusted publishers.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="X509StoreLocation">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="CurrentUser">
+        <xs:annotation>
+          <xs:documentation>The X.509 certificate store used by the current user.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="LocalMachine">
+        <xs:annotation>
+          <xs:documentation>The X.509 certificate store assigned to the local machine.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="X509VerificationFlagList">
+    <xs:list itemType="X509VerificationFlag">
+      <xs:annotation>
+        <xs:documentation>One or more X509VerificationFlag values.</xs:documentation>
+        <xs:documentation>If not present, 'NoFlag' is assumed.</xs:documentation>
+        <xs:documentation>See http://msdn.microsoft.com/en-us/library/system.security.cryptography.x509certificates.x509verificationflags.aspx for more information.</xs:documentation>
+      </xs:annotation>
+    </xs:list>
+  </xs:simpleType>
+
+  <xs:simpleType name="X509VerificationFlag">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="NoFlag">
+        <xs:annotation>
+          <xs:documentation>No flags pertaining to verification are included.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="IgnoreNotTimeValid">
+        <xs:annotation>
+          <xs:documentation>Ignore certificates in the chain that are not valid either because they have expired or they are not yet in effect when determining certificate validity.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="IgnoreCtlNotTimeValid">
+        <xs:annotation>
+          <xs:documentation>Ignore that the certificate trust list (CTL) is not valid, for reasons such as the CTL has expired, when determining certificate verification.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="IgnoreNotTimeNested">
+        <xs:annotation>
+          <xs:documentation>Ignore that the CA (certificate authority) certificate and the issued certificate have validity periods that are not nested when verifying the certificate. For example, the CA cert can be valid from January 1 to December 1 and the issued certificate from January 2 to December 2, which would mean the validity periods are not nested.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="IgnoreInvalidBasicConstraints">
+        <xs:annotation>
+          <xs:documentation>Ignore that the basic constraints are not valid when determining certificate verification.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="AllowUnknownCertificateAuthority">
+        <xs:annotation>
+          <xs:documentation>Ignore that the chain cannot be verified due to an unknown certificate authority (CA).</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="IgnoreWrongUsage">
+        <xs:annotation>
+          <xs:documentation>Ignore that the certificate was not issued for the current use when determining certificate verification.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="IgnoreInvalidName">
+        <xs:annotation>
+          <xs:documentation>Ignore that the certificate has an invalid name when determining certificate verification.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="IgnoreInvalidPolicy">
+        <xs:annotation>
+          <xs:documentation>Ignore that the certificate has invalid policy when determining certificate verification.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="IgnoreEndRevocationUnknown">
+        <xs:annotation>
+          <xs:documentation>Ignore that the end certificate (the user certificate) revocation is unknown when determining certificate verification.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="IgnoreCtlSignerRevocationUnknown">
+        <xs:annotation>
+          <xs:documentation>Ignore that the certificate trust list (CTL) signer revocation is unknown when determining certificate verification.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="IgnoreCertificateAuthorityRevocationUnknown">
+        <xs:annotation>
+          <xs:documentation>Ignore that the certificate authority revocation is unknown when determining certificate verification.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="IgnoreRootRevocationUnknown">
+        <xs:annotation>
+          <xs:documentation>Ignore that the root revocation is unknown when determining certificate verification.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="AllFlags">
+        <xs:annotation>
+          <xs:documentation>All flags pertaining to verification are included.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>

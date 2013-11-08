@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension" xmlns:util="http://schemas.microsoft.com/wix/UtilExtension" xmlns:bal="http://schemas.microsoft.com/wix/BalExtension">
+  <Bundle Name="$(var.ProductName) Installer" Version="$(var.AppVersion)"
+          Manufacturer="$(var.Institution)"
+          UpgradeCode="e3db2230-4af7-4506-b8ae-4f07198cb975"
+          DisableModify="yes"
+          Compressed="yes"
+          IconSourceFile="$(var.IconPath)"
+          Condition="VersionNT >= v6.0"
+          >
+    <BootstrapperApplicationRef Id="ManagedBootstrapperApplicationHost">
+      <Payload SourceFile="$(var.BootstrapperEngineFilesDir)\BootstrapperEngine.dll" />
+      <Payload Name="BootstrapperCore.config" SourceFile="$(var.BootstrapperEngineFilesDir)\BootstrapperCore.config" />
+      <Payload SourceFile="$(var.BootstrapperEngineFilesDir)\Microsoft.Deployment.WindowsInstaller.dll" />
+      <Payload SourceFile="$(var.BootstrapperEngineFilesDir)\Restsharp.dll" />
+      <Payload SourceFile="$(var.BootstrapperEngineFilesDir)\DataContracts.dll" />
+    </BootstrapperApplicationRef>
+
+    <Variable Name="InstallFolder" Type="string" Value="[ProgramFilesFolder]$(var.Institution)\$(var.ProductName)" />
+    <Variable Name="ProductDisplayName" Type="string" Value="$(var.ProductName)" />
+    <Variable Name="BackgroundColor" Type="string" Value="$(var.BackgroundColor)" />
+    <Variable Name="TextColor" Type="string" Value="$(var.TextColor)" />
+    <Variable Name="Font" Type="string" Value="Verdana" />
+    <Variable Name="HelpUrl" Type="string" Value="$(var.HelpUrl)" />
+
+    <Variable Name="NetFx45FullAlias" Type="string" Value=".Net Framework 4.5" />
+    <Variable Name="EngineInstallerAlias" Type="string" Value="$(var.ProductName)" />
+    
+    <Variable Name="LogUploader" Type="string" Value="$(var.LogUploader)" />
+    <Variable Name="LoggingUrl" Type="string" Value="$(var.LoggingUrl)" />
+
+    <WixVariable Id="WixMbaPrereqPackageId" Value="NetFx45Full" />
+    <WixVariable Id="WixMbaPrereqLicenseUrl" Value="" />
+
+    <?define NetFx45MinRelease = 378389?>
+    <?define Test = VersionNT ?>
+
+    <Chain>
+      <PackageGroupRef Id="NetFx45Full" />
+      <MsiPackage Id="EngineInstaller" SourceFile="$(var.EngineInstallerFile)" Compressed="yes" Vital ="yes" DisplayName="$(var.ProductName)">
+        <MsiProperty Name="INSTALLLOCATION" Value="[InstallFolder]" />
+      </MsiPackage>
+    </Chain>
+  </Bundle>
+
+  <Fragment>
+    <util:RegistrySearchRef Id="NETFRAMEWORK45" />
+    <PropertyRef Id="NETFRAMEWORK45" />
+
+    <PackageGroup Id="NetFx45Full">
+      <ExePackage
+        Id="NetFx45Full"
+        Cache="no"
+        Compressed="yes"
+        PerMachine="yes"
+        Permanent="yes"
+        Protocol="netfx4"
+        Vital="yes"
+        DisplayName =".Net 4.5 Framework"
+        SourceFile="$(var.FrameworkInstallerFile)"
+        DetectCondition="NETFRAMEWORK45 >= $(var.NetFx45MinRelease)"
+        InstallCommand="/q /norestart /ChainingPackage &quot;[WixBundleName]&quot; /log [NetFx45FullLog].html"
+        RepairCommand="/q /norestart /repair /ChainingPackage &quot;[WixBundleName]&quot; /log [NetFx45FullLog].html"
+        UninstallCommand="/uninstall /q /norestart /ChainingPackage &quot;[WixBundleName]&quot; /log [NetFx45FullLog].html"
+        />
+    </PackageGroup>
+
+    
+  </Fragment>
+  
+  
+</Wix>

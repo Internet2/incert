@@ -1,0 +1,187 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="Utility" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:include schemaLocation="Base.xsd" />
+  <xs:element name="Utility.CloseProcessByName">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="ProcessName" type="xs:string" minOccurs="1" maxOccurs="1" />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Utility.OpenUrlInExternalBrowser">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="Url" type="xs:string" minOccurs="1" maxOccurs="1" />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Utility.ArchiveFolderContents">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="TargetPath" type="xs:string" minOccurs="1" maxOccurs="1" />
+                  <xs:element name="ArchivePath" type="xs:string" minOccurs="1" maxOccurs="1" />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Utility.ExecuteUtility">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="TargetPath" type="xs:string" minOccurs="1" maxOccurs="1" />
+                  <xs:element name="Argument" type="xs:string" minOccurs="0" maxOccurs="unbounded"  />
+                  <xs:element name="Verb" type="xs:string" maxOccurs="1" minOccurs="0" />
+                  <xs:element name="ResultKey" type="xs:string" minOccurs="0" maxOccurs="1" />
+                  <xs:element name="OutputKey" type="xs:string" minOccurs="0" maxOccurs="1" />
+                  <xs:element name="WorkingDirectory" type="xs:string" minOccurs="0" maxOccurs="1" />
+                  <xs:element name="HideWindow" type="xs:boolean" minOccurs="0" maxOccurs="1" />
+                  <xs:element name="UseShellExecute" type="xs:boolean" minOccurs="0" maxOccurs="1" />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Utility.OpenControlPanel">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="ControlPanel" type="ControlPanelNames" minOccurs="1" maxOccurs="1" />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Utility.ScheduleRunOnceUtility">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="EntryName" type="xs:string" maxOccurs="1" minOccurs="1" />
+                  <xs:element name="TargetPath" type="xs:string" minOccurs="1" maxOccurs="1" />
+                  <xs:element name="Argument" type="xs:string" minOccurs="0" maxOccurs="unbounded"  />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Utility.ExtractFileFromArchive">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="Archive" type="xs:string" minOccurs="1" maxOccurs="1" />
+                  <xs:element name="TargetFile" type="xs:string" minOccurs="1" maxOccurs="1" />
+                  <xs:element name="DestinationFile" type="xs:string" minOccurs="1" maxOccurs="1" />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Utility.ExecuteUtilityNoWait">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="TargetPath" type="xs:string" minOccurs="1" maxOccurs="1" />
+                  <xs:element name="Argument" type="xs:string" minOccurs="0" maxOccurs="unbounded"  />
+                  <xs:element name="Verb" type="xs:string" maxOccurs="1" minOccurs="0" />
+                  <xs:element name="WorkingDirectory" type="xs:string" minOccurs="0" maxOccurs="1" />
+                  <xs:element name="HideWindow" type="xs:boolean" minOccurs="0" maxOccurs="1" />
+                  <xs:element name="UseShellExecute" type="xs:boolean" minOccurs="0" maxOccurs="1" />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Utility.GenerateFileWrapper">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="Target" type="xs:string" minOccurs="1" maxOccurs="1" />
+                  <xs:element name="Version" type="xs:string" minOccurs="1" maxOccurs="1" />
+                  <xs:element name="Vital" type="xs:string" minOccurs="1" maxOccurs="1" />
+                  <xs:element name="OutputKey" type="xs:string" maxOccurs="1" minOccurs="0" />
+                  <xs:element name="OutputFolder" type="xs:string" maxOccurs="1" minOccurs="0" />
+                  <xs:element name="OutputFilename" type="xs:string" maxOccurs="1" minOccurs="0" />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+</xs:schema>

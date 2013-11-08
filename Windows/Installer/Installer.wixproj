@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Condition="$(noIceValidation) =='true'">
+    <SuppressValidation>true</SuppressValidation>
+  </PropertyGroup>
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>3.7</ProductVersion>
+    <ProjectGuid>6684acb7-31ce-4fdf-b131-29e8e025c38a</ProjectGuid>
+    <SchemaVersion>2.0</SchemaVersion>
+    <OutputName>Installer</OutputName>
+    <OutputType>Package</OutputType>
+    <EngineFilesDir Condition=" '$(EngineFilesDir)' == ''">$(SolutionDir)\Engine\bin\$(Configuration)\</EngineFilesDir>
+    <WixTargetsPath Condition=" '$(WixTargetsPath)' == '' AND '$(MSBuildExtensionsPath32)' != '' ">$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.x\Wix.targets</WixTargetsPath>
+    <WixTargetsPath Condition=" '$(WixTargetsPath)' == '' ">$(MSBuildExtensionsPath)\Microsoft\WiX\v3.x\Wix.targets</WixTargetsPath>
+    <IncertTargets Condition="'$(IncertTargets)' == '' ">$(SolutionDir).build\InCert.targets</IncertTargets>
+  </PropertyGroup>
+
+  <!-- import the InCert customizations -->
+  <Import Project="$(IncertTargets)"  />
+  
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <AppVersion Condition=" '$(AppVersion)' == '' ">13.2.2.0</AppVersion>
+    <StartMenuShortcut Condition=" '$(StartMenuShortcut)'== ''">1</StartMenuShortcut>
+    <DesktopShortcut Condition=" '$(DesktopShortcut)'== ''">1</DesktopShortcut>
+    <IconPath Condition=" '$(IconPath)'==''">$(SolutionDir)\Engine\Icon.ico</IconPath>
+    <OutputPath>bin\$(Configuration)\</OutputPath>
+    <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
+    <DefineConstants>Debug;AppVersion=$(AppVersion);EngineFilesDir=$(EngineFilesDir);ProductName=$(ProductName);Institution=$(Institution);DesktopShortcut=$(DesktopShortcut);StartMenuShortcut=$(StartMenuShortcut);IconPath=$(IconPath)</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <OutputPath>bin\$(Configuration)\</OutputPath>
+    <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
+    <DefineConstants>Debug;AppVersion=$(AppVersion);EngineFilesDir=$(EngineFilesDir);ProductName=$(ProductName);Institution=$(Institution);DesktopShortcut=$(DesktopShortcut);StartMenuShortcut=$(StartMenuShortcut);IconPath=$(IconPath)</DefineConstants>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Installer.wxs" />
+  </ItemGroup>
+  
+  <Import Project="$(WixTargetsPath)" />
+  
+  <!--<PropertyGroup>
+    <PostBuildEvent>"$(SIGNTOOLPATH)" sign /s MY /sha1 3f18cbe247ed8f32e77db94bbedcf847ebdc3182 /t http://timestamp.verisign.com/scripts/timstamp.dll "!(TargetPath)"</PostBuildEvent>
+  </PropertyGroup>
+-->
+  <Target Name="BeforeBuild">
+    <Warning Condition="!Exists('$(IncertTargets)')" Text="Could not load $(IncertTargets)" />
+    <Message Text="Installer: using Incert Target File: $(IncertTargets)" Importance="High" />
+    <Message Text=" " Importance="high" />
+    <Message Text="--- Installer base properties ----" Importance="high" />
+    <Message Text="App version = $(AppVersion)" Importance="high" />
+    <Message Text="Product name = $(ProductName)" Importance="high" />
+    <Message Text="Institution = $(Institution)" Importance="high" />
+    <Message Text=" " Importance="high" />
+    <Message Text="--- Installer customizations ----" Importance="high" />
+    <Message Text="Start-menu shortcut = $(StartMenuShortcut)" Importance="high" />
+    <Message Text="Desktop shortcut = $(DesktopShortcut)" Importance="high" />
+    <Message Text=" " Importance="high" />
+  </Target>
+
+  <Target Name="WarnCannotSign" Condition="!Exists('$(SignToolPath)') or '$(CertThumbprint)' == ''" AfterTargets="AfterBuild" DependsOnTargets="AfterBuild">
+    <Warning Text="Cannot find or access signtool.exe at '$(SignToolPath)'. Engine output files will not be signed." Condition="!Exists('$(SignToolPath)')" />
+    <Warning Text="No certificate thumbprint defined. Engine output files will not be signed." Condition="'$(CertThumbprint)' == ''" />
+  </Target>
+
+  <Target Name="SignBinaries" Condition="Exists('$(SignToolPath)') and '$(CertThumbprint)' != ''" AfterTargets="AfterBuild" DependsOnTargets="AfterBuild">
+    <Exec Command="&quot;$(SignToolPath)&quot; sign /s MY /sha1 $(CertThumbprint) /t http://timestamp.verisign.com/scripts/timstamp.dll &quot;$(TargetPath)&quot;" />
+  </Target>
+</Project>

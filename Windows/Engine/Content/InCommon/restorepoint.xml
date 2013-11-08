@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Content xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://incert.incommon.org/schemas ../Schemas/tasklist.xsd">
+  <Branches>
+    <TaskBranch name="restorepoint.set restore point">
+      <UserInterface.ActivateCheckedParagraph minimumTaskTime="1">
+        <Properties>
+          <Dialog>Main dialog</Dialog>
+          <ControlKey>Setting system restore point</ControlKey>
+
+        </Properties>
+      </UserInterface.ActivateCheckedParagraph>
+
+      <UserInterface.SetCheckedParagraphSubtitle>
+        <Properties>
+          <Dialog>Main dialog</Dialog>
+          <ControlKey>Setting system restore point</ControlKey>
+        </Properties>
+        <Content>
+          <ProgressParagraph settingKey="restore point subtitle" style="InsetText" margin="0,0,0,0" padding="0,0,0,0">
+            <Content>
+              <DirectTextContent>This sometimes takes a few seconds to complete</DirectTextContent>
+            </Content>
+          </ProgressParagraph>
+        </Content>
+
+      </UserInterface.SetCheckedParagraphSubtitle>
+
+      <UserInterface.StartMessageTimer>
+        <Properties>
+          <SettingKey>restore point subtitle</SettingKey>
+        </Properties>
+      </UserInterface.StartMessageTimer>
+
+      <UserInterface.DisableCloseButton>
+        <Properties>
+          <Dialog>Main dialog</Dialog>
+        </Properties>
+      </UserInterface.DisableCloseButton>
+
+      <SystemRestore.SetRestorePoint minimumTaskTime="3">
+        <Properties>
+          <Name>!ApplicationTitle!</Name>
+        </Properties>
+      </SystemRestore.SetRestorePoint>
+
+      <UserInterface.EnableCloseButton>
+        <Properties>
+          <Dialog>Main dialog</Dialog>
+        </Properties>
+      </UserInterface.EnableCloseButton>
+
+      <UserInterface.StopMessageTimer>
+        <Properties>
+          <SettingKey>restore point subtitle</SettingKey>
+        </Properties>
+      </UserInterface.StopMessageTimer>
+
+      <UserInterface.RemoveCheckedParagraphSubtitle>
+        <Properties>
+          <Dialog>Main dialog</Dialog>
+          <ControlKey>Setting system restore point</ControlKey>
+        </Properties>
+      </UserInterface.RemoveCheckedParagraphSubtitle>
+
+      <UserInterface.CompleteCheckedParagraph minimumTaskTime="1">
+        <Properties>
+          <Dialog>Main dialog</Dialog>
+          <ControlKey>Setting system restore point</ControlKey>
+        </Properties>
+      </UserInterface.CompleteCheckedParagraph>
+    </TaskBranch>
+  </Branches>
+</Content>

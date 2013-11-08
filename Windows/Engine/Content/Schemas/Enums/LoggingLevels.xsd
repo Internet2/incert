@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="LoggingLevels" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:simpleType name="LoggingLevels">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Alert" />
+      <xs:enumeration value="All" />
+      <xs:enumeration value="Critical" />
+      <xs:enumeration value="Debug" />
+      <xs:enumeration value="Emergency" />
+      <xs:enumeration value="Error" />
+      <xs:enumeration value="Fatal" />
+      <xs:enumeration value="Info" />
+      <xs:enumeration value="Notice" />
+      <xs:enumeration value="Severe" />
+      <xs:enumeration value="Trace" />
+      <xs:enumeration value="Verbose" />
+      <xs:enumeration value="Warn" />
+      <xs:enumeration value="Task" />
+      <xs:enumeration value="Branch" />
+      <xs:enumeration value="Start" />
+      <xs:enumeration value="Exit" />
+      <xs:enumeration value="Register" />
+      <xs:enumeration value="Finish" />
+      <xs:enumeration value="Track" />
+      <xs:enumeration value="Monitor" />
+      <xs:enumeration value="Waypoint" />
+      <xs:enumeration value="Unconfigure" />
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>

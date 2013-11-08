@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="Base" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:include schemaLocation="../Conditions/Conditions.xsd" />
+  <xs:complexType name="BaseTaskNodeType">
+    <xs:sequence>
+      <xs:choice  minOccurs="0">
+        <xs:element ref="Conditions.All" />
+        <xs:element ref="Conditions.Any" />
+      </xs:choice>
+    </xs:sequence>
+    <xs:attribute ref="errorBranch" use="optional" />
+    <xs:attribute ref="navPoint" use="optional" />
+    <xs:attribute ref="forwardOnly" use="optional" />
+    <xs:attribute ref="logIfSkipped" use="optional" />
+    <xs:attribute ref="delay" use="optional" />
+    <xs:attribute ref="minimumTaskTime" use="optional" />
+  </xs:complexType>
+
+  <xs:complexType name="BaseTaskPropertiesType">
+    <xs:sequence maxOccurs="unbounded">
+      <xs:choice>
+        <xs:element name="Key" type="xs:string" />
+        <xs:element name="Branch" type="xs:string" />
+        <xs:element name="ErrorBranch" type="xs:string" />
+        <xs:element name="NavigationPoint" type="xs:string" />
+        <xs:element name="ForwardOnly" type="xs:boolean" />
+        <xs:element name="LogIfSkipped" type="xs:boolean" />
+        <xs:element name="LogIfShown" type="xs:boolean" />
+        <xs:element name="Delay" type="xs:integer" />
+        <xs:element name="MinimumTaskTime" type="xs:integer" />
+      </xs:choice>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:attribute name="errorBranch" type="xs:string">
+    <xs:annotation>
+      <xs:documentation>The branch to execute if this task returns an error result</xs:documentation>
+    </xs:annotation>
+  </xs:attribute>
+
+  <xs:attribute name="navPoint" type="xs:string">
+    <xs:annotation>
+      <xs:documentation>Defines a navigation point for the task. Navigation points allow the engine to find and execute a specific task.</xs:documentation>
+    </xs:annotation>
+  </xs:attribute>
+
+  <xs:attribute name="forwardOnly" type="xs:boolean">
+    <xs:annotation>
+      <xs:documentation>If set to true, this task will only be executed when the engine is moving forward through its tasks.</xs:documentation>
+    </xs:annotation>
+  </xs:attribute>
+
+  <xs:attribute name="logIfSkipped" type="xs:boolean">
+    <xs:annotation>
+      <xs:documentation>If set to true, the task will be logged if it is skipper. Normally skipped tasks are no logged.</xs:documentation>
+    </xs:annotation>
+  </xs:attribute>
+
+  <xs:attribute name="delay" type="xs:integer">
+    <xs:annotation>
+      <xs:documentation>Amount of time (in milliseconds) to wait before preceeding to the next task.</xs:documentation>
+    </xs:annotation>
+  </xs:attribute>
+
+  <xs:attribute name="minimumTaskTime" type="xs:integer">
+    <xs:annotation>
+      <xs:documentation>Minimum task time (in milliseconds) to execute the task. If the task completes in less time than is specified, the engine will wait for the specified time to elapse before continuing.</xs:documentation>
+    </xs:annotation>
+  </xs:attribute>
+
+</xs:schema>

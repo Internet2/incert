@@ -1,0 +1,290 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="Base" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:include schemaLocation="../Tasks/ActiveDirectory.xsd" />
+  <xs:include schemaLocation="../Tasks/AntiMalware.xsd" />
+  <xs:include schemaLocation="../Tasks/Authentication.xsd" />
+  <xs:include schemaLocation="../Tasks/Certificates.xsd" />
+  <xs:include schemaLocation="../Tasks/Control.xsd" />
+  <xs:include schemaLocation="../Tasks/Downloader.xsd" />
+  <xs:include schemaLocation="../Tasks/Logging.xsd" />
+  <xs:include schemaLocation="../Tasks/Location.xsd" />
+  <xs:include schemaLocation="../Tasks/FileAndPath.xsd" />
+  <xs:include schemaLocation="../Tasks/Firewall.xsd" />
+  <xs:include schemaLocation="../Tasks/Help.xsd" />
+  <xs:include schemaLocation="../Tasks/Installer.xsd" />
+  <xs:include schemaLocation="../Tasks/Internet.xsd" />
+  <xs:include schemaLocation="../Tasks/NamedPipes.xsd" />
+  <xs:include schemaLocation="../Tasks/Network.xsd" />
+  <xs:include schemaLocation="../Tasks/Settings.xsd" />
+  <xs:include schemaLocation="../Tasks/Reporting.xsd" />
+  <xs:include schemaLocation="../Tasks/Registry.xsd" />
+  <xs:include schemaLocation="../Tasks/ScreenSaver.xsd" />
+  <xs:include schemaLocation="../Tasks/Services.xsd" />
+  <xs:include schemaLocation="../Tasks/SystemRestore.xsd" />
+  <xs:include schemaLocation="../Tasks/Text.xsd" />
+  <xs:include schemaLocation="../Tasks/Time.xsd" />
+  <xs:include schemaLocation="../Tasks/UserInterface.xsd" />
+  <xs:include schemaLocation="../Tasks/SecurityPolicies.xsd" />
+  <xs:include schemaLocation="../Tasks/Registration.xsd" />
+  <xs:include schemaLocation="../Tasks/Utility.xsd" />
+  <xs:include schemaLocation="../Tasks/Versioning.xsd" />
+  <xs:include schemaLocation="../Tasks/Verification.xsd" />
+  <xs:include schemaLocation="../Tasks/WebServices.xsd" />
+  <xs:include schemaLocation="../Tasks/WindowsUpdate.xsd" />
+  <xs:include schemaLocation="../Tasks/Wireless.xsd" />
+  <xs:include schemaLocation="../Enums/EngineModes.xsd" />
+  <xs:include schemaLocation="../Enums/RoleBranches.xsd" />
+  <xs:include schemaLocation="../Tasks/AdvancedMenu.xsd" />
+  <xs:include schemaLocation="../Tasks/Testing.xsd" />
+
+  <xs:element name="Branches">
+    <xs:annotation>
+      <xs:documentation>Branches are used to organize tasks into more manageable groupings.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="RoleBranch" type="RoleBranchType" maxOccurs="unbounded" minOccurs="0" />
+        <xs:element name="TaskBranch" type="TaskBranchType" maxOccurs="unbounded" minOccurs="0" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:complexType name="TaskBranchType">
+    <xs:sequence maxOccurs="unbounded" minOccurs="0">
+      <xs:choice>
+        <xs:element ref="ActiveDirectory.SetComputerName" />
+        <xs:element ref="AntiMalware.ScanComputerForMalware" />
+        <xs:element ref="AntiMalware.VerifyAntiSpywareSoftware" />
+        <xs:element ref="AntiMalware.VerifyAntiVirusSoftware" />
+        <xs:element ref="AntiMalware.VerifySecurityCenter" />
+        <xs:element ref="AntiMalware.WaitForProviderHealthy" />
+        <xs:element ref="AntiMalware.SecurityEssentials.GetInstallFailureReason" />
+        <xs:element ref="Authentication.AuthenticateUser" />
+        <xs:element ref="Authentication.IdentifyUser" />
+        <xs:element ref="Authentication.VerifyLocalPasswordSet" />
+        <xs:element ref="Authentication.GetCampusForUser" />
+        <xs:element ref="Certificates.ImportUserCertificateFromFile" />
+        <xs:element ref="Certificates.ExportCertificateToFile" />
+        <xs:element ref="Certificates.CreateCertificateInfoFile" />
+        <xs:element ref="Certificates.CreateWrapperFromExistingUserCertificate" />
+        <xs:element ref="Certificates.GetSettingCertificateSubjectProperty" />
+        <xs:element ref="Certificates.ImportCertificateFromSettings" />
+        <xs:element ref="Certificates.ImportCertificatesFromArchive" />
+        <xs:element ref="Certificates.RemoveSimiliarCertificatesFromStore" />
+        <xs:element ref="Certificates.RetrieveUserCertificate" />
+        <xs:element ref="Certificates.VerifyUserCertificate" />
+        <xs:element ref="Control.GetContentFromEmbeddedResource" />
+        <xs:element ref="Control.GetContentFromEndpoint" />
+        <xs:element ref="Control.ImportTasklistsFromFile" />
+        <xs:element ref="Control.ImportContentFromSignedArchive" />
+        <xs:element ref="Control.ReturnBranchResult" />
+        <xs:element ref="Control.ReturnRoleBranchResult" />
+        <xs:element ref="Control.PreserveLastResult" />
+        <xs:element ref="Control.PreserveArbitraryResult" />
+        <xs:element ref="Control.ProcessCommandLineArguments" />
+        <xs:element ref="Control.ReturnPreservedResult" />
+        <xs:element ref="Control.ReturnLeaveBranchBackResult" />
+        <xs:element ref="Control.ReturnLeaveBranchNextResult" />
+        <xs:element ref="Control.ReturnExitResult" />
+        <xs:element ref="Control.ReturnRepeatParentBranchResult" />
+        <xs:element ref="Control.ReturnRepeatCurrentBranchResult" />
+        <xs:element ref="Control.ReturnLeaveBranchRepeatTaskResult" />
+        <xs:element ref="Control.ReturnRestartComputerResult" />
+        <xs:element ref="Control.ReturnSilentRestartResult" />
+        <xs:element ref="Control.ReturnErrorResult" />
+        <xs:element ref="Control.ReturnRepeatTaskResult" />
+        <xs:element ref="Control.MoveToKeyedTask" />
+        <xs:element ref="Downloader.DeleteDownloadedFile" />
+        <xs:element ref="Downloader.DownloadFile" />
+        <xs:element ref="Downloader.GetFileInfoFromUrl" />
+        <xs:element ref="Downloader.VerifyDownloadedFile" />
+        <xs:element ref="Location.GetCurrentLocation" />
+        <xs:element ref="Logging.EnableRemoteLogging" />
+        <xs:element ref="Logging.DisableRemoteLogging" />
+        <xs:element ref="Logging.SetRemoteLoggingLevel" />
+        <xs:element ref="Logging.SetRemoteLoggingMessageFormat" />
+        <xs:element ref="Logging.SetLogUsername" />
+        <xs:element ref="Logging.LogWarningFromTaskResult" />
+        <xs:element ref="Logging.LogEvent" />
+        <xs:element ref="FileAndPath.AddShortcut" />
+        <xs:element ref="FileAndPath.RemoveFile" />
+        <xs:element ref="FileAndPath.CopyFile" />
+        <xs:element ref="FileAndPath.MoveFile" />
+        <xs:element ref="FileAndPath.EnsureDrivesEncrypted" />
+        <xs:element ref="FileAndPath.CreateFolder" />
+        <xs:element ref="FileAndPath.NormalizeSettingsPathValues" />
+        <xs:element ref="FileAndPath.SetFileAttributes" />
+        <xs:element ref="FileAndPath.SetFolderAttributes" />
+        <xs:element ref="FileAndPath.SetFolderIcon" />
+        <xs:element ref="Firewall.EnableFirewall" />
+        <xs:element ref="Firewall.AddRule" />
+        <xs:element ref="Firewall.ConfigureIcmpV4" />
+        <xs:element ref="Help.SetHelpSettings" />
+        <xs:element ref="Help.OpenContentInExternalWindow" />
+        <xs:element ref="Installer.InstallMsiPackage" />
+        <xs:element ref="Internet.AddUrlToZone" />
+        <xs:element ref="Internet.ResetWinHttpSettings" />
+        <xs:element ref="Internet.DisableProxies" />
+        <xs:element ref="NamedPipes.SendMessage" />
+        <xs:element ref="Network.EnableNtlmV2" />
+        <xs:element ref="Network.CheckForNatDevice" />
+        <xs:element ref="Network.CheckForBridgedInterfaces" />
+        <xs:element ref="Network.DisableAutoDial" />
+        <xs:element ref="Network.DisableOfflineMode" />
+        <xs:element ref="Network.DisableProxy" />
+        <xs:element ref="Network.Dhcp.EnableDhcp" />
+        <xs:element ref="Network.Dhcp.EnableDhcpService" />
+        <xs:element ref="Network.Dhcp.ReleaseRenewLease" />
+        <xs:element ref="Network.Ipv6.ConfigureBindings" />
+        <xs:element ref="Network.Ipv6.ConfigurePrivacyExtensions" />
+        <xs:element ref="Network.Ipv6.SetRegistryRestriction" />
+        <xs:element ref="Registration.RegisterComputer" />
+        <xs:element ref="Registration.Legacy.IU.GetRegistrationQueryString" />
+        <xs:element ref="RegistryTasks.GetStringValue" />
+        <xs:element ref="RegistryTasks.RemoveValue" />
+        <xs:element ref="RegistryTasks.SetStringValues" />
+        <xs:element ref="Reporting.UploadReports" />
+        <xs:element ref="Reporting.UploadReportList" />
+        <xs:element ref="Reporting.UploadMacAddressReport" />
+        <xs:element ref="ScreenSaver.ConfigureScreenSaver" />
+        <xs:element ref="SecurityPolicies.ApplySecurityPolicy" />
+        <xs:element ref="Settings.AppendLineToSettingsText" />
+        <xs:element ref="Settings.SetSettingText" />
+        <xs:element ref="Settings.RetrieveSettingsString" />
+        <xs:element ref="Settings.PersistSettingsString" />
+        <xs:element ref="Settings.PersistSettingsTimestamp" />
+        <xs:element ref="Settings.RetrieveSettingsTimestamp" />
+        <xs:element ref="Settings.CreateGuidSettingsText" />
+        <xs:element ref="Settings.ClearPersistedObject" />
+        <xs:element ref="Settings.ClearSettingText" />
+        <xs:element ref="Settings.GetSettingStringFromObjectField" />
+        <xs:element ref="Settings.CopyTempObject" />
+        <xs:element ref="Services.FileAndPrintSharing.Configure" />
+        <xs:element ref="Services.StartService" />
+        <xs:element ref="Services.SetServiceStartupValue" />
+        <xs:element ref="SystemRestore.EnableSystemRestore" />
+        <xs:element ref="SystemRestore.SetRestorePoint" />
+        <xs:element ref="Text.TruncateStringLeft" />
+        <xs:element ref="Text.AddStringToList" />
+        <xs:element ref="Text.ConvertListToString" />
+        <xs:element ref="Time.CheckSystemTime" />
+        <xs:element ref="Time.CheckTimeZone" />
+        <xs:element ref="Time.SetSystemTime" />
+        <xs:element ref="Time.SetTimeZone" />
+        <xs:element ref="Testing.TestTask" />
+        <xs:element ref="UserInterface.ActivateCheckedParagraph" />
+        <xs:element ref="UserInterface.ChangeBanner" />
+        <xs:element ref="UserInterface.ChangeDialogCursor" />
+        <xs:element ref="UserInterface.ChangeProgressMessage" />
+        <xs:element ref="UserInterface.CollapseBannerControl" />
+        <xs:element ref="UserInterface.CompleteCheckedParagraph" />
+        <xs:element ref="UserInterface.CloseAllDialogs" />
+        <xs:element ref="UserInterface.DeactivateCheckedParagraph" />
+        <xs:element ref="UserInterface.DisableAllBannerDialogControls" />
+        <xs:element ref="UserInterface.DisableBannerDialog" />
+        <xs:element ref="UserInterface.DisableCloseButton" />
+        <xs:element ref="UserInterface.DisableBannerControl" />
+        <xs:element ref="UserInterface.EnableBannerDialog" />
+        <xs:element ref="UserInterface.EnableBannerControl" />
+        <xs:element ref="UserInterface.EnableCloseButton" />
+        <xs:element ref="UserInterface.HideBannerControl" />
+        <xs:element ref="UserInterface.HideDialog" />
+        <xs:element ref="UserInterface.RemoveCheckedParagraphSubtitle" />
+        <xs:element ref="UserInterface.SetAdvancedMenuOptions" />
+        <xs:element ref="UserInterface.SetColorValues" />
+        <xs:element ref="UserInterface.SetDefaultFont" />
+        <xs:element ref="UserInterface.SetApplicationIcon" />
+        <xs:element ref="UserInterface.SetApplicationIconFromArchive" />
+        <xs:element ref="UserInterface.SetApplicationProperties" />
+        <xs:element ref="UserInterface.SetCheckedParagraphSubtitle" />
+        <xs:element ref="UserInterface.SetParagraphText" />
+        <xs:element ref="UserInterface.ShowBannerControl" />
+        <xs:element ref="UserInterface.ShowBorderlessDialog" />
+        <xs:element ref="UserInterface.ShowChildBannerModal" />
+        <xs:element ref="UserInterface.ShowChildBannerNonModal" />
+        <xs:element ref="UserInterface.ShowErrorDialog" />
+        <xs:element ref="UserInterface.ShowBorderedBannerModal" />
+        <xs:element ref="UserInterface.ShowBorderedBannerNonModal" />
+        <xs:element ref="UserInterface.StartMessageTimer" />
+        <xs:element ref="UserInterface.StopMessageTimer" />
+        <xs:element ref="UserInterface.UpdateBoundText" />
+        <xs:element ref="UserInterface.UpdateDialogButtonText" />
+        <xs:element ref="Utility.ArchiveFolderContents" />
+        <xs:element ref="Utility.ExecuteUtility" />
+        <xs:element ref="Utility.ExecuteUtilityNoWait" />
+        <xs:element ref="Utility.GenerateFileWrapper" />
+        <xs:element ref="Utility.ExtractFileFromArchive" />
+        <xs:element ref="Utility.CloseProcessByName" />
+        <xs:element ref="Utility.OpenControlPanel" />
+        <xs:element ref="Utility.OpenUrlInExternalBrowser" />
+        <xs:element ref="Utility.ScheduleRunOnceUtility" />
+        <xs:element ref="Verification.VerifyApplicationSignature" />
+        <xs:element ref="Verification.VerifyServerVersion" />
+        <xs:element ref="Versioning.SetEffectiveEngineVersion" />
+        <xs:element ref="Versioning.SetKeyedVersionFromApplication" />
+        <xs:element ref="Versioning.SetKeyedVersionFromValue" />
+        <xs:element ref="WebServices.ConfigureLoggingContracts" />
+        <xs:element ref="WebServices.ConfigureStatusInfoContract" />
+        <xs:element ref="WebServices.ConfigureAuthenticationContract" />
+        <xs:element ref="WebServices.ConfigureIdentityQueryContract" />
+        <xs:element ref="WebServices.ConfigureLocationQueryContract" />
+        <xs:element ref="WebServices.ConfigureComputerNameContract" />
+        <xs:element ref="WebServices.ConfigureUserCampusContract" />
+        <xs:element ref="WebServices.ConfigureRegisterComputerContract" />
+        <xs:element ref="WebServices.ConfigureMacAddressReportingContract" />
+        <xs:element ref="WebServices.SetDefaultEndpointUrl" />
+        <xs:element ref="WebServices.SetEndpointUrlForFunction" />
+        <xs:element ref="WebServices.ConfigureReportingContract" />
+        <xs:element ref="WebServices.ConfigureRegistrationQueryStringContract" />
+        <xs:element ref="WindowsUpdate.PerformQuery" />
+        <xs:element ref="WindowsUpdate.InstallMissingUpdates" />
+        <xs:element ref="WindowsUpdate.ScheduleWindowsUpdates" />
+        <xs:element ref="WindowsUpdate.SetRegistryValues" />
+        <xs:element ref="WindowsUpdate.RestartService" />
+        <xs:element ref="WindowsUpdate.SetMissingUpdatesCountText" />
+        <xs:element ref="WindowsUpdate.StartService" />
+        <xs:element ref="WindowsUpdate.StopService" />
+        <xs:element ref="WindowsUpdate.SetServiceStartupValue" />
+        <xs:element ref="Wireless.AddWirelessProfile" />
+      </xs:choice>
+    </xs:sequence>
+    <xs:attribute name="name" use="required" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>The name of the task branch.</xs:documentation>
+        <xs:documentation>Branch names are unique and case-sensitive.  If more than one branch share the same name, the most recently loaded branch will replace the previously loaded branch.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="minimumBranchTime" type="xs:int" use="optional">
+      <xs:annotation>
+        <xs:documentation>Amount of seconds that the engine should wait before leaving the branch.</xs:documentation>
+        <xs:documentation>This is useful in instances where you want to ensure that users have sufficient time to read, say, userinterface text, etc.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+
+  <xs:complexType name="RoleBranchType">
+    <xs:annotation>
+      <xs:documentation>Role branches are task branches that are invoked at specific times in the engine lifecycle, regardless of name.</xs:documentation>
+      <xs:documentation>For example, the 'Error' role branch will be invoked whenever an error is raised and unhandled, and the 'restart' and 'final' role branches are always called right before the engine exits.</xs:documentation>
+      <xs:documentation>Role branches are useful inasmuch as they provide a means to control basic engine activities.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="TaskBranchType">
+        <xs:attribute name="role" type="BranchRoles" use="required">
+          <xs:annotation>
+            <xs:documentation>The role that the branch fulfills.</xs:documentation>
+            <xs:documentation>As with task branches, if more than one branch exists with the same role and roleMode, the most recently loaded branch will replace the previously loaded branch.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="roleMode" type="EngineModes" use="optional">
+          <xs:annotation>
+            <xs:documentation>The mode that the role branch is intended for.</xs:documentation>
+            <xs:documentation>This allows you to specify that a role branch should only be invoked when the engine is running in a certain mode and to assign different role branches to different modes.</xs:documentation>
+            <xs:documentation>As with task branches, if more than one branch exists with the same role and roleMode, the most recently loaded branch will replace the previously loaded branch.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+</xs:schema>

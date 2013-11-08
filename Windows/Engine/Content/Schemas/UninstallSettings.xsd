@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="UninstallConfiguration">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Title" maxOccurs="1" minOccurs="1" type="xs:string" />
+        <xs:element name="Description" maxOccurs="1" minOccurs="1" type="xs:string" />
+        <xs:element name="ForegroundColor" maxOccurs="1" minOccurs="0" type="xs:string" />
+        <xs:element name="BackgroundColor" maxOccurs="1" minOccurs="0" type="xs:string" />
+        <xs:element name="LinkColor" maxOccurs="1" minOccurs="0" type="xs:string" />
+        <xs:element ref="Group" maxOccurs="unbounded" minOccurs="1" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Group">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Title" type="xs:string" maxOccurs="1" minOccurs="1" />
+        <xs:element ref="Entry" maxOccurs="unbounded" minOccurs="1" />
+      </xs:sequence>
+    </xs:complexType>
+
+  </xs:element>
+
+  <xs:element name="Entry">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Title" maxOccurs="1" minOccurs="1" />
+        <xs:element name="Description" maxOccurs="1" minOccurs="1" />
+        <xs:element name="SettingKey" maxOccurs="1" minOccurs="1" />
+        <xs:element name="DetailsUrl" maxOccurs="1" minOccurs="0" />
+        <xs:element name="DetailsText" maxOccurs="1" minOccurs="0" />
+      </xs:sequence>
+      <xs:attribute name="checked" type="xs:boolean" use="optional" />
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

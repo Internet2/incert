@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="Services" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="Services.ServiceStarted">
+    <xs:complexType>
+      <xs:attribute name="serviceName" type="xs:string" use="required"   />
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Services.ServiceNotStarted">
+    <xs:complexType>
+      <xs:attribute name="serviceName" type="xs:string" use="required"   />
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Services.StartupTypeIs">
+    <xs:complexType>
+      <xs:attribute name="serviceName" type="xs:string" use="required"   />
+      <xs:attribute name="type" type="ServiceStartupValues" use="required" />
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Services.StartupTypeNot">
+    <xs:complexType>
+      <xs:attribute name="serviceName" type="xs:string" use="required"   />
+      <xs:attribute name="type" type="ServiceStartupValues" use="required" />
+    </xs:complexType>
+  </xs:element>
+
+  <xs:simpleType name="ServiceStartupValues">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Automatic" />
+      <xs:enumeration value="Disabled" />
+      <xs:enumeration value="Delayed" />
+      <xs:enumeration value="Manual" />
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>
