@@ -193,7 +193,7 @@ namespace Org.InCommon.InCert.Engine.Tasks.Utility
             if (!System.Version.TryParse(version, out result))
                 Log.Warn("Cannot convert version to valid value. Will use 1.0.0.0");
 
-            return result;
+            return result ?? (new Version(1, 0, 0, 0));
         }
 
         /// <summary>

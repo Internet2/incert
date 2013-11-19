@@ -46,6 +46,12 @@
     </TaskBranch>
 
     <TaskBranch name="hasher branch">
+      <UserInterface.EnableBannerDialog>
+        <Properties>
+          <Dialog>utilities dialog</Dialog>
+        </Properties>
+      </UserInterface.EnableBannerDialog>
+
       <UserInterface.ShowBorderedBannerModal>
         <Properties>
           <Dialog>utilities dialog</Dialog>
@@ -60,11 +66,11 @@
         </Properties>
       </Settings.PersistSettingsString>
 
-      <UserInterface.DisableAllBannerDialogControls>
+      <UserInterface.DisableBannerDialog>
         <Properties>
           <Dialog>utilities dialog</Dialog>
         </Properties>
-      </UserInterface.DisableAllBannerDialogControls>
+      </UserInterface.DisableBannerDialog>
 
       <Utility.GenerateFileWrapper>
         <Properties>
