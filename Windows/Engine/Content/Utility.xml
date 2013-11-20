@@ -814,11 +814,11 @@
           <Argument>"[installer files path]\Installer.wxs"</Argument>
           <Argument>-dAppVersion=[installer version]</Argument>
           <Argument>-dEngineFilesDir="!TemporaryDirectory![build staging folder]"</Argument>
-          <Argument>-dInstitutionName="[installer institution name]"</Argument>
+          <Argument>-dInstitution="[installer institution name]"</Argument>
           <Argument>-dProductName="[installer display name]"</Argument>
           <Argument>-dStartMenuShortcut="[create start-menu shortcut value]"</Argument>
           <Argument>-dDesktopShortcut="[create desktop shortcut value]"</Argument>
-          <Argument>-dIconFile="[installer icon path]"</Argument>
+          <Argument>-dIconPath="[installer icon path]"</Argument>
           <ResultKey>installer candle result</ResultKey>
           <OutputKey>installer candle output</OutputKey>
           <WorkingDirectory>!TemporaryDirectory![build staging folder]\Installer</WorkingDirectory>
@@ -905,14 +905,16 @@
           <Argument>"[installer files path]\Bundle.wxs"</Argument>
           <Argument>-dAppVersion=[installer version]</Argument>
           <Argument>-dBootstrapperEngineFilesDir="[installer files path]"</Argument>
-          <Argument>-dDisplayName="[installer display name]"</Argument>
-          <Argument>-dInstitutionName="[installer institution name]"</Argument>
+          <Argument>-dProductName="[installer display name]"</Argument>
+          <Argument>-dInstitution="[installer institution name]"</Argument>
           <Argument>-dBackgroundColor=[installer background color]</Argument>
           <Argument>-dTextColor=[installer foreground color]</Argument>
           <Argument>-dHelpUrl="[installer help url]"</Argument>
           <Argument>-dEngineInstallerFile="!TemporaryDirectory![build staging folder]\Installer\Installer.msi"</Argument>
           <Argument>-dFrameworkInstallerFile="[installer files path]\dotnetfx45_full_x86_x64.exe"</Argument>
-          <Argument>-dIconFile="[installer icon path]"</Argument>
+          <Argument>-dIconPath="[installer icon path]"</Argument>
+          <Argument>-dLogUploader=none</Argument>
+          <Argument>-dLoggingUrl=none</Argument>
           <Argument>-ext WixUtilExtension</Argument>
           <ResultKey>bootstrapper candle result</ResultKey>
           <OutputKey>bootstrapper candle output</OutputKey>
