@@ -134,6 +134,15 @@
         </Properties>
       </Settings.RetrieveSettingsString>
 
+      <Settings.SetSettingText>
+        <Conditions.All>
+          <Settings.SettingNotPresent key="certificate timestamp server"/>
+        </Conditions.All>
+        <Properties>
+          <Setter key="certificate timestamp server">http://timestamp.verisign.com/scripts/timstamp.dll</Setter>
+        </Properties>
+      </Settings.SetSettingText>
+      
       <RegistryTasks.GetStringValue>
         <Conditions.Any>
           <Settings.SettingNotPresent key="wix path" />
