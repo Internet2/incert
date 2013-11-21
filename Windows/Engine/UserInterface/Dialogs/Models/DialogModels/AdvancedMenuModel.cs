@@ -10,6 +10,7 @@ using Org.InCommon.InCert.Engine.AdvancedMenu;
 using Org.InCommon.InCert.Engine.Extensions;
 using Org.InCommon.InCert.Engine.Help;
 using Org.InCommon.InCert.Engine.Logging;
+using Org.InCommon.InCert.Engine.Results;
 using Org.InCommon.InCert.Engine.TaskBranches;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Commands;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Instances;
@@ -84,6 +85,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
             _timer.Tick += TimerTickHandler;
         }
 
+        public IResult Result { get; set; }
 
         public Cursor Cursor
         {

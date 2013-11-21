@@ -957,8 +957,8 @@
     <Resource Include="Content\InCommon\credentials.xml" />
     <Resource Include="Content\InCommon\networksecurity.xml" />
     <Resource Include="Content\InCommon\screensaver.xml" />
-    <Content Include="Content\InCommon\archive\icons\gc.ico">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    <Content Include="Content\InCommon\archive\AdvancedMenu.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\InCommon\archive\icons\icon.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -1352,9 +1352,6 @@
     <EmbeddedResource Include="Content\Bootstrap.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="cert.ico" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">

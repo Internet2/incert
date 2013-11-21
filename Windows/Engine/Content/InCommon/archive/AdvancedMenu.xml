@@ -1,0 +1,413 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Content xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://incert.incommon.org/schemas ../../Schemas/tasklist.xsd">
+  <Branches>
+    <TaskBranch name="advanced.networking tools.show addresses" minimumBranchTime="3">
+      <Utility.ExecuteUtilityNoWait>
+        <Properties>
+          <TargetPath>!SystemFolder!\cmd.exe</TargetPath>
+          <Argument>/k</Argument>
+          <Argument>"IPConfig.exe /all</Argument>
+        </Properties>
+      </Utility.ExecuteUtilityNoWait>
+    </TaskBranch>
+
+    <TaskBranch name="advanced.networking tools.reset ip address" minimumBranchTime="3">
+      <Utility.ExecuteUtilityNoWait>
+        <Properties>
+          <TargetPath>!SystemFolder!\cmd.exe</TargetPath>
+          <Argument>/k</Argument>
+          <Argument>"IPConfig.exe /release &amp; Timeout.exe /t 4 &amp; IPConfig /renew</Argument>
+        </Properties>
+      </Utility.ExecuteUtilityNoWait>
+    </TaskBranch>
+
+    <TaskBranch name="advanced.networking tools.open network control panel" minimumBranchTime="3">
+      <Utility.OpenControlPanel>
+        <Properties>
+          <ControlPanel>Network</ControlPanel>
+        </Properties>
+      </Utility.OpenControlPanel>
+    </TaskBranch>
+
+    <TaskBranch name="advanced.networking tools.reset IPv4" minimumBranchTime="3">
+      <Utility.ExecuteUtilityNoWait>
+        <Properties>
+          <TargetPath>!SystemFolder!\cmd.exe</TargetPath>
+          <Argument>/k</Argument>
+          <Argument>netsh int ip reset ipv4reset.log</Argument>
+          <WorkingDirectory>!LogFolder!</WorkingDirectory>
+        </Properties>
+      </Utility.ExecuteUtilityNoWait>
+    </TaskBranch>
+
+    <TaskBranch name="advanced.networking tools.reset IPv6" minimumBranchTime="3">
+      <Utility.ExecuteUtilityNoWait>
+        <Properties>
+          <TargetPath>!SystemFolder!\cmd.exe</TargetPath>
+          <Argument>/k</Argument>
+          <Argument>netsh int ipv6 reset ipv6reset.log</Argument>
+          <WorkingDirectory>!LogFolder!</WorkingDirectory>
+        </Properties>
+      </Utility.ExecuteUtilityNoWait>
+    </TaskBranch>
+
+    <TaskBranch name="advanced.networking tools.reset winsock" minimumBranchTime="3">
+      <Utility.ExecuteUtilityNoWait>
+        <Properties>
+          <TargetPath>!SystemFolder!\cmd.exe</TargetPath>
+          <Argument>/k</Argument>
+          <Argument>netsh winsock reset winsockreset.log</Argument>
+          <WorkingDirectory>!LogFolder!</WorkingDirectory>
+        </Properties>
+      </Utility.ExecuteUtilityNoWait>
+    </TaskBranch>
+
+    <TaskBranch name="advanced.networking tools.flush dns" minimumBranchTime="3">
+      <Utility.ExecuteUtilityNoWait>
+        <Properties>
+          <TargetPath>!SystemFolder!\cmd.exe</TargetPath>
+          <Argument>/k</Argument>
+          <Argument>ipconfig.exe /flushdns</Argument>
+          <WorkingDirectory>!LogFolder!</WorkingDirectory>
+        </Properties>
+      </Utility.ExecuteUtilityNoWait>
+    </TaskBranch>
+
+    <TaskBranch name="advanced.networking tools.register dns" minimumBranchTime="3">
+      <Utility.ExecuteUtilityNoWait>
+        <Properties>
+          <TargetPath>!SystemFolder!\cmd.exe</TargetPath>
+          <Argument>/k</Argument>
+          <Argument>ipconfig.exe /registerdns</Argument>
+          <WorkingDirectory>!LogFolder!</WorkingDirectory>
+        </Properties>
+      </Utility.ExecuteUtilityNoWait>
+    </TaskBranch>
+
+    <TaskBranch name="advanced.networking tools.reset firewall" minimumBranchTime="3">
+      <Utility.ExecuteUtilityNoWait>
+        <Properties>
+          <TargetPath>!SystemFolder!\cmd.exe</TargetPath>
+          <Argument>/k</Argument>
+          <Argument>netsh advfirewall reset</Argument>
+          <WorkingDirectory>!LogFolder!</WorkingDirectory>
+        </Properties>
+      </Utility.ExecuteUtilityNoWait>
+    </TaskBranch>
+
+    <TaskBranch name="advanced.networking tools.reset WinHttp" minimumBranchTime="3">
+      <Internet.ResetWinHttpSettings />
+    </TaskBranch>
+
+    <TaskBranch name="advanced.networking tools.disable all proxies" minimumBranchTime="3">
+      <Internet.DisableProxies />
+    </TaskBranch>
+
+    <TaskBranch name="advanced.networking tools.enable wlan service" minimumBranchTime="3">
+      <Services.SetServiceStartupValue>
+        <Properties>
+          <ServiceName>Wlansvc</ServiceName>
+          <StartupValue>Automatic</StartupValue>
+        </Properties>
+      </Services.SetServiceStartupValue>
+
+      <Services.StartService>
+        <Properties>
+          <ServiceName>Wlansvc</ServiceName>
+        </Properties>
+      </Services.StartService>
+    </TaskBranch>
+
+    <TaskBranch name="advanced.networking tools.enable dhcp" minimumBranchTime="3">
+      <Network.Dhcp.EnableDhcpService />
+      <Network.Dhcp.EnableDhcp />
+    </TaskBranch>
+
+    <TaskBranch name="advanced.support tools.open utility log" minimumBranchTime="3">
+      <Utility.ExecuteUtilityNoWait>
+        <Properties>
+          <TargetPath>!SystemFolder!\Notepad.exe</TargetPath>
+          <Argument>"!LogFile!"</Argument>
+        </Properties>
+      </Utility.ExecuteUtilityNoWait>
+    </TaskBranch>
+
+    <TaskBranch name="advanced.support tools.open log folder" minimumBranchTime="3">
+      <Utility.ExecuteUtilityNoWait>
+        <Properties>
+          <TargetPath>!WindowsDirectory!\explorer.exe</TargetPath>
+          <Argument>!LogFolder!</Argument>
+        </Properties>
+      </Utility.ExecuteUtilityNoWait>
+    </TaskBranch>
+
+    <TaskBranch name="advanced.support tools.open download folder" minimumBranchTime="3">
+      <Utility.ExecuteUtilityNoWait>
+        <Properties>
+          <TargetPath>!WindowsDirectory!\explorer.exe</TargetPath>
+          <Argument>!DownloadFolder!</Argument>
+        </Properties>
+      </Utility.ExecuteUtilityNoWait>
+    </TaskBranch>
+
+    <TaskBranch name="advanced.support tools.open engine folder" minimumBranchTime="3">
+      <Utility.ExecuteUtilityNoWait>
+        <Properties>
+          <TargetPath>!WindowsDirectory!\explorer.exe</TargetPath>
+          <Argument>!ApplicationFolder!</Argument>
+        </Properties>
+      </Utility.ExecuteUtilityNoWait>
+    </TaskBranch>
+
+    <TaskBranch name="advanced.support tools.open settings folder" minimumBranchTime="3">
+      <Utility.ExecuteUtilityNoWait>
+        <Properties>
+          <TargetPath>!WindowsDirectory!\explorer.exe</TargetPath>
+          <Argument>!UtilityAppDataFolder!</Argument>
+        </Properties>
+      </Utility.ExecuteUtilityNoWait>
+    </TaskBranch>
+
+    <TaskBranch name="advanced.utilities.restart in utility mode">
+      <Utility.ExecuteUtilityNoWait>
+        <Properties>
+          <TargetPath>!ApplicationExecutable!</TargetPath>
+          <Argument>-utility -download=Utility.xml</Argument>
+        </Properties>
+      </Utility.ExecuteUtilityNoWait>
+
+      <Control.ReturnExitResult />
+    </TaskBranch>
+  </Branches>
+  
+  <AdvancedMenuItems>
+    <AdvancedMenuItem>
+      <Properties>
+        <Title>Show Networking Addresses</Title>
+        <ButtonText>1</ButtonText>
+        <Group>Networking Tools</Group>
+        <Branch>advanced.networking tools.show addresses</Branch>
+        <Description>This tool will display the IP, MAC, DNS, and DHCP addresses assigned to this computer's network adapters.</Description>
+        <WorkingTitle>Showing Networking Addresses</WorkingTitle>
+        <WorkingDescription>Please wait while !ApplicationTitle! executes this tool</WorkingDescription>
+      </Properties>
+    </AdvancedMenuItem>
+
+    <AdvancedMenuItem>
+      <Properties>
+        <Title>Get New IP Address</Title>
+        <ButtonText>2</ButtonText>
+        <Group>Networking Tools</Group>
+        <Branch>advanced.networking tools.reset ip address</Branch>
+        <Description>This tool will refresh your computer's IP address. This may help resolve network connectivity issues.</Description>
+        <WorkingTitle>Obtaining new IP Address</WorkingTitle>
+        <WorkingDescription>Please wait while !ApplicationTitle! refreshes this computer's IP address</WorkingDescription>
+      </Properties>
+    </AdvancedMenuItem>
+
+    <AdvancedMenuItem>
+      <Properties>
+        <Title>Open Network Control Panel</Title>
+        <ButtonText>3</ButtonText>
+        <Group>Networking Tools</Group>
+        <Branch>advanced.networking tools.open network control panel</Branch>
+        <Description>This tool will open your computer's Network Control panel.</Description>
+        <WorkingTitle>Opening Network Control Panel</WorkingTitle>
+        <WorkingDescription>Please wait while !ApplicationTitle! opens your computer's Network Control Panel</WorkingDescription>
+      </Properties>
+    </AdvancedMenuItem>
+
+    <AdvancedMenuItem>
+      <Properties>
+        <Title>Reset IPv4 Settings</Title>
+        <ButtonText>4</ButtonText>
+        <Group>Networking Tools</Group>
+        <Branch>advanced.networking tools.reset IPv4</Branch>
+        <Description>This tool will restore your computer's IPv4 configuration to its original state. This may help resolve network connectivity issues.</Description>
+        <WorkingTitle>Resetting IPv4</WorkingTitle>
+        <WorkingDescription>Please wait while !ApplicationTitle! resets your computer's IPv4 configuration</WorkingDescription>
+      </Properties>
+    </AdvancedMenuItem>
+
+    <AdvancedMenuItem>
+      <Properties>
+        <Title>Reset IPv6 Settings</Title>
+        <ButtonText>5</ButtonText>
+        <Group>Networking Tools</Group>
+        <Branch>advanced.networking tools.reset IPv6</Branch>
+        <Description>This tool will restore your computer's IPv6 configuration to its original state. This may help resolve network connectivity issues.</Description>
+        <WorkingTitle>Resetting IPv6</WorkingTitle>
+        <WorkingDescription>Please wait while !ApplicationTitle! resets your computer's IPv6 configuration</WorkingDescription>
+      </Properties>
+    </AdvancedMenuItem>
+
+    <AdvancedMenuItem>
+      <Properties>
+        <Title>Reset Windows Sockets</Title>
+        <ButtonText>6</ButtonText>
+        <Group>Networking Tools</Group>
+        <Branch>advanced.networking tools.reset winsock</Branch>
+        <Description>This tool will reset your computer's Windows Sockets configuration. This may help resolve network connectivity issues.</Description>
+        <WorkingTitle>Resetting Windows Sockets</WorkingTitle>
+        <WorkingDescription>Please wait while !ApplicationTitle! resets your computer's Windows Sockets configuration</WorkingDescription>
+      </Properties>
+    </AdvancedMenuItem>
+
+    <AdvancedMenuItem>
+      <Properties>
+        <Title>Flush DNS Cache</Title>
+        <ButtonText>7</ButtonText>
+        <Group>Networking Tools</Group>
+        <Branch>advanced.networking tools.flush dns</Branch>
+        <Description>This tool will reset the contents of the DNS client resolver cache. This may help resolve network connectivity issues.</Description>
+        <WorkingTitle>Flushing DNS Resolver Cache</WorkingTitle>
+        <WorkingDescription>Please wait while !ApplicationTitle! resets your computer's DNS resolver cache</WorkingDescription>
+      </Properties>
+    </AdvancedMenuItem>
+
+    <AdvancedMenuItem>
+      <Properties>
+        <Title>Renew DNS Registration</Title>
+        <ButtonText>8</ButtonText>
+        <Group>Networking Tools</Group>
+        <Branch>advanced.networking tools.register dns</Branch>
+        <Description>This tool will re-register your computer with the DNS server. This may help resolve network connectivity issues.</Description>
+        <WorkingTitle>Renewing DNS Registration</WorkingTitle>
+        <WorkingDescription>Please wait while !ApplicationTitle! renews your computer's DNS registration</WorkingDescription>
+      </Properties>
+    </AdvancedMenuItem>
+
+    <AdvancedMenuItem>
+      <Properties>
+        <Title>Reset WinHttp Proxies</Title>
+        <ButtonText>9</ButtonText>
+        <Group>Networking Tools</Group>
+        <Branch>advanced.networking tools.reset WinHttp</Branch>
+        <Description>This tool will reset your computer's WinHttp proxy configuration. This may help resolve network connectivity issues.</Description>
+        <WorkingTitle>Resetting WinHttp Proxies</WorkingTitle>
+        <WorkingDescription>Please wait while !ApplicationTitle! renews your computer's WinHttp proxy configuration</WorkingDescription>
+      </Properties>
+    </AdvancedMenuItem>
+
+    <AdvancedMenuItem>
+      <Properties>
+        <Title>Disable All Proxies</Title>
+        <ButtonText>10</ButtonText>
+        <Group>Networking Tools</Group>
+        <Branch>advanced.networking tools.disable proxying</Branch>
+        <Description>This tool will configure your computer to not use proxy servers when sending internet requests. This may help resolve network connectivity issues.</Description>
+        <WorkingTitle>Disabling All Proxies</WorkingTitle>
+        <WorkingDescription>Please wait while !ApplicationTitle! configure your computer to not use proxy servers</WorkingDescription>
+      </Properties>
+    </AdvancedMenuItem>
+
+    <AdvancedMenuItem>
+      <Properties>
+        <Title>Reset Windows Firewall</Title>
+        <ButtonText>11</ButtonText>
+        <Group>Networking Tools</Group>
+        <Branch>advanced.networking tools.reset firewall</Branch>
+        <Description>This tool will reset your computer's Windows Firewall configuration. This may help resolve network connectivity issues.</Description>
+        <WorkingTitle>Resetting Windows Firewall</WorkingTitle>
+        <WorkingDescription>Please wait while !ApplicationTitle! resets the Windows Firewall</WorkingDescription>
+      </Properties>
+    </AdvancedMenuItem>
+
+    <AdvancedMenuItem>
+      <Properties>
+        <Title>Enable DHCP </Title>
+        <ButtonText>12</ButtonText>
+        <Group>Networking Tools</Group>
+        <Branch>advanced.networking tools.enable dhcp</Branch>
+        <Description>This tool will enable the DHCP on your computer. This allows your computer to get an IP lease automatically.</Description>
+        <WorkingTitle>Enabling DHCP</WorkingTitle>
+        <WorkingDescription>Please wait while !ApplicationTitle! enables DHCP</WorkingDescription>
+      </Properties>
+    </AdvancedMenuItem>
+
+    <AdvancedMenuItem>
+      <Properties>
+        <Title>Enable WLAN AutoConfig Service</Title>
+        <ButtonText>13</ButtonText>
+        <Group>Networking Tools</Group>
+        <Branch>advanced.networking tools.enable wlan service</Branch>
+        <Description>This tool will enable the WLAN AutoConfig service on your computer. This service is required for wireless networking.</Description>
+        <WorkingTitle>Enabling WLAN AutoConfig Service</WorkingTitle>
+        <WorkingDescription>Please wait while !ApplicationTitle! enables the WLAN AutoConfig service</WorkingDescription>
+      </Properties>
+    </AdvancedMenuItem>
+
+    <AdvancedMenuItem>
+      <Properties>
+        <Title>Open !ApplicationTitle! Log</Title>
+        <ButtonText>14</ButtonText>
+        <Group>Other Support Tools</Group>
+        <Branch>advanced.support tools.open utility log</Branch>
+        <Description>This tool will open the current !ApplicationTitle! log.</Description>
+        <WorkingTitle>Opening Current Log</WorkingTitle>
+        <WorkingDescription>Please wait while !ApplicationTitle! opens its current log file</WorkingDescription>
+      </Properties>
+    </AdvancedMenuItem>
+
+    <AdvancedMenuItem>
+      <Properties>
+        <Title>Open !ApplicationTitle! Log Folder</Title>
+        <ButtonText>15</ButtonText>
+        <Group>Other Support Tools</Group>
+        <Branch>advanced.support tools.open log folder</Branch>
+        <Description>This tool will open the !ApplicationTitle! log folder.</Description>
+        <WorkingTitle>Opening Log Folder</WorkingTitle>
+        <WorkingDescription>Please wait while !ApplicationTitle! opens its log folder</WorkingDescription>
+      </Properties>
+    </AdvancedMenuItem>
+
+    <AdvancedMenuItem>
+      <Properties>
+        <Title>Open !ApplicationTitle! Download Folder</Title>
+        <ButtonText>16</ButtonText>
+        <Group>Other Support Tools</Group>
+        <Branch>advanced.support tools.open download folder</Branch>
+        <Description>This tool will open the !ApplicationTitle! download folder.</Description>
+        <WorkingTitle>Opening Download Folder</WorkingTitle>
+        <WorkingDescription>Please wait while !ApplicationTitle! opens its download folder</WorkingDescription>
+      </Properties>
+    </AdvancedMenuItem>
+
+    <AdvancedMenuItem>
+      <Properties>
+        <Title>Open !ApplicationTitle! Engine Folder</Title>
+        <ButtonText>17</ButtonText>
+        <Group>Other Support Tools</Group>
+        <Branch>advanced.support tools.open engine folder</Branch>
+        <Description>This tool will open the current !ApplicationTitle! engine folder.</Description>
+        <WorkingTitle>Opening Engine Folder</WorkingTitle>
+        <WorkingDescription>Please wait while !ApplicationTitle! opens its engine folder</WorkingDescription>
+      </Properties>
+    </AdvancedMenuItem>
+
+    <AdvancedMenuItem>
+      <Properties>
+        <Title>Open !ApplicationTitle! Settings Folder</Title>
+        <ButtonText>18</ButtonText>
+        <Group>Other Support Tools</Group>
+        <Branch>advanced.support tools.open settings folder</Branch>
+        <Description>This tool will open the !ApplicationTitle! settings folder.</Description>
+        <WorkingTitle>Opening Settings Folder</WorkingTitle>
+        <WorkingDescription>Please wait while !ApplicationTitle! opens its settings folder</WorkingDescription>
+      </Properties>
+    </AdvancedMenuItem>
+
+    <AdvancedMenuItem>
+      <Properties>
+        <Title>Restart !ApplicationTitle! in Utility Mode</Title>
+        <ButtonText>19</ButtonText>
+        <Group>Utilities</Group>
+        <Branch>advanced.utilities.restart in utility mode</Branch>
+        <Description>This tool will restart !ApplicationTitle! in utilities mode.</Description>
+        <WorkingTitle>Restarting !ApplicationTitle!</WorkingTitle>
+        <WorkingDescription>Please wait while !ApplicationTitle! restarts</WorkingDescription>
+      </Properties>
+    </AdvancedMenuItem>
+  </AdvancedMenuItems>
+</Content>

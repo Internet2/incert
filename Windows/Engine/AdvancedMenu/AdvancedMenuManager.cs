@@ -6,6 +6,7 @@ using Org.InCommon.InCert.Engine.Dynamics;
 using Org.InCommon.InCert.Engine.Help;
 using Org.InCommon.InCert.Engine.Importables;
 using Org.InCommon.InCert.Engine.Logging;
+using Org.InCommon.InCert.Engine.Results.ControlResults;
 using Org.InCommon.InCert.Engine.Settings;
 using Org.InCommon.InCert.Engine.TaskBranches;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Managers;
@@ -110,6 +111,18 @@ namespace Org.InCommon.InCert.Engine.AdvancedMenu
                     left,
                     top,
                     group.Resolve(_settingsManager, true));
+
+                if (advancedMenuModel.Result != null)
+                {
+                    if (advancedMenuModel.Result is RestartComputerResult ||
+                        advancedMenuModel.Result is SilentRestartComputerResult ||
+                        advancedMenuModel.Result is ExitUtilityResult)
+                    {
+                        model.Result = advancedMenuModel.Result;
+                        model.SuppressCloseQuestion = true;
+                        model.DialogInstance.Close();
+                    }
+                }
             }
             finally
             {

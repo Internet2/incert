@@ -38,6 +38,17 @@
           <Icon>icon.ico</Icon>
         </Properties>
       </UserInterface.SetApplicationIconFromArchive>
+      
+      <UserInterface.SetAdvancedMenuOptions>
+        <Properties>
+          <WindowTitle>!ApplicationTitle!</WindowTitle>
+          <DefaultTitle>Advanced Support Tools</DefaultTitle>
+          <DefaultDescription>To begin, select a support tool from the list below.</DefaultDescription>
+          <HelpTopic />
+          <InitialLeftOffset>-150</InitialLeftOffset>
+          <InitialTopOffset>-150</InitialTopOffset>
+        </Properties>
+      </UserInterface.SetAdvancedMenuOptions>
 
       <WebServices.SetDefaultEndpointUrl>
         <Properties>

@@ -5,6 +5,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using Org.InCommon.InCert.Engine.AdvancedMenu;
 using Org.InCommon.InCert.Engine.Logging;
+using Org.InCommon.InCert.Engine.Results.ControlResults;
 using Org.InCommon.InCert.Engine.TaskBranches;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Commands;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Instances.CustomControls;
@@ -158,11 +159,15 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
                 var branch = _branchManager.GetBranch(_item.Branch);
                 if (branch == null)
                     throw new Exception(string.Format("Branch {0} not present", _item.Branch));
-
-                var result = branch.Execute(null);
-
+                
                 _model.Description = _item.Description;
                 _model.Title = _item.Title;
+
+                _model.Result = branch.Execute(null);
+                if (_model.Result is ExitUtilityResult || _model.Result is RestartComputerResult || _model.Result is SilentRestartComputerResult)
+                {
+                    _model.CloseDialog();
+                }
             }
             catch (Exception e)
             {
@@ -172,8 +177,6 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
             {
                 _model.DeactiveWorkingDisplay(_item);
             }
-
-
         }
 
         public ICommand DoubleClickCommand

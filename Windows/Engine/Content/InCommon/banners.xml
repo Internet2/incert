@@ -84,8 +84,13 @@
         <UrlButton>
           <Target>HelpButton</Target>
           <Text>Help</Text>
-          <Value>http://kb.iu.edu/data/beml.html</Value>
+          <Value>https://certdev0.incommontest.org/incommon/index.html</Value>
         </UrlButton>
+
+        <OpenAdvancedMenuButton>
+          <Target>AdvancedButton</Target>
+          <Text>Advanced</Text>
+        </OpenAdvancedMenuButton>
       </Buttons>
 
       <Actions>
@@ -179,7 +184,7 @@
         <UrlButton>
           <Target>HelpButton</Target>
           <Text>Help</Text>
-          <Value>http://certdev0.incommontest.org/</Value>
+          <Value>https://certdev0.incommontest.org/incommon/index.html</Value>
         </UrlButton>
       </Buttons>
 
@@ -225,7 +230,7 @@
         <UrlButton>
           <Target>HelpButton</Target>
           <Text>Help</Text>
-          <Value>http://certdev0.incommontest.org/</Value>
+          <Value>https://certdev0.incommontest.org/incommon/index.html</Value>
         </UrlButton>
       </Buttons>
     </SimpleBanner>
