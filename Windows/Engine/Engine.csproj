@@ -901,6 +901,7 @@
     <Compile Include="Utilities\UriUtilities.cs" />
     <Compile Include="Utilities\UserInterfaceUtilities.cs" />
     <Compile Include="Utilities\XmlUtilities.cs" />
+    <Compile Include="WebServices\FactoryProtocols\FileProtocol.cs" />
     <Compile Include="WebServices\Contracts\AbstractAuthenticationContract.cs" />
     <Compile Include="WebServices\Contracts\AbstractComputerNameContract.cs" />
     <Compile Include="WebServices\Contracts\AbstractGetCertificateContract.cs" />

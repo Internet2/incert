@@ -8,6 +8,7 @@ using Org.InCommon.InCert.Engine.Logging;
 using Org.InCommon.InCert.Engine.Results;
 using Org.InCommon.InCert.Engine.Utilities;
 using Org.InCommon.InCert.Engine.WebServices.Exceptions;
+using Org.InCommon.InCert.Engine.WebServices.FactoryProtocols;
 using Org.InCommon.InCert.Engine.WebServices.Managers;
 using RestSharp;
 using log4net;
@@ -219,8 +220,32 @@ namespace Org.InCommon.InCert.Engine.WebServices.Contracts
         
         protected virtual RestClient GetClient()
         {
-            var client = new RestClient(GetEndpointUrl()) { Timeout = Timeout, };
+            var url = GetEndpointUrl();
+            var client = new RestClient(url)
+            {
+                Timeout = Timeout, 
+                HttpFactory = GetHttpFactory(url),
+            };
             return client;
+        }
+
+        protected virtual IHttpFactory GetHttpFactory(string requestUrl)
+        {
+            try
+            {
+                var uri = new Uri(requestUrl, UriKind.RelativeOrAbsolute);
+                if (uri.IsFile)
+                    return new SimpleFactory<FileProtocol>();
+
+                return new SimpleFactory<Http>();
+            }
+            catch (Exception e)
+            {
+                Log.WarnFormat(
+                    "An issue occurred while determining the httpfactory for the url {0}: {1}. Using default factory.",
+                    requestUrl, e.Message);
+                return new SimpleFactory<Http>();
+            }
         }
 
         
