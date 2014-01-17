@@ -119,9 +119,10 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
                     {
                         Converter = new SettingsConverter(this, _manager),
                         ConverterParameter = wrapper.SettingKey,
-                        Mode = BindingMode.TwoWay,
+                        Mode = BindingMode.OneWayToSource,
                         Path = new PropertyPath("SettingProperty"),
-                        Source = _manager.BindingProxy
+                        Source = _manager.BindingProxy,
+                        UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged
                     });
         }
 
