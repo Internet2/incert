@@ -5,7 +5,7 @@
     <ProductName Condition="'$(ProductName)' == ''">InCert</ProductName>
     <Institution Condition="'$(Institution)' == ''">InCommon</Institution>
     <ArchivePath Condition="'$(ArchivePath)' == ''">content\Incommon\archive\</ArchivePath>
-    <AppVersion Condition=" '$(AppVersion)' == '' ">13.3.8.0</AppVersion>
+    <AppVersion Condition=" '$(AppVersion)' == '' ">13.3.9.0</AppVersion>
     <IconPath Condition=" '$(IconPath)' == ''">$(SolutionDir)Engine\Icon.ico</IconPath>
     
     <!-- Bootstrap customizations, etc. -->
