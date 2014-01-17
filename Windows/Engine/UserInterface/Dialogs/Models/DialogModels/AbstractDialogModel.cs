@@ -628,6 +628,20 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
             }
         }
 
+        public List<AbstractModel> GetModelsBySettingKey(string key)
+        {
+            var modelList = new List<AbstractModel>();
+            foreach (var model in _childModels.Values)
+            {
+                if (model == null)
+                    continue;
+
+                model.ListKeyedModels(key, ref modelList);
+            }
+
+            return modelList;
+        }
+
         public List<AbstractModel> GetModelsByKey(string key)
         {
             var modelList = new List<AbstractModel>();

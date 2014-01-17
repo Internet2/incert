@@ -19,6 +19,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
         private TextWrapping _textWrapping;
         private VerticalAlignment _verticalAlignment;
         private Style _style;
+        
 
         public AbstractContentModel(AbstractModel parentModel)
             : base(parentModel)

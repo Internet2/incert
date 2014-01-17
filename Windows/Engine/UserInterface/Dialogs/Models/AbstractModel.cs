@@ -27,6 +27,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models
         private Dock _dock;
 
         public string ControlKey { get; set; }
+        public string SettingKey { get; protected set; }
 
         public DependencyObject Content
         {
@@ -237,7 +238,13 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models
                 childModel => childModel.FindChildModel<T>(controlKey)).FirstOrDefault(result => result != null);
         }
 
-        
 
+        public void ListKeyedModels(string key, ref List<AbstractModel> modelList)
+        {
+            modelList.AddRange(_childModels.Values.Where(child => !string.IsNullOrEmpty(child.SettingKey)).Where(child => child.SettingKey.Equals(key, StringComparison.InvariantCulture)));
+
+            foreach (var child in _childModels.Values)
+                child.ListKeyedModels(key, ref modelList);
+        }
     }
 }

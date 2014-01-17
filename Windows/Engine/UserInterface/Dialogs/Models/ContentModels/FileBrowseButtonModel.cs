@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Windows.Controls;
 using Microsoft.Win32;
 using Org.InCommon.InCert.Engine.Engines;
@@ -78,8 +79,10 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
             if (result.GetValueOrDefault(false) == false)
                 return;
 
-            var wrapper = new StringSettingWrapper(_settingKey, dialog.FileName, this);
-            SettingsManager.BindingProxy.SettingProperty = wrapper;
+            foreach (var model in RootDialogModel.GetModelsBySettingKey(_settingKey).OfType<InputContentModel>().Select(instance => instance))
+            {
+                model.SetText(dialog.FileName);
+            }
         }
 
         private static void AssignFilterToDialog(FileDialog dialog, string filter)

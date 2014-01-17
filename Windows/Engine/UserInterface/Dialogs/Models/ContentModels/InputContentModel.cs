@@ -5,6 +5,7 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using Org.InCommon.InCert.Engine.Logging;
 using Org.InCommon.InCert.Engine.Settings;
+using Org.InCommon.InCert.Engine.Tasks.Control;
 using Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.ContentControlWrappers;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Converters;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Instances.CustomControls;
@@ -71,7 +72,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
             try
             {
                 var result = new TextBoxField {DataContext = this};
-                InitializeSettingBinding(result, wrapper);
+                InitializeSettingBinding(result, wrapper as SimpleInputField);
                 InitializeValues(wrapper);
                 SetValues(wrapper as SimpleInputField, result);
                 Padding = wrapper.Padding.GetValueOrDefault(new Thickness(4));
@@ -109,22 +110,35 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
             target.Text = _manager.GetTemporarySettingString(wrapper.SettingKey);
         }
         
-        private void InitializeSettingBinding(FrameworkElement instance,AbstractContentWrapper wrapper)
+        private void InitializeSettingBinding(FrameworkElement instance,SimpleInputField wrapper)
         {
             if (instance == null)
                 return;
 
+            if (wrapper == null)
+                return;
+
+            SettingKey = wrapper.SettingKey;
+
+            var binding = new Binding
+            {
+                Converter = new SettingsConverter(this, _manager),
+                ConverterParameter = wrapper.SettingKey,
+                Mode = BindingMode.OneWayToSource,
+                Path = new PropertyPath("SettingProperty"),
+                Source = _manager.BindingProxy,
+                UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged,
+            };
+
+            // readonly field is assumed to be driven by other setting, so set two-way binding
+            if (wrapper.ReadOnly)
+                binding.Mode = BindingMode.TwoWay;
+
             instance.SetBinding(TextBox.TextProperty,
-                new Binding
-                    {
-                        Converter = new SettingsConverter(this, _manager),
-                        ConverterParameter = wrapper.SettingKey,
-                        Mode = BindingMode.OneWayToSource,
-                        Path = new PropertyPath("SettingProperty"),
-                        Source = _manager.BindingProxy,
-                        UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged
-                    });
+                binding);
         }
+
+        
 
         protected override void InitializeBindings(DependencyObject target)
         {
@@ -142,6 +156,15 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
                 return;
 
             target.ScrollToEnd();
+        }
+
+        public void SetText(string value)
+        {
+            var instance = Content as TextBoxField;
+            if (instance == null)
+                return;
+
+            instance.Text = value;
         }
     }
 }

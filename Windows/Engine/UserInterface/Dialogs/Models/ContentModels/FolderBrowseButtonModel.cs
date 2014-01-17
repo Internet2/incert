@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System.Linq;
+using System.Windows.Forms;
 using Org.InCommon.InCert.Engine.Engines;
 using Org.InCommon.InCert.Engine.Settings;
 using Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.ContentControlWrappers;
@@ -51,8 +52,13 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
             if (result != DialogResult.OK)
                 return;
 
-            var wrapper = new StringSettingWrapper(_settingKey, dialog.SelectedPath, this);
-            SettingsManager.BindingProxy.SettingProperty = wrapper;
+            foreach (var model in RootDialogModel.GetModelsBySettingKey(_settingKey).OfType<InputContentModel>().Select(instance => instance))
+            {
+                model.SetText(dialog.SelectedPath);
+            }
+
+            //var wrapper = new StringSettingWrapper(_settingKey, dialog.SelectedPath, this);
+            //SettingsManager.BindingProxy.SettingProperty = wrapper;
         }
     }
 }
