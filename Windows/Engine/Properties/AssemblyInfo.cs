@@ -9,8 +9,8 @@
 //------------------------------------------------------------------------------
 
 [assembly: System.Reflection.AssemblyCompany("InCommon")]
-[assembly: System.Reflection.AssemblyVersion("13.3.9.0")]
-[assembly: System.Reflection.AssemblyFileVersion("13.3.9.0")]
+[assembly: System.Reflection.AssemblyVersion("13.3.10.0")]
+[assembly: System.Reflection.AssemblyFileVersion("13.3.10.0")]
 [assembly: System.Runtime.InteropServices.ComVisible(false)]
 [assembly: System.Reflection.AssemblyTitle("InCert")]
 [assembly: System.Reflection.AssemblyProduct("InCert")]
