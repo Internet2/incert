@@ -3,7 +3,7 @@
   xsi:schemaLocation="http://incert.incommon.org/schemas ./Schemas/tasklist.xsd">
 
   <Branches>
-    <TaskBranch name="verify user certificate">
+    <RoleBranch name="verify user certificate" role="Remote" roleMode="Utility">
       <Certificates.VerifyUserCertificate errorBranch="prompt to run utility">
         <Conditions.All logLevel="Debug">
           <Grouping.AllTrue>
@@ -35,9 +35,16 @@
           <DaysToWarnBeforeExpires>45</DaysToWarnBeforeExpires>
         </Properties>
       </Certificates.VerifyUserCertificate>
-
+      <Logging.LogEvent>
+        <Properties>
+          <Event>Debug</Event>
+          <Message>User certificate is valid</Message>
+          <Asynchronous>false</Asynchronous>
+        </Properties>
+      </Logging.LogEvent>
+     
       <Control.ReturnExitResult />
-    </TaskBranch>
+    </RoleBranch>
 
     <TaskBranch name="prompt to run utility">
       <Control.PreserveLastResult>

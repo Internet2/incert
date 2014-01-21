@@ -27,13 +27,12 @@
       </Properties>
     </Engine.SetEngineMode>
 
-    <Settings.SetSettingValueProcessor key="certmon">
+    <Engine.SetEngineMode key="certmon">
       <Properties>
-        <SettingKey>initial local tasklist</SettingKey>
-        <SettingValue>verify user certificate</SettingValue>
+        <Mode>Utility</Mode>
       </Properties>
-    </Settings.SetSettingValueProcessor>
-
+    </Engine.SetEngineMode>
+    
     <Settings.SetSettingProcessor key="download">
       <Properties>
         <SettingKey>initial content download target</SettingKey>

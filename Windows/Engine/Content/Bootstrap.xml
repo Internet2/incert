@@ -200,13 +200,7 @@
           <Branch>download task list</Branch>
         </Properties>
       </Control.ReturnBranchResult>
-
-    <!--  <Settings.SetSettingText>
-        <Properties>
-          <Setter key="initial remote tasklist">main</Setter>
-        </Properties>
-      </Settings.SetSettingText>-->
-    </RoleBranch>
+   </RoleBranch>
 
     <RoleBranch name="Final" role="Final">
       <UserInterface.CloseAllDialogs />
