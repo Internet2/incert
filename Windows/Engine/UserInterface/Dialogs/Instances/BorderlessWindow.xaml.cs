@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Input;
 using Org.InCommon.InCert.Engine.Utilities;
 
@@ -24,8 +25,9 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Instances
                 return;
 
             window.DragMove();
+            e.Handled = true;
         }
 
-        
+
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Activities.Statements;
 using System.Net;
 using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
@@ -192,6 +193,15 @@ namespace Org.InCommon.InCert.Engine.WebServices.Contracts
             return false;
         }
 
+        protected virtual bool IsHttpIssue(HttpStatusCode status)
+        {
+            if (status == HttpStatusCode.OK) return false;
+            
+            if (status == HttpStatusCode.NoContent) return false;
+
+            return true;
+        }
+
         protected virtual Exception GetExceptionFromRestResponse(IRestResponse response)
         {
             if (response == null)
@@ -200,6 +210,12 @@ namespace Org.InCommon.InCert.Engine.WebServices.Contracts
                 return new Exception("unknown issue");
             }
 
+            if (IsHttpIssue(response.StatusCode))
+            {
+                Log.WarnFormat("received custom issue feedback from server: status code = {0} ({1}); desc = {2}", response.StatusCode, (int)response.StatusCode, response.StatusDescription);
+                return new WebServiceException(string.Format("{0}", response.StatusDescription));    
+            }
+            
             if (response.ErrorException != null)
             {
                 Log.WarnFormat("web-service response has exception set: {0}", response.ErrorException.Message);
@@ -212,8 +228,7 @@ namespace Org.InCommon.InCert.Engine.WebServices.Contracts
                 return new Exception(response.ErrorMessage);
             }
 
-            Log.WarnFormat("received custom issue feedback from server: status code = {0} ({1}); desc = {2}", response.StatusCode, (int)response.StatusCode, response.StatusDescription);
-            return new WebServiceException(string.Format("{0}" ,response.StatusDescription));
+            return new Exception("An unknown issue has occurred");
         }
 
         public abstract IResult GetErrorResult();

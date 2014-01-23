@@ -19,7 +19,7 @@
         </Properties>
       </Settings.SetSettingText>
 
-      <Downloader.GetFileInfoFromUrl>
+      <Downloader.GetFileInfoFromUrl errorBranch="handle no update info issue">
         <Properties>
           <SettingKey>Engine update info</SettingKey>
           <Url>[Engine update info file]</Url>
@@ -70,6 +70,7 @@
         <Properties>
           <Dialog>Splash screen dialog</Dialog>
           <Banner>Splash screen banner</Banner>
+          <Shadowed>true</Shadowed>
         </Properties>
       </UserInterface.ShowBorderlessDialog>
 
@@ -113,7 +114,13 @@
       <Control.ReturnExitResult/>
     </TaskBranch>
 
-
+    <TaskBranch name="handle no update info issue">
+      <Logging.LogWarningFromTaskResult>
+        <Properties>
+          <BaseText>Could not retrieve update information from server: {ErrorName} ({Issue}). Assuming client is up-to-date.</BaseText>
+        </Properties>
+      </Logging.LogWarningFromTaskResult>
+    </TaskBranch>
   </Branches>
 
   <Banners>

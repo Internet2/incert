@@ -346,7 +346,6 @@ namespace Org.InCommon.InCert.Engine.Tasks.Downloader
             }
             finally
             {
-                Application.Current.DoEvents();
                 _updateInProgress = false;
             }
 
