@@ -1467,7 +1467,7 @@
     <Warning Text="Cannot find or access archive path at '$(ArchivePath)'. Will not generate settings.cab archive." Condition="!Exists('$(SignToolPath)')" />
   </Target>
   <Target Name="BuildSettingsCab" AfterTargets="AfterBuild" DependsOnTargets="AfterBuild" Condition="Exists('$(ArchivePath)')">
-    <Exec Command="&quot;$(ProjectDir)$(ArchivePath)makesecurecab.bat&quot; &quot;settings.cab&quot; &quot;$(TargetDir)$(ArchivePath)&quot; &quot;$(TargetDir)&quot;" />
+    <Exec Command="&quot;$(ArchivePath)makesecurecab.bat&quot; &quot;settings.cab&quot; &quot;$(ArchivePath)&quot; &quot;$(TargetDir)&quot;" />
   </Target>
   <Target Name="WarnCannotSign" Condition="!Exists('$(SignToolPath)') or '$(CertThumbprint)' == ''" AfterTargets="BuildSettingsCab" DependsOnTargets="BuildSettingsCab">
     <Warning Text="Cannot find or access signtool.exe at '$(SignToolPath)'. Engine output files will not be signed." Condition="!Exists('$(SignToolPath)')" />
