@@ -5,6 +5,9 @@ Bootstrapper/FrameworkInstaller/*.exe
 [Bb]in/
 [Oo]bj/
 
+#InCert.Targets file
+InCert.targets
+
 # mstest test results
 TestResults
 
