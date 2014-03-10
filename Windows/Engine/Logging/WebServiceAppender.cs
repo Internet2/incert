@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Windows;
 using Org.InCommon.InCert.DataContracts;
 using Org.InCommon.InCert.Engine.Extensions;
 using Org.InCommon.InCert.Engine.WebServices.Contracts;
@@ -36,13 +35,16 @@ namespace Org.InCommon.InCert.Engine.Logging
                 else
                     function = EndPointFunctions.LogAsync;
 
+                // make sure logger has identifiers set
+                Logger.SetIdentifiers(_endpointManager.GetClientIdentifier(), _endpointManager.GetSessionId().ToString());
+
                 var request = _endpointManager.GetContract<AbstractLoggingContract>(function);
                 request.Message = RenderLoggingEvent(loggingEvent);
                 request.Event = loggingEvent.Level.ToString();
                 request.User = ThreadContext.Properties["UserId"].ToStringOrDefault("[Unknown]");
-                request.Session = Application.Current.GetSessionId();
-                request.Machine = Application.Current.GetIdentifier();
-
+                request.Session = _endpointManager.GetSessionId();
+                request.Machine = _endpointManager.GetClientIdentifier();
+                
                 var result = request.MakeRequest<LogInfoWrapper>();
 
                 if (result == null)

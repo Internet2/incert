@@ -1,4 +1,5 @@
-﻿using Org.InCommon.InCert.Engine.WebServices.Contracts;
+﻿using System;
+using Org.InCommon.InCert.Engine.WebServices.Contracts;
 
 namespace Org.InCommon.InCert.Engine.WebServices.Managers
 {
@@ -12,5 +13,8 @@ namespace Org.InCommon.InCert.Engine.WebServices.Managers
         void SetContractForFunction(EndPointFunctions func, string value);
         void SetContractForFunction(EndPointFunctions func, AbstractContract value);
         T GetContract<T>(EndPointFunctions func) where T:AbstractContract;
+
+        string GetClientIdentifier();
+        Guid GetSessionId();
     }
 }

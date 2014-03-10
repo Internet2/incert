@@ -25,10 +25,10 @@ namespace Org.InCommon.InCert.Engine.WebServices.Contracts.WebApi
             var request = new RestRequest(Method.POST) {RequestFormat = DataFormat.Json};
             var wrapper = new ReportingEntry
                 {
-                    Machine = new Machine { MachineId = Application.Current.GetIdentifier() },
+                    Machine = new Machine { MachineId = EndpointManager.GetClientIdentifier() },
                     Name = Name,
                     Value = Value,
-                    Session = new Session { SessionGuid = Application.Current.GetSessionId() }
+                    Session = new Session { SessionGuid = EndpointManager.GetSessionId() }
                 };
 
             request.AddBody(wrapper);

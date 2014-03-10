@@ -1,7 +1,5 @@
 ﻿using System.Globalization;
 using System.Linq;
-using System.Windows;
-using Org.InCommon.InCert.Engine.Extensions;
 using Org.InCommon.InCert.Engine.Utilities;
 using log4net;
 using log4net.Appender;
@@ -17,9 +15,9 @@ namespace Org.InCommon.InCert.Engine.Logging
 
         static Logger()
         {
-            ThreadContext.Properties["Identifier"] = Application.Current.GetIdentifier();
+            ThreadContext.Properties["Identifier"] = "[Unknown]";
             ThreadContext.Properties["UserId"] = "[Unknown]";
-            ThreadContext.Properties["Session"] = Application.Current.GetSessionId();
+            ThreadContext.Properties["Session"] = "[Unknown]";
            
             var hiearchy = (Hierarchy)LogManager.GetRepository();
 
@@ -50,6 +48,12 @@ namespace Org.InCommon.InCert.Engine.Logging
 
             hiearchy.Root.Level = Level.Debug;
             hiearchy.Configured = true;
+        }
+
+        public static void SetIdentifiers(string clientIdentifier, string sessionIdentifier)
+        {
+            ThreadContext.Properties["Identifier"] = clientIdentifier;
+            ThreadContext.Properties["Session"] = sessionIdentifier;
         }
 
         public static string SessionId

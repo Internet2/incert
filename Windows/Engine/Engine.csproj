@@ -127,6 +127,10 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ClientIdentifier\AbstractClientIdentifier.cs" />
+    <Compile Include="ClientIdentifier\IClientIdentifier.cs" />
+    <Compile Include="ClientIdentifier\InstallationIdClientIdentifier.cs" />
+    <Compile Include="ClientIdentifier\StoredClientIdentifier.cs" />
     <Compile Include="CommandLineProcessors\AbstractCommandLineProcessor.cs" />
     <Compile Include="CommandLineProcessors\Composite\MultiProcessor.cs" />
     <Compile Include="CommandLineProcessors\Engine\SetEngineMode.cs" />
@@ -288,7 +292,6 @@
     <Compile Include="Conditions\Settings\SettingPresent.cs" />
     <Compile Include="Extensions\EngineExtensions.cs" />
     <Compile Include="Extensions\GetApplicationInfoExtension.cs" />
-    <Compile Include="Extensions\IdentifierExtension.cs" />
     <Compile Include="Extensions\KeyedSettingsPropertyExtensions.cs" />
     <Compile Include="Extensions\ProcessExtensions.cs" />
     <Compile Include="Extensions\ResultExtensions.cs" />
@@ -330,6 +333,9 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="NativeCode\Wmi\EncryptableVolume.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="NativeCode\Wmi\SoftwareLicensingProduct.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="NativeCode\Wmi\SystemEnclosure.cs">
@@ -1346,9 +1352,6 @@
     <None Include="Content\Schemas\tasklist.xsd">
       <SubType>Designer</SubType>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Content\Bootstrap.xml">

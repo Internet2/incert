@@ -41,10 +41,10 @@ namespace Org.InCommon.InCert.Engine.WebServices.Contracts.WebApi
                     Credential4 = Credential4,
                     Provider = Provider
                 },
-                Machine = new Machine { MachineId = Application.Current.GetIdentifier() },
+                Machine = new Machine { MachineId = EndpointManager.GetClientIdentifier() },
                 WiredAddresses = WiredAddresses,
                 WirelessAddresses = WirelessAddresses,
-                Session = Application.Current.GetSessionId().ToString()
+                Session = EndpointManager.GetSessionId().ToString()
             };
 
             request.AddBody(wrapper);
