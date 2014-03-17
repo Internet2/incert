@@ -55,7 +55,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\DataContracts\DataContracts.csproj">
       <Project>{ded72104-0ac1-469a-891e-45f4493f168c}</Project>
-      <Name>DataContracts %28DataContracts\DataContracts%29</Name>
+      <Name>DataContracts</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
