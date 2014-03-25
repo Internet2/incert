@@ -13,7 +13,7 @@ namespace Org.InCommon.InCert.Engine.Conditions.SystemInfo
 
         public override BooleanReason Evaluate()
         {
-            return !SystemUtilities.IsWindows8()
+            return (!SystemUtilities.IsWindows8() && !SystemUtilities.IsWindows81())
                 ? new BooleanReason(false, "This computer's operating system ({0}) is not Windows 8", Environment.OSVersion.VersionString)
                 : new BooleanReason(true, "This computer's operating system is Windows 8");
         }

@@ -552,6 +552,24 @@ namespace Org.InCommon.InCert.Engine.Utilities
             return true;
         }
 
+        /// <summary>
+        /// Determines if the computer is running Windows 8.1
+        /// </summary>
+        /// <returns></returns>
+        public static bool IsWindows81()
+        {
+            if (Environment.OSVersion.Platform != PlatformID.Win32NT)
+                return false;
+
+            if (Environment.OSVersion.Version.Major != 6)
+                return false;
+
+            if (Environment.OSVersion.Version.Minor != 3)
+                return false;
+
+            return true;
+        }
+
 
         /// <summary>
         /// Verifies that the utility is being run with admin privileges 
