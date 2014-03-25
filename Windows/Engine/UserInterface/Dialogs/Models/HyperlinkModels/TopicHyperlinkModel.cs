@@ -1,5 +1,4 @@
-﻿using System.Windows.Media;
-using Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.LinkWrappers;
+﻿using Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.LinkWrappers;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Commands;
 using Org.InCommon.InCert.Engine.Utilities;
 

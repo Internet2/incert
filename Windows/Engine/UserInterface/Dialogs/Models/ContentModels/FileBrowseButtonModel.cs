@@ -5,7 +5,6 @@ using System.Windows.Controls;
 using Microsoft.Win32;
 using Org.InCommon.InCert.Engine.Engines;
 using Org.InCommon.InCert.Engine.Logging;
-using Org.InCommon.InCert.Engine.Settings;
 using Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.ContentControlWrappers;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Commands;
 using log4net;

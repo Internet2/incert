@@ -5,7 +5,6 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using Org.InCommon.InCert.Engine.Logging;
 using Org.InCommon.InCert.Engine.Settings;
-using Org.InCommon.InCert.Engine.Tasks.Control;
 using Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.ContentControlWrappers;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Converters;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Instances.CustomControls;

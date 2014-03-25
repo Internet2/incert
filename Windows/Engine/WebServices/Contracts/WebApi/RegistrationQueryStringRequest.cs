@@ -1,7 +1,5 @@
 ﻿using System.Net;
-using System.Windows;
 using Org.InCommon.InCert.DataContracts;
-using Org.InCommon.InCert.Engine.Extensions;
 using Org.InCommon.InCert.Engine.Logging;
 using Org.InCommon.InCert.Engine.Results;
 using Org.InCommon.InCert.Engine.Results.Errors.Registration;

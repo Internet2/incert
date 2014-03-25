@@ -1,6 +1,4 @@
 ﻿using System.Net;
-using System.Windows;
-using Org.InCommon.InCert.Engine.Extensions;
 using Org.InCommon.InCert.Engine.WebServices.Managers;
 using RestSharp;
 using Org.InCommon.InCert.DataContracts;

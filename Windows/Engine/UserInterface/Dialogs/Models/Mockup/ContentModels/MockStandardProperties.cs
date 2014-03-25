@@ -1,5 +1,4 @@
-﻿using System.Windows.Ink;
-using System.Windows.Media;
+﻿using System.Windows.Media;
 
 namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.Mockup.ContentModels
 {

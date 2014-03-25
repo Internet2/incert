@@ -8,7 +8,6 @@ using Org.InCommon.InCert.Engine.Results.Errors.Control;
 using Org.InCommon.InCert.Engine.Results.Errors.General;
 using Org.InCommon.InCert.Engine.Results.Errors.Path;
 using Org.InCommon.InCert.Engine.Engines;
-using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Managers;
 using Org.InCommon.InCert.Engine.Utilities;
 
 namespace Org.InCommon.InCert.Engine.Tasks.UserInterface

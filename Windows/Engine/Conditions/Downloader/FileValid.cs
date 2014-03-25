@@ -4,7 +4,6 @@ using Org.InCommon.InCert.Engine.Logging;
 using Org.InCommon.InCert.Engine.Results.Misc;
 using Org.InCommon.InCert.Engine.Engines;
 using Org.InCommon.InCert.Engine.Utilities;
-using Org.InCommon.InCert.Engine.WebServices.DataWrappers;
 using log4net;
 
 namespace Org.InCommon.InCert.Engine.Conditions.Downloader

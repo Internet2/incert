@@ -1,6 +1,4 @@
-﻿using System.Windows.Controls;
-
-namespace Org.InCommon.InCert.BootstrapperEngine.Views.Pages
+﻿namespace Org.InCommon.InCert.BootstrapperEngine.Views.Pages
 {
     /// <summary>
     /// Interaction logic for OptionPage.xaml

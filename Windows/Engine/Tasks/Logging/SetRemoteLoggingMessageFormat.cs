@@ -4,7 +4,6 @@ using Org.InCommon.InCert.Engine.Results;
 using Org.InCommon.InCert.Engine.Results.ControlResults;
 using Org.InCommon.InCert.Engine.Results.Errors.General;
 using Org.InCommon.InCert.Engine.Engines;
-using Org.InCommon.InCert.Engine.WebServices.Managers;
 using log4net.Layout;
 
 namespace Org.InCommon.InCert.Engine.Tasks.Logging
