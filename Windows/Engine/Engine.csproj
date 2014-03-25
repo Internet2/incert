@@ -762,6 +762,9 @@
     <Compile Include="UserInterface\Dialogs\Instances\CustomControls\ContentPanelInstance.xaml.cs">
       <DependentUpon>ContentPanelInstance.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserInterface\Dialogs\Instances\CustomControls\FramedButtonControl.xaml.cs">
+      <DependentUpon>FramedButtonControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserInterface\Dialogs\Instances\CustomControls\OptionParagraph.xaml.cs">
       <DependentUpon>OptionParagraph.xaml</DependentUpon>
     </Compile>
@@ -870,6 +873,7 @@
     <Compile Include="UserInterface\Dialogs\Models\Mockup\ContentModels\MockBaseContentModel.cs" />
     <Compile Include="UserInterface\Dialogs\Models\Mockup\ContentModels\MockBorderedContentPanelModel.cs" />
     <Compile Include="UserInterface\Dialogs\Models\Mockup\ContentModels\MockContentPanelModel.cs" />
+    <Compile Include="UserInterface\Dialogs\Models\Mockup\ContentModels\MockFramedButtonModel.cs" />
     <Compile Include="UserInterface\Dialogs\Models\Mockup\ContentModels\MockInputFieldModel.cs" />
     <Compile Include="UserInterface\Dialogs\Models\Mockup\ContentModels\MockScrollingContentPanelModel.cs" />
     <Compile Include="UserInterface\Dialogs\Models\Mockup\ContentModels\MockStandardProperties.cs" />
@@ -1248,6 +1252,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="UserInterface\Dialogs\Instances\CustomControls\ContentPanelInstance.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterface\Dialogs\Instances\CustomControls\FramedButtonControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

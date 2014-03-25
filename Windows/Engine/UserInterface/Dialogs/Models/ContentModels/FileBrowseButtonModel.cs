@@ -36,7 +36,6 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
             _filter = GetFilterFromWrapper(wrapper as FileBrowseButton);
             _title = GetTitleFromWrapper(wrapper as FileBrowseButton);
             SetDefaultValues(wrapper as FramedButton);
-            InitializeBindings(content);
             InitializeValues(wrapper);
             Content = content;
             return content as T;

@@ -29,7 +29,6 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
 
             _description = GetDescriptionFromWrapper(wrapper as FolderBrowseButton);
             SetDefaultValues(wrapper as FramedButton);
-            InitializeBindings(content);
             InitializeValues(wrapper);
             Content = content;
             return content as T;
