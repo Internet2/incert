@@ -87,9 +87,7 @@
   </xs:complexType>
   <xs:complexType name="InputContentType">
     <xs:complexContent>
-      <xs:extension base="BaseContentParagraphType">
-        <xs:attribute name="settingKey" type="xs:string"  use="required" />
-      </xs:extension>
+      <xs:extension base="BaseContentParagraphType" />
     </xs:complexContent>
   </xs:complexType>
 
@@ -229,9 +227,7 @@
   <xs:element name="ProgressParagraph">
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="BaseContentParagraphType">
-          <xs:attribute name="settingKey" type="xs:string" use="required" />
-        </xs:extension>
+        <xs:extension base="BaseContentParagraphType" />
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
@@ -239,9 +235,7 @@
   <xs:element name="UpdatableParagraph">
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="BaseContentParagraphType">
-          <xs:attribute name="settingKey" type="xs:string" use="required" />
-        </xs:extension>
+        <xs:extension base="BaseContentParagraphType" />
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
