@@ -105,6 +105,7 @@
           <xs:attribute name="caption" type="xs:string" use="optional" />
           <xs:attribute name="value" type="xs:string" use="optional" />
           <xs:attribute name="background" type="xs:string" use="optional" />
+          <xs:attribute name="image" type="xs:string" use="optional" />
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>

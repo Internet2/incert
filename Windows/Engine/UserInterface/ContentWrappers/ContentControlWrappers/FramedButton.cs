@@ -1,6 +1,5 @@
 ﻿using System.Windows;
 using Org.InCommon.InCert.Engine.Engines;
-using Org.InCommon.InCert.Engine.Settings;
 using Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.TextWrappers;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels;
 using Org.InCommon.InCert.Engine.Utilities;
@@ -23,6 +22,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.ContentContro
         public Thickness BorderSize { get; set; }
         public string Background { get; set; }
         public string Value { get; set; }
+        public string Image { get; set; }
 
         public override System.Type GetSupportingModelType()
         {
@@ -42,6 +42,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.ContentContro
                                                                          new Thickness(3));
             Background = XmlUtilities.GetTextFromAttribute(node, "background");
             Value = XmlUtilities.GetTextFromAttribute(node, "value", "True");
+            Image = XmlUtilities.GetTextFromAttribute(node, "Image", "");
 
             var caption = XmlUtilities.GetTextFromAttribute(node, "caption");
             if (!string.IsNullOrWhiteSpace(caption))
