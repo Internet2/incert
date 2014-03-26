@@ -34,6 +34,11 @@
     <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
     <DefineConstants>Debug;AppVersion=$(AppVersion);EngineFilesDir=$(EngineFilesDir);ProductName=$(ProductName);Institution=$(Institution);DesktopShortcut=$(DesktopShortcut);StartMenuShortcut=$(StartMenuShortcut);IconPath=$(IconPath)</DefineConstants>
   </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Staging|x86' ">
+    <OutputPath>bin\$(Configuration)\</OutputPath>
+    <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
+    <DefineConstants>Debug;AppVersion=$(AppVersion);EngineFilesDir=$(EngineFilesDir);ProductName=$(ProductName);Institution=$(Institution);DesktopShortcut=$(DesktopShortcut);StartMenuShortcut=$(StartMenuShortcut);IconPath=$(IconPath)</DefineConstants>
+  </PropertyGroup>
   <ItemGroup>
     <Compile Include="Installer.wxs" />
   </ItemGroup>

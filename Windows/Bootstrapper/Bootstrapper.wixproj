@@ -31,6 +31,11 @@
     <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
     <DefineConstants>AppVersion=$(AppVersion);BootstrapperEngineFilesDir=$(BootstrapperEngineFilesDir);ProductName=$(ProductName);BackgroundColor=$(BackgroundColor);TextColor=$(TextColor);HelpUrl=$(HelpUrl);EngineInstallerFile=$(EngineInstallerFile);FrameworkInstallerFile=$(FrameworkInstallerFile);IconPath=$(IconPath);Institution=$(Institution);LogUploader=$(LogUploader);LoggingUrl=$(LoggingUrl)</DefineConstants>
   </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Staging|x86' ">
+    <OutputPath>bin\$(Configuration)\</OutputPath>
+    <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
+    <DefineConstants>AppVersion=$(AppVersion);BootstrapperEngineFilesDir=$(BootstrapperEngineFilesDir);ProductName=$(ProductName);BackgroundColor=$(BackgroundColor);TextColor=$(TextColor);HelpUrl=$(HelpUrl);EngineInstallerFile=$(EngineInstallerFile);FrameworkInstallerFile=$(FrameworkInstallerFile);IconPath=$(IconPath);Institution=$(Institution);LogUploader=$(LogUploader);LoggingUrl=$(LoggingUrl)</DefineConstants>
+  </PropertyGroup>
   <ItemGroup>
     <Compile Include="Bundle.wxs" />
   </ItemGroup>
