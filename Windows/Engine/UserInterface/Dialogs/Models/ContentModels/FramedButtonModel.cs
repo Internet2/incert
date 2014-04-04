@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using Microsoft.VisualBasic.Devices;
 using Org.InCommon.InCert.Engine.Engines;
 using Org.InCommon.InCert.Engine.Settings;
 using Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.ContentControlWrappers;
@@ -31,6 +32,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
         private string _settingKey;
         private string _text;
         private ImageSource _imageSource;
+        private ImageSource _mouseOverImageSource;
 
         public FramedButtonModel(IEngine engine, AbstractModel parentModel)
             : base(parentModel)
@@ -138,6 +140,19 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
             }
         }
 
+        public ImageSource MouseOverImageSource
+        {
+            get
+            {
+                return _mouseOverImageSource ?? _imageSource;
+            }
+            set
+            {
+                _mouseOverImageSource = value;
+                OnPropertyChanged();
+            }
+        }
+
         public override T LoadContent<T>(AbstractContentWrapper wrapper)
         {
             _settingKey = wrapper.SettingKey;
@@ -186,6 +201,11 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
             if (!string.IsNullOrWhiteSpace(wrapper.Image))
             {
                 ImageSource = SettingsManager.GetTemporaryObject(wrapper.Image) as BitmapFrame;
+            }
+
+            if (!string.IsNullOrWhiteSpace(wrapper.MouseOverImage))
+            {
+                MouseOverImageSource = SettingsManager.GetTemporaryObject(wrapper.MouseOverImage) as BitmapFrame;
             }
         }
     }

@@ -23,6 +23,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.ContentContro
         public string Background { get; set; }
         public string Value { get; set; }
         public string Image { get; set; }
+        public string MouseOverImage { get; set; }
 
         public override System.Type GetSupportingModelType()
         {
@@ -43,6 +44,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.ContentContro
             Background = XmlUtilities.GetTextFromAttribute(node, "background");
             Value = XmlUtilities.GetTextFromAttribute(node, "value", "True");
             Image = XmlUtilities.GetTextFromAttribute(node, "image", "");
+            MouseOverImage = XmlUtilities.GetTextFromAttribute(node, "mouseOverImage", "");
 
             var caption = XmlUtilities.GetTextFromAttribute(node, "caption");
             if (!string.IsNullOrWhiteSpace(caption))

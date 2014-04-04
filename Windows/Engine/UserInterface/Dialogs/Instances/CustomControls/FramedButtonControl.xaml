@@ -16,7 +16,22 @@
         IsCancel="{Binding IsCancelButton}"
         BorderBrush="{Binding GlowBrush}">
     <StackPanel Background="{Binding Background}" VerticalAlignment="Center" HorizontalAlignment="Center">
-        <Image Source="{Binding ImageSource}" Height="{Binding ImageSource.Height}" Width="{Binding ImageSource.Width}" />
+        <Image>
+            <Image.Style>
+                <Style TargetType="{x:Type Image}">
+                    <Setter Property="Source" Value="{Binding ImageSource}"/>
+                    <Setter Property="Height" Value="{Binding ImageSource.Height}" />
+                    <Setter Property="Width" Value="{Binding ImageSource.Width}" />
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Source" Value="{Binding MouseOverImageSource}"/>
+                            <Setter Property="Height" Value="{Binding MouseOverImageSource.Height}" />
+                            <Setter Property="Width" Value="{Binding MouseOverImageSource.Width}" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Image.Style>
+        </Image>
         <TextBlock TextWrapping="Wrap" Text="{Binding Text}" />
     </StackPanel>
 </Button>
