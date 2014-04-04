@@ -16,7 +16,7 @@
         IsCancel="{Binding IsCancelButton}"
         BorderBrush="{Binding GlowBrush}">
     <StackPanel Background="{Binding Background}" VerticalAlignment="Center" HorizontalAlignment="Center">
-        <Image Source="{Binding ImageSource}" />
+        <Image Source="{Binding ImageSource}" Height="{Binding ImageSource.Height}" Width="{Binding ImageSource.Width}" />
         <TextBlock TextWrapping="Wrap" Text="{Binding Text}" />
     </StackPanel>
 </Button>

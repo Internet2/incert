@@ -516,6 +516,7 @@
     <Compile Include="Tasks\Text\AddStringToList.cs" />
     <Compile Include="Tasks\Text\ConvertListToString.cs" />
     <Compile Include="Tasks\Text\TruncateStringLeft.cs" />
+    <Compile Include="Tasks\UserInterface\LoadImageFromUri.cs" />
     <Compile Include="Tasks\UserInterface\LoadImageFromArchive.cs" />
     <Compile Include="Tasks\UserInterface\SetAdvancedMenuOptions.cs" />
     <Compile Include="Tasks\Utility\OpenControlPanel.cs" />

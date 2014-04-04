@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using Org.InCommon.InCert.Engine.Engines;
 using Org.InCommon.InCert.Engine.Settings;
 using Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.ContentControlWrappers;
@@ -181,6 +182,11 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
             IsCancelButton = wrapper.IsCancelButton;
             BorderSize = wrapper.BorderSize;
             Text = wrapper.GetText();
+
+            if (!string.IsNullOrWhiteSpace(wrapper.Image))
+            {
+                ImageSource = SettingsManager.GetTemporaryObject(wrapper.Image) as BitmapFrame;
+            }
         }
     }
 }

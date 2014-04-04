@@ -42,7 +42,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.ContentContro
                                                                          new Thickness(3));
             Background = XmlUtilities.GetTextFromAttribute(node, "background");
             Value = XmlUtilities.GetTextFromAttribute(node, "value", "True");
-            Image = XmlUtilities.GetTextFromAttribute(node, "Image", "");
+            Image = XmlUtilities.GetTextFromAttribute(node, "image", "");
 
             var caption = XmlUtilities.GetTextFromAttribute(node, "caption");
             if (!string.IsNullOrWhiteSpace(caption))

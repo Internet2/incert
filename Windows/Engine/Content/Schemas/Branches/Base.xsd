@@ -190,6 +190,7 @@
         <xs:element ref="UserInterface.HideBannerControl" />
         <xs:element ref="UserInterface.HideDialog" />
         <xs:element ref="UserInterface.LoadImageFromArchive" />
+        <xs:element ref="UserInterface.LoadImageFromUri" />
         <xs:element ref="UserInterface.RemoveCheckedParagraphSubtitle" />
         <xs:element ref="UserInterface.SetAdvancedMenuOptions" />
         <xs:element ref="UserInterface.SetColorValues" />

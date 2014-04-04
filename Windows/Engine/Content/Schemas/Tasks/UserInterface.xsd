@@ -381,6 +381,26 @@
     </xs:complexType>
   </xs:element>
 
+  <xs:element name="UserInterface.LoadImageFromUri">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="Uri" type="xs:string" minOccurs="1" maxOccurs="1"  />
+                  <xs:element name="ImageKey" type="xs:string" minOccurs="1" maxOccurs="1"  />
+                  <xs:element name="Retries" type="xs:int" minOccurs="0" maxOccurs="1"  />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
   <xs:element name="UserInterface.SetApplicationProperties">
     <xs:complexType>
       <xs:complexContent>
