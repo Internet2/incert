@@ -97,7 +97,9 @@ namespace Org.InCommon.InCert.Engine.Tasks.UserInterface
 
         private static BitmapFrame GetImageFromUri(Uri uri)
         {
-            return BitmapFrame.Create(uri);
+            var result= BitmapFrame.Create(uri);
+            result.Freeze();
+            return result;
         }
 
         public override string GetFriendlyName()
