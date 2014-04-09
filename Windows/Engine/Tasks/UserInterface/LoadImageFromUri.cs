@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net.Cache;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 using Org.InCommon.InCert.Engine.Engines;
@@ -97,9 +98,9 @@ namespace Org.InCommon.InCert.Engine.Tasks.UserInterface
 
         private static BitmapFrame GetImageFromUri(Uri uri)
         {
-            var result= BitmapFrame.Create(uri);
-            result.Freeze();
-            return result;
+            var decoder = new PngBitmapDecoder(uri, BitmapCreateOptions.None, BitmapCacheOption.Default);
+            var result = decoder.Frames[0];
+            return result.GetAsFrozen() as BitmapFrame;
         }
 
         public override string GetFriendlyName()
