@@ -72,11 +72,8 @@ namespace Org.InCommon.InCert.Engine
                 Bind<IEndpointManager>().To<EndpointManager>().InSingletonScope();
                 Bind<IHelpManager>().To<HelpManager>().InSingletonScope();
                 Bind<IAdvancedMenuManager>().To<AdvancedMenuManager>().InSingletonScope();
-                
-                Bind<IClientIdentifier>().To<InstallationIdClientIdentifier>()
-                    .InSingletonScope()
-                    .WithConstructorArgument("productProxy", new SoftwareLicensingProductProxy())
-                    .WithConstructorArgument("backupIdentifier", new StoredClientIdentifier());
+
+                Bind<IClientIdentifier>().To<StoredClientIdentifier>().InSingletonScope();
             }
         }
     }
