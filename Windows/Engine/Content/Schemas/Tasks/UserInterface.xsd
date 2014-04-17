@@ -324,6 +324,25 @@
     </xs:complexType>
   </xs:element>
 
+  <xs:element name="UserInterface.SetDialogTitle">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="Dialog" type="xs:string" minOccurs="1" maxOccurs="1"  />
+                  <xs:element name="Value" type="xs:string" minOccurs="1" maxOccurs="1"  />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
   <xs:element name="UserInterface.SetApplicationIcon">
     <xs:complexType>
       <xs:complexContent>

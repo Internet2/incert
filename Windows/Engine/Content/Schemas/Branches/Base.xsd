@@ -199,6 +199,7 @@
         <xs:element ref="UserInterface.SetApplicationIconFromArchive" />
         <xs:element ref="UserInterface.SetApplicationProperties" />
         <xs:element ref="UserInterface.SetCheckedParagraphSubtitle" />
+        <xs:element ref="UserInterface.SetDialogTitle" />
         <xs:element ref="UserInterface.SetParagraphText" />
         <xs:element ref="UserInterface.ShowBannerControl" />
         <xs:element ref="UserInterface.ShowBorderlessDialog" />

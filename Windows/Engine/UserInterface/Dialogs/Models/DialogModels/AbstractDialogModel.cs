@@ -56,6 +56,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
         private bool _enabled;
         private double _left;
         private double _top;
+        private string _windowTitle;
 
         public IResult Result
         {
@@ -191,7 +192,19 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
             set { _windowStyle = value; OnPropertyChanged(); }
         }
 
-        public string WindowTitle { get { return AppearanceManager.ApplicationTitle; } }
+        public string WindowTitle
+        {
+            get
+            {
+                if (string.IsNullOrWhiteSpace(_windowTitle))
+                {
+                    _windowTitle = AppearanceManager.ApplicationTitle;
+                }
+
+                return _windowTitle;
+            }
+            set { _windowTitle = value; OnPropertyChanged(); }
+        }
 
         public double Top
         {
