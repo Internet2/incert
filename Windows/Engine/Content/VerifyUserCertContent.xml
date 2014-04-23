@@ -192,7 +192,9 @@
   <Banners>
     <SimpleBanner name="Renew certificate banner" width ="450" height="425" canClose="true" noCloseQuestion="true" margin="0,24,14,0">
       <Content>
-        <FramedButton controlKey="renew certificate button" caption="Renew" fontSize="24" settingKey="renew certificate" width="130" height="130" alignment="Center" verticalAlignment="Center" margin="0,40,0,0" />
+        <FramedButton controlKey="renew certificate button" settingKey="renew certificate" width="130" height="130" alignment="Center" verticalAlignment="Center" margin="0,40,0,0">
+          <Caption fontSize="24">Renew</Caption>
+        </FramedButton>
         <SimpleParagraph alignment="Center" fontSize="14" margin="0,36,0,0">
           <Content>
             <DirectTextContent>[renew certificate text]</DirectTextContent>

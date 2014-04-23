@@ -149,10 +149,8 @@
             <DirectTextContent />
           </Content>
         </SimpleParagraph>
-        <FramedButton settingKey="normal install mode" controlKey="normal install mode" defaultButton="true" verticalAlignment="Center" fontSize="24" alignment="Center">
-          <Content>
-            <DirectTextContent>Start</DirectTextContent>
-          </Content>
+        <FramedButton settingKey="normal install mode" controlKey="normal install mode" defaultButton="true" verticalAlignment="Center" alignment="Center">
+          <Caption fontSize="24">Start</Caption>
         </FramedButton>
         <SimpleParagraph >
           <Content>
