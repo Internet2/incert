@@ -16,9 +16,12 @@
         IsCancel="{Binding IsCancelButton}"
         BorderBrush="{Binding GlowBrush}">
     <StackPanel Background="{Binding Background}" VerticalAlignment="Center" HorizontalAlignment="Center">
-        <Image>
+        <Image DataContext="{Binding ButtonImage}">
             <Image.Style>
                 <Style TargetType="{x:Type Image}">
+                    <Setter Property="VerticalAlignment" Value="{Binding VerticalAlignment}" />
+                    <Setter Property="HorizontalAlignment" Value="{Binding HorizontalAlignment}" />
+                    <Setter Property="Margin" Value="{Binding Margin}" />
                     <Setter Property="Source" Value="{Binding ImageSource}"/>
                     <Setter Property="Height" Value="{Binding ImageSource.Height}" />
                     <Setter Property="Width" Value="{Binding ImageSource.Width}" />
@@ -32,6 +35,27 @@
                 </Style>
             </Image.Style>
         </Image>
-        <TextBlock TextWrapping="Wrap" Text="{Binding Text}" />
+        <TextBlock 
+            DataContext="{Binding Caption}" 
+            TextWrapping="Wrap" 
+            Text="{Binding Value}" 
+            FontSize="{Binding FontSize}" 
+            FontFamily="{Binding FontFamily}" 
+            HorizontalAlignment="{Binding HorizontalAlignment}" 
+            VerticalAlignment="{Binding VerticalAlignment}"
+            Margin="{Binding Margin}"
+            Padding="{Binding Padding}"
+            />
+        
+        <TextBlock 
+            DataContext="{Binding SubCaption}" 
+            TextWrapping="Wrap"
+            Text="{Binding Value}"
+            FontSize="{Binding FontSize}"
+            FontFamily="{Binding FontFamily}"
+            HorizontalAlignment="{Binding HorizontalAlignment}" 
+            VerticalAlignment="{Binding VerticalAlignment}"
+            Margin="{Binding Margin}"
+            Padding="{Binding Padding}"/>
     </StackPanel>
 </Button>

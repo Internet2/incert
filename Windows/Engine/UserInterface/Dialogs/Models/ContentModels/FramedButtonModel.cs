@@ -1,25 +1,29 @@
 ﻿using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using Microsoft.VisualBasic.Devices;
 using Org.InCommon.InCert.Engine.Engines;
 using Org.InCommon.InCert.Engine.Settings;
 using Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.ContentControlWrappers;
 using Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.LinkWrappers;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Commands;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Instances.CustomControls;
+using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Managers;
+using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Properties;
 
 namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
 {
     internal class FramedButtonModel : AbstractContentModel
     {
-
         protected IEngine Engine { get; private set; }
 
         protected ISettingsManager SettingsManager
         {
             get { return Engine.SettingsManager; }
         }
+
+        private FramedButtonImage _buttonImage;
+        private FramedButtonCaptionText _caption;
+        private FramedButtonCaptionText _subCaption;
 
         private double _height;
         private double _width;
@@ -153,6 +157,24 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
             }
         }
 
+        public FramedButtonImage ButtonImage
+        {
+            get { return _buttonImage; }
+            set { _buttonImage = value; OnPropertyChanged(); }
+        }
+
+        public FramedButtonCaptionText Caption
+        {
+            get { return _caption; }
+            set { _caption = value; OnPropertyChanged(); }
+        }
+
+        public FramedButtonCaptionText SubCaption
+        {
+            get { return _subCaption; }
+            set { _subCaption = value; OnPropertyChanged(); }
+        }
+
         public override T LoadContent<T>(AbstractContentWrapper wrapper)
         {
             _settingKey = wrapper.SettingKey;
@@ -198,14 +220,144 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
             BorderSize = wrapper.BorderSize;
             Text = wrapper.GetText();
 
-            if (!string.IsNullOrWhiteSpace(wrapper.Image))
+            if (wrapper.Image != null)
             {
-                ImageSource = SettingsManager.GetTemporaryObject(wrapper.Image) as BitmapFrame;
+                ButtonImage = new FramedButtonImage(Engine.SettingsManager, wrapper.Image);
             }
 
-            if (!string.IsNullOrWhiteSpace(wrapper.MouseOverImage))
+            if (wrapper.Caption != null)
             {
-                MouseOverImageSource = SettingsManager.GetTemporaryObject(wrapper.MouseOverImage) as BitmapFrame;
+                Caption = new FramedButtonCaptionText(Engine.AppearanceManager, wrapper.Caption);
+            }
+
+            if (wrapper.SubCaption != null)
+            {
+                SubCaption = new FramedButtonCaptionText(Engine.AppearanceManager, wrapper.SubCaption);
+            }
+
+        }
+
+
+        public class FramedButtonCaptionText : PropertyNotifyBase
+        {
+            private string _value;
+            private VerticalAlignment _verticalAlignment;
+            private TextAlignment _textAlignment;
+            private Thickness _margin;
+            private Thickness _padding;
+            private double _fontSize;
+            private FontFamily _fontFamily;
+
+            public FramedButtonCaptionText(IAppearanceManager appearanceManager, FramedButton.ButtonTextContent wrapper)
+            {
+                Value = wrapper.Value;
+                VerticalAlignment = wrapper.VerticalAlignment;
+                Alignment = wrapper.Alignment;
+                Margin = wrapper.Margin;
+                Padding = wrapper.Padding;
+
+                if (wrapper.FontSize.HasValue)
+                {
+                    FontSize = wrapper.FontSize.Value;
+                }
+
+                FontFamily = wrapper.FontFamily ?? appearanceManager.DefaultFontFamily;
+
+            }
+
+            public string Value
+            {
+                get { return _value; }
+                set { _value = value; OnPropertyChanged(); }
+            }
+
+            public VerticalAlignment VerticalAlignment
+            {
+                get { return _verticalAlignment; }
+                set { _verticalAlignment = value; OnPropertyChanged(); }
+            }
+
+            public TextAlignment Alignment
+            {
+                get { return _textAlignment; }
+                set { _textAlignment = value; OnPropertyChanged(); }
+            }
+
+            public Thickness Margin
+            {
+                get { return _margin; }
+                set { _margin = value; OnPropertyChanged(); }
+            }
+
+            public Thickness Padding
+            {
+                get { return _padding; }
+                set { _padding = value; OnPropertyChanged(); }
+            }
+
+            public double FontSize
+            {
+                get { return _fontSize; }
+                set { _fontSize = value; OnPropertyChanged(); }
+            }
+
+            public FontFamily FontFamily
+            {
+                get { return _fontFamily; }
+                set { _fontFamily = value; OnPropertyChanged(); }
+            }
+        }
+
+        public class FramedButtonImage : PropertyNotifyBase
+        {
+            private ImageSource _image;
+            private ImageSource _mouseOverImage;
+            private VerticalAlignment _verticalAlignment;
+            private HorizontalAlignment _horizontalAlignment;
+            private Thickness _margin;
+
+            public FramedButtonImage(ISettingsManager settingsManager, FramedButton.ButtonImageContent wrapper)
+            {
+                {
+                    ImageSource = settingsManager.GetTemporaryObject(wrapper.Key) as BitmapFrame;
+                    MouseOverImageSource = settingsManager.GetTemporaryObject(wrapper.MouseOverKey) as BitmapFrame;
+
+                    Margin = wrapper.Margin;
+                    VerticalAlignment = wrapper.VerticalAlignment;
+                    HorizontalAlignment = wrapper.Alignment;
+                };
+            }
+            public ImageSource ImageSource
+            {
+                get { return _image; }
+                set { _image = value; OnPropertyChanged(); }
+            }
+
+            public ImageSource MouseOverImageSource
+            {
+                get
+                {
+                    return _mouseOverImage ?? _image;
+                }
+                set { _mouseOverImage = value; OnPropertyChanged(); }
+            }
+
+            public VerticalAlignment VerticalAlignment
+            {
+                get { return _verticalAlignment; }
+                set { _verticalAlignment = value; OnPropertyChanged(); }
+            }
+
+            public HorizontalAlignment HorizontalAlignment
+            {
+                get { return _horizontalAlignment; }
+                set { _horizontalAlignment = value; OnPropertyChanged(); }
+            }
+
+            public Thickness Margin
+            {
+                get { return _margin; }
+                set { _margin = value; OnPropertyChanged(); }
             }
         }
     }
