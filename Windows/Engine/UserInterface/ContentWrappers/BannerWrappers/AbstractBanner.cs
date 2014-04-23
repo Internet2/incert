@@ -35,8 +35,8 @@ namespace Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.BannerWrapper
         public double Height { get; set; }
         public WindowStyle WindowStyle { get; set; }
         public Thickness Margin { get; set; }
-        public bool? CanClose { get; set; }
-        public bool? SuppressCloseQuestion { get; set; }
+        public bool CanClose { get; set; }
+        public bool SuppressCloseQuestion { get; set; }
         public Cursor Cursor { get; set; }
         public VerticalAlignment VerticalAlignment { get; set; }
         public HorizontalAlignment HorizontalAlignment { get; set; }
@@ -108,8 +108,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.BannerWrapper
 
             CanClose = XmlUtilities.GetBooleanFromAttribute(node, "canClose", true);
 
-            if (XmlUtilities.IsAttributeSet(node, "noCloseQuestion"))
-                SuppressCloseQuestion = XmlUtilities.GetBooleanFromAttribute(node, "noCloseQuestion");
+            SuppressCloseQuestion = XmlUtilities.GetBooleanFromAttribute(node, "noCloseQuestion",false);
 
             Margin = XmlUtilities.ConvertFromAttributeUsingConverter(node, "margin",
                                                                                  new ThicknessConverter(),

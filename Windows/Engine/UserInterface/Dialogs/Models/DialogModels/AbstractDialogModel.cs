@@ -178,7 +178,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
         public Window DialogInstance { get { return _dialogInstance; } }
 
         public bool SuppressCloseQuestion { get; set; }
-        
+
         public virtual FontFamily Font
         {
             get { return AppearanceManager.DefaultFontFamily; }
@@ -300,11 +300,8 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
                 content.Padding = banner.Margin;
                 content.Background = AppearanceManager.GetBrushForColor(banner.Background, AppearanceManager.BackgroundBrush);
 
-                if (banner.CanClose.HasValue)
-                    CanClose = banner.CanClose.Value;
-
-                if (banner.SuppressCloseQuestion.HasValue)
-                    SuppressCloseQuestion = banner.SuppressCloseQuestion.Value;
+                CanClose = banner.CanClose;
+                SuppressCloseQuestion = banner.SuppressCloseQuestion;
 
                 Height = banner.Height;
                 Width = banner.Width;
@@ -318,7 +315,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
             }
             catch (Exception e)
             {
-                Log.WarnFormat("An exception occurred while attempting to load banner content: {0}", e.Message);            
+                Log.WarnFormat("An exception occurred while attempting to load banner content: {0}", e.Message);
             }
         }
 
@@ -331,14 +328,14 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
 
             return contentModel != null && contentModel.CurrentBanner.Equals(banner);
         }
-        
+
         private IResult ShowBanner(AbstractBanner banner)
         {
             LoadContent(banner);
-            
+
             DoActions(true);
             _dialogInstance.Show();
-           
+
             ActivateInstance(banner);
 
             return new NextResult();
@@ -370,7 +367,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
                 Log.WarnFormat("An exception occurred while attempting to activate a dialog instance: {0}", e.Message);
             }
         }
-        
+
         public void ResetFocus()
         {
             try
@@ -508,6 +505,12 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
                     return;
                 }
 
+                if (_dialogInstance.Visibility != Visibility.Visible)
+                {
+                    Result = new CloseResult();
+                    return;
+                }
+
                 var closeWindow = _dialogsManager.GetDialog<BorderedChildDialogModel>("CloseWindow");
                 if (closeWindow == null)
                 {
@@ -557,7 +560,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
 
             }
         }
-        
+
         public void EnableDisableCloseButton(bool enabled)
         {
             if (!enabled)
@@ -579,7 +582,6 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
 
         public void HideDialog()
         {
-            SuppressCloseQuestion = true;
             DialogInstance.Hide();
         }
 
