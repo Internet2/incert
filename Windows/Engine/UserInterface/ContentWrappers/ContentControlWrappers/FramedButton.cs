@@ -3,7 +3,6 @@ using System.Windows.Media;
 using System.Xml.Linq;
 using Org.InCommon.InCert.Engine.Dynamics;
 using Org.InCommon.InCert.Engine.Engines;
-using Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.TextWrappers;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels;
 using Org.InCommon.InCert.Engine.Utilities;
 
@@ -104,7 +103,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.ContentContro
             public FontFamily FontFamily { get; set; }
             public double? FontSize { get; set; }
             public VerticalAlignment VerticalAlignment { get; set; }
-            public TextAlignment Alignment { get; set; }
+            public HorizontalAlignment HorizontalAlignment { get; set; }
             public Thickness Margin { get; set; }
             public Thickness Padding { get; set; }
 
@@ -119,7 +118,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.ContentContro
                 base.ConfigureFromNode(element);
 
                 VerticalAlignment = XmlUtilities.GetEnumValueFromAttribute(element, "verticalAlignment", VerticalAlignment.Center);
-                Alignment = XmlUtilities.GetEnumValueFromAttribute(element, "alignment", TextAlignment.Center);
+                HorizontalAlignment = XmlUtilities.GetEnumValueFromAttribute(element, "alignment", HorizontalAlignment.Center);
                 
                 if (XmlUtilities.IsAttributeSet(element, "fontFamily"))
                     FontFamily = XmlUtilities.ConvertFromAttributeUsingConverter<FontFamily>(

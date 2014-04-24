@@ -242,7 +242,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
         {
             private string _value;
             private VerticalAlignment _verticalAlignment;
-            private TextAlignment _textAlignment;
+            private HorizontalAlignment _textAlignment;
             private Thickness _margin;
             private Thickness _padding;
             private double _fontSize;
@@ -252,7 +252,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
             {
                 Value = wrapper.Value;
                 VerticalAlignment = wrapper.VerticalAlignment;
-                Alignment = wrapper.Alignment;
+                HorizontalAlignment = wrapper.HorizontalAlignment;
                 Margin = wrapper.Margin;
                 Padding = wrapper.Padding;
 
@@ -277,7 +277,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
                 set { _verticalAlignment = value; OnPropertyChanged(); }
             }
 
-            public TextAlignment Alignment
+            public HorizontalAlignment HorizontalAlignment
             {
                 get { return _textAlignment; }
                 set { _textAlignment = value; OnPropertyChanged(); }
@@ -325,7 +325,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
                     Margin = wrapper.Margin;
                     VerticalAlignment = wrapper.VerticalAlignment;
                     HorizontalAlignment = wrapper.Alignment;
-                };
+                }
             }
             public ImageSource ImageSource
             {
