@@ -744,9 +744,6 @@
     <Compile Include="UserInterface\ContentWrappers\TextWrappers\AbstractTextContentWrapper.cs" />
     <Compile Include="UserInterface\ContentWrappers\TextWrappers\DirectTextContent.cs" />
     <Compile Include="UserInterface\ContentWrappers\TextWrappers\TempObjectFieldContent.cs" />
-    <Compile Include="UserInterface\Controls\NavigationBar.xaml.cs">
-      <DependentUpon>NavigationBar.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UserInterface\Dialogs\Commands\ClearFocusCommand.cs" />
     <Compile Include="UserInterface\Dialogs\Converters\AdditiveConverter.cs" />
     <Compile Include="UserInterface\Dialogs\Converters\BorderThicknessToStrokeThicknessConverter.cs" />
@@ -1227,10 +1224,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="UserInterface\Controls\NavigationBar.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="UserInterface\Dialogs\Instances\AdvancedMenuWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -1424,6 +1417,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\Schemas\AdvancedMenu\" />
+    <Folder Include="UserInterface\Controls\" />
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="NetFwTypeLib">
