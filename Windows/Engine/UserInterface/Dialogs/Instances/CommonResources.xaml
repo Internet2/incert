@@ -194,7 +194,7 @@
         <Setter Property="Cursor" Value="Hand" />
     </Style>
 
-    <Style TargetType="{x:Type PasswordBox}" x:Key="PhraseFieldStyle">
+    <Style TargetType="{x:Type PasswordBox}" x:Key="PhraseFieldStyle" BasedOn="{StaticResource {x:Type PasswordBox}}">
         <Setter Property="assistants:PasswordHelper.Attach" Value="True"/>
         <Setter Property="Template">
             <Setter.Value>
@@ -207,8 +207,7 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsEnabled" Value="false">
-                            <Setter TargetName="Bd" Property="Background" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
-                            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                            <Setter TargetName="Bd" Property="Opacity" Value=".45"/>
                         </Trigger>
                         <Trigger Property="assistants:PasswordHelper.PasswordLength" Value="0">
                             <Setter Property="Visibility" TargetName="txtPrompt" Value="Visible"/>

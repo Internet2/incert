@@ -29,16 +29,18 @@
                Text ="">
 
     <TextBox.Resources>
-        <Style x:Key="TextBoxWaterMarkStyle" TargetType="{x:Type TextBox}">
+        <Style x:Key="TextBoxWaterMarkStyle" TargetType="{x:Type TextBox}" BasedOn="{StaticResource {x:Type TextBox}}">
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type TextBox}">
-                        <Grid>
-                            <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"/>
-                            <ScrollViewer Margin="8,6,8,6" Padding="4" x:Name="PART_ContentHost" VerticalAlignment="Center" />
-                            <Label Margin="11,6,12,6" Padding="4" x:Name="WaterMarkLabel" Content="{Binding Watermark}" VerticalAlignment="Center"
+                        <Border Name="Bd"  Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                            <Grid>
+                                <ScrollViewer Margin="8,6,8,6" Padding="4" x:Name="PART_ContentHost" VerticalAlignment="Center" />
+                                <Label Margin="11,6,12,6" Padding="4" x:Name="WaterMarkLabel" Content="{Binding Watermark}" VerticalAlignment="Center"
                                Visibility="Collapsed" Foreground="{TemplateBinding Foreground}" Opacity=".45" FontFamily="{TemplateBinding FontFamily}" FontSize="{TemplateBinding FontSize}"/>
-                        </Grid>
+                            </Grid>
+                        </Border>
+
                         <ControlTemplate.Triggers>
                             <MultiTrigger>
                                 <MultiTrigger.Conditions>
@@ -46,8 +48,8 @@
                                 </MultiTrigger.Conditions>
                                 <Setter Property="Visibility" TargetName="WaterMarkLabel" Value="Visible"/>
                             </MultiTrigger>
-                            <Trigger Property="IsEnabled" Value="False">
-                                <Setter Property="Opacity" Value="0"/>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter TargetName="Bd" Property="Opacity" Value=".45"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
