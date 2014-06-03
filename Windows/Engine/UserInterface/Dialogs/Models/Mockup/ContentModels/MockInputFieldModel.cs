@@ -1,4 +1,8 @@
-﻿using System.Windows.Controls;
+﻿using System.Drawing;
+using System.Windows.Controls;
+using System.Windows.Media;
+using Brush = System.Windows.Media.Brush;
+
 
 namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.Mockup.ContentModels
 {
@@ -32,6 +36,13 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.Mockup.Content
 
         public int MaxLength { get { return 100; } }
 
-        public string Text { get { return "testing"; } }
+        public string Text { get { return ""; } }
+
+        public string Watermark { get { return "Watermark"; } }
+
+        public Brush WatermarkBrush
+        {
+            get { return new SolidColorBrush(Colors.LightGray); }
+        }
     }
 }

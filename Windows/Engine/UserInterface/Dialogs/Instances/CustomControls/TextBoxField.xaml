@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:contentModels="clr-namespace:Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.Mockup.ContentModels"
+             xmlns:converters="clr-namespace:Org.InCommon.InCert.Engine.UserInterface.Dialogs.Converters"
              mc:Ignorable="d" 
              d:DesignWidth="300"
              d:DataContext="{d:DesignInstance Type=contentModels:MockInputFieldModel, IsDesignTimeCreatable=True}"
@@ -26,5 +27,37 @@
                MaxLines ="{Binding MaxLines}"
                MinLines="{Binding MinLines}"
                MaxLength="{Binding MaxLength}"
-               Text ="Testing" /> 
+               Text ="">
+
+    <TextBox.Resources>
+        <Style x:Key="TextBoxWaterMarkStyle" TargetType="{x:Type TextBox}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TextBox}">
+                        <Grid>
+                            <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"/>
+                            <ScrollViewer Margin="8,6,8,6" Padding="4" x:Name="PART_ContentHost" VerticalAlignment="Center" />
+                            <Label Margin="8,6,12,6" Padding="4" x:Name="WaterMarkLabel" Content="{Binding Watermark}" VerticalAlignment="Center"
+                               Visibility="Collapsed" Foreground="Gray" FontFamily="{TemplateBinding FontFamily}" FontSize="{TemplateBinding FontSize}"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="Text" Value=""/>
+                                </MultiTrigger.Conditions>
+                                <Setter Property="Visibility" TargetName="WaterMarkLabel" Value="Visible"/>
+                            </MultiTrigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Foreground" Value="{Binding WatermarkBrush}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </TextBox.Resources>
+    <TextBox.Style>
+        <StaticResource ResourceKey="TextBoxWaterMarkStyle" />
+    </TextBox.Style>
+</TextBox>
 

@@ -6,6 +6,8 @@
     <converters:AdditiveConverter x:Key="AdditiveConverter" />
     <converters:FontSizeToLeftThicknessConverter x:Key="FontSizeToLeftThicknessConverter" />
 
+    
+    
     <DropShadowEffect x:Key="FramedButtonEffect" ShadowDepth="0" RenderingBias="Quality" 
                       Color="{Binding Path=BorderBrush, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource BrushToColorConverter}}" 
                       Opacity="15" 

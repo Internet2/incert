@@ -202,6 +202,7 @@
           <xs:attribute name="canScroll" type="xs:boolean" use="optional" />
           <xs:attribute name="scrollToEnd" type="xs:boolean" use="optional" />
           <xs:attribute name="readOnly" type="xs:boolean" use="optional" />
+          <xs:attribute name="watermark" type="xs:string" use="optional" />
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
