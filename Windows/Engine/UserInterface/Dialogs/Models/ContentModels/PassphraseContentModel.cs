@@ -15,11 +15,18 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
     {
         private readonly ISettingsManager _manager;
         private static readonly ILog Log = Logger.Create();
+        private string _watermark;
 
         public PassphraseContentModel(AbstractModel parentModel, ISettingsManager manager)
             : base(parentModel)
         {
             _manager = manager;
+        }
+
+        public string Watermark
+        {
+            get { return _watermark; }
+            set { _watermark = value; OnPropertyChanged(); }
         }
 
         public override T LoadContent<T>(AbstractContentWrapper wrapper)
@@ -29,7 +36,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
                 var result = new PasswordBox();
                 InitializeBindings(result);
                 InitializeSettingBinding(result, wrapper);
-                InitializeValues(wrapper, result);
+                InitializeValues(wrapper as PasswordInputField, result);
                 Content = result;
                 return result as T;
             }
@@ -40,21 +47,24 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
             }
         }
 
-        protected void InitializeValues(AbstractContentWrapper wrapper, PasswordBox target)
+
+        protected void InitializeValues(PasswordInputField wrapper, PasswordBox target)
         {
             base.InitializeValues(wrapper);
             TextBrush = AppearanceManager.GetBrushForColor(wrapper.Color, AppearanceManager.InputFieldTextBrush);
             Padding = wrapper.Padding.GetValueOrDefault(new Thickness(4));
             target.Password = _manager.GetTemporarySettingString(wrapper.SettingKey);
+            Watermark = wrapper.Watermark;
         }
 
-        private void InitializeSettingBinding(PasswordBox instance, AbstractContentWrapper wrapper)
+        private void InitializeSettingBinding(FrameworkElement instance, AbstractContentWrapper wrapper)
         {
             if (instance == null)
                 return;
 
-            PasswordHelper.SetAttach(instance, true);
+            instance.Style = GetNamedStyle("PhraseFieldStyle");
 
+            instance.SetBinding(PasswordHelper.WatermarkProperty, GetOneWayBinding(this, "Watermark"));
             instance.SetBinding(PasswordHelper.PasswordProperty,
                 new Binding
                     {

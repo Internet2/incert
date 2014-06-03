@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Windows.Media;
 using Org.InCommon.InCert.Engine.Engines;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels;
 using Org.InCommon.InCert.Engine.Utilities;

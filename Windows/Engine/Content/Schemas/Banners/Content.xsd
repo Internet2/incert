@@ -180,7 +180,15 @@
   </xs:element>
 
   <xs:element name="CheckInputField" type="InputContentType" />
-  <xs:element name="PasswordInputField" type="InputContentType" />
+  <xs:element name="PasswordInputField">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="InputContentType">
+          <xs:attribute name="watermark" type="xs:string" use="optional" />
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element> 
   <xs:element name="DefaultCheckedParagraph" type="BaseContentParagraphType" />
 
   <xs:element name="OptionInputField">

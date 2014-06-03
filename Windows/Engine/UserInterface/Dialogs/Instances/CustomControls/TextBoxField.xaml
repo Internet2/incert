@@ -4,8 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:contentModels="clr-namespace:Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.Mockup.ContentModels"
-             xmlns:converters="clr-namespace:Org.InCommon.InCert.Engine.UserInterface.Dialogs.Converters"
-             mc:Ignorable="d" 
+         mc:Ignorable="d" 
              d:DesignWidth="300"
              d:DataContext="{d:DesignInstance Type=contentModels:MockInputFieldModel, IsDesignTimeCreatable=True}"
              DockPanel.Dock="{Binding Dock}"
@@ -37,8 +36,8 @@
                         <Grid>
                             <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"/>
                             <ScrollViewer Margin="8,6,8,6" Padding="4" x:Name="PART_ContentHost" VerticalAlignment="Center" />
-                            <Label Margin="8,6,12,6" Padding="4" x:Name="WaterMarkLabel" Content="{Binding Watermark}" VerticalAlignment="Center"
-                               Visibility="Collapsed" Foreground="Gray" FontFamily="{TemplateBinding FontFamily}" FontSize="{TemplateBinding FontSize}"/>
+                            <Label Margin="11,6,12,6" Padding="4" x:Name="WaterMarkLabel" Content="{Binding Watermark}" VerticalAlignment="Center"
+                               Visibility="Collapsed" Foreground="{TemplateBinding Foreground}" Opacity=".45" FontFamily="{TemplateBinding FontFamily}" FontSize="{TemplateBinding FontSize}"/>
                         </Grid>
                         <ControlTemplate.Triggers>
                             <MultiTrigger>
@@ -48,7 +47,7 @@
                                 <Setter Property="Visibility" TargetName="WaterMarkLabel" Value="Visible"/>
                             </MultiTrigger>
                             <Trigger Property="IsEnabled" Value="False">
-                                <Setter Property="Foreground" Value="{Binding WatermarkBrush}"/>
+                                <Setter Property="Opacity" Value="0"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>

@@ -9,21 +9,22 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Assistants
     /// Helper class allowing us to bind to a password box's password property
     /// </summary>
     /// <see cref="http://stackoverflow.com/questions/888466/passwordbox-binding" />
-    public static class PasswordHelper
+    public class PasswordHelper
     {
-        public static readonly DependencyProperty PasswordProperty =
-       DependencyProperty.RegisterAttached("Password",
-       typeof(string), typeof(PasswordHelper),
-       new FrameworkPropertyMetadata(string.Empty, OnPasswordPropertyChanged));
+        public static readonly DependencyProperty PasswordProperty = DependencyProperty.RegisterAttached("Password",
+            typeof(string), typeof(PasswordHelper), new FrameworkPropertyMetadata(string.Empty, OnPasswordPropertyChanged));
 
-        public static readonly DependencyProperty AttachProperty =
-            DependencyProperty.RegisterAttached("Attach",
+        public static readonly DependencyProperty AttachProperty = DependencyProperty.RegisterAttached("Attach",
             typeof(bool), typeof(PasswordHelper), new PropertyMetadata(false, Attach));
 
-        private static readonly DependencyProperty IsUpdatingProperty =
-           DependencyProperty.RegisterAttached("IsUpdating", typeof(bool),
-           typeof(PasswordHelper));
+        private static readonly DependencyProperty IsUpdatingProperty = DependencyProperty.RegisterAttached("IsUpdating", 
+            typeof(bool), typeof(PasswordHelper));
 
+        public static readonly DependencyProperty PasswordLengthProperty = DependencyProperty.RegisterAttached("PasswordLength",
+            typeof(int), typeof(PasswordHelper), new UIPropertyMetadata(0));
+
+        public static readonly DependencyProperty WatermarkProperty = DependencyProperty.RegisterAttached("Watermark", 
+            typeof (string), typeof (PasswordHelper));
 
         public static void SetAttach(DependencyObject dp, bool value)
         {
@@ -50,6 +51,16 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Assistants
             return (bool)dp.GetValue(IsUpdatingProperty);
         }
 
+        public static string GetWatermark(DependencyObject instance)
+        {
+            return (string) instance.GetValue(WatermarkProperty);
+        }
+
+        public static void SetWatermark(DependencyObject instance, string value)
+        {
+            instance.SetValue(WatermarkProperty, value);
+        }
+
         private static void SetIsUpdating(DependencyObject dp, bool value)
         {
             dp.SetValue(IsUpdatingProperty, value);
@@ -69,6 +80,8 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Assistants
                 passwordBox.Password = (string)e.NewValue;
             }
             passwordBox.PasswordChanged += PasswordChanged;
+
+            SetPasswordLength(passwordBox, passwordBox.Password.Length);
         }
 
         private static void Attach(DependencyObject sender,
@@ -99,6 +112,16 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Assistants
             SetIsUpdating(passwordBox, true);
             SetPassword(passwordBox, passwordBox.Password);
             SetIsUpdating(passwordBox, false);
+        }
+
+        public static int GetPasswordLength(DependencyObject obj)
+        {
+            return (int)obj.GetValue(PasswordLengthProperty);
+        }
+
+        public static void SetPasswordLength(DependencyObject obj, int value)
+        {
+            obj.SetValue(PasswordLengthProperty, value);
         }
     }
 }
