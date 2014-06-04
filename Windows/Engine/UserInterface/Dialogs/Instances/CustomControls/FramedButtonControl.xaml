@@ -14,7 +14,9 @@
         BorderThickness="{Binding BorderSize}"
         IsDefault="{Binding IsDefaultButton}"
         IsCancel="{Binding IsCancelButton}"
-        BorderBrush="{Binding GlowBrush}">
+        BorderBrush="{Binding BorderBrush}"
+        IsEnabled="{Binding Enabled}"
+        >
 
     <Grid>
         <StackPanel Background="Transparent" VerticalAlignment="Center" HorizontalAlignment="Center">

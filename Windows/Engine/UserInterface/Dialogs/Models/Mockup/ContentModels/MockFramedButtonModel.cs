@@ -71,8 +71,13 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.Mockup.Content
         public bool IsCancelButton { get { return false; } }
         public SolidColorBrush GlowBrush { get { return new SolidColorBrush(Colors.Wheat); } }
         public string Text { get { return "Lorem Ipsum Dolor"; } }
-
+        public bool Enabled { get { return true; } }
         public MockButtonImage ButtonImage { get { return new MockButtonImage(_image, _mouseOverImage); } }
+
+        public SolidColorBrush BorderBrush
+        {
+            get { return new SolidColorBrush(Colors.LightBlue); }
+        }
 
         public MockButtonText Caption { get { return new MockButtonText("Lorem Ipsum Dolor"){FontSize = 18}; } }
         public MockButtonText SubCaption { get { return new MockButtonText("Lorem Ipsum Dolor 2"){FontSize = 11, Margin = new Thickness(0,8,0,0)}; } }

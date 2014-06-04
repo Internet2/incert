@@ -129,7 +129,7 @@
         <xs:element name="Effect" type="ButtonEffect" maxOccurs="1" minOccurs="0" />
       </xs:sequence>
       <xs:attribute name="style" type="xs:string"  use="optional" />
-      <xs:attribute name="color" type="xs:string"  use="optional" />
+      <xs:attribute name="borderColor" type="xs:string"  use="optional" />
       <xs:attribute name="controlKey" type="xs:string"  use="optional" />
       <xs:attribute name="settingKey" type="xs:string"  use="optional" />
       <xs:attribute name="margin" type="Padding"  use="optional" />

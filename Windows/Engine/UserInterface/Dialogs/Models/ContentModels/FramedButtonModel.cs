@@ -20,7 +20,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
             {"glow", "FramedButton"},
             {"default", "FramedButtonNoGlow"},
             {"invert", "InvertingFramedButton"},
-            {"",""}
+            {"","FramedButtonNoGlow"}
         };
 
         private readonly Dictionary<string, string> _captionStyleDictionary = new Dictionary<string, string>
@@ -54,6 +54,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
         private string _settingKey;
         private string _text;
         private CornerRadius _cornerRadius;
+        private Brush _borderBrush;
 
         private ImageSource _imageSource;
         private ImageSource _mouseOverImageSource;
@@ -201,6 +202,12 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
             set { _subCaption = value; OnPropertyChanged(); }
         }
 
+        public Brush BorderBrush
+        {
+            get { return _borderBrush; }
+            set { _borderBrush = value; OnPropertyChanged(); }
+        }
+
         public override T LoadContent<T>(AbstractContentWrapper wrapper)
         {
             _settingKey = wrapper.SettingKey;
@@ -212,6 +219,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
                 Command = new ButtonSettingsCommand(SettingsManager, this, GetLinkWrapper(wrapper as FramedButton))
 
             };
+
             InitializeBindings(content);
             SetDefaultValues(wrapper as FramedButton);
             InitializeValues(wrapper);
@@ -231,12 +239,14 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
             if (wrapper == null)
                 return;
 
+            
             Width = wrapper.Width;
             Height = wrapper.Height;
 
             Background = AppearanceManager.GetBrushForColor(wrapper.Background, AppearanceManager.BackgroundBrush);
             Style = GetNamedStyle(_buttonStyleDictionary[wrapper.EffectName]);
             GlowBrush = AppearanceManager.GetBrushForColor(wrapper.EffectArgument, AppearanceManager.LinkTextBrush);
+            BorderBrush = AppearanceManager.GetBrushForColor(wrapper.BorderColor, AppearanceManager.BodyTextBrush);
             ButtonContentModel = new TextContentModel(this);
             ButtonContentModel.LoadContent<DependencyObject>(wrapper);
             ButtonContentModel.Margin = new Thickness(0);

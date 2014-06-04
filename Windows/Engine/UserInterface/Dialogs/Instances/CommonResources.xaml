@@ -8,7 +8,7 @@
     <converters:FontSizeToLeftThicknessConverter x:Key="FontSizeToLeftThicknessConverter" />
 
     <DropShadowEffect x:Key="FramedButtonEffect" ShadowDepth="0" RenderingBias="Quality" 
-                      Color="{Binding Path=BorderBrush, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource BrushToColorConverter}}" 
+                      Color="{Binding Path=DataContext.GlowBrush, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource BrushToColorConverter}}" 
                       Opacity="15" 
                       BlurRadius="100"  />
 
@@ -141,7 +141,7 @@
                     <Border x:Name="Border" 
                             BorderThickness="{Binding Path=BorderThickness, RelativeSource={RelativeSource TemplatedParent}}" 
                             CornerRadius="{Binding Path=DataContext.CornerRadius, RelativeSource={RelativeSource TemplatedParent}}"
-                            Background="{Binding Path=Foreground, RelativeSource={RelativeSource TemplatedParent}}"
+                            Background="{Binding Path=BorderBrush, RelativeSource={RelativeSource TemplatedParent}}"
                             SnapsToDevicePixels="True">
                         <Grid Name="ContentGrid" Background="Transparent" SnapsToDevicePixels="True">
                             <Border Name="InsideBorder" 
@@ -168,6 +168,12 @@
                             </MultiTrigger.Conditions>
                             <Setter TargetName="InsideBorder" Property="Background" Value="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}}}" />
                         </MultiTrigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsEnabled" Value="False"></Condition>
+                            </MultiTrigger.Conditions>
+                            <Setter Property="Opacity" Value=".45"></Setter>
+                        </MultiTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
@@ -181,11 +187,17 @@
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
                     <Border x:Name="Border" 
-                        BorderThickness="{Binding Path=BorderThickness, RelativeSource={RelativeSource AncestorType={x:Type Button}}}" 
-                        BorderBrush="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}}}"
-                        CornerRadius="{Binding Path=DataContext.CornerRadius, RelativeSource={RelativeSource TemplatedParent}}">
-                        <Grid Background="{Binding Path=Background, RelativeSource={RelativeSource TemplatedParent}}">
-                            <ContentPresenter Content="{TemplateBinding Content}" />
+                       BorderThickness="{Binding Path=BorderThickness, RelativeSource={RelativeSource TemplatedParent}}" 
+                            CornerRadius="{Binding Path=DataContext.CornerRadius, RelativeSource={RelativeSource TemplatedParent}}"
+                            Background="{Binding Path=BorderBrush, RelativeSource={RelativeSource TemplatedParent}}"
+                            SnapsToDevicePixels="True">
+                        <Grid Name="ContentGrid" Background="Transparent">
+                            <Border Name="InsideBorder" 
+                                Background="{Binding Path=Background, RelativeSource={RelativeSource TemplatedParent}}"
+                                CornerRadius="{Binding Path=DataContext.CornerRadius, RelativeSource={RelativeSource TemplatedParent}}"
+                                BorderThickness="{Binding Path=BorderThickness, RelativeSource={RelativeSource TemplatedParent}}" >
+                                <ContentPresenter Content="{TemplateBinding Content}" />
+                            </Border>
                         </Grid>
                     </Border>
 
@@ -203,6 +215,12 @@
                                 <Condition Property="IsEnabled" Value="True" />
                             </MultiTrigger.Conditions>
                             <Setter TargetName="Border" Property="Effect" Value="{StaticResource FramedButtonEffect}" />
+                        </MultiTrigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsEnabled" Value="False"></Condition>
+                            </MultiTrigger.Conditions>
+                            <Setter Property="Opacity" Value=".45"></Setter>
                         </MultiTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -217,11 +235,17 @@
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
                     <Border x:Name="Border" 
-                        BorderThickness="{Binding Path=BorderThickness, RelativeSource={RelativeSource AncestorType={x:Type Button}}}" 
-                        BorderBrush="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}}}"
-                        CornerRadius="{Binding Path=DataContext.CornerRadius, RelativeSource={RelativeSource TemplatedParent}}">
+                        BorderThickness="{Binding Path=BorderThickness, RelativeSource={RelativeSource TemplatedParent}}" 
+                            CornerRadius="{Binding Path=DataContext.CornerRadius, RelativeSource={RelativeSource TemplatedParent}}"
+                            Background="{Binding Path=BorderBrush, RelativeSource={RelativeSource TemplatedParent}}"
+                            SnapsToDevicePixels="True">
                         <Grid Name="BackgroundGrid" Background="Transparent">
-                            <ContentPresenter Content="{TemplateBinding Content}" />
+                            <Border Name="InsideBorder" 
+                                Background="{Binding Path=Background, RelativeSource={RelativeSource TemplatedParent}}"
+                                CornerRadius="{Binding Path=DataContext.CornerRadius, RelativeSource={RelativeSource TemplatedParent}}"
+                                BorderThickness="{Binding Path=BorderThickness, RelativeSource={RelativeSource TemplatedParent}}" >
+                                <ContentPresenter Content="{TemplateBinding Content}" />
+                            </Border>
                         </Grid>
                     </Border>
 
@@ -231,23 +255,27 @@
                                 <Condition Property="IsMouseOver" Value="True" />
                                 <Condition Property="IsEnabled" Value="True" />
                             </MultiTrigger.Conditions>
-                            <Setter TargetName="BackgroundGrid" Property="Background" Value="{Binding Path=BorderBrush, RelativeSource={RelativeSource AncestorType={x:Type Button}}}" />
+                            <Setter TargetName="InsideBorder" Property="Background" Value="{Binding Path=BorderBrush, RelativeSource={RelativeSource AncestorType={x:Type Button}}}" />
                         </MultiTrigger>
-
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
                                 <Condition Property="IsFocused" Value="True" />
                                 <Condition Property="IsEnabled" Value="True" />
                             </MultiTrigger.Conditions>
-                            <Setter TargetName="BackgroundGrid" Property="Background" Value="{Binding Path=BorderBrush, RelativeSource={RelativeSource AncestorType={x:Type Button}}}" />
+                            <Setter TargetName="InsideBorder" Property="Background" Value="{Binding Path=BorderBrush, RelativeSource={RelativeSource AncestorType={x:Type Button}}}" />
                         </MultiTrigger>
-
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
                                 <Condition Property="IsKeyboardFocused" Value="True" />
                                 <Condition Property="IsEnabled" Value="True" />
                             </MultiTrigger.Conditions>
-                            <Setter TargetName="BackgroundGrid" Property="Background" Value="{Binding Path=BorderBrush, RelativeSource={RelativeSource AncestorType={x:Type Button}}}" />
+                            <Setter TargetName="InsideBorder" Property="Background" Value="{Binding Path=BorderBrush, RelativeSource={RelativeSource AncestorType={x:Type Button}}}" />
+                        </MultiTrigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsEnabled" Value="False"></Condition>
+                            </MultiTrigger.Conditions>
+                            <Setter Property="Opacity" Value=".45"></Setter>
                         </MultiTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

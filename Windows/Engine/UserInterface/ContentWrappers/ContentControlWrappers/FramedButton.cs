@@ -15,6 +15,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.ContentContro
         {
         }
 
+        public string BorderColor { get;set; }
         public double Width { get; set; }
         public double Height { get; set; }
         public bool GlowEffect { get; set; }
@@ -47,6 +48,8 @@ namespace Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.ContentContro
             IsCancelButton = XmlUtilities.GetBooleanFromAttribute(node, "cancelButton", false);
             BorderSize = XmlUtilities.ConvertFromAttributeUsingConverter(node, "borderSize", new ThicknessConverter(),
                                                                          new Thickness(3));
+
+            BorderColor = XmlUtilities.GetTextFromAttribute(node, "borderColor");
             Background = XmlUtilities.GetTextFromAttribute(node, "background");
             Value = XmlUtilities.GetTextFromAttribute(node, "value", "True");
             Image = GetInstanceFromNode<ButtonImageContent>(node.Element("Image"));
