@@ -94,6 +94,8 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.Mockup.Content
             public double FontSize { get; set; }
             public FontFamily FontFamily { get { return new FontFamily("Verdana");} }
             public FontWeight FontWeight { get { return FontWeights.Bold;} }
+            public Style Style { get { return null; } }
+            public Visibility Visibility { get {  return Visibility.Visible;} }
         }
 
         public class MockButtonImage

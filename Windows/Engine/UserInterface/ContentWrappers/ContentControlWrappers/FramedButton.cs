@@ -27,6 +27,9 @@ namespace Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.ContentContro
         public ButtonImageContent Image { get; set; }
         public ButtonTextContent Caption { get; set; }
         public ButtonTextContent SubCaption { get; set; }
+        public string EffectName { get; set; }
+        public string EffectArgument { get; set; }
+        public CornerRadius CornerRadius { get; set; }
 
         public override System.Type GetSupportingModelType()
         {
@@ -49,6 +52,10 @@ namespace Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.ContentContro
             Image = GetInstanceFromNode<ButtonImageContent>(node.Element("Image"));
             Caption = GetInstanceFromNode<ButtonTextContent>(node.Element("Caption"));
             SubCaption = GetInstanceFromNode<ButtonTextContent>(node.Element("SubCaption"));
+            EffectName = XmlUtilities.GetTextFromChildNodeAttribute(node, "Effect", "type");
+            EffectArgument = XmlUtilities.GetTextFromChildNode(node, "Effect","");
+            CornerRadius = XmlUtilities.ConvertFromAttributeUsingConverter(node, "cornerRadius",
+                new CornerRadiusConverter(), new CornerRadius(0));
         }
 
 
@@ -93,6 +100,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.ContentContro
             }
         }
 
+        
         public class ButtonTextContent : AbstractDynamicPropertyContainer
         {
             public ButtonTextContent(IEngine engine)

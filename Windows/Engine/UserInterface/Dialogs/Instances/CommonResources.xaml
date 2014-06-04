@@ -6,7 +6,7 @@
     <converters:SolidColorBrushToColorConverter x:Key="BrushToColorConverter" />
     <converters:AdditiveConverter x:Key="AdditiveConverter" />
     <converters:FontSizeToLeftThicknessConverter x:Key="FontSizeToLeftThicknessConverter" />
- 
+
     <DropShadowEffect x:Key="FramedButtonEffect" ShadowDepth="0" RenderingBias="Quality" 
                       Color="{Binding Path=BorderBrush, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource BrushToColorConverter}}" 
                       Opacity="15" 
@@ -19,7 +19,7 @@
             </TextDecoration.Pen>
         </TextDecoration>
     </TextDecorationCollection>
- 
+
     <TextDecorationCollection x:Key="HyperlinkStandardDecorationCollection">
         <TextDecoration PenThicknessUnit="FontRecommended" Location="Underline" PenOffset=".2" PenOffsetUnit="FontRenderingEmSize">
             <TextDecoration.Pen>
@@ -49,7 +49,26 @@
         </Style.Triggers>
     </Style>
 
-    <Style TargetType="Button" x:Key="TextButton">
+    <Style TargetType="TextBlock" x:Key="InvertingTextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
+        <Style.Triggers>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding Path=IsMouseOver, RelativeSource={RelativeSource AncestorType={x:Type Button}}}" Value="True" />
+                    <Condition Binding="{Binding Path=IsEnabled, RelativeSource={RelativeSource AncestorType={x:Type Button}}}" Value="True" />
+                </MultiDataTrigger.Conditions>
+                <Setter Property="Foreground" Value="{Binding Path=Background, RelativeSource={RelativeSource AncestorType={x:Type Button}}}" />
+            </MultiDataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding Path=IsKeyboardFocused, RelativeSource={RelativeSource AncestorType={x:Type Button}}}" Value="True" />
+                    <Condition Binding="{Binding Path=IsEnabled, RelativeSource={RelativeSource AncestorType={x:Type Button}}}" Value="True" />
+                </MultiDataTrigger.Conditions>
+                <Setter Property="Foreground" Value="{Binding Path=Background, RelativeSource={RelativeSource AncestorType={x:Type Button}}}" />
+            </MultiDataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style TargetType="Button" x:Key="TextButton" BasedOn="{StaticResource {x:Type Button}}">
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
         <Setter Property="Template">
             <Setter.Value>
@@ -113,7 +132,49 @@
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
     </Style>
 
-    <Style TargetType="Button" x:Key="FramedButton">
+    <Style TargetType="Button" x:Key="InvertingFramedButton" BasedOn="{StaticResource {x:Type Button}}">
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="Border" 
+                            BorderThickness="{Binding Path=BorderThickness, RelativeSource={RelativeSource TemplatedParent}}" 
+                            CornerRadius="{Binding Path=DataContext.CornerRadius, RelativeSource={RelativeSource TemplatedParent}}"
+                            Background="{Binding Path=Foreground, RelativeSource={RelativeSource TemplatedParent}}"
+                            SnapsToDevicePixels="True">
+                        <Grid Name="ContentGrid" Background="Transparent" SnapsToDevicePixels="True">
+                            <Border Name="InsideBorder" 
+                                Background="{Binding Path=Background, RelativeSource={RelativeSource TemplatedParent}}"
+                                CornerRadius="{Binding Path=DataContext.CornerRadius, RelativeSource={RelativeSource TemplatedParent}}"
+                                BorderThickness="{Binding Path=BorderThickness, RelativeSource={RelativeSource TemplatedParent}}" >
+                                <ContentPresenter Content="{TemplateBinding Content}" />
+                            </Border>
+                        </Grid>
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsMouseOver" Value="True" />
+                                <Condition Property="IsEnabled" Value="True" />
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="InsideBorder" Property="Background" Value="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}}}" />
+                        </MultiTrigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsKeyboardFocused" Value="True" />
+                                <Condition Property="IsEnabled" Value="True" />
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="InsideBorder" Property="Background" Value="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}}}" />
+                        </MultiTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="Button" x:Key="FramedButton" BasedOn="{StaticResource {x:Type Button}}">
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
         <Setter Property="Cursor" Value="Hand" />
         <Setter Property="Template">
@@ -121,8 +182,9 @@
                 <ControlTemplate TargetType="Button">
                     <Border x:Name="Border" 
                         BorderThickness="{Binding Path=BorderThickness, RelativeSource={RelativeSource AncestorType={x:Type Button}}}" 
-                        BorderBrush="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}}}">
-                        <Grid Background="{Binding Path=Background, RelativeSource={RelativeSource AncestorType={x:Type Button}}}">
+                        BorderBrush="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}}}"
+                        CornerRadius="{Binding Path=DataContext.CornerRadius, RelativeSource={RelativeSource TemplatedParent}}">
+                        <Grid Background="{Binding Path=Background, RelativeSource={RelativeSource TemplatedParent}}">
                             <ContentPresenter Content="{TemplateBinding Content}" />
                         </Grid>
                     </Border>
@@ -146,7 +208,6 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-        <Setter Property="Cursor" Value="Hand" />
     </Style>
 
     <Style TargetType="Button" x:Key="FramedButtonNoGlow">
@@ -157,8 +218,9 @@
                 <ControlTemplate TargetType="Button">
                     <Border x:Name="Border" 
                         BorderThickness="{Binding Path=BorderThickness, RelativeSource={RelativeSource AncestorType={x:Type Button}}}" 
-                        BorderBrush="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}}}">
-                        <Grid Name="BackgroundGrid" Background="{Binding Path=Background, RelativeSource={RelativeSource AncestorType={x:Type Button}}}">
+                        BorderBrush="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}}}"
+                        CornerRadius="{Binding Path=DataContext.CornerRadius, RelativeSource={RelativeSource TemplatedParent}}">
+                        <Grid Name="BackgroundGrid" Background="Transparent">
                             <ContentPresenter Content="{TemplateBinding Content}" />
                         </Grid>
                     </Border>
@@ -191,7 +253,6 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-        <Setter Property="Cursor" Value="Hand" />
     </Style>
 
     <Style TargetType="{x:Type PasswordBox}" x:Key="PhraseFieldStyle" BasedOn="{StaticResource {x:Type PasswordBox}}">

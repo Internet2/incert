@@ -113,12 +113,20 @@
     </xs:simpleContent>
   </xs:complexType>
 
+  <xs:complexType name="ButtonEffect">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="type" type="FramedButtonEffects" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
   <xs:element name="FramedButton">
     <xs:complexType>
       <xs:sequence>
         <xs:element name="Image" maxOccurs="1" minOccurs="0" type="ButtonImageType" />
         <xs:element name="Caption" maxOccurs="1" minOccurs="0" type="ButtonTextContent" />
         <xs:element name="SubCaption" maxOccurs="1" minOccurs="0" type="ButtonTextContent" />
+        <xs:element name="Effect" type="ButtonEffect" maxOccurs="1" minOccurs="0" />
       </xs:sequence>
       <xs:attribute name="style" type="xs:string"  use="optional" />
       <xs:attribute name="color" type="xs:string"  use="optional" />
@@ -139,6 +147,7 @@
       <xs:attribute name="borderSize" type="Padding" use="optional" />
       <xs:attribute name="value" type="xs:string" use="optional" />
       <xs:attribute name="background" type="xs:string" use="optional" />
+      <xs:attribute name="cornerRadius" type="Padding" use="optional" />
     </xs:complexType>
   </xs:element>
 
@@ -424,6 +433,13 @@
     </xs:complexType>
   </xs:element>
 
+  <xs:simpleType name="FramedButtonEffects">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="glow" />
+      <xs:enumeration value="invert" />
+    </xs:restriction>
+  </xs:simpleType>
+  
   <xs:simpleType name="SystemIconSizes">
     <xs:restriction base="xs:string">
       <xs:enumeration value="Small" />

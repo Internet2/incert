@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Collections.Generic;
+using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Org.InCommon.InCert.Engine.Engines;
@@ -14,6 +15,23 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
 {
     internal class FramedButtonModel : AbstractContentModel
     {
+        private readonly Dictionary<string, string> _buttonStyleDictionary = new Dictionary<string, string>
+        {
+            {"glow", "FramedButton"},
+            {"default", "FramedButtonNoGlow"},
+            {"invert", "InvertingFramedButton"},
+            {"",""}
+        };
+
+        private readonly Dictionary<string, string> _captionStyleDictionary = new Dictionary<string, string>
+        {
+            {"glow", ""},
+            {"default", ""},
+            {"invert", "InvertingTextBlock"},
+            {"",""}
+        };
+
+
         protected IEngine Engine { get; private set; }
 
         protected ISettingsManager SettingsManager
@@ -35,6 +53,8 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
         private Thickness _borderSize;
         private string _settingKey;
         private string _text;
+        private CornerRadius _cornerRadius;
+
         private ImageSource _imageSource;
         private ImageSource _mouseOverImageSource;
 
@@ -62,6 +82,12 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
                 _borderSize = value;
                 OnPropertyChanged();
             }
+        }
+
+        public CornerRadius CornerRadius
+        {
+            get { return _cornerRadius; }
+            set { _cornerRadius = value; OnPropertyChanged(); }
         }
 
         public double Width
@@ -209,8 +235,8 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
             Height = wrapper.Height;
 
             Background = AppearanceManager.GetBrushForColor(wrapper.Background, AppearanceManager.BackgroundBrush);
-            Style = GetNamedStyle(wrapper.GlowEffect ? "FramedButton" : "FramedButtonNoGlow");
-            GlowBrush = AppearanceManager.GetBrushForColor(wrapper.GlowColor, AppearanceManager.LinkTextBrush);
+            Style = GetNamedStyle(_buttonStyleDictionary[wrapper.EffectName]);
+            GlowBrush = AppearanceManager.GetBrushForColor(wrapper.EffectArgument, AppearanceManager.LinkTextBrush);
             ButtonContentModel = new TextContentModel(this);
             ButtonContentModel.LoadContent<DependencyObject>(wrapper);
             ButtonContentModel.Margin = new Thickness(0);
@@ -218,6 +244,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
             IsDefaultButton = wrapper.IsDefaultButton;
             IsCancelButton = wrapper.IsCancelButton;
             BorderSize = wrapper.BorderSize;
+            CornerRadius = wrapper.CornerRadius;
             Text = wrapper.GetText();
 
             if (wrapper.Image != null)
@@ -227,12 +254,36 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
 
             if (wrapper.Caption != null)
             {
-                Caption = new FramedButtonCaptionText(Engine.AppearanceManager, wrapper.Caption);
+                Caption = new FramedButtonCaptionText(Engine.AppearanceManager, wrapper.Caption)
+                {
+                    Style = GetNamedStyle(_captionStyleDictionary[wrapper.EffectName])
+                };
+            }
+            else
+            {
+                Caption = new FramedButtonCaptionText
+                {
+                    Visibility = Visibility.Collapsed,
+                    FontSize = 10,
+                    FontFamily = AppearanceManager.DefaultFontFamily
+                }; 
             }
 
             if (wrapper.SubCaption != null)
             {
-                SubCaption = new FramedButtonCaptionText(Engine.AppearanceManager, wrapper.SubCaption);
+                SubCaption = new FramedButtonCaptionText(Engine.AppearanceManager, wrapper.SubCaption)
+                {
+                    Style = GetNamedStyle(_captionStyleDictionary[wrapper.EffectName])
+                };
+            }
+            else
+            {
+                SubCaption = new FramedButtonCaptionText
+                {
+                    Visibility = Visibility.Collapsed, 
+                    FontSize = 10, 
+                    FontFamily = AppearanceManager.DefaultFontFamily
+                }; 
             }
 
         }
@@ -248,6 +299,10 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
             private double _fontSize;
             private FontFamily _fontFamily;
             private FontWeight _fontWeight;
+            private Style _style;
+            private Visibility _visibility;
+
+            public FramedButtonCaptionText(){}
 
             public FramedButtonCaptionText(IAppearanceManager appearanceManager, FramedButton.ButtonTextContent wrapper)
             {
@@ -258,9 +313,9 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
                 Padding = wrapper.Padding;
                 FontWeight = wrapper.FontWeight;
                 FontSize = wrapper.FontSize;
-                
-                FontFamily = wrapper.FontFamily ?? appearanceManager.DefaultFontFamily;
 
+                FontFamily = wrapper.FontFamily ?? appearanceManager.DefaultFontFamily;
+                Visibility = Visibility.Visible;
             }
 
             public string Value
@@ -309,6 +364,18 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
             {
                 get { return _fontWeight; }
                 set { _fontWeight = value; OnPropertyChanged(); }
+            }
+
+            public Style Style
+            {
+                get { return _style; }
+                set { _style = value; OnPropertyChanged(); }
+            }
+
+            public Visibility Visibility
+            {
+                get { return _visibility; }
+                set { _visibility = value; OnPropertyChanged(); }
             }
         }
 

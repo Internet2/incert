@@ -15,27 +15,29 @@
         IsDefault="{Binding IsDefaultButton}"
         IsCancel="{Binding IsCancelButton}"
         BorderBrush="{Binding GlowBrush}">
-    <StackPanel Background="{Binding Background}" VerticalAlignment="Center" HorizontalAlignment="Center">
-        <Image DataContext="{Binding ButtonImage}">
-            <Image.Style>
-                <Style TargetType="{x:Type Image}">
-                    <Setter Property="VerticalAlignment" Value="{Binding VerticalAlignment}" />
-                    <Setter Property="HorizontalAlignment" Value="{Binding HorizontalAlignment}" />
-                    <Setter Property="Margin" Value="{Binding Margin}" />
-                    <Setter Property="Source" Value="{Binding ImageSource}"/>
-                    <Setter Property="Height" Value="{Binding ImageSource.Height}" />
-                    <Setter Property="Width" Value="{Binding ImageSource.Width}" />
-                    <Style.Triggers>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Source" Value="{Binding MouseOverImageSource}"/>
-                            <Setter Property="Height" Value="{Binding MouseOverImageSource.Height}" />
-                            <Setter Property="Width" Value="{Binding MouseOverImageSource.Width}" />
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
-            </Image.Style>
-        </Image>
-        <TextBlock 
+
+    <Grid>
+        <StackPanel Background="Transparent" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Image DataContext="{Binding ButtonImage}">
+                <Image.Style>
+                    <Style TargetType="{x:Type Image}">
+                        <Setter Property="VerticalAlignment" Value="{Binding VerticalAlignment}" />
+                        <Setter Property="HorizontalAlignment" Value="{Binding HorizontalAlignment}" />
+                        <Setter Property="Margin" Value="{Binding Margin}" />
+                        <Setter Property="Source" Value="{Binding ImageSource}"/>
+                        <Setter Property="Height" Value="{Binding ImageSource.Height}" />
+                        <Setter Property="Width" Value="{Binding ImageSource.Width}" />
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Source" Value="{Binding MouseOverImageSource}"/>
+                                <Setter Property="Height" Value="{Binding MouseOverImageSource.Height}" />
+                                <Setter Property="Width" Value="{Binding MouseOverImageSource.Width}" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Image.Style>
+            </Image>
+            <TextBlock 
             DataContext="{Binding Caption}" 
             TextWrapping="Wrap" 
             Text="{Binding Value}" 
@@ -45,10 +47,12 @@
             VerticalAlignment="{Binding VerticalAlignment}"
             Margin="{Binding Margin}"
             Padding="{Binding Padding}"
-            FontWeight="{Binding FontWeight}"
+            FontWeight="{Binding FontWeight}" 
+            Style ="{Binding Style}"
+            Visibility="{Binding Visibility}"
             />
-        
-        <TextBlock 
+
+            <TextBlock 
             DataContext="{Binding SubCaption}" 
             TextWrapping="Wrap"
             Text="{Binding Value}"
@@ -59,6 +63,10 @@
             Margin="{Binding Margin}"
             Padding="{Binding Padding}"
             FontWeight="{Binding FontWeight}"
+            Style ="{Binding Style}"
+            Visibility="{Binding Visibility}"
             />
-    </StackPanel>
+        </StackPanel>
+    </Grid>
+    
 </Button>
