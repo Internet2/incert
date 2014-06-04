@@ -247,6 +247,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
             private Thickness _padding;
             private double _fontSize;
             private FontFamily _fontFamily;
+            private FontWeight _fontWeight;
 
             public FramedButtonCaptionText(IAppearanceManager appearanceManager, FramedButton.ButtonTextContent wrapper)
             {
@@ -255,12 +256,9 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
                 HorizontalAlignment = wrapper.HorizontalAlignment;
                 Margin = wrapper.Margin;
                 Padding = wrapper.Padding;
-
-                if (wrapper.FontSize.HasValue)
-                {
-                    FontSize = wrapper.FontSize.Value;
-                }
-
+                FontWeight = wrapper.FontWeight;
+                FontSize = wrapper.FontSize;
+                
                 FontFamily = wrapper.FontFamily ?? appearanceManager.DefaultFontFamily;
 
             }
@@ -305,6 +303,12 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
             {
                 get { return _fontFamily; }
                 set { _fontFamily = value; OnPropertyChanged(); }
+            }
+
+            public FontWeight FontWeight
+            {
+                get { return _fontWeight; }
+                set { _fontWeight = value; OnPropertyChanged(); }
             }
         }
 

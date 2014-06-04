@@ -45,6 +45,7 @@
             VerticalAlignment="{Binding VerticalAlignment}"
             Margin="{Binding Margin}"
             Padding="{Binding Padding}"
+            FontWeight="{Binding FontWeight}"
             />
         
         <TextBlock 
@@ -56,6 +57,8 @@
             HorizontalAlignment="{Binding HorizontalAlignment}" 
             VerticalAlignment="{Binding VerticalAlignment}"
             Margin="{Binding Margin}"
-            Padding="{Binding Padding}"/>
+            Padding="{Binding Padding}"
+            FontWeight="{Binding FontWeight}"
+            />
     </StackPanel>
 </Button>

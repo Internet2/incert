@@ -27,10 +27,10 @@ namespace Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.ContentContro
         public ButtonImageContent Image { get; set; }
         public ButtonTextContent Caption { get; set; }
         public ButtonTextContent SubCaption { get; set; }
-        
+
         public override System.Type GetSupportingModelType()
         {
-            return typeof (FramedButtonModel);
+            return typeof(FramedButtonModel);
         }
 
         public override void ConfigureFromNode(XElement node)
@@ -52,17 +52,18 @@ namespace Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.ContentContro
         }
 
 
-        public class ButtonImageContent:AbstractDynamicPropertyContainer
+        public class ButtonImageContent : AbstractDynamicPropertyContainer
         {
-            public ButtonImageContent(IEngine engine) : base(engine)
+            public ButtonImageContent(IEngine engine)
+                : base(engine)
             {
-                
+
             }
 
             public VerticalAlignment VerticalAlignment { get; set; }
             public HorizontalAlignment Alignment { get; set; }
             public Thickness Margin { get; set; }
-           
+
 
             public string Key
             {
@@ -82,7 +83,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.ContentContro
 
                 VerticalAlignment = XmlUtilities.GetEnumValueFromAttribute(element, "verticalAlignment", VerticalAlignment.Center);
                 Alignment = XmlUtilities.GetEnumValueFromAttribute(element, "alignment", HorizontalAlignment.Center);
-                
+
                 if (XmlUtilities.IsAttributeSet(element, "margin"))
                     Margin = XmlUtilities.ConvertFromAttributeUsingConverter(
                         element, "margin", new ThicknessConverter(), new Thickness(0));
@@ -92,20 +93,22 @@ namespace Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.ContentContro
             }
         }
 
-        public class ButtonTextContent: AbstractDynamicPropertyContainer 
+        public class ButtonTextContent : AbstractDynamicPropertyContainer
         {
-            public ButtonTextContent(IEngine engine) : base(engine)
+            public ButtonTextContent(IEngine engine)
+                : base(engine)
             {
             }
 
-            public FontWeight? FontWeight { get; set; }
-            public FontStyle? FontStyle { get; set; }
+            public FontWeight FontWeight { get; set; }
+            public FontStyle FontStyle { get; set; }
             public FontFamily FontFamily { get; set; }
-            public double? FontSize { get; set; }
+            public double FontSize { get; set; }
             public VerticalAlignment VerticalAlignment { get; set; }
             public HorizontalAlignment HorizontalAlignment { get; set; }
             public Thickness Margin { get; set; }
             public Thickness Padding { get; set; }
+
 
             public string Value
             {
@@ -119,28 +122,22 @@ namespace Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.ContentContro
 
                 VerticalAlignment = XmlUtilities.GetEnumValueFromAttribute(element, "verticalAlignment", VerticalAlignment.Center);
                 HorizontalAlignment = XmlUtilities.GetEnumValueFromAttribute(element, "alignment", HorizontalAlignment.Center);
-                
-                if (XmlUtilities.IsAttributeSet(element, "fontFamily"))
-                    FontFamily = XmlUtilities.ConvertFromAttributeUsingConverter<FontFamily>(
-                        element, "fontFamily", new FontFamilyConverter(), null);
 
-                if (XmlUtilities.IsAttributeSet(element, "fontSize"))
-                    FontSize = XmlUtilities.GetDoubleFromAttribute(element, "fontSize", 14);
+                FontFamily = XmlUtilities.ConvertFromAttributeUsingConverter<FontFamily>
+                    (element, "fontFamily", new FontFamilyConverter(), null);
 
-                if (XmlUtilities.IsAttributeSet(element, "fontWeight"))
-                    FontWeight = XmlUtilities.ConvertFromAttributeUsingConverter(
-                        element, "fontWeight", new FontWeightConverter(), FontWeights.Normal);
+                FontSize = XmlUtilities.GetDoubleFromAttribute(element, "fontSize", 14);
 
-                if (XmlUtilities.IsAttributeSet(element, "fontStyle"))
-                    FontStyle = XmlUtilities.ConvertFromAttributeUsingConverter(
+                FontWeight = XmlUtilities.ConvertFromAttributeUsingConverter(
+                    element, "fontWeight", new FontWeightConverter(), FontWeights.Normal);
+
+                FontStyle = XmlUtilities.ConvertFromAttributeUsingConverter(
                         element, "fontStyle", new FontStyleConverter(), FontStyles.Normal);
 
-                if (XmlUtilities.IsAttributeSet(element, "margin"))
-                    Margin = XmlUtilities.ConvertFromAttributeUsingConverter(
+                Margin = XmlUtilities.ConvertFromAttributeUsingConverter(
                         element, "margin", new ThicknessConverter(), new Thickness(0));
 
-                if (XmlUtilities.IsAttributeSet(element, "padding"))
-                    Padding = XmlUtilities.ConvertFromAttributeUsingConverter(
+                Padding = XmlUtilities.ConvertFromAttributeUsingConverter(
                         element, "padding", new ThicknessConverter(), new Thickness(0));
 
                 Value = XmlUtilities.GetTextFromNode(element);

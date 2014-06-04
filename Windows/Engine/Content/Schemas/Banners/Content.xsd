@@ -108,6 +108,7 @@
         <xs:attribute name="fontSize" type="xs:double"  use="optional" />
         <xs:attribute name="padding" type="Padding"  use="optional" />
         <xs:attribute name="margin" type="Padding"  use="optional" />
+        <xs:attribute name="fontWeight" type="FontWeights" use="optional" />
       </xs:extension>
     </xs:simpleContent>
   </xs:complexType>
