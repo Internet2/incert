@@ -3,7 +3,7 @@ using Org.InCommon.InCert.Engine.Engines;
 
 namespace Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.ButtonWrappers
 {
-    class OpenAdvancedMenuButton:AbstractButton
+    class OpenAdvancedMenuButton:AbstractButtonWrapper
     {
         public OpenAdvancedMenuButton(IEngine engine):base(engine)
         {

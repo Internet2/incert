@@ -72,7 +72,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.CommandModels
             }
         }
 
-        public static AbstractCommandModel FromButtonWrapper(AbstractDialogModel dialog, AbstractButton wrapper)
+        public static AbstractCommandModel FromButtonWrapper(AbstractDialogModel dialog, AbstractButtonWrapper wrapper)
         {
             var result = MapButtonWrapperToModel(dialog, wrapper);
             if (result == null)
@@ -90,7 +90,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.CommandModels
             return result;
         }
 
-        private static AbstractCommandModel MapButtonWrapperToModel(AbstractDialogModel dialog, AbstractButton wrapper)
+        private static AbstractCommandModel MapButtonWrapperToModel(AbstractDialogModel dialog, AbstractButtonWrapper wrapper)
         {
             var kernal = Application.Current.CurrentKernel();
             var modelParameter = new ConstructorArgument("model", dialog);

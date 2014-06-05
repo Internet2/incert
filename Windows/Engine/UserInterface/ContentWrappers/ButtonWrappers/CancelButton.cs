@@ -2,7 +2,7 @@
 
 namespace Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.ButtonWrappers
 {
-    class CancelButton:AbstractButton
+    class CancelButton:AbstractButtonWrapper
     {
         public CancelButton(IEngine engine):base(engine)
         {

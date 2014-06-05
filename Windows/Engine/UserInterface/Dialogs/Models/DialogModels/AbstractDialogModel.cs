@@ -35,7 +35,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
             AdvancedButton
         }
 
-        private readonly Dictionary<ButtonTargets, Action<AbstractButton>> _buttonAssigners;
+        private readonly Dictionary<ButtonTargets, Action<AbstractButtonWrapper>> _buttonAssigners;
         private readonly Dictionary<ModelKeys, AbstractModel> _childModels = new Dictionary<ModelKeys, AbstractModel>();
 
         private readonly IDialogsManager _dialogsManager;
@@ -164,7 +164,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
             _canClose = true;
             SuppressCloseQuestion = false;
 
-            _buttonAssigners = new Dictionary<ButtonTargets, Action<AbstractButton>>
+            _buttonAssigners = new Dictionary<ButtonTargets, Action<AbstractButtonWrapper>>
                 {
                     {ButtonTargets.AdvancedButton, AssignAdvancedModel},
                     {ButtonTargets.BackButton, AssignBackModel},
@@ -397,7 +397,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
             return !result.IsOk() ? result : WaitForResult();
         }
 
-        private void SetNavigationModels(List<AbstractButton> buttons)
+        private void SetNavigationModels(List<AbstractButtonWrapper> buttons)
         {
             SetModelForKey(ModelKeys.AdvancedButton, new InvisibleCommandModel(this));
             SetModelForKey(ModelKeys.BackButton, new InvisibleCommandModel(this));
@@ -421,7 +421,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
             FlagPropertyAsChanged("BackModel");
         }
 
-        protected void AssignNavigationModel(AbstractButton button)
+        protected void AssignNavigationModel(AbstractButtonWrapper button)
         {
             if (button == null)
             {
@@ -585,22 +585,22 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
             DialogInstance.Hide();
         }
 
-        private void AssignHelpModel(AbstractButton info)
+        private void AssignHelpModel(AbstractButtonWrapper info)
         {
             HelpModel = AbstractCommandModel.FromButtonWrapper(this, info);
         }
 
-        private void AssignAdvancedModel(AbstractButton info)
+        private void AssignAdvancedModel(AbstractButtonWrapper info)
         {
             AdvancedModel = AbstractCommandModel.FromButtonWrapper(this, info);
         }
 
-        private void AssignBackModel(AbstractButton info)
+        private void AssignBackModel(AbstractButtonWrapper info)
         {
             BackModel = AbstractCommandModel.FromButtonWrapper(this, info);
         }
 
-        private void AssignNextModel(AbstractButton info)
+        private void AssignNextModel(AbstractButtonWrapper info)
         {
             NextModel = AbstractCommandModel.FromButtonWrapper(this, info);
         }

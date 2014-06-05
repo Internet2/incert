@@ -5,7 +5,7 @@ using Org.InCommon.InCert.Engine.Importables;
 
 namespace Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.ButtonWrappers
 {
-    public abstract class AbstractButton : AbstractDynamicPropertyContainer
+    public abstract class AbstractButtonWrapper : AbstractDynamicPropertyContainer
     {
         [PropertyAllowedFromXml]
         public string Text
@@ -29,7 +29,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.ButtonWrapper
         [PropertyAllowedFromXml]
         public bool IsCancelButton { get; set; }
 
-        protected AbstractButton(IEngine engine):base(engine)
+        protected AbstractButtonWrapper(IEngine engine):base(engine)
         {
             Enabled = true;
             Visible = true;
