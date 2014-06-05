@@ -3,14 +3,18 @@ using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using Ninject;
 using Ninject.Parameters;
+using Org.InCommon.InCert.Engine.Engines;
 using Org.InCommon.InCert.Engine.Extensions;
 using Org.InCommon.InCert.Engine.Logging;
+using Org.InCommon.InCert.Engine.Settings;
 using Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.ButtonWrappers;
 using Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.LinkWrappers;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels;
 using log4net;
+using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Properties;
 
 namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.CommandModels
 {
@@ -21,6 +25,9 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.CommandModels
         private string _text;
         private bool _defaultButton;
         private bool _cancelButton;
+        private FontFamily _font;
+        private double _fontSize;
+        private CommandButtonImage _image;
 
         protected AbstractCommandModel(AbstractDialogModel model)
             : base(model)
@@ -39,6 +46,12 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.CommandModels
         public abstract ICommand Command { get; }
 
         public ButtonTargets Target { get; set; }
+
+        public CommandButtonImage ButtonImage
+        {
+            get { return _image; }
+            set { _image = value; OnPropertyChanged(); }
+        }
 
         public Brush TextBrush
         {
@@ -72,7 +85,19 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.CommandModels
             }
         }
 
-        public static AbstractCommandModel FromButtonWrapper(AbstractDialogModel dialog, AbstractButtonWrapper wrapper)
+        public FontFamily Font
+        {
+            get { return _font; }
+            set { _font = value; OnPropertyChanged(); }
+        }
+
+        public double FontSize
+        {
+            get { return _fontSize; }
+            set { _fontSize = value; OnPropertyChanged(); }
+        }
+
+        public static AbstractCommandModel FromButtonWrapper(IHasEngineFields engine, AbstractDialogModel dialog, AbstractButtonWrapper wrapper)
         {
             var result = MapButtonWrapperToModel(dialog, wrapper);
             if (result == null)
@@ -87,6 +112,9 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.CommandModels
             result.Target = wrapper.Target;
             result.IsDefaultButton = wrapper.IsDefaultButton;
             result.IsCancelButton = wrapper.IsCancelButton;
+            result.Font = dialog.AppearanceManager.DefaultFontFamily;
+            result.FontSize = 12;
+            result.ButtonImage = new CommandButtonImage(engine.SettingsManager, wrapper);
             return result;
         }
 
@@ -179,9 +207,34 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.CommandModels
 
             return null;
         }
+        
+        public class CommandButtonImage : PropertyNotifyBase
+        {
+            private ImageSource _image;
+            private ImageSource _mouseOverImage;
+            
+            public CommandButtonImage(ISettingsManager settingsManager, AbstractButtonWrapper wrapper)
+            {
+                {
+                    ImageSource = settingsManager.GetTemporaryObject(wrapper.ImageKey) as BitmapFrame;
+                    MouseOverImageSource = settingsManager.GetTemporaryObject(wrapper.MouseOverImageKey) as BitmapFrame;
+                }
+            }
+            public ImageSource ImageSource
+            {
+                get { return _image; }
+                set { _image = value; OnPropertyChanged(); }
+            }
 
+            public ImageSource MouseOverImageSource
+            {
+                get
+                {
+                    return _mouseOverImage ?? _image;
+                }
+                set { _mouseOverImage = value; OnPropertyChanged(); }
+            }
 
-
-
+       }
     }
 }

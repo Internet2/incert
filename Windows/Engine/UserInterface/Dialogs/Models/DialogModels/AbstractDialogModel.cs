@@ -6,6 +6,7 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
+using Org.InCommon.InCert.Engine.Engines;
 using Org.InCommon.InCert.Engine.Extensions;
 using Org.InCommon.InCert.Engine.Logging;
 using Org.InCommon.InCert.Engine.Results;
@@ -41,6 +42,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
         private readonly IDialogsManager _dialogsManager;
         private readonly IBannerManager _bannerManager;
 
+        private readonly IHasEngineFields _engine;
         private readonly Window _dialogInstance;
 
         private static readonly ILog Log = Logger.Create();
@@ -153,11 +155,12 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
 
         public IAppearanceManager AppearanceManager { get; private set; }
 
-        protected AbstractDialogModel(IDialogsManager dialogsManager, IBannerManager bannerManager, IAppearanceManager appearanceManager, Window dialogInstance)
+        protected AbstractDialogModel(IHasEngineFields engine, Window dialogInstance)
         {
-            AppearanceManager = appearanceManager;
-            _dialogsManager = dialogsManager;
-            _bannerManager = bannerManager;
+            AppearanceManager = engine.AppearanceManager;
+            _dialogsManager = engine.DialogsManager;
+            _bannerManager = engine.BannerManager;
+            _engine = engine;
             _dialogInstance = dialogInstance;
             dialogInstance.DataContext = this;
             _enabled = true;
@@ -587,22 +590,22 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
 
         private void AssignHelpModel(AbstractButtonWrapper info)
         {
-            HelpModel = AbstractCommandModel.FromButtonWrapper(this, info);
+            HelpModel = AbstractCommandModel.FromButtonWrapper(_engine, this, info);
         }
 
         private void AssignAdvancedModel(AbstractButtonWrapper info)
         {
-            AdvancedModel = AbstractCommandModel.FromButtonWrapper(this, info);
+            AdvancedModel = AbstractCommandModel.FromButtonWrapper(_engine, this, info);
         }
 
         private void AssignBackModel(AbstractButtonWrapper info)
         {
-            BackModel = AbstractCommandModel.FromButtonWrapper(this, info);
+            BackModel = AbstractCommandModel.FromButtonWrapper(_engine, this, info);
         }
 
         private void AssignNextModel(AbstractButtonWrapper info)
         {
-            NextModel = AbstractCommandModel.FromButtonWrapper(this, info);
+            NextModel = AbstractCommandModel.FromButtonWrapper(_engine, this, info);
         }
 
         private void DialogCloseButtonHandler(object sender, CancelEventArgs e)

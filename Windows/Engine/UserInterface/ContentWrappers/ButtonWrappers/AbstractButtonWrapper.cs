@@ -29,6 +29,12 @@ namespace Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.ButtonWrapper
         [PropertyAllowedFromXml]
         public bool IsCancelButton { get; set; }
 
+        [PropertyAllowedFromXml]
+        public string ImageKey { get; set; }
+
+        [PropertyAllowedFromXml]
+        public string MouseOverImageKey { get; set; }
+
         protected AbstractButtonWrapper(IEngine engine):base(engine)
         {
             Enabled = true;

@@ -62,6 +62,7 @@ namespace Org.InCommon.InCert.Engine
             public override void Load()
             {
                 Bind<IEngine>().To<StandardEngine>().InSingletonScope();
+                Bind<IHasEngineFields>().ToMethod(c => c.Kernel.Get<IEngine>());
                 Bind<ISettingsManager>().To<SettingsManager>().InSingletonScope();
                 Bind<IBranchManager>().To<BranchManager>().InSingletonScope();
                 Bind<ICommandLineManager>().To<CommandLineManager>().InSingletonScope();
