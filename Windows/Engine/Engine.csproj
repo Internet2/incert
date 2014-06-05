@@ -881,6 +881,7 @@
     <Compile Include="UserInterface\Dialogs\Models\Mockup\ContentModels\MockAdvancedMenuItem.cs" />
     <Compile Include="UserInterface\Dialogs\Models\Mockup\ContentModels\MockBaseContentModel.cs" />
     <Compile Include="UserInterface\Dialogs\Models\Mockup\ContentModels\MockBorderedContentPanelModel.cs" />
+    <Compile Include="UserInterface\Dialogs\Models\Mockup\ContentModels\MockButtonImage.cs" />
     <Compile Include="UserInterface\Dialogs\Models\Mockup\ContentModels\MockContentPanelModel.cs" />
     <Compile Include="UserInterface\Dialogs\Models\Mockup\ContentModels\MockFramedButtonModel.cs" />
     <Compile Include="UserInterface\Dialogs\Models\Mockup\ContentModels\MockInputFieldModel.cs" />
