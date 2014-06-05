@@ -38,19 +38,7 @@
             
             Content="{Binding Content}" />
         </Grid>
-        <!--<Frame 
-            Name="ContentFrame" 
-            Grid.Row="0"
-            Grid.Column="0"
-            NavigationUIVisibility="Hidden" 
-            IsTabStop="False" 
-            FocusVisualStyle="{x:Null}" 
-            Margin="0" 
-            Padding="0"
-            DataContext="{Binding ContentModel}"
-            Content="{Binding Page}"
-            Cursor="{Binding Cursor}" />-->
-
+      
         <DockPanel
             Name="NavigationPanel"
             Grid.Row="1"

@@ -4,9 +4,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:contentModels="clr-namespace:Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.Mockup.ContentModels"
+        xmlns:converters="clr-namespace:Org.InCommon.InCert.Engine.UserInterface.Dialogs.Converters"
         mc:Ignorable="d" 
         d:DataContext="{d:DesignInstance Type=contentModels:MockDialogButtonModel, IsDesignTimeCreatable=True}"
-        d:DesignHeight="40" d:DesignWidth="200"
         Content="{Binding Text}"
         FontFamily="{Binding Font}"
         FontSize="{Binding FontSize}"
@@ -15,8 +15,10 @@
         IsDefault="{Binding IsDefaultButton}"
         Foreground="{Binding TextBrush}"
         Command="{Binding Command}"
-        >
+    >
     <Button.Resources>
+        <converters:NullOrEmptyToVisibilityConverter x:Key="EmptyToVisibilityConverter" />
+        
         <TextDecorationCollection x:Key="TextBlockDecorationsCollection">
             <TextDecoration PenThicknessUnit="FontRecommended" Location="Underline" PenOffset=".2" PenOffsetUnit="FontRenderingEmSize">
                 <TextDecoration.Pen>
@@ -27,24 +29,27 @@
 
         <Style TargetType="Button" x:Key="TextButton" BasedOn="{StaticResource {x:Type Button}}">
             <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+            <Setter Property="Cursor" Value="Hand"></Setter>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button" >
-                        <Grid Background="Transparent" VerticalAlignment="Center" HorizontalAlignment="Center">
-                            <DockPanel>
+                        <Grid Background="Transparent" VerticalAlignment="Center" HorizontalAlignment="Center" Width="{TemplateBinding Width}" Height="{TemplateBinding Height}">
+                            <DockPanel HorizontalAlignment="Center">
                                 <Image DockPanel.Dock="Left" 
                                     Name="ButtonImage"
                                     Source="{Binding ButtonImage.ImageSource}" 
                                     VerticalAlignment="Center" 
                                     Width ="{Binding ButtonImage.ImageSource.Width}"   
-                                    Height ="{Binding ButtonImage.ImageSource.Height}"      
-                                       />
+                                    Height ="{Binding ButtonImage.ImageSource.Height}"
+                                    Visibility="{Binding Converter={StaticResource EmptyToVisibilityConverter}, Path=ButtonImage.ImageSource}"
+                                />
                                 <TextBlock DockPanel.Dock="Right" 
                                     Name="ButtonText" 
                                     Text="{TemplateBinding Content}" 
                                     Foreground="{TemplateBinding Foreground}" 
                                     Cursor="Hand" Padding="4"
-                                    VerticalAlignment="Center" />
+                                    VerticalAlignment="Center"
+                                    Visibility="{Binding Converter={StaticResource EmptyToVisibilityConverter}, Path=Text}"/>
                             </DockPanel>
                         </Grid>
 
@@ -55,6 +60,7 @@
                                     <Condition Property="IsEnabled" Value="True" />
                                 </MultiTrigger.Conditions>
                                 <Setter Property="TextDecorations" TargetName="ButtonText" Value="{StaticResource TextBlockDecorationsCollection}" />
+                                <Setter Property="Source" TargetName="ButtonImage" Value="{Binding ButtonImage.MouseOverImageSource}"></Setter>
                             </MultiTrigger>
                             <MultiTrigger>
                                 <MultiTrigger.Conditions>
@@ -62,10 +68,17 @@
                                     <Condition Property="IsEnabled" Value="True" />
                                 </MultiTrigger.Conditions>
                                 <Setter Property="TextDecorations" TargetName="ButtonText" Value="{StaticResource TextBlockDecorationsCollection}" />
+                                <Setter Property="Source" TargetName="ButtonImage" Value="{Binding ButtonImage.MouseOverImageSource}"></Setter>
                             </MultiTrigger>
                             <Trigger Property="Command" Value="{x:Null}">
                                 <Setter Property="TextDecorations" TargetName="ButtonText" Value="{x:Null}" />
                                 <Setter Property="Cursor" TargetName="ButtonText" Value="Arrow" />
+                                <Setter Property="Opacity" Value=".45"></Setter>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="TextDecorations" TargetName="ButtonText" Value="{x:Null}" />
+                                <Setter Property="Cursor" TargetName="ButtonText" Value="Arrow" />
+                                <Setter Property="Opacity" Value=".45"></Setter>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>

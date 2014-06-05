@@ -19,5 +19,6 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.Mockup.Content
         public VerticalAlignment VerticalAlignment { get { return VerticalAlignment.Center; } }
         public HorizontalAlignment HorizontalAlignment { get { return HorizontalAlignment.Center; } }
         public Thickness Margin { get { return new Thickness(1); } }
+        public Visibility Visibility { get { return Visibility.Visible; } }
     }
 }

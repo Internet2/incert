@@ -220,6 +220,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.CommandModels
                     MouseOverImageSource = settingsManager.GetTemporaryObject(wrapper.MouseOverImageKey) as BitmapFrame;
                 }
             }
+
             public ImageSource ImageSource
             {
                 get { return _image; }
@@ -233,6 +234,14 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.CommandModels
                     return _mouseOverImage ?? _image;
                 }
                 set { _mouseOverImage = value; OnPropertyChanged(); }
+            }
+
+            public Visibility Visibility
+            {
+                get
+                {
+                    return ImageSource == null ? Visibility.Collapsed : Visibility.Visible;
+                }
             }
 
        }

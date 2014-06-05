@@ -18,11 +18,15 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.CommandModels.
         private bool _defaultButton;
         private bool _cancelButton;
         private Visibility _visibility;
+        private FontFamily _fontFamily;
+        private double _fontSize;
 
         protected AbstractCommandModel(IAppearanceManager appearanceManager, AdvancedMenuModel model)
         {
             AppearanceManager = appearanceManager;
             Model = model;
+            FontSize = 12;
+            Font = appearanceManager.DefaultFontFamily;
             Model.PropertyChanged += PropertyChangedHandler;
             PropertyChanged += PropertyChangedHandler;
         }
@@ -73,6 +77,18 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.CommandModels.
                 _command = value;
                 OnPropertyChanged();
             }
+        }
+
+        public FontFamily Font
+        {
+            get { return _fontFamily; }
+            set { _fontFamily = value; OnPropertyChanged(); }
+        }
+
+        public Double FontSize
+        {
+            get { return _fontSize; }
+            set { _fontSize = value; OnPropertyChanged(); }
         }
 
         public bool IsDefaultButton

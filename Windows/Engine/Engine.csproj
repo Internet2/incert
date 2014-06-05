@@ -749,6 +749,7 @@
     <Compile Include="UserInterface\Dialogs\Converters\BorderThicknessToStrokeThicknessConverter.cs" />
     <Compile Include="UserInterface\Dialogs\Converters\FontToLeftThicknessConverter.cs" />
     <Compile Include="UserInterface\Dialogs\Converters\MultiEnabledConverter.cs" />
+    <Compile Include="UserInterface\Dialogs\Converters\NullOrEmptyToVisibilityConverter.cs" />
     <Compile Include="UserInterface\Dialogs\Converters\SettingToBoolConverter.cs" />
     <Compile Include="UserInterface\Dialogs\Instances\AdvancedMenuWindow.xaml.cs">
       <DependentUpon>AdvancedMenuWindow.xaml</DependentUpon>

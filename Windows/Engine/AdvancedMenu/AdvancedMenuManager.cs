@@ -2,34 +2,20 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
-using Org.InCommon.InCert.Engine.Dynamics;
-using Org.InCommon.InCert.Engine.Help;
 using Org.InCommon.InCert.Engine.Importables;
 using Org.InCommon.InCert.Engine.Logging;
-using Org.InCommon.InCert.Engine.Results.ControlResults;
-using Org.InCommon.InCert.Engine.Settings;
-using Org.InCommon.InCert.Engine.TaskBranches;
-using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Managers;
-using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels;
 using log4net;
 
 namespace Org.InCommon.InCert.Engine.AdvancedMenu
 {
     class AdvancedMenuManager : IAdvancedMenuManager
     {
-        private readonly IAppearanceManager _appearanceManager;
-        private readonly IBranchManager _branchManager;
-        private readonly IHelpManager _helpManager;
-        private readonly ISettingsManager _settingsManager;
+       
         private static readonly ILog Log = Logger.Create();
         public Dictionary<string, IAdvancedMenuItem> Items { get; private set; }
 
-        public AdvancedMenuManager(IAppearanceManager appearanceManager, IBranchManager branchManager, IHelpManager helpManager, ISettingsManager settingsManager)
+        public AdvancedMenuManager()
         {
-            _appearanceManager = appearanceManager;
-            _branchManager = branchManager;
-            _helpManager = helpManager;
-            _settingsManager = settingsManager;
             Items = new Dictionary<string, IAdvancedMenuItem>();
             DefaultTitle = "Advanced Support Tools";
             DefaultDescription = "This is a place-holder description.";
@@ -89,50 +75,7 @@ namespace Org.InCommon.InCert.Engine.AdvancedMenu
             }
 
         }
-
-        public void ShowAdvancedMenu(AbstractDialogModel model, string group)
-        {
-            try
-            {
-
-                if (model == null)
-                    return;
-
-                var left = model.DialogInstance.Left;
-                var top = model.DialogInstance.Top;
-
-                model.EnableDisableAllControls(false);
-                var advancedMenuModel = new AdvancedMenuModel(this,
-                    _appearanceManager,
-                    _branchManager,
-                    _helpManager,
-                    model);
-                advancedMenuModel.ShowDialog(
-                    left,
-                    top,
-                    group.Resolve(_settingsManager, true));
-
-                if (advancedMenuModel.Result != null)
-                {
-                    if (advancedMenuModel.Result is RestartComputerResult ||
-                        advancedMenuModel.Result is SilentRestartComputerResult ||
-                        advancedMenuModel.Result is ExitUtilityResult)
-                    {
-                        model.Result = advancedMenuModel.Result;
-                        model.SuppressCloseQuestion = true;
-                        model.DialogInstance.Close();
-                    }
-                }
-            }
-            finally
-            {
-                if (model != null)
-                    model.EnableDisableAllControls(true);
-
-            }
-
-        }
-
+        
         public void Initialize()
         {
             
