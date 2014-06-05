@@ -690,7 +690,7 @@
     <Compile Include="Tasks\Wireless\AddWirelessProfile.cs" />
     <Compile Include="UserInterface\ContentWrappers\BannerWrappers\BannerManager.cs" />
     <Compile Include="UserInterface\ContentWrappers\BannerWrappers\IBannerManager.cs" />
-    <Compile Include="UserInterface\ContentWrappers\ButtonWrappers\AbstractButton.cs" />
+    <Compile Include="UserInterface\ContentWrappers\ButtonWrappers\AbstractDialogButton.cs" />
     <Compile Include="UserInterface\ContentWrappers\ButtonWrappers\OpenAdvancedMenuButton.cs" />
     <Compile Include="UserInterface\ContentWrappers\ButtonWrappers\ButtonTargets.cs" />
     <Compile Include="UserInterface\ContentWrappers\ButtonWrappers\CancelButton.cs" />

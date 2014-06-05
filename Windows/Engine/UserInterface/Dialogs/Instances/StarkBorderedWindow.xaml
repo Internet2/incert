@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:dialogModels="clr-namespace:Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.Mockup.DialogModels"
+        xmlns:customControls="clr-namespace:Org.InCommon.InCert.Engine.UserInterface.Dialogs.Instances.CustomControls"
         mc:Ignorable="d"
         Title="{Binding WindowTitle}"
         WindowStyle="{Binding WindowStyle}"
@@ -56,58 +57,30 @@
             Grid.Column="0"
             LastChildFill="False">
 
-            <Button 
-                Style="{StaticResource TextButton}" 
+            <customControls:DialogButton 
                 DockPanel.Dock="Left" 
                 Margin="14,6,0,8" 
-                DataContext="{Binding HelpModel}"
-                Content="{Binding Text}"
-                Foreground="{Binding TextBrush}"
-                IsEnabled="{Binding Enabled}"
-                Command="{Binding Command}"
-                IsDefault="{Binding IsDefaultButton}"
-                IsCancel="{Binding IsCancelButton}"
-                Visibility="{Binding Visibility}" />
+                DataContext="{Binding HelpModel}">
+                
+            </customControls:DialogButton>
 
-
-            <Button 
-                Style="{StaticResource TextButton}" 
+            <customControls:DialogButton 
                 DockPanel.Dock="Left" 
                 Margin="14,6,0,8" 
-                DataContext="{Binding AdvancedModel}"
-                Content="{Binding Text}"
-                Foreground="{Binding TextBrush}"
-                IsEnabled="{Binding Enabled}"
-                Command="{Binding Command}"
-                IsDefault="{Binding IsDefaultButton}"
-                IsCancel="{Binding IsCancelButton}"
-                Visibility="{Binding Visibility}" />
+                DataContext="{Binding AdvancedModel}">
+            </customControls:DialogButton>
 
-            <Button 
-                Style="{StaticResource TextButton}" 
+            <customControls:DialogButton 
                 DockPanel.Dock="Right" 
                 Margin="0,6,14,8"
-                DataContext="{Binding NextModel}"
-                Content="{Binding Text}"
-                Foreground="{Binding TextBrush}"
-                IsEnabled="{Binding Enabled}"
-                Command="{Binding Command}"
-                IsDefault="{Binding IsDefaultButton}"
-                IsCancel="{Binding IsCancelButton}"
-                Visibility="{Binding Visibility}" />
+                DataContext="{Binding NextModel}">
+            </customControls:DialogButton>
 
-            <Button 
-                Style="{StaticResource TextButton}" 
+            <customControls:DialogButton 
                 DockPanel.Dock="Right" 
                 Margin="0,6,14,8"
-                DataContext="{Binding BackModel}"
-                Content="{Binding Text}"
-                Foreground="{Binding TextBrush}"
-                IsEnabled="{Binding Enabled}"
-                Command="{Binding Command}" 
-                IsDefault="{Binding IsDefaultButton}"
-                IsCancel="{Binding IsCancelButton}"
-                Visibility="{Binding Visibility}" />
+                DataContext="{Binding BackModel}">
+            </customControls:DialogButton>
 
         </DockPanel>
 
