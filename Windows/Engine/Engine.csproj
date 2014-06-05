@@ -771,6 +771,9 @@
     <Compile Include="UserInterface\Dialogs\Instances\CustomControls\ContentPanelInstance.xaml.cs">
       <DependentUpon>ContentPanelInstance.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserInterface\Dialogs\Instances\CustomControls\DialogButton.xaml.cs">
+      <DependentUpon>DialogButton.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserInterface\Dialogs\Instances\CustomControls\FramedButtonControl.xaml.cs">
       <DependentUpon>FramedButtonControl.xaml</DependentUpon>
     </Compile>
@@ -883,6 +886,7 @@
     <Compile Include="UserInterface\Dialogs\Models\Mockup\ContentModels\MockBorderedContentPanelModel.cs" />
     <Compile Include="UserInterface\Dialogs\Models\Mockup\ContentModels\MockButtonImage.cs" />
     <Compile Include="UserInterface\Dialogs\Models\Mockup\ContentModels\MockContentPanelModel.cs" />
+    <Compile Include="UserInterface\Dialogs\Models\Mockup\ContentModels\MockDialogButtonModel.cs" />
     <Compile Include="UserInterface\Dialogs\Models\Mockup\ContentModels\MockFramedButtonModel.cs" />
     <Compile Include="UserInterface\Dialogs\Models\Mockup\ContentModels\MockInputFieldModel.cs" />
     <Compile Include="UserInterface\Dialogs\Models\Mockup\ContentModels\MockScrollingContentPanelModel.cs" />
@@ -965,6 +969,8 @@
     <Compile Include="WebServices\Contracts\InCommon\RegisterComputerRequest.cs" />
     <Compile Include="WebServices\Contracts\InCommon\StatusInfoRequest.cs" />
     <Compile Include="WebServices\Contracts\InCommon\SynchronousLogRequest.cs" />
+    <None Include="Resources\TestImage72.png" />
+    <None Include="Resources\TestImage32.png" />
     <EmbeddedResource Include="Content\VerifyUserCertContent.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -1258,6 +1264,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="UserInterface\Dialogs\Instances\CustomControls\ContentPanelInstance.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterface\Dialogs\Instances\CustomControls\DialogButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

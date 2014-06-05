@@ -1,4 +1,6 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -16,49 +18,9 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.Mockup.Content
 
         public MockFramedButtonModel()
         {
-            var canvas1 = new Canvas { Width = 72, Height = 72, Background = new SolidColorBrush(Colors.Wheat) };
 
-            var rect1 = new Rectangle
-            {
-                Width = 72,
-                Height = 72,
-                Fill = new SolidColorBrush(Colors.White),
-                Stroke = new SolidColorBrush(Colors.OliveDrab)
-            };
-
-            canvas1.Children.Add(rect1);
-
-            var target = new RenderTargetBitmap(72, 72, 96, 96, PixelFormats.Pbgra32);
-            target.Render(canvas1);
-
-            var encoder = new PngBitmapEncoder();
-            encoder.Frames.Add(BitmapFrame.Create(target));
-
-            using (var stream = new MemoryStream())
-            {
-                encoder.Save(stream);
-                stream.Seek(0, SeekOrigin.Begin);
-                var bi = new BitmapImage { CacheOption = BitmapCacheOption.OnLoad };
-                bi.BeginInit();
-                bi.StreamSource = stream;
-                bi.EndInit();
-                _image = bi;
-            }
-
-
-            _image = target;
-
-            var target2 = new RenderTargetBitmap(72, 72, 96, 96, PixelFormats.Pbgra32);
-            target.Render(new Rectangle
-            {
-                Width = 72,
-                Height = 72,
-                Fill = new SolidColorBrush(Colors.Yellow),
-                Stroke = new SolidColorBrush(Colors.YellowGreen)
-            });
-
-            _mouseOverImage = target2;
-
+            _image = LoadMockImage();
+            _mouseOverImage = LoadMockImage();
         }
 
         public Style Style { get { return null; } }
@@ -76,6 +38,22 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.Mockup.Content
         public SolidColorBrush BorderBrush
         {
             get { return new SolidColorBrush(Colors.LightBlue); }
+        }
+
+        private static ImageSource LoadMockImage()
+        {
+            try
+            {
+                return System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(
+                    Engine.Properties.Resources.TestImage72.GetHbitmap(),
+                    IntPtr.Zero,
+                    Int32Rect.Empty,
+                    BitmapSizeOptions.FromWidthAndHeight(72, 72));
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
         }
 
         public MockButtonText Caption { get { return new MockButtonText("Lorem Ipsum Dolor"){FontSize = 18}; } }
