@@ -4,12 +4,11 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 using Org.InCommon.InCert.Engine.AdvancedMenu;
+using Org.InCommon.InCert.Engine.Engines;
 using Org.InCommon.InCert.Engine.Logging;
 using Org.InCommon.InCert.Engine.Results.ControlResults;
-using Org.InCommon.InCert.Engine.TaskBranches;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Commands;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Instances.CustomControls;
-using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Managers;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Properties;
 using log4net;
@@ -22,8 +21,8 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
 
         private readonly IAdvancedMenuItem _item;
         private readonly AdvancedMenuModel _model;
-        private readonly IAppearanceManager _appearanceManager;
-        private readonly IBranchManager _branchManager;
+        private readonly IHasEngineFields _engine;
+       
 
         private Brush _background;
 
@@ -36,16 +35,16 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
 
         public AdvancedMenuEntry Instance { get; set; }
 
-        public AdvancedMenuItemModel(IAdvancedMenuItem item, AdvancedMenuModel model, IAppearanceManager appearanceManager, IBranchManager branchManager)
+        public AdvancedMenuItemModel(IAdvancedMenuItem item, AdvancedMenuModel model, IHasEngineFields engine)
         {
             _item = item;
             _model = model;
-            _appearanceManager = appearanceManager;
-            _branchManager = branchManager;
-            Background = _appearanceManager.BodyTextBrush;
-            GraphicForeground = _appearanceManager.BodyTextBrush;
-            GraphicBackground = _appearanceManager.BackgroundBrush;
-            TextBrush = _appearanceManager.BackgroundBrush;
+            _engine = engine;
+       
+            Background = model.ContainerBackground;
+            GraphicForeground = model.ContainerForeground;
+            GraphicBackground = model.ContainerBackground;
+            TextBrush = model.ContainerForeground;
             _model.PropertyChanged += PropertyChangedHandler;
         }
 
@@ -69,7 +68,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
             {
                 return IsEnabled
                     ? _background
-                    : _appearanceManager.MakeBrushTransparent(_background as SolidColorBrush, 45);
+                    : _engine.AppearanceManager.MakeBrushTransparent(_background as SolidColorBrush, 45);
             }
             private set
             {
@@ -84,7 +83,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
             {
                 return IsEnabled
                     ? _graphicBackground
-                    : _appearanceManager.MakeBrushTransparent(_graphicBackground as SolidColorBrush, 45);
+                    : _engine.AppearanceManager.MakeBrushTransparent(_graphicBackground as SolidColorBrush, 45);
             }
             set
             {
@@ -104,7 +103,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
             {
                 return IsEnabled
                     ? _graphicForeground
-                    : _appearanceManager.MakeBrushTransparent(_graphicForeground as SolidColorBrush, 45);
+                    : _engine.AppearanceManager.MakeBrushTransparent(_graphicForeground as SolidColorBrush, 45);
             }
             private set
             {
@@ -119,7 +118,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
             {
                 return IsEnabled
                     ? _textBrush
-                    : _appearanceManager.MakeBrushTransparent(_textBrush as SolidColorBrush, 45);
+                    : _engine.AppearanceManager.MakeBrushTransparent(_textBrush as SolidColorBrush, 45);
             }
             private set
             {
@@ -127,7 +126,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
                 OnPropertyChanged();
             }
         }
-        public FontFamily FontFamily { get { return _appearanceManager.DefaultFontFamily; } }
+        public FontFamily FontFamily { get { return _engine.AppearanceManager.DefaultFontFamily; } }
 
         public ICommand SingleClickCommand
         {
@@ -136,8 +135,8 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
 
         private void SetInfoFields()
         {
-            GraphicForeground = _appearanceManager.BackgroundBrush;
-            GraphicBackground = _appearanceManager.BodyTextBrush;
+            GraphicBackground = _model.ContainerForeground;
+            GraphicForeground = _model.ContainerBackground;
             _model.Title = Title;
             _model.Description = _item.Description;
             _model.RunModel.Command = DoubleClickCommand;
@@ -156,7 +155,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
                 if (!string.IsNullOrWhiteSpace(_item.WorkingDescription))
                     _model.Description = _item.WorkingDescription;
 
-                var branch = _branchManager.GetBranch(_item.Branch);
+                var branch = _engine.BranchManager.GetBranch(_item.Branch);
                 if (branch == null)
                     throw new Exception(string.Format("Branch {0} not present", _item.Branch));
                 
@@ -192,10 +191,10 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
 
         public void ClearHighlight()
         {
-            Background = _appearanceManager.BodyTextBrush;
-            GraphicForeground = _appearanceManager.BodyTextBrush;
-            GraphicBackground = _appearanceManager.BackgroundBrush;
-            TextBrush = _appearanceManager.BackgroundBrush;
+            Background = _model.ContainerBackground;
+            GraphicForeground = _model.ContainerForeground;
+            GraphicBackground = _model.ContainerBackground;
+            TextBrush = _model.ContainerForeground;
         }
     }
 }

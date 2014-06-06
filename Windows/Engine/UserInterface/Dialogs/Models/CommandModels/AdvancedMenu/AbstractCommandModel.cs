@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
-using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Managers;
+using Org.InCommon.InCert.Engine.Engines;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Properties;
 
@@ -11,7 +11,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.CommandModels.
 {
     abstract class AbstractCommandModel : PropertyNotifyBase, ICommandModel
     {
-        protected readonly IAppearanceManager AppearanceManager;
+        protected readonly IHasEngineFields Engine ;
         protected readonly AdvancedMenuModel Model;
         private string _text;
         private ICommand _command;
@@ -20,13 +20,20 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.CommandModels.
         private Visibility _visibility;
         private FontFamily _fontFamily;
         private double _fontSize;
-
-        protected AbstractCommandModel(IAppearanceManager appearanceManager, AdvancedMenuModel model)
+        private CommandModels.AbstractCommandModel.CommandButtonImage _image;
+        
+        public CommandModels.AbstractCommandModel.CommandButtonImage ButtonImage
         {
-            AppearanceManager = appearanceManager;
+            get { return _image; }
+            set { _image = value; OnPropertyChanged(); }
+        }
+
+        protected AbstractCommandModel(IHasEngineFields engine, AdvancedMenuModel model)
+        {
+            Engine = engine;
             Model = model;
             FontSize = 12;
-            Font = appearanceManager.DefaultFontFamily;
+            Font = Engine.AppearanceManager.DefaultFontFamily;
             Model.PropertyChanged += PropertyChangedHandler;
             PropertyChanged += PropertyChangedHandler;
         }
@@ -53,8 +60,8 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.CommandModels.
             get
             {
                 return Enabled ?
-                        AppearanceManager.NavigationTextBrush :
-                        AppearanceManager.MakeBrushTransparent(AppearanceManager.NavigationTextBrush as SolidColorBrush, 45);
+                        Engine.AppearanceManager.NavigationTextBrush :
+                        Engine.AppearanceManager.MakeBrushTransparent(Engine.AppearanceManager.NavigationTextBrush as SolidColorBrush, 45);
             }
         }
 

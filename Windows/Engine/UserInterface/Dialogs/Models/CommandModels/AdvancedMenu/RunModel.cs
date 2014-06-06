@@ -1,16 +1,20 @@
-﻿using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Managers;
+﻿using Org.InCommon.InCert.Engine.Engines;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels;
 
 namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.CommandModels.AdvancedMenu
 {
     class RunModel:AbstractCommandModel
     {
-        public RunModel(IAppearanceManager appearanceManager, AdvancedMenuModel model) : base(appearanceManager, model)
+        public RunModel(IHasEngineFields engine, AdvancedMenuModel model) : base(engine, model)
         {
             
             IsCancelButton = true;
             IsDefaultButton = false;
-            Text = "Run";
+            Text = engine.AdvancedMenuManager.RunButtonText;
+
+            ButtonImage = new CommandModels.AbstractCommandModel.CommandButtonImage(engine.SettingsManager,
+                engine.AdvancedMenuManager.RunButtonImageKey,
+                engine.AdvancedMenuManager.RunButtonMouseOverImageKey);
         }
     }
 }

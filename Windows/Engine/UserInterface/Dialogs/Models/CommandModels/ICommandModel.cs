@@ -13,5 +13,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.CommandModels
         bool IsDefaultButton { get; }
         bool IsCancelButton { get; }
         Visibility Visibility { get; }
+        FontFamily Font { get; }
+        double FontSize { set; }
     }
 }

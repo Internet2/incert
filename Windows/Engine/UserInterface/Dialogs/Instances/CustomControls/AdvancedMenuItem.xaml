@@ -69,7 +69,7 @@
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>
-                <Setter Property="Cursor" Value="Hand" />
+                
             </Style>
 
         </Grid.Resources>
@@ -83,7 +83,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <Button IsTabStop="False" Style="{StaticResource AdvancedMenuButton}" Grid.Column="1" FontFamily="{Binding FontFamily}" FontSize="24" Background="{Binding Background}" BorderBrush="{Binding GraphicForeground}" Foreground="{Binding GraphicBackground}" BorderThickness="4" Margin="0,8,0,0" Content="{Binding KeyText}">
+        <Button IsTabStop="False" Style="{StaticResource AdvancedMenuButton}" Grid.Column="1" FontFamily="{Binding FontFamily}" FontSize="24" Background="{Binding Background}" BorderBrush="{Binding GraphicForeground}" Foreground="{Binding GraphicBackground}" BorderThickness="2" Margin="0,8,0,0" Content="{Binding KeyText}">
             <Button.InputBindings>
                 <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding DoubleClickCommand}" />
                 <MouseBinding MouseAction="LeftClick" Command="{Binding SingleClickCommand}" />

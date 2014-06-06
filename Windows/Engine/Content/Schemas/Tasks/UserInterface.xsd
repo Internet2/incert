@@ -500,6 +500,22 @@
                   <xs:element name="HelpTopic" type="xs:string" minOccurs="0" maxOccurs="1" />
                   <xs:element name="InitialLeftOffset" type="xs:double" maxOccurs="1" minOccurs="0" />
                   <xs:element name="InitialTopOffset" type="xs:double" maxOccurs="1" minOccurs="0" />
+                  <xs:element name="DialogForeground" type="xs:string" minOccurs="0" maxOccurs="1" />
+                  <xs:element name="DialogBackground" type="xs:string" minOccurs="0" maxOccurs="1" />
+                  <xs:element name="ContainerForeground" type="xs:string" minOccurs="0" maxOccurs="1" />
+                  <xs:element name="ContainerBackground" type="xs:string" minOccurs="0" maxOccurs="1" />
+                  <xs:element name="TopBannerForeground" type="xs:string" minOccurs="0" maxOccurs="1" />
+                  <xs:element name="TopBannerBackground" type="xs:string" minOccurs="0" maxOccurs="1" />
+                  <xs:element name="HelpButtonText" type="xs:string" minOccurs="0" maxOccurs="1" />
+                  <xs:element name="HelpButtonImageKey" type="xs:string" minOccurs="0" maxOccurs="1" />
+                  <xs:element name="HelpButtonMouseOverImageKey" type="xs:string" minOccurs="0" maxOccurs="1" />
+                  <xs:element name="RunButtonText" type="xs:string" minOccurs="0" maxOccurs="1" />
+                  <xs:element name="RunButtonImageKey" type="xs:string" minOccurs="0" maxOccurs="1" />
+                  <xs:element name="RunButtonMouseOverImageKey" type="xs:string" minOccurs="0" maxOccurs="1" />
+                  <xs:element name="CloseButtonText" type="xs:string" minOccurs="0" maxOccurs="1" />
+                  <xs:element name="CloseButtonImageKey" type="xs:string" minOccurs="0" maxOccurs="1" />
+                  <xs:element name="CloseButtonMouseOverImageKey" type="xs:string" minOccurs="0" maxOccurs="1" />
+                  
                 </xs:sequence>
               </xs:complexType>
             </xs:element>
@@ -508,6 +524,8 @@
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
+  
+  
 
   <xs:element name="UserInterface.SetColorValues">
     <xs:complexType>

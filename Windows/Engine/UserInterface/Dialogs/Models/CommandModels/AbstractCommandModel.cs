@@ -221,6 +221,14 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.CommandModels
                 }
             }
 
+            public CommandButtonImage(ISettingsManager settingsManager, string imageKey, string mouseOverImageKey)
+            {
+                {
+                    ImageSource = settingsManager.GetTemporaryObject(imageKey) as BitmapFrame;
+                    MouseOverImageSource = settingsManager.GetTemporaryObject(mouseOverImageKey) as BitmapFrame;
+                }
+            }
+
             public ImageSource ImageSource
             {
                 get { return _image; }

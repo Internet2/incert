@@ -15,13 +15,13 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.Mockup.DialogM
             HelpModel = new MockHiddenNavigtationModel { Text = "Help" };
         }
 
-    public string Title { get { return "Instructions"; } }
+    public string Title { get { return "Advanced Support Tools"; } }
         public string Description
         {
             get
             {
                 return
-                    "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.";
+                    "To begin, select a support tool from the list below.";
             }
         }
         public string WindowTitle { get { return "Mock Advanced Menu"; } }
@@ -39,9 +39,9 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.Mockup.DialogM
         public double Top { get { return 0; } }
         public ICommand RunCommand { get { return null; } }
         public Cursor Cursor { get { return Cursors.Hand; } }
-
+        public Brush TopBannerBackground { get { return new SolidColorBrush(Colors.LightSalmon);} }
+        public Brush TopBannerForeground { get { return new SolidColorBrush(Colors.LightSlateGray); } }
         public ICommand ClearFocusCommand { get { return null; } }
-
 
 
         public List<AdvancedMenuItemContainer> Groups

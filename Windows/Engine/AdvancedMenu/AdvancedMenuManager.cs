@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Media;
 using System.Xml.Linq;
 using Org.InCommon.InCert.Engine.Importables;
 using Org.InCommon.InCert.Engine.Logging;
@@ -19,6 +20,9 @@ namespace Org.InCommon.InCert.Engine.AdvancedMenu
             Items = new Dictionary<string, IAdvancedMenuItem>();
             DefaultTitle = "Advanced Support Tools";
             DefaultDescription = "This is a place-holder description.";
+            RunButtonText = "Run";
+            CloseButtonText = "Close";
+            HelpButtonText = "Help";
         }
 
         public bool ImportItemsFromXml(XElement node)
@@ -87,5 +91,20 @@ namespace Org.InCommon.InCert.Engine.AdvancedMenu
         public string WindowTitle { get; set; }
         public double InitialLeftOffset { get; set; }
         public double InitialTopOffset { get; set; }
+        public Brush DialogForeground { get; set; }
+        public Brush ContainerForeground { get; set; }
+        public Brush TopBannerForeground { get; set; }
+        public Brush DialogBackground { get; set; }
+        public Brush ContainerBackground { get; set; }
+        public Brush TopBannerBackground { get; set; }
+        public string HelpButtonText { get; set; }
+        public string RunButtonText { get; set; }
+        public string CloseButtonText { get; set; }
+        public string RunButtonImageKey { get; set; }
+        public string RunButtonMouseOverImageKey { get; set; }
+        public string HelpButtonImageKey { get; set; }
+        public string HelpButtonMouseOverImageKey { get; set; }
+        public string CloseButtonImageKey { get; set; }
+        public string CloseButtonMouseOverImageKey { get; set; }
     }
 }
