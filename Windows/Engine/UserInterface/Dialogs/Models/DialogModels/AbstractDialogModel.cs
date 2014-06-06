@@ -402,10 +402,15 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
 
         private void SetNavigationModels(List<AbstractButtonWrapper> buttons)
         {
-            SetModelForKey(ModelKeys.AdvancedButton, new InvisibleCommandModel(this));
-            SetModelForKey(ModelKeys.BackButton, new InvisibleCommandModel(this));
-            SetModelForKey(ModelKeys.HelpButton, new InvisibleCommandModel(this));
-            SetModelForKey(ModelKeys.NextButton, new InvisibleCommandModel(this));
+            var invisibleModel = new InvisibleCommandModel(this)
+            {
+                FontSize = 12,
+                Font = AppearanceManager.DefaultFontFamily
+            };
+            SetModelForKey(ModelKeys.AdvancedButton,invisibleModel);
+            SetModelForKey(ModelKeys.BackButton, invisibleModel);
+            SetModelForKey(ModelKeys.HelpButton, invisibleModel);
+            SetModelForKey(ModelKeys.NextButton, invisibleModel);
 
             if (!buttons.Any())
                 return;
