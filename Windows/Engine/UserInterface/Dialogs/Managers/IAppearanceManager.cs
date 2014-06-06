@@ -14,7 +14,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Managers
         string ApplicationCompany { get; set; }
 
         FontFamily DefaultFontFamily { get; set; }
-        BitmapFrame ApplicationIcon { get; set; }
+        BitmapImage ApplicationIcon { get; set; }
         Brush DisabledTextBrush { get; }
         Brush InverseTitleTextBrush { get; set; }
         Brush InverseBodyTextBrush { get; set; }

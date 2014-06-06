@@ -45,7 +45,7 @@ namespace Org.InCommon.InCert.Engine.Tasks.UserInterface
                     return new NextResult();
                 }
 
-                AppearanceManager.ApplicationIcon = BitmapFrame.Create(new Uri(path, UriKind.Absolute));
+                AppearanceManager.ApplicationIcon = new BitmapImage(new Uri(path, UriKind.Absolute));
 
                 return new NextResult();
             }

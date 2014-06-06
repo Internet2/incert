@@ -46,7 +46,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Managers
         private FontFamily _defaultFontFamily;
 
         // icon
-        private BitmapFrame _applicationIcon;
+        private BitmapImage _applicationIcon;
 
         // application title and company
         private string _applicationTitle;
@@ -93,7 +93,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Managers
             set { _applicationCompany = value; OnPropertyChanged(); }
         }
 
-        public BitmapFrame ApplicationIcon
+        public BitmapImage ApplicationIcon
         {
             get { return _applicationIcon; }
             set
@@ -366,8 +366,9 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Managers
             if (style == null)
                 return null;
 
-            foreach (Setter setter in style.Setters)
+            foreach (var setterBase in style.Setters)
             {
+                var setter = (Setter) setterBase;
                 if (setter.Property != Control.ForegroundProperty || setter.Property != TextBlock.ForegroundProperty)
                     continue;
 
