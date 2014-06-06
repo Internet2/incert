@@ -4,6 +4,7 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Media;
+using Org.InCommon.InCert.Engine.Extensions;
 using Org.InCommon.InCert.Engine.Logging;
 using Org.InCommon.InCert.Engine.Settings;
 using Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.ContentControlWrappers;
@@ -123,7 +124,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
 
             target.Text = _manager.GetTemporarySettingString(wrapper.SettingKey);
             Watermark = wrapper.Watermark;
-            WatermarkBrush = AppearanceManager.FadeBrush(AppearanceManager.InputFieldTextBrush as SolidColorBrush);
+            WatermarkBrush = AppearanceManager.InputFieldTextBrush.FadeBrush();
         }
 
         private void InitializeSettingBinding(FrameworkElement instance, SimpleInputField wrapper)

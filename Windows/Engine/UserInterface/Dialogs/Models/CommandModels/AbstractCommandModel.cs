@@ -59,7 +59,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.CommandModels
             {
                 return Enabled ?
                     AppearanceManager.NavigationTextBrush :
-                    AppearanceManager.MakeBrushTransparent(AppearanceManager.NavigationTextBrush as SolidColorBrush, 45);
+                    AppearanceManager.NavigationTextBrush.MakeTransparent(45);
             }
         }
 

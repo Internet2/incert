@@ -5,6 +5,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using Org.InCommon.InCert.Engine.AdvancedMenu;
 using Org.InCommon.InCert.Engine.Engines;
+using Org.InCommon.InCert.Engine.Extensions;
 using Org.InCommon.InCert.Engine.Logging;
 using Org.InCommon.InCert.Engine.Results.ControlResults;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Commands;
@@ -68,7 +69,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
             {
                 return IsEnabled
                     ? _background
-                    : _engine.AppearanceManager.MakeBrushTransparent(_background as SolidColorBrush, 45);
+                    : _background.MakeTransparent(45);
             }
             private set
             {
@@ -83,7 +84,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
             {
                 return IsEnabled
                     ? _graphicBackground
-                    : _engine.AppearanceManager.MakeBrushTransparent(_graphicBackground as SolidColorBrush, 45);
+                    : _graphicBackground.MakeTransparent(45);
             }
             set
             {
@@ -103,7 +104,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
             {
                 return IsEnabled
                     ? _graphicForeground
-                    : _engine.AppearanceManager.MakeBrushTransparent(_graphicForeground as SolidColorBrush, 45);
+                    : _graphicForeground.MakeTransparent(45);
             }
             private set
             {
@@ -118,7 +119,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
             {
                 return IsEnabled
                     ? _textBrush
-                    : _engine.AppearanceManager.MakeBrushTransparent(_textBrush as SolidColorBrush, 45);
+                    :_textBrush.MakeTransparent(45);
             }
             private set
             {

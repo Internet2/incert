@@ -4,7 +4,6 @@ using System.Linq;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Forms;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
@@ -37,7 +36,6 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Managers
         private static readonly ILog Log = Logger.Create();
 
         private readonly ISettingsManager _manager;
-        //private ResourceDictionary _styles = new ResourceDictionary();
         private readonly DispatcherTimer _timer = new DispatcherTimer();
         private readonly Dictionary<string, TimedMessageWrapper> _timerMessages = new Dictionary<string, TimedMessageWrapper>();
         private readonly Dictionary<string, Brush> _brushes = new Dictionary<string, Brush>();
@@ -104,7 +102,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Managers
 
         public Brush DisabledTextBrush
         {
-            get { return MakeBrushTransparent(BodyTextBrush as SolidColorBrush, 40); }
+            get { return BodyTextBrush.MakeTransparent(45); }
         }
 
         public Brush InverseTitleTextBrush
@@ -172,20 +170,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Managers
             get { return GetBrushFromDictionary(NavigationTextBruskKey, new SolidColorBrush(Colors.Black)); }
             set { _brushes[NavigationTextBruskKey] = value; OnPropertyChanged(); }
         }
-        
-        public Color FadeColor(Color value)
-        {
-            var color = System.Drawing.Color.FromArgb(value.A, value.R, value.G, value.B);
-            color = ControlPaint.LightLight(color);
-            return new Color
-            {
-                A = color.A,
-                R = color.R,
-                G = color.G,
-                B = color.B
-            };
-        }
-
+       
         private Brush GetBrushFromDictionary(string key, Brush defaultValue)
         {
             if (string.IsNullOrWhiteSpace(key))
@@ -416,40 +401,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Managers
                 Log.Warn(e);
             }
         }
-
-        public Brush FadeBrush(SolidColorBrush value)
-        {
-            if (value == null)
-            {
-                Log.Warn("Cannot fade brush; original brush is null or invalid.");
-                return new SolidColorBrush(Colors.White);
-            }
-
-            return new SolidColorBrush(FadeColor(value.Color));
-        }
-
-        public Brush MakeBrushTransparent(SolidColorBrush value, byte newAlphaValue)
-        {
-            if (value == null)
-            {
-                Log.Warn("Cannot make brush transparent; original brush is null or invalid.");
-                return new SolidColorBrush(Colors.White);
-            }
-
-            return new SolidColorBrush(
-                Color.FromArgb(
-                    newAlphaValue, 
-                    value.Color.R, 
-                    value.Color.G, 
-                    value.Color.B));
-        }
-
-
-        /*  public Brush GetBrushForColor(string colorName)
-        {
-            return GetBrushForColor(colorName, new SolidColorBrush(Colors.White));
-        }*/
-
+        
         public Brush GetBrushForColor(string colorName, Brush defaultValue)
         {
             try

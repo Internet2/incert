@@ -1,4 +1,5 @@
 ﻿using System.Windows.Media;
+using Org.InCommon.InCert.Engine.Extensions;
 using Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.LinkWrappers;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Commands;
 using Org.InCommon.InCert.Engine.Utilities;
@@ -21,11 +22,8 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.HyperlinkModel
         {
             get
             {
-                if (!Parent.Enabled)
-                    return AppearanceManager.MakeBrushTransparent(LinkBrush as SolidColorBrush, 45);
-
-                return LinkBrush;
-
+                return !Parent.Enabled 
+                    ? LinkBrush.MakeTransparent(45) : LinkBrush;
             }
         }
     }

@@ -28,11 +28,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Managers
         Brush InputFieldTextBrush { get; set; }
         Brush NavigationTextBrush { get; set; }
         
-        Brush FadeBrush(SolidColorBrush value);
-        Brush MakeBrushTransparent(SolidColorBrush value, byte newAlphaAmount);
         Brush GetBrushForColor(string value, Brush defaultValue);
-        
-        Color FadeColor(Color value);
         
         void SetBrush(string key, string value);
         void SetBrush(string key, Brush value);

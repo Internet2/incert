@@ -292,6 +292,7 @@
     <Compile Include="Engines\IEngine.cs" />
     <Compile Include="Engines\IHasEngineFields.cs" />
     <Compile Include="Engines\StandardEngine.cs" />
+    <Compile Include="Extensions\BrushExtensions.cs" />
     <Compile Include="Extensions\CursorExtensions.cs" />
     <Compile Include="Extensions\DoEventsExtension.cs" />
     <Compile Include="Conditions\Control\BranchExists.cs" />

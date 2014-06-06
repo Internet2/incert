@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using Org.InCommon.InCert.Engine.Extensions;
 using Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.LinkWrappers;
 
 namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.HyperlinkModels
@@ -37,10 +38,10 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.HyperlinkModel
             get
             {
                 if (!Parent.Enabled)
-                    return AppearanceManager.MakeBrushTransparent(LinkBrush as SolidColorBrush, 45);
+                    return LinkBrush.MakeTransparent(45);
 
                 if (!Enabled)
-                    return AppearanceManager.MakeBrushTransparent(LinkBrush as SolidColorBrush, 45);
+                    return LinkBrush.MakeTransparent(45);
 
                 return LinkBrush;
 

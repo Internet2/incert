@@ -7,6 +7,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using Org.InCommon.InCert.Engine.AdvancedMenu;
 using Org.InCommon.InCert.Engine.Engines;
+using Org.InCommon.InCert.Engine.Extensions;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Instances.CustomControls;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Properties;
@@ -58,7 +59,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
             {
                 return IsEnabled ?
                       _model.ContainerForeground :
-                      _engine.AppearanceManager.MakeBrushTransparent(_model.ContainerForeground as SolidColorBrush, 45);
+                      _model.ContainerForeground.MakeTransparent(45);
             }
         }
 

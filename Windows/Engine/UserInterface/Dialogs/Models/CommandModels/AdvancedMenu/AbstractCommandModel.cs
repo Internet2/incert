@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 using Org.InCommon.InCert.Engine.Engines;
+using Org.InCommon.InCert.Engine.Extensions;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Properties;
 
@@ -61,7 +62,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.CommandModels.
             {
                 return Enabled ?
                         Engine.AppearanceManager.NavigationTextBrush :
-                        Engine.AppearanceManager.MakeBrushTransparent(Engine.AppearanceManager.NavigationTextBrush as SolidColorBrush, 45);
+                        Engine.AppearanceManager.NavigationTextBrush.MakeTransparent(45);
             }
         }
 
