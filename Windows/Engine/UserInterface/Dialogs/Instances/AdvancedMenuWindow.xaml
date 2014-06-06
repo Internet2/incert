@@ -37,14 +37,14 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <DockPanel Grid.Row="0" Margin="0" Cursor="{Binding Cursor}" Background="{Binding TopBannerBackground}">
-            <Label DockPanel.Dock="Top" Foreground="{Binding TopBannerForeground}" FontSize="30" FontWeight="Normal" Margin="72,24,72,0" Padding="0" HorizontalAlignment="Left">
+            <Label DockPanel.Dock="Top" Foreground="{Binding TopBannerForeground}" FontSize="30" FontWeight="Normal" Margin="72,24,72,0" Padding="0" HorizontalAlignment="Left" SnapsToDevicePixels="True">
                 <TextBlock TextWrapping="Wrap" Text="{Binding Title}" />
             </Label>
             <Label DockPanel.Dock="Top" FontSize="14" Foreground="{Binding TopBannerForeground}" Margin="72,6,72,28" Padding="0" HorizontalContentAlignment="Left">
                 <TextBlock Text="{Binding Description}" TextWrapping="Wrap" />
             </Label>
         </DockPanel>
-        <ScrollViewer Name="ItemsScroller" Grid.Row="1" VerticalScrollBarVisibility="Auto" Margin="0" Padding="0,4,0,8"  CanContentScroll="True" Background="{Binding ContainerBackGround}" SnapsToDevicePixels="True">
+        <ScrollViewer Name="ItemsScroller" Grid.Row="1" VerticalScrollBarVisibility="Auto" Margin="0" Padding="0" CanContentScroll="True" Background="{Binding ContainerBackGround}" SnapsToDevicePixels="True">
             <ItemsControl IsTabStop="false" Name="ItemsList" ItemsSource="{Binding Groups}" SnapsToDevicePixels="True">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
@@ -67,7 +67,7 @@
             Grid.Column="0"
             LastChildFill="False"
             Margin="0,4,0,4" 
-            VerticalAlignment="Center">
+            VerticalAlignment="Center" SnapsToDevicePixels="True">
            
             <customControls:DialogButton 
                 DockPanel.Dock="Left" 
