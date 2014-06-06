@@ -31,6 +31,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.ContentContro
         public string EffectName { get; set; }
         public string EffectArgument { get; set; }
         public CornerRadius CornerRadius { get; set; }
+        public HorizontalAlignment HorizontalAlignment { get; set; }
 
         public override System.Type GetSupportingModelType()
         {
@@ -40,6 +41,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.ContentContro
         public override void ConfigureFromNode(XElement node)
         {
             base.ConfigureFromNode(node);
+            HorizontalAlignment = XmlUtilities.GetEnumValueFromAttribute(node, "alignment", HorizontalAlignment.Left);
             Width = XmlUtilities.GetDoubleFromAttribute(node, "width", 150);
             Height = XmlUtilities.GetDoubleFromAttribute(node, "height", 150);
             GlowEffect = XmlUtilities.GetBooleanFromAttribute(node, "glowEffect", true);

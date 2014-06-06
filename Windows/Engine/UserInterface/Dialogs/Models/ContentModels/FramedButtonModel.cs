@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Org.InCommon.InCert.Engine.Engines;
@@ -58,6 +60,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
 
         private ImageSource _imageSource;
         private ImageSource _mouseOverImageSource;
+        private HorizontalAlignment _horizontalAlignment;
 
         public FramedButtonModel(IEngine engine, AbstractModel parentModel)
             : base(parentModel)
@@ -65,6 +68,11 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
             Engine = engine;
         }
 
+        public HorizontalAlignment HorizontalAlignment
+        {
+            get { return _horizontalAlignment; }
+            set { _horizontalAlignment = value; OnPropertyChanged(); }
+        }
         public Brush GlowBrush
         {
             get { return _glowBrush; }
@@ -217,12 +225,12 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
                 DataContext = this,
                 Foreground = TextBrush,
                 Command = new ButtonSettingsCommand(SettingsManager, this, GetLinkWrapper(wrapper as FramedButton))
-
             };
 
             InitializeBindings(content);
             SetDefaultValues(wrapper as FramedButton);
             InitializeValues(wrapper);
+            
             Content = content;
             return content as T;
         }
@@ -243,7 +251,8 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
             Width = wrapper.Width;
             Height = wrapper.Height;
 
-            Background = AppearanceManager.GetBrushForColor(wrapper.Background, AppearanceManager.BackgroundBrush);
+            HorizontalAlignment = wrapper.HorizontalAlignment;
+            Background =  AppearanceManager.GetBrushForColor(wrapper.Background, AppearanceManager.BackgroundBrush);
             Style = GetNamedStyle(_buttonStyleDictionary[wrapper.EffectName]);
             GlowBrush = AppearanceManager.GetBrushForColor(wrapper.EffectArgument, AppearanceManager.LinkTextBrush);
             BorderBrush = AppearanceManager.GetBrushForColor(wrapper.BorderColor, AppearanceManager.BodyTextBrush);
@@ -297,8 +306,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
             }
 
         }
-
-
+        
         public class FramedButtonCaptionText : PropertyNotifyBase
         {
             private string _value;

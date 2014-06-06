@@ -1,11 +1,7 @@
 ﻿using System;
-using System.IO;
-using System.Reflection;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using VerticalAlignment = System.Windows.VerticalAlignment;
 
 namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.Mockup.ContentModels
@@ -33,6 +29,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.Mockup.Content
         public SolidColorBrush GlowBrush { get { return new SolidColorBrush(Colors.Wheat); } }
         public string Text { get { return "Lorem Ipsum Dolor"; } }
         public bool Enabled { get { return true; } }
+        public HorizontalAlignment HorizontalAlignment { get { return HorizontalAlignment.Left;} }
         public MockButtonImage ButtonImage { get { return new MockButtonImage(_image, _mouseOverImage); } }
 
         public SolidColorBrush BorderBrush
