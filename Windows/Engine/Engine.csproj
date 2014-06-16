@@ -746,6 +746,7 @@
     <Compile Include="UserInterface\ContentWrappers\TextWrappers\DirectTextContent.cs" />
     <Compile Include="UserInterface\ContentWrappers\TextWrappers\TempObjectFieldContent.cs" />
     <Compile Include="UserInterface\Dialogs\Commands\ClearFocusCommand.cs" />
+    <Compile Include="UserInterface\Dialogs\ControlActions\OpenControlPanelAction.cs" />
     <Compile Include="UserInterface\Dialogs\Converters\AdditiveConverter.cs" />
     <Compile Include="UserInterface\Dialogs\Converters\BorderThicknessToStrokeThicknessConverter.cs" />
     <Compile Include="UserInterface\Dialogs\Converters\FontToLeftThicknessConverter.cs" />

@@ -3,6 +3,7 @@
 <xs:schema id="Actions" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:include schemaLocation="../Conditions/Conditions.xsd" />
   <xs:include schemaLocation="../Results/All.xsd" />
+  <xs:include schemaLocation="../Enums/ControlPanel.xsd" />
   <xs:element name="Actions">
     <xs:complexType>
       <xs:sequence minOccurs="0" maxOccurs="unbounded">
@@ -10,10 +11,12 @@
           <xs:element ref="EnableControlAction" />
           <xs:element ref="DisableControlAction" />
           <xs:element ref="HideControlAction" />
+          <xs:element ref="OpenControlPanelAction" />
           <xs:element ref="ShowControlAction" />
           <xs:element ref="SetFocusAction" />
           <xs:element ref="ReturnResultAction" />
           <xs:element ref="SelectAllContentAction" />
+          
         </xs:choice>
       </xs:sequence>
     </xs:complexType>
@@ -37,13 +40,24 @@
   <xs:element name="ShowControlAction" type="BaseActionType" />
   <xs:element name="SelectAllContentAction" type="BaseActionType" />
 
-
-
   <xs:element name="ReturnResultAction">
     <xs:complexType>
       <xs:complexContent>
         <xs:extension base="BaseActionType">
           <xs:attribute name="result" type="AllResultsList" use="required" />
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="OpenControlPanelAction">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseActionType">
+          <xs:sequence>
+            <xs:element name="SettingKey" minOccurs="1" maxOccurs="unbounded" />
+          </xs:sequence>
+          <xs:attribute name="target" type="ControlPanelValues" use="required" />
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
