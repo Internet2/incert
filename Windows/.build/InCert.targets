@@ -4,7 +4,7 @@
     <!-- Basic properties -->
     <ProductName Condition="'$(ProductName)' == ''">InCert</ProductName>
     <Institution Condition="'$(Institution)' == ''">InCommon</Institution>
-    <ArchivePath Condition="'$(ArchivePath)' == ''">C:\Users\bmoberly\Documents\GitHub\get-connected\Local\</ArchivePath>
+    <ArchivePath Condition="'$(ArchivePath)' == ''">content\Incommon\archive\</ArchivePath>
     <AppVersion Condition=" '$(AppVersion)' == '' ">14.1.2.0</AppVersion>
     <IconPath Condition=" '$(IconPath)' == ''">$(SolutionDir)Engine\Icon.ico</IconPath>
     
@@ -20,8 +20,8 @@
     <DesktopShortcut Condition=" '$(DesktopShortcut)'== ''">1</DesktopShortcut>
     
     <!--certificate thumprint -->
-    <CertThumbprint Condition="'$(CertThumbprint)' == ''">3f18cbe247ed8f32e77db94bbedcf847ebdc3182</CertThumbprint>
-    <CertTimestampServer Condition="'$(CertTimestampServer)' == ''">http://tsa.starfieldtech.com</CertTimestampServer>
+    <CertThumbprint Condition="'$(CertThumbprint)' == ''"></CertThumbprint>
+    <CertTimestampServer Condition="'$(CertTimestampServer)' == ''"></CertTimestampServer>
     
     <!--.net 4.5 framework installer download url-->
     <NetFx45DownloadUrl>http://go.microsoft.com/?linkid=9816306</NetFx45DownloadUrl>
