@@ -29,10 +29,10 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.Mockup.DialogM
         public MockBorderedModel()
         {
             ContentModel = new MockBorderedContent();
-            NextModel = new MockNavigationModel{Text = "Next"};
-            BackModel = new MockNavigationModel { Text = "Back" };
-            AdvancedModel = new MockNavigationModel { Text = "Advanced" };
-            HelpModel = new MockHiddenNavigtationModel { Text = "Help" };
+            NextModel = new MockNavigationModel{Text = "Next", Margin = new Thickness(0,6,14,8)};
+            BackModel = new MockNavigationModel { Text = "Back", Margin=new Thickness(0,6,4,8) };
+            AdvancedModel = new MockNavigationModel { Text = "Advanced", Margin = new Thickness(4,6,0,8)};
+            HelpModel = new MockHiddenNavigtationModel { Text = "Help", Margin = new Thickness(14,6,0,8)};
         }
     }
 

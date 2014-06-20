@@ -15,5 +15,6 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.CommandModels
         Visibility Visibility { get; }
         FontFamily Font { get; }
         double FontSize { set; }
+        Thickness Margin { get; }
     }
 }

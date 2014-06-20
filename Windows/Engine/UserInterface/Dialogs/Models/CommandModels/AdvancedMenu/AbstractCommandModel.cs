@@ -99,6 +99,8 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.CommandModels.
             set { _fontSize = value; OnPropertyChanged(); }
         }
 
+        public Thickness Margin { get; private set; }
+
         public bool IsDefaultButton
         {
             get { return _defaultButton; }

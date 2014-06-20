@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <xs:schema id="Buttons" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:include schemaLocation="../Results/All.xsd" />
+  <xs:include schemaLocation="../Enums/UserInterface.xsd" />
   <xs:element name="Buttons">
     <xs:complexType>
       <xs:sequence minOccurs="0" maxOccurs="unbounded">
@@ -27,6 +28,7 @@
       <xs:element name="MouseOverImageKey" type="xs:string" maxOccurs="1" minOccurs="0" />
       <xs:element name="IsDefaultButton" type="xs:boolean" maxOccurs="1" minOccurs="0" />
       <xs:element name="IsCancelButton" type="xs:boolean" maxOccurs="1" minOccurs="0" />
+      <xs:element name="Margin" type="Padding" maxOccurs="1" minOccurs="0" />
     </xs:sequence>
   </xs:complexType>
 

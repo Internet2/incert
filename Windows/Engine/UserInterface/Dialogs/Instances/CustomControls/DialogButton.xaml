@@ -15,7 +15,7 @@
         IsDefault="{Binding IsDefaultButton}"
         Foreground="{Binding TextBrush}"
         Command="{Binding Command}"
-    >
+        >
     <Button.Resources>
         <converters:NullOrEmptyToVisibilityConverter x:Key="EmptyToVisibilityConverter" />
         

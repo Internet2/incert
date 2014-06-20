@@ -12,11 +12,12 @@
           <xs:element ref="DisableControlAction" />
           <xs:element ref="HideControlAction" />
           <xs:element ref="OpenControlPanelAction" />
+          <xs:element ref="OpenUrlAction" />
           <xs:element ref="ShowControlAction" />
           <xs:element ref="SetFocusAction" />
           <xs:element ref="ReturnResultAction" />
           <xs:element ref="SelectAllContentAction" />
-          
+
         </xs:choice>
       </xs:sequence>
     </xs:complexType>
@@ -61,7 +62,19 @@
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
-
   </xs:element>
 
+  <xs:element name="OpenUrlAction">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseActionType">
+          <xs:sequence>
+            <xs:element name="SettingKey" minOccurs="1" maxOccurs="unbounded" />
+          </xs:sequence>
+          <xs:attribute name="target" type="ControlPanelValues" use="required" />
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+
+  </xs:element>
 </xs:schema>

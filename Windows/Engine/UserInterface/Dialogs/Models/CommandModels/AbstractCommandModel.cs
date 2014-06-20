@@ -28,6 +28,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.CommandModels
         private FontFamily _font;
         private double _fontSize;
         private CommandButtonImage _image;
+        private Thickness _margin;
 
         protected AbstractCommandModel(AbstractDialogModel model)
             : base(model)
@@ -97,6 +98,16 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.CommandModels
             set { _fontSize = value; OnPropertyChanged(); }
         }
 
+        public Thickness Margin
+        {
+            get { return _margin; }
+            private set
+            {
+                _margin = value;
+                OnPropertyChanged();
+            }
+        }
+
         public static AbstractCommandModel FromButtonWrapper(IHasEngineFields engine, AbstractDialogModel dialog, AbstractButtonWrapper wrapper)
         {
             var result = MapButtonWrapperToModel(dialog, wrapper);
@@ -115,7 +126,29 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.CommandModels
             result.Font = dialog.AppearanceManager.DefaultFontFamily;
             result.FontSize = 12;
             result.ButtonImage = new CommandButtonImage(engine.SettingsManager, wrapper);
+            result.Margin = GetMarginOrDefault(wrapper);
             return result;
+        }
+
+        private static Thickness GetMarginOrDefault(AbstractButtonWrapper wrapper)
+        {
+            if (wrapper.Margin.HasValue) return wrapper.Margin.Value;
+
+            switch (wrapper.Target)
+            {
+                case ButtonTargets.HelpButton:
+                    return new Thickness(14, 8, 0, 6);
+                case ButtonTargets.AdvancedButton:
+                    return new Thickness(4, 8, 0, 6);
+                case ButtonTargets.BackButton:
+                    return new Thickness(0, 8, 4, 6);
+                case ButtonTargets.NextButton:
+                    return new Thickness(0, 8, 14, 6);
+                case ButtonTargets.None:
+                    return new Thickness(0);
+            }
+
+            return new Thickness(0);
         }
 
         private static AbstractCommandModel MapButtonWrapperToModel(AbstractDialogModel dialog, AbstractButtonWrapper wrapper)
@@ -131,7 +164,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.CommandModels
                             new ConstructorArgument("result", (wrapper as ResultButton).TaskResult)
                         });
 
-           
+
             if (wrapper is UrlButton)
             {
                 var link = kernal.Get<UrlLink>();
@@ -207,12 +240,12 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.CommandModels
 
             return null;
         }
-        
+
         public class CommandButtonImage : PropertyNotifyBase
         {
             private ImageSource _image;
             private ImageSource _mouseOverImage;
-            
+
             public CommandButtonImage(ISettingsManager settingsManager, AbstractButtonWrapper wrapper)
             {
                 {
@@ -252,6 +285,6 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.CommandModels
                 }
             }
 
-       }
+        }
     }
 }

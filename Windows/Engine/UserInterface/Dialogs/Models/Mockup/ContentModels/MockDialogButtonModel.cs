@@ -27,7 +27,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.Mockup.Content
         public ICommand Command { get { return null; } }
         public FontFamily Font { get { return new FontFamily("Verdana"); } }
         public double FontSize { get { return 11; } }
-
+        public Thickness Margin { get { return new Thickness(8);} }
         public MockButtonImage ButtonImage { get { return new MockButtonImage(_image, _mouseOverImage); } }
 
         private static ImageSource LoadMockImage()

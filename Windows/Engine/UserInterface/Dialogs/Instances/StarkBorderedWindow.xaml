@@ -48,26 +48,25 @@
 
             <customControls:DialogButton 
                 DockPanel.Dock="Left" 
-                Margin="14,6,0,8" 
+                Margin="{Binding Margin}"
                 DataContext="{Binding HelpModel}">
-                
             </customControls:DialogButton>
 
-            <customControls:DialogButton 
+            <customControls:DialogButton
                 DockPanel.Dock="Left" 
-                Margin="14,6,0,8" 
+                Margin="{Binding Margin}"
                 DataContext="{Binding AdvancedModel}">
             </customControls:DialogButton>
 
             <customControls:DialogButton 
                 DockPanel.Dock="Right" 
-                Margin="0,6,14,8"
+                Margin="{Binding Margin}"
                 DataContext="{Binding NextModel}">
             </customControls:DialogButton>
 
             <customControls:DialogButton 
                 DockPanel.Dock="Right" 
-                Margin="0,6,14,8"
+                Margin="{Binding Margin}"
                 DataContext="{Binding BackModel}">
             </customControls:DialogButton>
 
