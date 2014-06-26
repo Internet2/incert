@@ -1,7 +1,7 @@
 <Content xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://incert.incommon.org/schemas ../Schemas/tasklist.xsd">
   <Banners>
-    <SimpleBanner name="LoginBanner" height="550" width="500">
+    <SimpleBanner name="LoginBanner" height="600" width="550">
       <Content>
         <SimpleParagraph margin="0,36,0,36" fontSize="24" alignment="Center">
           <Content>
@@ -151,6 +151,7 @@
         </SimpleParagraph>
         <FramedButton settingKey="normal install mode" controlKey="normal install mode" defaultButton="true" verticalAlignment="Center" alignment="Center">
           <Caption fontSize="24">Start</Caption>
+          <Effect type="glow" />
         </FramedButton>
         <SimpleParagraph >
           <Content>

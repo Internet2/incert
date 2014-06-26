@@ -1,10 +1,12 @@
 ﻿using System.Linq;
 using System.Windows.Forms;
+using System.Windows.Input;
 using Org.InCommon.InCert.Engine.Engines;
+using Org.InCommon.InCert.Engine.Extensions;
 using Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.ContentControlWrappers;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Commands;
+using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Instances.CustomControls;
 using Org.InCommon.InCert.Engine.Utilities;
-using Button = System.Windows.Controls.Button;
 
 namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
 {
@@ -20,9 +22,9 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
         public override T LoadContent<T>(AbstractContentWrapper wrapper)
         {
             _settingKey = wrapper.SettingKey;
-            var content = new Button
+            var content = new FramedButtonControl
             {
-                Foreground = TextBrush,
+                DataContext = this,
                 Command = new RelayCommand(param => GetPathValue())
             };
 
@@ -40,23 +42,27 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
 
         public virtual void GetPathValue()
         {
-            var dialog = new FolderBrowserDialog {Description = _description};
-            var currentPathValue = SettingsManager.GetTemporarySettingString(_settingKey);
-            if (string.IsNullOrWhiteSpace(currentPathValue))
-                currentPathValue = PathUtilities.DesktopFolder;
-
-            dialog.SelectedPath = currentPathValue;
-            var result = dialog.ShowDialog(new UserInterfaceUtilities.WindowsHandleWrapper(RootDialogModel.DialogInstance));
-            if (result != DialogResult.OK)
-                return;
-
-            foreach (var model in RootDialogModel.GetModelsBySettingKey(_settingKey).OfType<InputContentModel>().Select(instance => instance))
+            try
             {
-                model.SetText(dialog.SelectedPath);
-            }
+                var dialog = new FolderBrowserDialog {Description = _description};
+                var currentPathValue = SettingsManager.GetTemporarySettingString(_settingKey);
+                if (string.IsNullOrWhiteSpace(currentPathValue))
+                    currentPathValue = PathUtilities.DesktopFolder;
 
-            //var wrapper = new StringSettingWrapper(_settingKey, dialog.SelectedPath, this);
-            //SettingsManager.BindingProxy.SettingProperty = wrapper;
+                dialog.SelectedPath = currentPathValue;
+                var result = dialog.ShowDialog(new UserInterfaceUtilities.WindowsHandleWrapper(RootDialogModel.DialogInstance));
+                if (result != DialogResult.OK)
+                    return;
+
+                foreach (var model in RootDialogModel.GetModelsBySettingKey(_settingKey).OfType<InputContentModel>().Select(instance => instance))
+                {
+                    model.SetText(dialog.SelectedPath);
+                }
+            }
+            finally
+            {
+                Content.ClearFocus();
+            }
         }
     }
 }

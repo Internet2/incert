@@ -120,67 +120,54 @@
       </xs:extension>
     </xs:simpleContent>
   </xs:complexType>
-  <xs:element name="FramedButton">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element name="Image" maxOccurs="1" minOccurs="0" type="ButtonImageType" />
-        <xs:element name="Caption" maxOccurs="1" minOccurs="0" type="ButtonTextContent" />
-        <xs:element name="SubCaption" maxOccurs="1" minOccurs="0" type="ButtonTextContent" />
-        <xs:element name="Effect" type="ButtonEffect" maxOccurs="1" minOccurs="0" />
-      </xs:sequence>
-      <xs:attribute name="style" type="xs:string"  use="optional" />
-      <xs:attribute name="borderColor" type="xs:string"  use="optional" />
-      <xs:attribute name="controlKey" type="xs:string"  use="optional" />
-      <xs:attribute name="settingKey" type="xs:string"  use="optional" />
-      <xs:attribute name="margin" type="Padding"  use="optional" />
-      <xs:attribute name="padding" type="Padding"  use="optional" />
-      <xs:attribute name="alignment" type="HorizontalAlignmentValues"  use="optional" />
-      <xs:attribute name="verticalAlignment" type="VerticalAlignmentValues" use="optional" />
-      <xs:attribute name="dock" type="DockValues" use="optional" />
-      <xs:attribute name="enabled" type="xs:boolean" use="optional" />
-      <xs:attribute name="glowEffect" type="xs:boolean" use="optional" />
-      <xs:attribute name="glowColor" type="xs:string" use="optional" />
-      <xs:attribute name="width" type="xs:double" use="optional" />
-      <xs:attribute name="height" type="xs:double" use="optional" />
-      <xs:attribute name="defaultButton" type="xs:boolean" use="optional" />
-      <xs:attribute name="cancelButton" type="xs:boolean" use="optional" />
-      <xs:attribute name="borderSize" type="Padding" use="optional" />
-      <xs:attribute name="value" type="xs:string" use="optional" />
-      <xs:attribute name="background" type="xs:string" use="optional" />
-      <xs:attribute name="cornerRadius" type="Padding" use="optional" />
-    </xs:complexType>
-  </xs:element>
+
+  <xs:complexType name="ButtonBase">
+    <xs:sequence>
+      <xs:element name="Image" maxOccurs="1" minOccurs="0" type="ButtonImageType" />
+      <xs:element name="Caption" maxOccurs="1" minOccurs="0" type="ButtonTextContent" />
+      <xs:element name="SubCaption" maxOccurs="1" minOccurs="0" type="ButtonTextContent" />
+      <xs:element name="Effect" type="ButtonEffect" maxOccurs="1" minOccurs="0" />
+    </xs:sequence>
+    <xs:attribute name="style" type="xs:string"  use="optional" />
+    <xs:attribute name="borderColor" type="xs:string"  use="optional" />
+    <xs:attribute name="controlKey" type="xs:string"  use="optional" />
+    <xs:attribute name="settingKey" type="xs:string"  use="optional" />
+    <xs:attribute name="margin" type="Padding"  use="optional" />
+    <xs:attribute name="padding" type="Padding"  use="optional" />
+    <xs:attribute name="alignment" type="HorizontalAlignmentValues"  use="optional" />
+    <xs:attribute name="verticalAlignment" type="VerticalAlignmentValues" use="optional" />
+    <xs:attribute name="dock" type="DockValues" use="optional" />
+    <xs:attribute name="enabled" type="xs:boolean" use="optional" />
+    <xs:attribute name="glowEffect" type="xs:boolean" use="optional" />
+    <xs:attribute name="glowColor" type="xs:string" use="optional" />
+    <xs:attribute name="width" type="xs:double" use="optional" />
+    <xs:attribute name="height" type="xs:double" use="optional" />
+    <xs:attribute name="defaultButton" type="xs:boolean" use="optional" />
+    <xs:attribute name="cancelButton" type="xs:boolean" use="optional" />
+    <xs:attribute name="borderSize" type="Padding" use="optional" />
+    <xs:attribute name="value" type="xs:string" use="optional" />
+    <xs:attribute name="background" type="xs:string" use="optional" />
+    <xs:attribute name="cornerRadius" type="Padding" use="optional" />
+  </xs:complexType>
+  
+  <xs:element name="FramedButton" type="ButtonBase" />
 
   <xs:element name="FolderBrowseButton">
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="InputContentType">
-          <xs:attribute name="glowEffect" type="xs:boolean" use="optional" />
-          <xs:attribute name="glowColor" type="xs:string" use="optional" />
-          <xs:attribute name="width" type="xs:double" use="optional" />
-          <xs:attribute name="height" type="xs:double" use="optional" />
-          <xs:attribute name="defaultButton" type="xs:boolean" use="optional" />
-          <xs:attribute name="cancelButton" type="xs:boolean" use="optional" />
-          <xs:attribute name="borderSize" type="Padding" use="optional" />
-          <xs:attribute name="caption" type="xs:string" use="optional" />
+        <xs:extension base="ButtonBase">
           <xs:attribute name="description" type="xs:string" use="optional" />
+          <xs:attribute name="filter" type="xs:string" use="optional" />
+          <xs:attribute name="title" type="xs:string" use="optional" />
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-
+    
   <xs:element name="FileBrowseButton">
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="InputContentType">
-          <xs:attribute name="glowEffect" type="xs:boolean" use="optional" />
-          <xs:attribute name="glowColor" type="xs:string" use="optional" />
-          <xs:attribute name="width" type="xs:double" use="optional" />
-          <xs:attribute name="height" type="xs:double" use="optional" />
-          <xs:attribute name="defaultButton" type="xs:boolean" use="optional" />
-          <xs:attribute name="cancelButton" type="xs:boolean" use="optional" />
-          <xs:attribute name="borderSize" type="Padding" use="optional" />
-          <xs:attribute name="caption" type="xs:string" use="optional" />
+        <xs:extension base="ButtonBase">
           <xs:attribute name="description" type="xs:string" use="optional" />
           <xs:attribute name="filter" type="xs:string" use="optional" />
           <xs:attribute name="title" type="xs:string" use="optional" />

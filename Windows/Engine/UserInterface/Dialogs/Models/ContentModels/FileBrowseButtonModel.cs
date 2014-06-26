@@ -4,10 +4,12 @@ using System.Linq;
 using System.Windows.Controls;
 using Microsoft.Win32;
 using Org.InCommon.InCert.Engine.Engines;
+using Org.InCommon.InCert.Engine.Extensions;
 using Org.InCommon.InCert.Engine.Logging;
 using Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.ContentControlWrappers;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Commands;
 using log4net;
+using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Instances.CustomControls;
 
 namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
 {
@@ -26,9 +28,9 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
         public override T LoadContent<T>(AbstractContentWrapper wrapper)
         {
             _settingKey = wrapper.SettingKey;
-            var content = new Button
+            var content = new FramedButtonControl
             {
-                Foreground = TextBrush,
+                DataContext = this,
                 Command = new RelayCommand(param => GetPathValue())
             };
 
@@ -52,7 +54,9 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
 
         public void GetPathValue()
         {
-            var dialog = new OpenFileDialog
+            try
+            {
+                var dialog = new OpenFileDialog
                 {
                     Multiselect = false, 
                     ValidateNames = true, 
@@ -61,25 +65,30 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
                     CheckPathExists = true
                 };
 
-            AssignFilterToDialog(dialog, _filter);
+                AssignFilterToDialog(dialog, _filter);
 
-            if (!string.IsNullOrWhiteSpace(_title))
-                dialog.Title = _title;
+                if (!string.IsNullOrWhiteSpace(_title))
+                    dialog.Title = _title;
 
-            var info = GetFileInfoForKey(_settingKey);
-            if (info != null)
-            {
-                dialog.FileName = info.Name;
-                dialog.InitialDirectory = info.DirectoryName;
-            }
+                var info = GetFileInfoForKey(_settingKey);
+                if (info != null)
+                {
+                    dialog.FileName = info.Name;
+                    dialog.InitialDirectory = info.DirectoryName;
+                }
            
-            var result = dialog.ShowDialog(RootDialogModel.DialogInstance);
-            if (result.GetValueOrDefault(false) == false)
-                return;
+                var result = dialog.ShowDialog(RootDialogModel.DialogInstance);
+                if (result.GetValueOrDefault(false) == false)
+                    return;
 
-            foreach (var model in RootDialogModel.GetModelsBySettingKey(_settingKey).OfType<InputContentModel>().Select(instance => instance))
+                foreach (var model in RootDialogModel.GetModelsBySettingKey(_settingKey).OfType<InputContentModel>().Select(instance => instance))
+                {
+                    model.SetText(dialog.FileName);
+                }
+            }
+            finally
             {
-                model.SetText(dialog.FileName);
+                Content.ClearFocus();
             }
         }
 

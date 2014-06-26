@@ -16,7 +16,9 @@
         IsCancel="{Binding IsCancelButton}"
         BorderBrush="{Binding BorderBrush}"
         IsEnabled="{Binding Enabled}"
-        HorizontalAlignment="{Binding HorizontalAlignment}" >
+        HorizontalAlignment="{Binding HorizontalAlignment}"
+        Foreground="{Binding TextBrush}"
+        DockPanel.Dock="{Binding Dock}">
 
     <Grid>
         <StackPanel Background="Transparent" VerticalAlignment="Center" HorizontalAlignment="Center">

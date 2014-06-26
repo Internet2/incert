@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using VerticalAlignment = System.Windows.VerticalAlignment;
@@ -31,6 +32,8 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.Mockup.Content
         public bool Enabled { get { return true; } }
         public HorizontalAlignment HorizontalAlignment { get { return HorizontalAlignment.Left;} }
         public MockButtonImage ButtonImage { get { return new MockButtonImage(_image, _mouseOverImage); } }
+        public Dock Dock { get { return Dock.Left; } }
+        public Brush TextBrush { get { return new SolidColorBrush(Colors.LemonChiffon);} }
 
         public SolidColorBrush BorderBrush
         {

@@ -194,6 +194,7 @@
       <Content>
         <FramedButton controlKey="renew certificate button" settingKey="renew certificate" width="130" height="130" alignment="Center" verticalAlignment="Center" margin="0,40,0,0">
           <Caption fontSize="24">Renew</Caption>
+          <Effect type="glow" />
         </FramedButton>
         <SimpleParagraph alignment="Center" fontSize="14" margin="0,36,0,0">
           <Content>
