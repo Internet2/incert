@@ -1,6 +1,4 @@
-﻿using System.Windows.Controls;
-
-namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Instances.CustomControls
+﻿namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Instances.CustomControls
 {
     /// <summary>
     /// Interaction logic for ScrollingBorderedContentPanel.xaml

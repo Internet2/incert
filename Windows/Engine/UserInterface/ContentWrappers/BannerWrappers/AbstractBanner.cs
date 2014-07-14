@@ -35,8 +35,8 @@ namespace Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.BannerWrapper
         public double Height { get; set; }
         public WindowStyle WindowStyle { get; set; }
         public Thickness Margin { get; set; }
-        public bool? CanClose { get; set; }
-        public bool? SuppressCloseQuestion { get; set; }
+        public bool CanClose { get; set; }
+        public bool SuppressCloseQuestion { get; set; }
         public Cursor Cursor { get; set; }
         public VerticalAlignment VerticalAlignment { get; set; }
         public HorizontalAlignment HorizontalAlignment { get; set; }
@@ -53,11 +53,11 @@ namespace Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.BannerWrapper
                 .ToList<AbstractContentWrapper>();
         }
 
-        public List<AbstractButton> GetButtons()
+        public List<AbstractButtonWrapper> GetButtons()
         {
             return _members
-                .OfType<AbstractButton>()
-                .ToList<AbstractButton>();
+                .OfType<AbstractButtonWrapper>()
+                .ToList<AbstractButtonWrapper>();
         }
 
         public List<AbstractControlAction> GetActions()
@@ -108,8 +108,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.BannerWrapper
 
             CanClose = XmlUtilities.GetBooleanFromAttribute(node, "canClose", true);
 
-            if (XmlUtilities.IsAttributeSet(node, "noCloseQuestion"))
-                SuppressCloseQuestion = XmlUtilities.GetBooleanFromAttribute(node, "noCloseQuestion");
+            SuppressCloseQuestion = XmlUtilities.GetBooleanFromAttribute(node, "noCloseQuestion",false);
 
             Margin = XmlUtilities.ConvertFromAttributeUsingConverter(node, "margin",
                                                                                  new ThicknessConverter(),
@@ -129,7 +128,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.BannerWrapper
 
             var buttonsNode = node.Element("Buttons");
             if (buttonsNode != null)
-                AddMembersFromXml<AbstractButton>(buttonsNode.Elements().ToList());
+                AddMembersFromXml<AbstractButtonWrapper>(buttonsNode.Elements().ToList());
 
             var actionsNode = node.Element("Actions");
             if (actionsNode != null)

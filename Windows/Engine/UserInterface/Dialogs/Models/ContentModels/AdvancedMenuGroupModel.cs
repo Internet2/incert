@@ -6,9 +6,9 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 using Org.InCommon.InCert.Engine.AdvancedMenu;
-using Org.InCommon.InCert.Engine.TaskBranches;
+using Org.InCommon.InCert.Engine.Engines;
+using Org.InCommon.InCert.Engine.Extensions;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Instances.CustomControls;
-using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Managers;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Properties;
 
@@ -16,16 +16,14 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
 {
     class AdvancedMenuGroupModel : PropertyNotifyBase
     {
-        private readonly IAppearanceManager _appearanceManager;
-        private readonly IBranchManager _branchManager;
+        private readonly IHasEngineFields _engine;
         private readonly AdvancedMenuModel _model;
         private readonly List<AdvancedMenuItemModel> _childModels = new List<AdvancedMenuItemModel>();
         private string _groupName;
 
-        public AdvancedMenuGroupModel(IAppearanceManager appearanceManager, IBranchManager branchManager, AdvancedMenuModel model, string groupName)
+        public AdvancedMenuGroupModel(IHasEngineFields engine, AdvancedMenuModel model, string groupName)
         {
-            _appearanceManager = appearanceManager;
-            _branchManager = branchManager;
+            _engine = engine;
             _model = model;
             Title = groupName;
             _model.PropertyChanged += PropertyChangedHandler;
@@ -47,19 +45,25 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
 
         public AdvancedMenuItemContainer Instance { get; set; }
 
-        public Brush BackGround { get { return new SolidColorBrush(Colors.White); } }
+        public Brush BackGround
+        {
+            get
+            {
+                return _model.ContainerBackground;
+            }
+        }
 
         public Brush TextBrush
         {
             get
             {
                 return IsEnabled ?
-                      _appearanceManager.BackgroundBrush :
-                      _appearanceManager.MakeBrushTransparent(_appearanceManager.BackgroundBrush as SolidColorBrush, 45);
+                      _model.ContainerForeground :
+                      _model.ContainerForeground.MakeTransparent(45);
             }
         }
 
-        public FontFamily FontFamily { get { return _appearanceManager.DefaultFontFamily; } }
+        public FontFamily FontFamily { get { return _engine.AppearanceManager.DefaultFontFamily; } }
 
         public Visibility ContainerVisibility { get { return Visibility.Visible; } }
         public ICommand Command { get { return null; } }
@@ -69,7 +73,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
         {
             get { return _model.IsEnabled; }
         }
-        
+
         public List<AdvancedMenuEntry> Children { get { return (from model in _childModels where model.Instance != null select model.Instance).ToList(); } }
 
         public void AddItem(IAdvancedMenuItem item)
@@ -77,7 +81,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
             if (item == null)
                 return;
 
-            var itemModel = new AdvancedMenuItemModel(item, _model, _appearanceManager, _branchManager);
+            var itemModel = new AdvancedMenuItemModel(item, _model, _engine);
             itemModel.Instance = new AdvancedMenuEntry { DataContext = itemModel };
 
             _childModels.Add(itemModel);

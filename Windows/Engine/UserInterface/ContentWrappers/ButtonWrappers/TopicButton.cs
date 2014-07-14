@@ -3,7 +3,7 @@ using Org.InCommon.InCert.Engine.Engines;
 
 namespace Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.ButtonWrappers
 {
-    class TopicButton:AbstractButton
+    class TopicButton:AbstractButtonWrapper
     {
         public TopicButton(IEngine engine):base(engine)
         {

@@ -322,6 +322,11 @@ namespace Org.InCommon.InCert.Engine.Dynamics
             get { return Environment.GetFolderPath(Environment.SpecialFolder.CommonPrograms); }
         }
 
+        [PropertyAllowedFromXml]
+        public string MyDocuments
+        {
+            get { return Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments); }
+        }
 
         [PropertyAllowedFromXml]
         public string ApplicationTitle

@@ -3,7 +3,7 @@ using Org.InCommon.InCert.Engine.Engines;
 
 namespace Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.ButtonWrappers
 {
-    class SettingsButton:AbstractButton
+    class SettingsButton:AbstractButtonWrapper
     {
         public SettingsButton(IEngine engine):base(engine)
         {

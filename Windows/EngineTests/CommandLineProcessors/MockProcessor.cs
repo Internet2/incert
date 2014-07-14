@@ -1,6 +1,5 @@
 ﻿using Org.InCommon.InCert.Engine.CommandLineProcessors;
 using Org.InCommon.InCert.Engine.Engines;
-using Org.InCommon.InCert.Engine.Settings;
 
 namespace EngineTests.CommandLineProcessors
 {

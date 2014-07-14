@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Org.InCommon.InCert.Engine.ClientIdentifier;
 using Org.InCommon.InCert.Engine.Logging;
 using Org.InCommon.InCert.Engine.Utilities;
 using Org.InCommon.InCert.Engine.WebServices.Contracts;
@@ -11,6 +12,11 @@ namespace Org.InCommon.InCert.Engine.WebServices.Managers
 {
     public class EndpointManager : IEndpointManager
     {
+        private readonly IClientIdentifier _clientIdentifier;
+        
+        private readonly Guid _sessionId;
+        private string _clientId;
+
         private static readonly ILog Log = Logger.Create();
         
         private readonly Dictionary<EndPointFunctions, string> _endpointMap = 
@@ -19,8 +25,10 @@ namespace Org.InCommon.InCert.Engine.WebServices.Managers
         private readonly Dictionary<EndPointFunctions, AbstractContract> _contracts = 
             new Dictionary<EndPointFunctions, AbstractContract>();
 
-        public EndpointManager()
+        public EndpointManager(IClientIdentifier clientIdentifier)
         {
+            _sessionId = Guid.NewGuid();
+            _clientIdentifier = clientIdentifier;
             _contracts[EndPointFunctions.Default] = new ContentRequest(this);
             _contracts[EndPointFunctions.LogAsync] = new AsynchronousLogRequest(this);
             _contracts[EndPointFunctions.LogWait] = new SynchronousLogRequest(this);
@@ -117,8 +125,19 @@ namespace Org.InCommon.InCert.Engine.WebServices.Managers
             return _contracts[func] as T;
         }
 
-        
-       
-    
+        public string GetClientIdentifier()
+        {
+            if (string.IsNullOrWhiteSpace(_clientId))
+            {
+                _clientId = _clientIdentifier.GetIdentifier();
+            }
+
+            return _clientId;
+        }
+
+        public Guid GetSessionId()
+        {
+           return _sessionId;
+        }
     }
 }

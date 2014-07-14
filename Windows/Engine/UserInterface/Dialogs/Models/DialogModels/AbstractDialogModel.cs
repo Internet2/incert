@@ -6,6 +6,7 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
+using Org.InCommon.InCert.Engine.Engines;
 using Org.InCommon.InCert.Engine.Extensions;
 using Org.InCommon.InCert.Engine.Logging;
 using Org.InCommon.InCert.Engine.Results;
@@ -35,12 +36,13 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
             AdvancedButton
         }
 
-        private readonly Dictionary<ButtonTargets, Action<AbstractButton>> _buttonAssigners;
+        private readonly Dictionary<ButtonTargets, Action<AbstractButtonWrapper>> _buttonAssigners;
         private readonly Dictionary<ModelKeys, AbstractModel> _childModels = new Dictionary<ModelKeys, AbstractModel>();
 
         private readonly IDialogsManager _dialogsManager;
         private readonly IBannerManager _bannerManager;
 
+        private readonly IHasEngineFields _engine;
         private readonly Window _dialogInstance;
 
         private static readonly ILog Log = Logger.Create();
@@ -56,6 +58,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
         private bool _enabled;
         private double _left;
         private double _top;
+        private string _windowTitle;
 
         public IResult Result
         {
@@ -152,18 +155,19 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
 
         public IAppearanceManager AppearanceManager { get; private set; }
 
-        protected AbstractDialogModel(IDialogsManager dialogsManager, IBannerManager bannerManager, IAppearanceManager appearanceManager, Window dialogInstance)
+        protected AbstractDialogModel(IHasEngineFields engine, Window dialogInstance)
         {
-            AppearanceManager = appearanceManager;
-            _dialogsManager = dialogsManager;
-            _bannerManager = bannerManager;
+            AppearanceManager = engine.AppearanceManager;
+            _dialogsManager = engine.DialogsManager;
+            _bannerManager = engine.BannerManager;
+            _engine = engine;
             _dialogInstance = dialogInstance;
             dialogInstance.DataContext = this;
             _enabled = true;
             _canClose = true;
             SuppressCloseQuestion = false;
 
-            _buttonAssigners = new Dictionary<ButtonTargets, Action<AbstractButton>>
+            _buttonAssigners = new Dictionary<ButtonTargets, Action<AbstractButtonWrapper>>
                 {
                     {ButtonTargets.AdvancedButton, AssignAdvancedModel},
                     {ButtonTargets.BackButton, AssignBackModel},
@@ -177,7 +181,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
         public Window DialogInstance { get { return _dialogInstance; } }
 
         public bool SuppressCloseQuestion { get; set; }
-        
+
         public virtual FontFamily Font
         {
             get { return AppearanceManager.DefaultFontFamily; }
@@ -191,7 +195,19 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
             set { _windowStyle = value; OnPropertyChanged(); }
         }
 
-        public string WindowTitle { get { return AppearanceManager.ApplicationTitle; } }
+        public string WindowTitle
+        {
+            get
+            {
+                if (string.IsNullOrWhiteSpace(_windowTitle))
+                {
+                    _windowTitle = AppearanceManager.ApplicationTitle;
+                }
+
+                return _windowTitle;
+            }
+            set { _windowTitle = value; OnPropertyChanged(); }
+        }
 
         public double Top
         {
@@ -287,11 +303,8 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
                 content.Padding = banner.Margin;
                 content.Background = AppearanceManager.GetBrushForColor(banner.Background, AppearanceManager.BackgroundBrush);
 
-                if (banner.CanClose.HasValue)
-                    CanClose = banner.CanClose.Value;
-
-                if (banner.SuppressCloseQuestion.HasValue)
-                    SuppressCloseQuestion = banner.SuppressCloseQuestion.Value;
+                CanClose = banner.CanClose;
+                SuppressCloseQuestion = banner.SuppressCloseQuestion;
 
                 Height = banner.Height;
                 Width = banner.Width;
@@ -305,7 +318,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
             }
             catch (Exception e)
             {
-                Log.WarnFormat("An exception occurred while attempting to load banner content: {0}", e.Message);            
+                Log.WarnFormat("An exception occurred while attempting to load banner content: {0}", e.Message);
             }
         }
 
@@ -318,14 +331,14 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
 
             return contentModel != null && contentModel.CurrentBanner.Equals(banner);
         }
-        
+
         private IResult ShowBanner(AbstractBanner banner)
         {
             LoadContent(banner);
-            
+
             DoActions(true);
             _dialogInstance.Show();
-           
+
             ActivateInstance(banner);
 
             return new NextResult();
@@ -357,7 +370,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
                 Log.WarnFormat("An exception occurred while attempting to activate a dialog instance: {0}", e.Message);
             }
         }
-        
+
         public void ResetFocus()
         {
             try
@@ -387,12 +400,17 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
             return !result.IsOk() ? result : WaitForResult();
         }
 
-        private void SetNavigationModels(List<AbstractButton> buttons)
+        private void SetNavigationModels(List<AbstractButtonWrapper> buttons)
         {
-            SetModelForKey(ModelKeys.AdvancedButton, new InvisibleCommandModel(this));
-            SetModelForKey(ModelKeys.BackButton, new InvisibleCommandModel(this));
-            SetModelForKey(ModelKeys.HelpButton, new InvisibleCommandModel(this));
-            SetModelForKey(ModelKeys.NextButton, new InvisibleCommandModel(this));
+            var invisibleModel = new InvisibleCommandModel(this)
+            {
+                FontSize = 12,
+                Font = AppearanceManager.DefaultFontFamily
+            };
+            SetModelForKey(ModelKeys.AdvancedButton,invisibleModel);
+            SetModelForKey(ModelKeys.BackButton, invisibleModel);
+            SetModelForKey(ModelKeys.HelpButton, invisibleModel);
+            SetModelForKey(ModelKeys.NextButton, invisibleModel);
 
             if (!buttons.Any())
                 return;
@@ -411,7 +429,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
             FlagPropertyAsChanged("BackModel");
         }
 
-        protected void AssignNavigationModel(AbstractButton button)
+        protected void AssignNavigationModel(AbstractButtonWrapper button)
         {
             if (button == null)
             {
@@ -495,6 +513,12 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
                     return;
                 }
 
+                if (_dialogInstance.Visibility != Visibility.Visible)
+                {
+                    Result = new CloseResult();
+                    return;
+                }
+
                 var closeWindow = _dialogsManager.GetDialog<BorderedChildDialogModel>("CloseWindow");
                 if (closeWindow == null)
                 {
@@ -544,7 +568,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
 
             }
         }
-        
+
         public void EnableDisableCloseButton(bool enabled)
         {
             if (!enabled)
@@ -566,28 +590,27 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
 
         public void HideDialog()
         {
-            SuppressCloseQuestion = true;
             DialogInstance.Hide();
         }
 
-        private void AssignHelpModel(AbstractButton info)
+        private void AssignHelpModel(AbstractButtonWrapper info)
         {
-            HelpModel = AbstractCommandModel.FromButtonWrapper(this, info);
+            HelpModel = AbstractCommandModel.FromButtonWrapper(_engine, this, info);
         }
 
-        private void AssignAdvancedModel(AbstractButton info)
+        private void AssignAdvancedModel(AbstractButtonWrapper info)
         {
-            AdvancedModel = AbstractCommandModel.FromButtonWrapper(this, info);
+            AdvancedModel = AbstractCommandModel.FromButtonWrapper(_engine, this, info);
         }
 
-        private void AssignBackModel(AbstractButton info)
+        private void AssignBackModel(AbstractButtonWrapper info)
         {
-            BackModel = AbstractCommandModel.FromButtonWrapper(this, info);
+            BackModel = AbstractCommandModel.FromButtonWrapper(_engine, this, info);
         }
 
-        private void AssignNextModel(AbstractButton info)
+        private void AssignNextModel(AbstractButtonWrapper info)
         {
-            NextModel = AbstractCommandModel.FromButtonWrapper(this, info);
+            NextModel = AbstractCommandModel.FromButtonWrapper(_engine, this, info);
         }
 
         private void DialogCloseButtonHandler(object sender, CancelEventArgs e)

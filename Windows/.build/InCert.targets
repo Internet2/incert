@@ -21,6 +21,7 @@
     
     <!--certificate thumprint -->
     <CertThumbprint Condition="'$(CertThumbprint)' == ''"></CertThumbprint>
+    <CertTimestampServer Condition="'$(CertTimestampServer)' == ''"></CertTimestampServer>
     
     <!--.net 4.5 framework installer download url-->
     <NetFx45DownloadUrl>http://go.microsoft.com/?linkid=9816306</NetFx45DownloadUrl>

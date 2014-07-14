@@ -5,7 +5,7 @@ using Org.InCommon.InCert.Engine.Utilities;
 
 namespace Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.ButtonWrappers
 {
-    class ResultButton : AbstractButton
+    class ResultButton : AbstractButtonWrapper
     {
         public ResultButton(IEngine engine):base(engine)
         {

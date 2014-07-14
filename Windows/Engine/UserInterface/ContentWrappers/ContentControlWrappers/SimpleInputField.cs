@@ -12,6 +12,8 @@ namespace Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.ContentContro
         public bool ReadOnly { get; set; }
         public bool CanScroll { get; set; }
         public bool AlwaysScrollToEnd { get; set; }
+        public string Watermark { get; set; }
+        public string WatermarkBrush { get; set; }
         
         public SimpleInputField(IEngine engine)
             : base(engine)
@@ -36,9 +38,11 @@ namespace Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.ContentContro
             ReadOnly = XmlUtilities.GetBooleanFromAttribute(node, "readOnly", false);
             CanScroll = XmlUtilities.GetBooleanFromAttribute(node, "canScroll", false);
             AlwaysScrollToEnd = XmlUtilities.GetBooleanFromAttribute(node, "scrollToEnd", false);
-
+            Watermark = XmlUtilities.GetTextFromAttribute(node, "watermark");
             if (MinLines > MaxLines)
                 MaxLines = 0;
         }
+
+       
     }
 }

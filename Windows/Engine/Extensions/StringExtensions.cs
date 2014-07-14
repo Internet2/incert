@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Security.Cryptography;
 using System.Text;
 using Org.InCommon.InCert.Engine.Logging;
 using log4net;
@@ -72,10 +73,31 @@ namespace Org.InCommon.InCert.Engine.Extensions
             }
             catch (Exception e)
             {
-                Log.WarnFormat("An issue occurred while attempting to split a string by its capital letters", e.Message);
+                Log.WarnFormat("An issue occurred while attempting to split a string by its capital letters: {0}", e.Message);
                 return value;
             }
             
+        }
+
+        public static string ToSha1Hash(this string value)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    throw new Exception("input string cannot be null or empty");
+                }
+
+                var data = Encoding.UTF8.GetBytes(value);
+                var hasher = new SHA1CryptoServiceProvider();
+                var result = hasher.ComputeHash(data);
+                return BitConverter.ToString(result).Replace("-", string.Empty);
+            }
+            catch (Exception e)
+            {
+                Log.WarnFormat("An issue occurred while attempting to generate an sha1 hash: {0}", e.Message);
+                return string.Empty;
+            }
         }
     }
 }

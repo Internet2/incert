@@ -2,7 +2,7 @@
 
 namespace Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.ButtonWrappers
 {
-    class DoNothingButton:AbstractButton
+    class DoNothingButton:AbstractButtonWrapper
     {
         public DoNothingButton(IEngine engine):base(engine)
         {

@@ -2,7 +2,7 @@
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{04D09615-BBC7-436A-9A77-42D93A317F2C}</ProjectGuid>
@@ -38,7 +38,7 @@
     <IncertTargets Condition="'$(IncertTargets)' == '' or !Exists('$(IncertTargets)')">$(SolutionDir).build\InCert.targets</IncertTargets>
   </PropertyGroup>
   <Import Project="$(IncertTargets)" Condition="Exists('$(IncertTargets)')" Label="Incert" />
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
@@ -50,7 +50,17 @@
     <RunCodeAnalysis>false</RunCodeAnalysis>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\$(Configuration)\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Staging|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
@@ -81,19 +91,19 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\BouncyCastle.1.7.0\lib\Net40-Client\BouncyCastle.Crypto.dll</HintPath>
     </Reference>
-    <Reference Include="log4net, Version=1.2.12.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+    <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\log4net.2.0.2\lib\net40-full\log4net.dll</HintPath>
+      <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.VisualBasic" />
-    <Reference Include="Ninject, Version=3.0.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+    <Reference Include="Ninject, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Ninject.3.0.1.10\lib\net45-full\Ninject.dll</HintPath>
+      <HintPath>..\packages\Ninject.3.2.0.0\lib\net45-full\Ninject.dll</HintPath>
     </Reference>
-    <Reference Include="RestSharp, Version=104.3.3.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="RestSharp, Version=104.4.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\RestSharp.104.3.3\lib\net4\RestSharp.dll</HintPath>
+      <HintPath>..\packages\RestSharp.104.4.0\lib\net4\RestSharp.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Activities" />
@@ -127,6 +137,10 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ClientIdentifier\AbstractClientIdentifier.cs" />
+    <Compile Include="ClientIdentifier\IClientIdentifier.cs" />
+    <Compile Include="ClientIdentifier\InstallationIdClientIdentifier.cs" />
+    <Compile Include="ClientIdentifier\StoredClientIdentifier.cs" />
     <Compile Include="CommandLineProcessors\AbstractCommandLineProcessor.cs" />
     <Compile Include="CommandLineProcessors\Composite\MultiProcessor.cs" />
     <Compile Include="CommandLineProcessors\Engine\SetEngineMode.cs" />
@@ -278,6 +292,7 @@
     <Compile Include="Engines\IEngine.cs" />
     <Compile Include="Engines\IHasEngineFields.cs" />
     <Compile Include="Engines\StandardEngine.cs" />
+    <Compile Include="Extensions\BrushExtensions.cs" />
     <Compile Include="Extensions\CursorExtensions.cs" />
     <Compile Include="Extensions\DoEventsExtension.cs" />
     <Compile Include="Conditions\Control\BranchExists.cs" />
@@ -288,7 +303,6 @@
     <Compile Include="Conditions\Settings\SettingPresent.cs" />
     <Compile Include="Extensions\EngineExtensions.cs" />
     <Compile Include="Extensions\GetApplicationInfoExtension.cs" />
-    <Compile Include="Extensions\IdentifierExtension.cs" />
     <Compile Include="Extensions\KeyedSettingsPropertyExtensions.cs" />
     <Compile Include="Extensions\ProcessExtensions.cs" />
     <Compile Include="Extensions\ResultExtensions.cs" />
@@ -330,6 +344,9 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="NativeCode\Wmi\EncryptableVolume.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="NativeCode\Wmi\SoftwareLicensingProduct.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="NativeCode\Wmi\SystemEnclosure.cs">
@@ -500,6 +517,8 @@
     <Compile Include="Tasks\Text\AddStringToList.cs" />
     <Compile Include="Tasks\Text\ConvertListToString.cs" />
     <Compile Include="Tasks\Text\TruncateStringLeft.cs" />
+    <Compile Include="Tasks\UserInterface\LoadImageFromUri.cs" />
+    <Compile Include="Tasks\UserInterface\LoadImageFromArchive.cs" />
     <Compile Include="Tasks\UserInterface\SetAdvancedMenuOptions.cs" />
     <Compile Include="Tasks\Utility\OpenControlPanel.cs" />
     <Compile Include="Tasks\Utility\OpenUrlInExternalBrowser.cs" />
@@ -672,7 +691,7 @@
     <Compile Include="Tasks\Wireless\AddWirelessProfile.cs" />
     <Compile Include="UserInterface\ContentWrappers\BannerWrappers\BannerManager.cs" />
     <Compile Include="UserInterface\ContentWrappers\BannerWrappers\IBannerManager.cs" />
-    <Compile Include="UserInterface\ContentWrappers\ButtonWrappers\AbstractButton.cs" />
+    <Compile Include="UserInterface\ContentWrappers\ButtonWrappers\AbstractButtonWrapper.cs" />
     <Compile Include="UserInterface\ContentWrappers\ButtonWrappers\OpenAdvancedMenuButton.cs" />
     <Compile Include="UserInterface\ContentWrappers\ButtonWrappers\ButtonTargets.cs" />
     <Compile Include="UserInterface\ContentWrappers\ButtonWrappers\CancelButton.cs" />
@@ -726,14 +745,14 @@
     <Compile Include="UserInterface\ContentWrappers\TextWrappers\AbstractTextContentWrapper.cs" />
     <Compile Include="UserInterface\ContentWrappers\TextWrappers\DirectTextContent.cs" />
     <Compile Include="UserInterface\ContentWrappers\TextWrappers\TempObjectFieldContent.cs" />
-    <Compile Include="UserInterface\Controls\NavigationBar.xaml.cs">
-      <DependentUpon>NavigationBar.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UserInterface\Dialogs\Commands\ClearFocusCommand.cs" />
+    <Compile Include="UserInterface\Dialogs\ControlActions\OpenHyperlinkAction.cs" />
+    <Compile Include="UserInterface\Dialogs\ControlActions\OpenControlPanelAction.cs" />
     <Compile Include="UserInterface\Dialogs\Converters\AdditiveConverter.cs" />
     <Compile Include="UserInterface\Dialogs\Converters\BorderThicknessToStrokeThicknessConverter.cs" />
     <Compile Include="UserInterface\Dialogs\Converters\FontToLeftThicknessConverter.cs" />
     <Compile Include="UserInterface\Dialogs\Converters\MultiEnabledConverter.cs" />
+    <Compile Include="UserInterface\Dialogs\Converters\NullOrEmptyToVisibilityConverter.cs" />
     <Compile Include="UserInterface\Dialogs\Converters\SettingToBoolConverter.cs" />
     <Compile Include="UserInterface\Dialogs\Instances\AdvancedMenuWindow.xaml.cs">
       <DependentUpon>AdvancedMenuWindow.xaml</DependentUpon>
@@ -755,6 +774,12 @@
     </Compile>
     <Compile Include="UserInterface\Dialogs\Instances\CustomControls\ContentPanelInstance.xaml.cs">
       <DependentUpon>ContentPanelInstance.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserInterface\Dialogs\Instances\CustomControls\DialogButton.xaml.cs">
+      <DependentUpon>DialogButton.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserInterface\Dialogs\Instances\CustomControls\FramedButtonControl.xaml.cs">
+      <DependentUpon>FramedButtonControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserInterface\Dialogs\Instances\CustomControls\OptionParagraph.xaml.cs">
       <DependentUpon>OptionParagraph.xaml</DependentUpon>
@@ -863,7 +888,10 @@
     <Compile Include="UserInterface\Dialogs\Models\Mockup\ContentModels\MockAdvancedMenuItem.cs" />
     <Compile Include="UserInterface\Dialogs\Models\Mockup\ContentModels\MockBaseContentModel.cs" />
     <Compile Include="UserInterface\Dialogs\Models\Mockup\ContentModels\MockBorderedContentPanelModel.cs" />
+    <Compile Include="UserInterface\Dialogs\Models\Mockup\ContentModels\MockButtonImage.cs" />
     <Compile Include="UserInterface\Dialogs\Models\Mockup\ContentModels\MockContentPanelModel.cs" />
+    <Compile Include="UserInterface\Dialogs\Models\Mockup\ContentModels\MockDialogButtonModel.cs" />
+    <Compile Include="UserInterface\Dialogs\Models\Mockup\ContentModels\MockFramedButtonModel.cs" />
     <Compile Include="UserInterface\Dialogs\Models\Mockup\ContentModels\MockInputFieldModel.cs" />
     <Compile Include="UserInterface\Dialogs\Models\Mockup\ContentModels\MockScrollingContentPanelModel.cs" />
     <Compile Include="UserInterface\Dialogs\Models\Mockup\ContentModels\MockStandardProperties.cs" />
@@ -945,6 +973,8 @@
     <Compile Include="WebServices\Contracts\InCommon\RegisterComputerRequest.cs" />
     <Compile Include="WebServices\Contracts\InCommon\StatusInfoRequest.cs" />
     <Compile Include="WebServices\Contracts\InCommon\SynchronousLogRequest.cs" />
+    <None Include="Resources\TestImage72.png" />
+    <None Include="Resources\TestImage32.png" />
     <EmbeddedResource Include="Content\VerifyUserCertContent.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -1205,10 +1235,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="UserInterface\Controls\NavigationBar.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="UserInterface\Dialogs\Instances\AdvancedMenuWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -1242,6 +1268,14 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="UserInterface\Dialogs\Instances\CustomControls\ContentPanelInstance.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterface\Dialogs\Instances\CustomControls\DialogButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterface\Dialogs\Instances\CustomControls\FramedButtonControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1346,9 +1380,6 @@
     <None Include="Content\Schemas\tasklist.xsd">
       <SubType>Designer</SubType>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Content\Bootstrap.xml">
@@ -1467,15 +1498,15 @@
     <Warning Text="Cannot find or access archive path at '$(ArchivePath)'. Will not generate settings.cab archive." Condition="!Exists('$(SignToolPath)')" />
   </Target>
   <Target Name="BuildSettingsCab" AfterTargets="AfterBuild" DependsOnTargets="AfterBuild" Condition="Exists('$(ArchivePath)')">
-    <Exec Command="&quot;$(ProjectDir)$(ArchivePath)makesecurecab.bat&quot; &quot;settings.cab&quot; &quot;$(TargetDir)$(ArchivePath)&quot; &quot;$(TargetDir)&quot;" />
+    <Exec Command="&quot;$(ArchivePath)makesecurecab.bat&quot; &quot;settings.cab&quot; &quot;$(ArchivePath)&quot; &quot;$(TargetDir)&quot;" />
   </Target>
   <Target Name="WarnCannotSign" Condition="!Exists('$(SignToolPath)') or '$(CertThumbprint)' == ''" AfterTargets="BuildSettingsCab" DependsOnTargets="BuildSettingsCab">
     <Warning Text="Cannot find or access signtool.exe at '$(SignToolPath)'. Engine output files will not be signed." Condition="!Exists('$(SignToolPath)')" />
     <Warning Text="No certificate thumbprint defined. Engine output files will not be signed." Condition="'$(CertThumbprint)' == ''" />
   </Target>
   <Target Name="SignBinaries" Condition="Exists('$(SignToolPath)') and '$(CertThumbprint)' != ''" AfterTargets="BuildSettingsCab" DependsOnTargets="BuildSettingsCab">
-    <Exec Command="&quot;$(SignToolPath)&quot; sign /s MY /sha1 $(CertThumbprint) /t http://timestamp.verisign.com/scripts/timstamp.dll &quot;$(TargetPath)&quot;" />
-    <Exec Command="&quot;$(SignToolPath)&quot; sign /s MY /sha1 $(CertThumbprint) /t http://timestamp.verisign.com/scripts/timstamp.dll &quot;$(TargetDir)elevator.exe&quot;" />
-    <Exec Command="&quot;$(SignToolPath)&quot; sign /s MY /sha1 $(CertThumbprint) /t http://timestamp.verisign.com/scripts/timstamp.dll &quot;$(TargetDir)settings.cab&quot;" />
+    <Exec Command="&quot;$(SignToolPath)&quot; sign /s MY /sha1 $(CertThumbprint) /tr &quot;$(CertTimestampServer)&quot; &quot;$(TargetPath)&quot;" />
+    <Exec Command="&quot;$(SignToolPath)&quot; sign /s MY /sha1 $(CertThumbprint) /tr &quot;$(CertTimestampServer)&quot; &quot;$(TargetDir)elevator.exe&quot;" />
+    <Exec Command="&quot;$(SignToolPath)&quot; sign /s MY /sha1 $(CertThumbprint) /tr &quot;$(CertTimestampServer)&quot; &quot;$(TargetDir)settings.cab&quot;" />
   </Target>
 </Project>

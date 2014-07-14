@@ -24,6 +24,8 @@ namespace Org.InCommon.InCert.Engine.Importables
     {
         private static readonly ILog Log = Logger.Create();
 
+        private readonly List<string> _propertiesSpecified = new List<string>();
+
         protected AbstractImportable(IEngine engine)
         {
             Engine = engine;
@@ -44,6 +46,14 @@ namespace Org.InCommon.InCert.Engine.Importables
             return true;
         }
 
+        public bool IsPropertySpecified(string name)
+        {
+            if (string.IsNullOrWhiteSpace(name))
+                return false;
+
+            return _propertiesSpecified.Any(e => e.Equals(name));
+        }
+        
         public static T GetInstanceFromNode<T>(XElement node) where T : class,IImportable
         {
             try
@@ -72,7 +82,7 @@ namespace Org.InCommon.InCert.Engine.Importables
             }
         }
         
-        protected static void MapChildrenToProperties(XElement node, object target)
+        protected void MapChildrenToProperties(XElement node, object target)
         {
             if (node == null)
                 return;
@@ -114,7 +124,7 @@ namespace Org.InCommon.InCert.Engine.Importables
             return true;
         }
 
-        protected static void MapNodeValueToProperty(XElement node, object target)
+        protected void MapNodeValueToProperty(XElement node, object target)
         {
             try
             {
@@ -132,6 +142,7 @@ namespace Org.InCommon.InCert.Engine.Importables
                 if (value == null)
                     throw new Exception("Could not convert property " + node.Name + " to correct type");
                     
+                _propertiesSpecified.Add(node.Name.LocalName);
                 propertyInfo.SetValue(target, value, null);
             }
             catch (Exception e)

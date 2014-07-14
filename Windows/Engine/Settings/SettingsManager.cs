@@ -163,6 +163,8 @@ namespace Org.InCommon.InCert.Engine.Settings
         [SecurityCritical]
         public object GetTemporaryObject(string key)
         {
+            if (string.IsNullOrWhiteSpace(key)) return null;
+
             return _tempObjectsCollection.ContainsKey(key) ? _tempObjectsCollection[key] : null;
         }
 

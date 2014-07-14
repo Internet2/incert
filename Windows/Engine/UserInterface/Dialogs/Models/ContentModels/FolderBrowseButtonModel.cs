@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 using System.Windows.Forms;
 using Org.InCommon.InCert.Engine.Engines;
-using Org.InCommon.InCert.Engine.Settings;
 using Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.ContentControlWrappers;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Commands;
 using Org.InCommon.InCert.Engine.Utilities;
@@ -29,7 +28,6 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
 
             _description = GetDescriptionFromWrapper(wrapper as FolderBrowseButton);
             SetDefaultValues(wrapper as FramedButton);
-            InitializeBindings(content);
             InitializeValues(wrapper);
             Content = content;
             return content as T;

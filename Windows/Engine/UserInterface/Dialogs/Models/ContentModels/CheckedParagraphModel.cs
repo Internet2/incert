@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Media;
+using Org.InCommon.InCert.Engine.Extensions;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Instances.CustomControls;
 
 namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
@@ -77,7 +78,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
             get
             {
                 if (State == CheckedParagraphState.Disabled)
-                    return AppearanceManager.MakeBrushTransparent(base.TextBrush as SolidColorBrush, 40);
+                    return base.TextBrush.MakeTransparent(45);
                 
                 if (State == CheckedParagraphState.Active)
                     return AppearanceManager.LinkTextBrush;

@@ -2,7 +2,7 @@
 <Content xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://incert.incommon.org/schemas ./Schemas/tasklist.xsd">
   <Banners>
-    <SimpleBanner name="Generic issue retry banner" width ="450" height="350" canClose="false" margin="14,24,38,0">
+    <SimpleBanner name="Generic issue retry banner" width ="450" height="350" canClose="false" margin="14,24,38,0" alwaysRefresh="true">
       <Content>
         <EllipseGlyph glyph="!" dock="Left" alignment="Right" verticalAlignment="Top" fontSize="30" fontWeight="Bold" margin="24,36,14,0" padding="0" />
         <ContentBlockParagraph borderSize="0" banner="Generic issue retry content banner" verticalAlignment="Top" margin="0,32,0,0" padding="0" />
@@ -28,7 +28,7 @@
       </Buttons>
     </SimpleBanner>
 
-    <SimpleBanner name="Generic issue retry content banner">
+    <SimpleBanner name="Generic issue retry content banner" alwaysRefresh="true">
       <Content>
         <SimpleParagraph alignment="Left" fontSize="14" fontWeight="Bold">
           <Content>

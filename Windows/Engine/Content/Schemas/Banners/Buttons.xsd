@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <xs:schema id="Buttons" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:include schemaLocation="../Results/All.xsd" />
+  <xs:include schemaLocation="../Enums/UserInterface.xsd" />
   <xs:element name="Buttons">
     <xs:complexType>
       <xs:sequence minOccurs="0" maxOccurs="unbounded">
@@ -19,126 +20,94 @@
     </xs:complexType>
   </xs:element>
 
-  <xs:element name="CancelButton">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element name="Target" type="ControlButtons" maxOccurs="1" minOccurs="1" />
-        <xs:element name="Text" type="xs:string" maxOccurs="1" minOccurs="0" />
-        <xs:element name="IsDefaultButton" type="xs:boolean" maxOccurs="1" minOccurs="0" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
+  <xs:complexType name="buttonBase">
+    <xs:sequence>
+      <xs:element name="Target" type="ControlButtons" maxOccurs="1" minOccurs="1" />
+      <xs:element name="Text" type="xs:string" maxOccurs="1" minOccurs="0" />
+      <xs:element name="ImageKey" type="xs:string" maxOccurs="1" minOccurs="0" />
+      <xs:element name="MouseOverImageKey" type="xs:string" maxOccurs="1" minOccurs="0" />
+      <xs:element name="IsDefaultButton" type="xs:boolean" maxOccurs="1" minOccurs="0" />
+      <xs:element name="IsCancelButton" type="xs:boolean" maxOccurs="1" minOccurs="0" />
+      <xs:element name="Margin" type="Padding" maxOccurs="1" minOccurs="0" />
+    </xs:sequence>
+  </xs:complexType>
 
+  <xs:element name="CancelButton" type="buttonBase" />
+  <xs:element name="DoNothingButton" type="buttonBase" />
+  <xs:element name="DisabledButton" type="buttonBase" />
+  
   <xs:element name="ResultButton">
     <xs:complexType>
-      <xs:sequence maxOccurs="unbounded">
-        <xs:choice>
-          <xs:element name="Target" type="ControlButtons" />
-          <xs:element name="Text" type="xs:string" />
-          <xs:element name="IsDefaultButton" type="xs:boolean" />
-          <xs:element name="IsCancelButton" type="xs:boolean" />
-          <xs:element name="Result" type="AllResultsList" />
-        </xs:choice>
-      </xs:sequence>
+      <xs:complexContent>
+        <xs:extension base="buttonBase">
+          <xs:sequence>
+            <xs:element name="Result" type="AllResultsList" maxOccurs="1" minOccurs="0" />
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
     </xs:complexType>
   </xs:element>
 
   <xs:element name="SettingsButton">
     <xs:complexType>
-      <xs:sequence maxOccurs="unbounded">
-        <xs:choice>
-          <xs:element name="Target" type="ControlButtons" />
-          <xs:element name="Key" type="xs:string" />
-          <xs:element name="Text" type="xs:string" />
-          <xs:element name="IsDefaultButton" type="xs:boolean" />
-          <xs:element name="IsCancelButton" type="xs:boolean" />
-          <xs:element name="Result" type="xs:string" />
-        </xs:choice>
-      </xs:sequence>
+      <xs:complexContent>
+        <xs:extension base="buttonBase">
+          <xs:sequence>
+            <xs:element name="Key" type="xs:string" maxOccurs="1" minOccurs="0" />
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
     </xs:complexType>
   </xs:element>
 
   <xs:element name="StoredResultButton">
     <xs:complexType>
-      <xs:sequence maxOccurs="unbounded">
-        <xs:choice>
-          <xs:element name="Target" type="ControlButtons" />
-          <xs:element name="Key" type="xs:string" />
-          <xs:element name="Text" type="xs:string" />
-          <xs:element name="IsDefaultButton" type="xs:boolean" />
-          <xs:element name="IsCancelButton" type="xs:boolean" />
-        </xs:choice>
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-
-  <xs:element name="DoNothingButton">
-    <xs:complexType>
-      <xs:sequence maxOccurs="unbounded">
-        <xs:choice>
-          <xs:element name="Target" type="ControlButtons" />
-          <xs:element name="Text" type="xs:string" />
-        </xs:choice>
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-
-  <xs:element name="DisabledButton">
-    <xs:complexType>
-      <xs:sequence maxOccurs="unbounded">
-        <xs:choice>
-          <xs:element name="Target" type="ControlButtons" />
-          <xs:element name="Text" type="xs:string" />
-        </xs:choice>
-      </xs:sequence>
+      <xs:complexContent>
+        <xs:extension base="buttonBase">
+          <xs:sequence>
+            <xs:element name="Key" type="xs:string" maxOccurs="1" minOccurs="0" />
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
     </xs:complexType>
   </xs:element>
 
   <xs:element name="UrlButton">
     <xs:complexType>
-      <xs:sequence maxOccurs="unbounded">
-        <xs:choice>
-          <xs:element name="Target" type="ControlButtons" />
-          <xs:element name="Text" type="xs:string" />
-          <xs:element name="IsDefaultButton" type="xs:boolean" />
-          <xs:element name="IsCancelButton" type="xs:boolean" />
-          <xs:element name="Value" type="xs:string" />
-        </xs:choice>
-      </xs:sequence>
+      <xs:complexContent>
+        <xs:extension base="buttonBase">
+          <xs:sequence>
+            <xs:element name="Value" type="xs:string" maxOccurs="1" minOccurs="0" />
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
     </xs:complexType>
   </xs:element>
 
   <xs:element name="OpenAdvancedMenuButton">
     <xs:complexType>
-      <xs:sequence maxOccurs="unbounded">
-        <xs:choice>
-          <xs:element name="Target" type="ControlButtons" />
-          <xs:element name="Text" type="xs:string" />
-          <xs:element name="IsDefaultButton" type="xs:boolean" />
-          <xs:element name="IsCancelButton" type="xs:boolean" />
-          <xs:element name="Group" type="xs:string" />
-        </xs:choice>
-      </xs:sequence>
+      <xs:complexContent>
+        <xs:extension base="buttonBase">
+          <xs:sequence>
+            <xs:element name="Group" type="xs:string" maxOccurs="1" minOccurs="0" />
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
     </xs:complexType>
   </xs:element>
 
   <xs:element name="TopicButton">
     <xs:complexType>
-      <xs:sequence maxOccurs="unbounded">
-        <xs:choice>
-          <xs:element name="Target" type="ControlButtons" />
-          <xs:element name="Text" type="xs:string" />
-          <xs:element name="IsDefaultButton" type="xs:boolean" />
-          <xs:element name="IsCancelButton" type="xs:boolean" />
-          <xs:element name="Value" type="xs:string" />
-        </xs:choice>
-      </xs:sequence>
+      <xs:complexContent>
+        <xs:extension base="buttonBase">
+          <xs:sequence>
+            <xs:element name="Value" type="xs:string" maxOccurs="1" minOccurs="0" />
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
     </xs:complexType>
   </xs:element>
-
-
-
-
+  
   <xs:simpleType name="ControlButtons">
     <xs:restriction base="xs:string">
       <xs:enumeration value="NextButton" />
@@ -155,8 +124,6 @@
       <xs:enumeration value="Cancel" />
     </xs:restriction>
   </xs:simpleType>
-
-
 
   <xs:complexType name="KeyedDialogButtonSetter">
     <xs:simpleContent>

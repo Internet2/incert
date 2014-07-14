@@ -31,7 +31,6 @@
     </xs:sequence>
   </xs:complexType>
 
-
   <xs:complexType name="BaseContentParagraphType">
     <xs:sequence minOccurs="0" maxOccurs="unbounded">
       <xs:choice>
@@ -54,10 +53,10 @@
     <xs:attribute name="lineHeight" type="xs:double" use="optional" />
     <xs:attribute name="dock" type="DockValues" use="optional" />
     <xs:attribute name="enabled" type="xs:boolean" use="optional" />
-
   </xs:complexType>
 
   <xs:element name="DirectTextContent" type="xs:string" />
+
   <xs:element name="TempObjectFieldContent">
     <xs:complexType>
       <xs:simpleContent>
@@ -85,30 +84,70 @@
       </xs:choice>
     </xs:sequence>
   </xs:complexType>
+
   <xs:complexType name="InputContentType">
     <xs:complexContent>
-      <xs:extension base="BaseContentParagraphType">
-        <xs:attribute name="settingKey" type="xs:string"  use="required" />
-      </xs:extension>
+      <xs:extension base="BaseContentParagraphType" />
     </xs:complexContent>
   </xs:complexType>
 
+  <xs:complexType name="ButtonImageType">
+    <xs:attribute name="key" type="xs:string"  use="required" />
+    <xs:attribute name="mouseOverKey" type="xs:string"  use="optional" />
+    <xs:attribute name="alignment" type="HorizontalAlignmentValues"  use="optional" />
+    <xs:attribute name="verticalAlignment" type="VerticalAlignmentValues" use="optional" />
+    <xs:attribute name="margin" type="Padding"  use="optional" />
+  </xs:complexType>
+
+  <xs:complexType name="ButtonTextContent">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="alignment" type="HorizontalAlignmentValues"  use="optional" />
+        <xs:attribute name="verticalAlignment" type="VerticalAlignmentValues" use="optional" />
+        <xs:attribute name="fontFamily" type="xs:string" use="optional" />
+        <xs:attribute name="fontSize" type="xs:double"  use="optional" />
+        <xs:attribute name="padding" type="Padding"  use="optional" />
+        <xs:attribute name="margin" type="Padding"  use="optional" />
+        <xs:attribute name="fontWeight" type="FontWeights" use="optional" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:complexType name="ButtonEffect">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="type" type="FramedButtonEffects" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
   <xs:element name="FramedButton">
     <xs:complexType>
-      <xs:complexContent>
-        <xs:extension base="InputContentType">
-          <xs:attribute name="glowEffect" type="xs:boolean" use="optional" />
-          <xs:attribute name="glowColor" type="xs:string" use="optional" />
-          <xs:attribute name="width" type="xs:double" use="optional" />
-          <xs:attribute name="height" type="xs:double" use="optional" />
-          <xs:attribute name="defaultButton" type="xs:boolean" use="optional" />
-          <xs:attribute name="cancelButton" type="xs:boolean" use="optional" />
-          <xs:attribute name="borderSize" type="Padding" use="optional" />
-          <xs:attribute name="caption" type="xs:string" use="optional" />
-          <xs:attribute name="value" type="xs:string" use="optional" />
-          <xs:attribute name="background" type="xs:string" use="optional" />
-        </xs:extension>
-      </xs:complexContent>
+      <xs:sequence>
+        <xs:element name="Image" maxOccurs="1" minOccurs="0" type="ButtonImageType" />
+        <xs:element name="Caption" maxOccurs="1" minOccurs="0" type="ButtonTextContent" />
+        <xs:element name="SubCaption" maxOccurs="1" minOccurs="0" type="ButtonTextContent" />
+        <xs:element name="Effect" type="ButtonEffect" maxOccurs="1" minOccurs="0" />
+      </xs:sequence>
+      <xs:attribute name="style" type="xs:string"  use="optional" />
+      <xs:attribute name="borderColor" type="xs:string"  use="optional" />
+      <xs:attribute name="controlKey" type="xs:string"  use="optional" />
+      <xs:attribute name="settingKey" type="xs:string"  use="optional" />
+      <xs:attribute name="margin" type="Padding"  use="optional" />
+      <xs:attribute name="padding" type="Padding"  use="optional" />
+      <xs:attribute name="alignment" type="HorizontalAlignmentValues"  use="optional" />
+      <xs:attribute name="verticalAlignment" type="VerticalAlignmentValues" use="optional" />
+      <xs:attribute name="dock" type="DockValues" use="optional" />
+      <xs:attribute name="enabled" type="xs:boolean" use="optional" />
+      <xs:attribute name="glowEffect" type="xs:boolean" use="optional" />
+      <xs:attribute name="glowColor" type="xs:string" use="optional" />
+      <xs:attribute name="width" type="xs:double" use="optional" />
+      <xs:attribute name="height" type="xs:double" use="optional" />
+      <xs:attribute name="defaultButton" type="xs:boolean" use="optional" />
+      <xs:attribute name="cancelButton" type="xs:boolean" use="optional" />
+      <xs:attribute name="borderSize" type="Padding" use="optional" />
+      <xs:attribute name="value" type="xs:string" use="optional" />
+      <xs:attribute name="background" type="xs:string" use="optional" />
+      <xs:attribute name="cornerRadius" type="Padding" use="optional" />
     </xs:complexType>
   </xs:element>
 
@@ -151,7 +190,15 @@
   </xs:element>
 
   <xs:element name="CheckInputField" type="InputContentType" />
-  <xs:element name="PasswordInputField" type="InputContentType" />
+  <xs:element name="PasswordInputField">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="InputContentType">
+          <xs:attribute name="watermark" type="xs:string" use="optional" />
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element> 
   <xs:element name="DefaultCheckedParagraph" type="BaseContentParagraphType" />
 
   <xs:element name="OptionInputField">
@@ -173,6 +220,7 @@
           <xs:attribute name="canScroll" type="xs:boolean" use="optional" />
           <xs:attribute name="scrollToEnd" type="xs:boolean" use="optional" />
           <xs:attribute name="readOnly" type="xs:boolean" use="optional" />
+          <xs:attribute name="watermark" type="xs:string" use="optional" />
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
@@ -229,9 +277,7 @@
   <xs:element name="ProgressParagraph">
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="BaseContentParagraphType">
-          <xs:attribute name="settingKey" type="xs:string" use="required" />
-        </xs:extension>
+        <xs:extension base="BaseContentParagraphType" />
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
@@ -239,9 +285,7 @@
   <xs:element name="UpdatableParagraph">
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="BaseContentParagraphType">
-          <xs:attribute name="settingKey" type="xs:string" use="required" />
-        </xs:extension>
+        <xs:extension base="BaseContentParagraphType" />
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
@@ -389,6 +433,13 @@
     </xs:complexType>
   </xs:element>
 
+  <xs:simpleType name="FramedButtonEffects">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="glow" />
+      <xs:enumeration value="invert" />
+    </xs:restriction>
+  </xs:simpleType>
+  
   <xs:simpleType name="SystemIconSizes">
     <xs:restriction base="xs:string">
       <xs:enumeration value="Small" />

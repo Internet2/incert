@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Org.InCommon.InCert.Engine.Importables;
 using Org.InCommon.InCert.Engine.Results;
@@ -8,7 +9,6 @@ using Org.InCommon.InCert.Engine.Results.Errors.Control;
 using Org.InCommon.InCert.Engine.Results.Errors.General;
 using Org.InCommon.InCert.Engine.Results.Errors.Path;
 using Org.InCommon.InCert.Engine.Engines;
-using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Managers;
 using Org.InCommon.InCert.Engine.Utilities;
 
 namespace Org.InCommon.InCert.Engine.Tasks.UserInterface
@@ -57,7 +57,13 @@ namespace Org.InCommon.InCert.Engine.Tasks.UserInterface
                     throw new Exception(string.Format("Could not extract {0} from archive", Icon));
 
                 using (var stream = new MemoryStream(bytes))
-                    AppearanceManager.ApplicationIcon = BitmapFrame.Create(stream);
+                {
+                    var result = new BitmapImage();
+                    result.BeginInit();
+                    result.StreamSource = stream;
+                    result.EndInit();
+                    AppearanceManager.ApplicationIcon = result;
+                }
 
                 return new NextResult();
             }

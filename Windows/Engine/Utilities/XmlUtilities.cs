@@ -215,7 +215,7 @@ namespace Org.InCommon.InCert.Engine.Utilities
                 return defaultValue;
 
             var valueNode = node.Elements(name).FirstOrDefault();
-            return valueNode == null ? defaultValue : GetTextFromNode(node);
+            return valueNode == null ? defaultValue : GetTextFromNode(valueNode);
         }
 
         public static int GetIntegerFromAttribute(XElement node, string name)

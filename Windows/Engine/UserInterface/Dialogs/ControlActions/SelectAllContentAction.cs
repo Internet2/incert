@@ -1,7 +1,8 @@
 ﻿using System;
+using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 using Org.InCommon.InCert.Engine.Engines;
+using Org.InCommon.InCert.Engine.Extensions;
 using Org.InCommon.InCert.Engine.Logging;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models;
 using log4net;
@@ -45,9 +46,9 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.ControlActions
                     var target = model.Content as PasswordBox;
                     target.SelectAll();
                     target.Focus();
-                    Keyboard.Focus(target);
                 }
-
+                
+                Application.Current.DoEvents();
             }
             catch (Exception e)
             {

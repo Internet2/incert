@@ -221,6 +221,7 @@ namespace Org.InCommon.InCert.Engine.WebServices.FactoryProtocols
         public bool FollowRedirects { get; set; }
         public X509CertificateCollection ClientCertificates { get; set; }
         public int? MaxRedirects { get; set; }
+        public bool UseDefaultCredentials { get; set; }
         public IList<HttpHeader> Headers { get; private set; }
         public IList<HttpParameter> Parameters { get; private set; }
         public IList<HttpFile> Files { get; private set; }

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Xml.Linq;
 using System.Text.RegularExpressions;
-using Ninject;
 using Org.InCommon.InCert.Engine.Importables;
 using Org.InCommon.InCert.Engine.Logging;
 using Org.InCommon.InCert.Engine.Utilities;

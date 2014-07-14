@@ -4,10 +4,12 @@ using System.Windows.Threading;
 using Ninject;
 using Ninject.Modules;
 using Org.InCommon.InCert.Engine.AdvancedMenu;
+using Org.InCommon.InCert.Engine.ClientIdentifier;
 using Org.InCommon.InCert.Engine.CommandLineProcessors;
 using Org.InCommon.InCert.Engine.Engines;
 using Org.InCommon.InCert.Engine.Help;
 using Org.InCommon.InCert.Engine.Logging;
+using Org.InCommon.InCert.Engine.NativeCode.Wmi;
 using Org.InCommon.InCert.Engine.Results.ControlResults;
 using Org.InCommon.InCert.Engine.Results.Errors.Mapping;
 using Org.InCommon.InCert.Engine.Settings;
@@ -60,6 +62,7 @@ namespace Org.InCommon.InCert.Engine
             public override void Load()
             {
                 Bind<IEngine>().To<StandardEngine>().InSingletonScope();
+                Bind<IHasEngineFields>().ToMethod(c => c.Kernel.Get<IEngine>());
                 Bind<ISettingsManager>().To<SettingsManager>().InSingletonScope();
                 Bind<IBranchManager>().To<BranchManager>().InSingletonScope();
                 Bind<ICommandLineManager>().To<CommandLineManager>().InSingletonScope();
@@ -71,6 +74,7 @@ namespace Org.InCommon.InCert.Engine
                 Bind<IHelpManager>().To<HelpManager>().InSingletonScope();
                 Bind<IAdvancedMenuManager>().To<AdvancedMenuManager>().InSingletonScope();
 
+                Bind<IClientIdentifier>().To<StoredClientIdentifier>().InSingletonScope();
             }
         }
     }

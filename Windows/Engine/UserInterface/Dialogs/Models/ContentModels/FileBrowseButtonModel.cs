@@ -5,7 +5,6 @@ using System.Windows.Controls;
 using Microsoft.Win32;
 using Org.InCommon.InCert.Engine.Engines;
 using Org.InCommon.InCert.Engine.Logging;
-using Org.InCommon.InCert.Engine.Settings;
 using Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.ContentControlWrappers;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Commands;
 using log4net;
@@ -36,7 +35,6 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
             _filter = GetFilterFromWrapper(wrapper as FileBrowseButton);
             _title = GetTitleFromWrapper(wrapper as FileBrowseButton);
             SetDefaultValues(wrapper as FramedButton);
-            InitializeBindings(content);
             InitializeValues(wrapper);
             Content = content;
             return content as T;

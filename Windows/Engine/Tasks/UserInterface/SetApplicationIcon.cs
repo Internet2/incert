@@ -6,7 +6,6 @@ using Org.InCommon.InCert.Engine.Logging;
 using Org.InCommon.InCert.Engine.Results;
 using Org.InCommon.InCert.Engine.Results.ControlResults;
 using Org.InCommon.InCert.Engine.Engines;
-using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Managers;
 using Org.InCommon.InCert.Engine.Utilities;
 using log4net;
 
@@ -46,7 +45,7 @@ namespace Org.InCommon.InCert.Engine.Tasks.UserInterface
                     return new NextResult();
                 }
 
-                AppearanceManager.ApplicationIcon = BitmapFrame.Create(new Uri(path, UriKind.Absolute));
+                AppearanceManager.ApplicationIcon = new BitmapImage(new Uri(path, UriKind.Absolute));
 
                 return new NextResult();
             }

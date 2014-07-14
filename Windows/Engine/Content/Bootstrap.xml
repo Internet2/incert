@@ -241,15 +241,6 @@
 
     <!-- If not value is present for the setting key 'tasklist' then use 'tasklist.xml' -->
     <TaskBranch name="configure default task list">
-      <!--<Settings.SetSettingText>
-        <Conditions.All>
-          <Settings.SettingNotPresent key="initial local tasklist" />
-        </Conditions.All>
-        <Properties>
-          <Setter key="initial local tasklist">configure computer as admin</Setter>
-        </Properties>
-      </Settings.SetSettingText>-->
-
       <Settings.SetSettingText>
         <Conditions.All>
           <Settings.SettingNotPresent key="initial content download target" />
@@ -260,8 +251,6 @@
       </Settings.SetSettingText>
     </TaskBranch>
     
-
-
     <TaskBranch name="check operating system version">
       <Control.ReturnLeaveBranchNextResult>
         <Conditions.Any>

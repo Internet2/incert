@@ -34,6 +34,11 @@
     <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
     <DefineConstants>Debug;AppVersion=$(AppVersion);EngineFilesDir=$(EngineFilesDir);ProductName=$(ProductName);Institution=$(Institution);DesktopShortcut=$(DesktopShortcut);StartMenuShortcut=$(StartMenuShortcut);IconPath=$(IconPath)</DefineConstants>
   </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Staging|x86' ">
+    <OutputPath>bin\$(Configuration)\</OutputPath>
+    <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
+    <DefineConstants>Debug;AppVersion=$(AppVersion);EngineFilesDir=$(EngineFilesDir);ProductName=$(ProductName);Institution=$(Institution);DesktopShortcut=$(DesktopShortcut);StartMenuShortcut=$(StartMenuShortcut);IconPath=$(IconPath)</DefineConstants>
+  </PropertyGroup>
   <ItemGroup>
     <Compile Include="Installer.wxs" />
   </ItemGroup>
@@ -66,6 +71,6 @@
   </Target>
 
   <Target Name="SignBinaries" Condition="Exists('$(SignToolPath)') and '$(CertThumbprint)' != ''" AfterTargets="AfterBuild" DependsOnTargets="AfterBuild">
-    <Exec Command="&quot;$(SignToolPath)&quot; sign /s MY /sha1 $(CertThumbprint) /t http://timestamp.verisign.com/scripts/timstamp.dll &quot;$(TargetPath)&quot;" />
+    <Exec Command="&quot;$(SignToolPath)&quot; sign /s MY /sha1 $(CertThumbprint) /tr &quot;$(CertTimestampServer)&quot; &quot;$(TargetPath)&quot;" />
   </Target>
 </Project>

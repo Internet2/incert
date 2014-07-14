@@ -1,6 +1,5 @@
-﻿using System.Windows;
-using Org.InCommon.InCert.DataContracts;
-using Org.InCommon.InCert.Engine.Extensions;
+﻿using Org.InCommon.InCert.DataContracts;
+using Org.InCommon.InCert.Engine.ClientIdentifier;
 using Org.InCommon.InCert.Engine.Results;
 using Org.InCommon.InCert.Engine.Results.Errors.WebServices;
 using Org.InCommon.InCert.Engine.WebServices.Managers;
@@ -10,8 +9,11 @@ namespace Org.InCommon.InCert.Engine.WebServices.Contracts.WebApi
 {
     class MacAddressReport:AbstractMacAddressReportContract
     {
-        public MacAddressReport(IEndpointManager endpointManager) : base(endpointManager)
+        private readonly IClientIdentifier _clientIdentifier;
+
+        public MacAddressReport(IEndpointManager endpointManager, IClientIdentifier clientIdentifier) : base(endpointManager)
         {
+            _clientIdentifier = clientIdentifier;
         }
 
         protected override IRestRequest GetRequestObject()
@@ -19,7 +21,7 @@ namespace Org.InCommon.InCert.Engine.WebServices.Contracts.WebApi
             var request = new RestRequest(Method.POST) { RequestFormat = RestSharp.DataFormat.Json };
             var wrapper = new MachineMacAddressesReport
                 {
-                Machine = new Machine { MachineId = Application.Current.GetIdentifier() },
+                Machine = new Machine { MachineId = _clientIdentifier.GetIdentifier() },
                 Addresses = Addresses
             };
 

@@ -7,15 +7,13 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Threading;
 using Org.InCommon.InCert.Engine.AdvancedMenu;
+using Org.InCommon.InCert.Engine.Engines;
 using Org.InCommon.InCert.Engine.Extensions;
-using Org.InCommon.InCert.Engine.Help;
 using Org.InCommon.InCert.Engine.Logging;
 using Org.InCommon.InCert.Engine.Results;
-using Org.InCommon.InCert.Engine.TaskBranches;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Commands;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Instances;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Instances.CustomControls;
-using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Managers;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.CommandModels.AdvancedMenu;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Properties;
@@ -29,12 +27,10 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
         private static readonly ILog Log = Logger.Create();
 
         private readonly DispatcherTimer _timer;
-        private readonly IHelpManager _helpManager;
+        private readonly IHasEngineFields _engine;
         private readonly AbstractDialogModel _model;
-        private readonly IAppearanceManager _appearanceManager;
-        private readonly IBranchManager _branchManager;
         private readonly AdvancedMenuWindow _dialogInstance;
-        private readonly IAdvancedMenuManager _advancedMenuManager;
+        
         private string _title;
         private string _description;
         private bool _isEnabled;
@@ -56,26 +52,19 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
         private double _width;
         private double _height;
 
-        public AdvancedMenuModel(
-            IAdvancedMenuManager advancedMenuManager,
-            IAppearanceManager appearanceManager,
-            IBranchManager branchManager,
-            IHelpManager helpManager,
+        public AdvancedMenuModel(IHasEngineFields engine,
             AbstractDialogModel model)
         {
             IsEnabled = true;
-            _advancedMenuManager = advancedMenuManager;
-            _appearanceManager = appearanceManager;
-            _branchManager = branchManager;
-            _helpManager = helpManager;
+            _engine = engine;
             _model = model;
             _dialogInstance = new AdvancedMenuWindow { DataContext = this };
             BuildGroupsList();
             _width = 500;
             _height = 550;
             Cursor = Cursors.Arrow;
-            Title = _advancedMenuManager.DefaultTitle;
-            Description = _advancedMenuManager.DefaultDescription;
+            Title = _engine.AdvancedMenuManager.DefaultTitle;
+            Description = engine.AdvancedMenuManager.DefaultDescription;
             _timer = new DispatcherTimer
                 {
                     Interval = new TimeSpan(0, 0, 0, 0, 500),
@@ -133,14 +122,43 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
 
         public Brush TextBrush
         {
-            get { return _appearanceManager.BodyTextBrush; }
+            get { return _engine.AppearanceManager.BodyTextBrush; }
         }
 
-        public Brush ContainerBackGround
+        public Brush ContainerForeground
         {
-            get { return new SolidColorBrush(Colors.White); }
+            get
+            {
+                return _engine.AdvancedMenuManager.ContainerForeground
+                       ?? _engine.AppearanceManager.BackgroundBrush;
+            }
+        }
+        
+        public Brush ContainerBackground
+        {
+            get { return _engine.AdvancedMenuManager.ContainerBackground 
+                ?? _engine.AppearanceManager.BodyTextBrush; }
         }
 
+        public Brush Background
+        {
+            get
+            {
+                return _engine.AdvancedMenuManager.DialogBackground
+                    ?? _engine.AppearanceManager.BackgroundBrush;
+            }
+        }
+
+        public Brush TopBannerBackground
+        {
+            get { return _engine.AdvancedMenuManager.TopBannerBackground ?? Background; }
+        }
+
+        public Brush TopBannerForeground
+        {
+            get { return _engine.AdvancedMenuManager.TopBannerForeground ?? _engine.AppearanceManager.BodyTextBrush; }
+        }
+        
         public AbstractDialogModel ParentModel
         {
             get { return _model; }
@@ -179,7 +197,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
 
         private void BuildGroupsList()
         {
-            foreach (var item in _advancedMenuManager.Items.Values)
+            foreach (var item in _engine.AdvancedMenuManager.Items.Values)
             {
                 if (!item.Show)
                     continue;
@@ -201,8 +219,8 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
 
             if (activeModel == null)
             {
-                Title = _advancedMenuManager.DefaultTitle;
-                Description = _advancedMenuManager.DefaultDescription;
+                Title = _engine.AdvancedMenuManager.DefaultTitle;
+                Description = _engine.AdvancedMenuManager.DefaultDescription;
                 RunModel.Command = null;
             }
         }
@@ -214,7 +232,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
 
             if (!_groupModels.ContainsKey(groupKey))
             {
-                var groupModel = new AdvancedMenuGroupModel(_appearanceManager, _branchManager, this, groupKey);
+                var groupModel = new AdvancedMenuGroupModel(_engine, this, groupKey);
                 groupModel.Instance = new AdvancedMenuItemContainer { DataContext = groupModel };
                 _groupModels[groupKey] = groupModel;
             }
@@ -248,18 +266,15 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
 
         public string WindowTitle
         {
-            get { return _appearanceManager.ApplicationTitle; }
+            get { return _engine.AppearanceManager.ApplicationTitle; }
         }
 
         public FontFamily FontFamily
         {
-            get { return _appearanceManager.DefaultFontFamily; }
+            get { return _engine.AppearanceManager.DefaultFontFamily; }
         }
 
-        public Brush Background
-        {
-            get { return _appearanceManager.BackgroundBrush; }
-        }
+       
 
         public List<AdvancedMenuItemContainer> Groups
         {
@@ -270,9 +285,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
                         select model.Instance).ToList();
             }
         }
-
-
-
+        
         public void ShowDialog(double left, double top, string group)
         {
             try
@@ -316,14 +329,14 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
 
         private double GetLeftPosition(double value)
         {
-            var result = value + _advancedMenuManager.InitialLeftOffset;
+            var result = value + _engine.AdvancedMenuManager.InitialLeftOffset;
             if (result < 25) result = 25;
             return result;
         }
 
         private double GetTopPosition(double value)
         {
-            var result = value + _advancedMenuManager.InitialTopOffset;
+            var result = value + _engine.AdvancedMenuManager.InitialTopOffset;
             if (result < 25) result = 25;
             return result;
         }
@@ -335,22 +348,22 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
 
         public CloseCommandModel CloseModel
         {
-            get { return _closeModel ?? (_closeModel = new CloseCommandModel(_appearanceManager, this)); }
+            get { return _closeModel ?? (_closeModel = new CloseCommandModel(_engine, this)); }
         }
 
         public RunModel RunModel
         {
-            get { return _runModel ?? (_runModel = new RunModel(_appearanceManager, this)); }
+            get { return _runModel ?? (_runModel = new RunModel(_engine, this)); }
         }
 
         public HelpModel HelpModel
         {
-            get { return _helpModel ?? (_helpModel = new HelpModel(_appearanceManager, _helpManager, this)); }
+            get { return _helpModel ?? (_helpModel = new HelpModel(_engine, this)); }
         }
 
         public string HelpTopic
         {
-            get { return _advancedMenuManager.HelpTopic; }
+            get { return _engine.AdvancedMenuManager.HelpTopic; }
         }
 
         private delegate void TimerTickDelegate(object sender, EventArgs e);

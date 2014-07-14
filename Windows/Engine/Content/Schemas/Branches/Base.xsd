@@ -189,6 +189,8 @@
         <xs:element ref="UserInterface.EnableCloseButton" />
         <xs:element ref="UserInterface.HideBannerControl" />
         <xs:element ref="UserInterface.HideDialog" />
+        <xs:element ref="UserInterface.LoadImageFromArchive" />
+        <xs:element ref="UserInterface.LoadImageFromUri" />
         <xs:element ref="UserInterface.RemoveCheckedParagraphSubtitle" />
         <xs:element ref="UserInterface.SetAdvancedMenuOptions" />
         <xs:element ref="UserInterface.SetColorValues" />
@@ -197,6 +199,7 @@
         <xs:element ref="UserInterface.SetApplicationIconFromArchive" />
         <xs:element ref="UserInterface.SetApplicationProperties" />
         <xs:element ref="UserInterface.SetCheckedParagraphSubtitle" />
+        <xs:element ref="UserInterface.SetDialogTitle" />
         <xs:element ref="UserInterface.SetParagraphText" />
         <xs:element ref="UserInterface.ShowBannerControl" />
         <xs:element ref="UserInterface.ShowBorderlessDialog" />

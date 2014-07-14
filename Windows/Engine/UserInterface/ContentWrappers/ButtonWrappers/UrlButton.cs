@@ -3,7 +3,7 @@ using Org.InCommon.InCert.Engine.Engines;
 
 namespace Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.ButtonWrappers
 {
-    class UrlButton : AbstractButton
+    class UrlButton : AbstractButtonWrapper
     {
         public UrlButton(IEngine engine):base(engine)
         {

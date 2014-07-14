@@ -3,7 +3,8 @@ using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
-using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Managers;
+using Org.InCommon.InCert.Engine.Engines;
+using Org.InCommon.InCert.Engine.Extensions;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Properties;
 
@@ -11,18 +12,29 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.CommandModels.
 {
     abstract class AbstractCommandModel : PropertyNotifyBase, ICommandModel
     {
-        protected readonly IAppearanceManager AppearanceManager;
+        protected readonly IHasEngineFields Engine ;
         protected readonly AdvancedMenuModel Model;
         private string _text;
         private ICommand _command;
         private bool _defaultButton;
         private bool _cancelButton;
         private Visibility _visibility;
-
-        protected AbstractCommandModel(IAppearanceManager appearanceManager, AdvancedMenuModel model)
+        private FontFamily _fontFamily;
+        private double _fontSize;
+        private CommandModels.AbstractCommandModel.CommandButtonImage _image;
+        
+        public CommandModels.AbstractCommandModel.CommandButtonImage ButtonImage
         {
-            AppearanceManager = appearanceManager;
+            get { return _image; }
+            set { _image = value; OnPropertyChanged(); }
+        }
+
+        protected AbstractCommandModel(IHasEngineFields engine, AdvancedMenuModel model)
+        {
+            Engine = engine;
             Model = model;
+            FontSize = 12;
+            Font = Engine.AppearanceManager.DefaultFontFamily;
             Model.PropertyChanged += PropertyChangedHandler;
             PropertyChanged += PropertyChangedHandler;
         }
@@ -49,8 +61,8 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.CommandModels.
             get
             {
                 return Enabled ?
-                        AppearanceManager.NavigationTextBrush :
-                        AppearanceManager.MakeBrushTransparent(AppearanceManager.NavigationTextBrush as SolidColorBrush, 45);
+                        Engine.AppearanceManager.NavigationTextBrush :
+                        Engine.AppearanceManager.NavigationTextBrush.MakeTransparent(45);
             }
         }
 
@@ -74,6 +86,20 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.CommandModels.
                 OnPropertyChanged();
             }
         }
+
+        public FontFamily Font
+        {
+            get { return _fontFamily; }
+            set { _fontFamily = value; OnPropertyChanged(); }
+        }
+
+        public Double FontSize
+        {
+            get { return _fontSize; }
+            set { _fontSize = value; OnPropertyChanged(); }
+        }
+
+        public Thickness Margin { get; private set; }
 
         public bool IsDefaultButton
         {

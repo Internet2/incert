@@ -1,6 +1,4 @@
-﻿using System.Windows;
-using Org.InCommon.InCert.DataContracts;
-using Org.InCommon.InCert.Engine.Extensions;
+﻿using Org.InCommon.InCert.DataContracts;
 using Org.InCommon.InCert.Engine.Results;
 using Org.InCommon.InCert.Engine.Results.Errors.Registration;
 using Org.InCommon.InCert.Engine.WebServices.Managers;
@@ -29,10 +27,10 @@ namespace Org.InCommon.InCert.Engine.WebServices.Contracts.WebApi
                             Credential4 = Credential4,
                             Provider = Provider
                         },
-                    Machine = new Machine { MachineId = Application.Current.GetIdentifier() },
+                    Machine = new Machine { MachineId =EndpointManager.GetClientIdentifier() },
                     WiredAddresses = WiredAddresses,
                     WirelessAddresses = WirelessAddresses,
-                    Session = Application.Current.GetSessionId().ToString()
+                    Session = EndpointManager.GetSessionId().ToString()
                 };
 
             request.AddBody(wrapper);

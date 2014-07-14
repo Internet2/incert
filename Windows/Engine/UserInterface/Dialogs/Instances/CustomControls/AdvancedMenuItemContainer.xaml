@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:contentModels="clr-namespace:Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.Mockup.ContentModels"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="300" d:DesignWidth="400">
     <Grid d:DataContext="{d:DesignInstance Type=contentModels:MockAdvancedMenuGroupContainer, IsDesignTimeCreatable=True}" Background="{Binding BackGround}" SnapsToDevicePixels="True" IsEnabled="{Binding IsEnabled}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -14,15 +14,15 @@
 
 
         <DockPanel Grid.Row="0" Background="{Binding BackGround}" Margin="0" SnapsToDevicePixels="True"  >
-            <Label Margin="8,12,0,0" Padding="0" VerticalAlignment="Center">
-                <TextBlock Foreground="{Binding TextBrush}" FontFamily="{Binding FontFamily}" FontSize="18" FontWeight="Bold"  Text="{Binding Title}" />
+            <Label Margin="72,24,72,0" Padding="0" VerticalAlignment="Center">
+                <TextBlock Foreground="{Binding TextBrush}" FontFamily="{Binding FontFamily}" FontSize="24" Text="{Binding Title}" />
             </Label>
         </DockPanel>
 
-        <ItemsControl IsTabStop="False" Name="ButtonContainer" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="{Binding BackGround}" Visibility="{Binding ContainerVisibility}" ItemsSource="{Binding Children}" SnapsToDevicePixels="True">
+        <ItemsControl IsTabStop="False" Margin="52,0,72,0" Name="ButtonContainer" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="{Binding BackGround}" Visibility="{Binding ContainerVisibility}" ItemsSource="{Binding Children}" SnapsToDevicePixels="True">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <WrapPanel Orientation="Horizontal" HorizontalAlignment="Left" SnapsToDevicePixels="True" Margin="12"/>
+                    <WrapPanel Orientation="Horizontal" HorizontalAlignment="Left" SnapsToDevicePixels="True" Margin="0,12,0,0"/>
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
 

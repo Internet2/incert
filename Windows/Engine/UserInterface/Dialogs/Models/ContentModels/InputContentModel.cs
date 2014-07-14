@@ -3,9 +3,10 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Data;
+using System.Windows.Media;
+using Org.InCommon.InCert.Engine.Extensions;
 using Org.InCommon.InCert.Engine.Logging;
 using Org.InCommon.InCert.Engine.Settings;
-using Org.InCommon.InCert.Engine.Tasks.Control;
 using Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.ContentControlWrappers;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Converters;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Instances.CustomControls;
@@ -23,6 +24,20 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
         private bool _readOnly;
         private ScrollBarVisibility _verticalScrollbarVisibility;
         private ScrollBarVisibility _horizontalScrollbarVisibility;
+        private string _watermark;
+        private Brush _waterMarkBrush;
+
+        public string Watermark
+        {
+            get { return _watermark; }
+            set { _watermark = value; OnPropertyChanged(); }
+        }
+
+        public Brush WatermarkBrush
+        {
+            get { return _waterMarkBrush; }
+            set { _waterMarkBrush = value; OnPropertyChanged(); }
+        }
 
         public bool IsReadOnly
         {
@@ -71,12 +86,12 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
         {
             try
             {
-                var result = new TextBoxField {DataContext = this};
+                var result = new TextBoxField { DataContext = this };
                 InitializeSettingBinding(result, wrapper as SimpleInputField);
                 InitializeValues(wrapper);
                 SetValues(wrapper as SimpleInputField, result);
                 Padding = wrapper.Padding.GetValueOrDefault(new Thickness(4));
-                
+
                 Content = result;
                 return result as T;
             }
@@ -101,16 +116,18 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
             MaxLines = wrapper.MaxLines;
             MinLines = wrapper.MinLines;
             IsReadOnly = wrapper.ReadOnly;
-            VerticalScrollBarVisibility = wrapper.CanScroll ? 
+            VerticalScrollBarVisibility = wrapper.CanScroll ?
                 ScrollBarVisibility.Auto : ScrollBarVisibility.Disabled;
 
             if (wrapper.AlwaysScrollToEnd)
                 target.TextChanged += ScrollToEndOnTextChangedHandler;
 
             target.Text = _manager.GetTemporarySettingString(wrapper.SettingKey);
+            Watermark = wrapper.Watermark;
+            WatermarkBrush = AppearanceManager.InputFieldTextBrush.FadeBrush();
         }
-        
-        private void InitializeSettingBinding(FrameworkElement instance,SimpleInputField wrapper)
+
+        private void InitializeSettingBinding(FrameworkElement instance, SimpleInputField wrapper)
         {
             if (instance == null)
                 return;
@@ -138,7 +155,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
                 binding);
         }
 
-        
+
 
         protected override void InitializeBindings(DependencyObject target)
         {
@@ -146,7 +163,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
             BindingOperations.SetBinding(target, TextBox.MaxLinesProperty, GetOneWayBinding(this, "MaxLines"));
             BindingOperations.SetBinding(target, TextBox.MinLinesProperty, GetOneWayBinding(this, "MinLines"));
             BindingOperations.SetBinding(target, TextBoxBase.IsReadOnlyProperty, GetOneWayBinding(this, "IsReadOnly"));
-            BindingOperations.SetBinding(target, TextBoxBase.VerticalScrollBarVisibilityProperty, GetOneWayBinding(this,"VerticalScrollBarVisibility"));
+            BindingOperations.SetBinding(target, TextBoxBase.VerticalScrollBarVisibilityProperty, GetOneWayBinding(this, "VerticalScrollBarVisibility"));
         }
 
         private static void ScrollToEndOnTextChangedHandler(object sender, TextChangedEventArgs e)

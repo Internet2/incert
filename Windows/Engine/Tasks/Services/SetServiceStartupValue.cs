@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using Org.InCommon.InCert.Engine.Importables;
 using Org.InCommon.InCert.Engine.Results;
 using Org.InCommon.InCert.Engine.Results.ControlResults;

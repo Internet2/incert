@@ -4,14 +4,15 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:dialogModels="clr-namespace:Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.Mockup.DialogModels"
+        xmlns:customControls="clr-namespace:Org.InCommon.InCert.Engine.UserInterface.Dialogs.Instances.CustomControls"
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance Type=dialogModels:MockAdvancedMenuDialog, IsDesignTimeCreatable=True}"
         d:DesignWidth="500" d:DesignHeight="500"
         Title="{Binding WindowTitle}"
         Background="{Binding Background}"
         FontFamily="{Binding FontFamily}"
-        Width ="550"
-        Height ="550"
+        Width ="565"
+        Height ="524"
         MinWidth="400"
         MinHeight="250"
         WindowStyle="ToolWindow"
@@ -35,15 +36,15 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <DockPanel Grid.Row="0" Margin="16,20,12,16" Cursor="{Binding Cursor}">
-            <Label DockPanel.Dock="Top" Foreground="{Binding TextBrush}" FontSize="24" FontWeight="Normal" Padding="0">
-                <TextBlock Text="{Binding Title}" />
+        <DockPanel Grid.Row="0" Margin="0" Cursor="{Binding Cursor}" Background="{Binding TopBannerBackground}">
+            <Label DockPanel.Dock="Top" Foreground="{Binding TopBannerForeground}" FontSize="30" FontWeight="Normal" Margin="72,24,72,0" Padding="0" HorizontalAlignment="Left" SnapsToDevicePixels="True">
+                <TextBlock TextWrapping="Wrap" Text="{Binding Title}" />
             </Label>
-            <Label DockPanel.Dock="Top" Foreground="{Binding TextBrush}" Padding="0" Margin="0,12,0,6">
+            <Label DockPanel.Dock="Top" FontSize="14" Foreground="{Binding TopBannerForeground}" Margin="72,6,72,28" Padding="0" HorizontalContentAlignment="Left">
                 <TextBlock Text="{Binding Description}" TextWrapping="Wrap" />
             </Label>
         </DockPanel>
-        <ScrollViewer Name="ItemsScroller" Grid.Row="1" VerticalScrollBarVisibility="Auto" Margin="0" Padding="6,4,0,8"  CanContentScroll="True" Background="{Binding ContainerBackGround}" SnapsToDevicePixels="True">
+        <ScrollViewer Name="ItemsScroller" Grid.Row="1" VerticalScrollBarVisibility="Auto" Margin="0" Padding="0" CanContentScroll="True" Background="{Binding ContainerBackGround}" SnapsToDevicePixels="True">
             <ItemsControl IsTabStop="false" Name="ItemsList" ItemsSource="{Binding Groups}" SnapsToDevicePixels="True">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
@@ -65,49 +66,28 @@
             Grid.Row="2"
             Grid.Column="0"
             LastChildFill="False"
-            Margin="0,4,0,0" 
-            VerticalAlignment="Center" Height="37"
-            >
-
-            <Button 
-                Style="{StaticResource TextButton}" 
+            Margin="0,4,0,4" 
+            VerticalAlignment="Center" SnapsToDevicePixels="True">
+           
+            <customControls:DialogButton 
                 DockPanel.Dock="Left" 
-                Margin="16,6,0,8" 
-                DataContext="{Binding HelpModel}"
-                Content="{Binding Text}"
-                Foreground="{Binding TextBrush}"
-                IsEnabled="{Binding Enabled}"
-                Command="{Binding Command}"
-                IsDefault="{Binding IsDefaultButton}"
-                IsCancel="{Binding IsCancelButton}"
-                Visibility="{Binding Visibility}" />
-
-
-            <Button 
-                Style="{StaticResource TextButton}" 
-                DockPanel.Dock="Right" 
-                Margin="0,6,16,8"
-                DataContext="{Binding CloseModel}"
-                Content="{Binding Text}"
-                Foreground="{Binding TextBrush}"
-                IsEnabled="{Binding Enabled}"
-                Command="{Binding Command}"
-                IsDefault="{Binding IsDefaultButton}"
-                IsCancel="{Binding IsCancelButton}"
-                Visibility="{Binding Visibility}" />
-
-            <Button 
-                Style="{StaticResource TextButton}" 
+                Margin="16,6,0,8"
+                DataContext="{Binding HelpModel}">
+            </customControls:DialogButton>
+            
+            <customControls:DialogButton 
                 DockPanel.Dock="Right" 
                 Margin="0,6,14,8"
-                DataContext="{Binding RunModel}"
-                Content="{Binding Text}"
-                Foreground="{Binding TextBrush}"
-                IsEnabled="{Binding Enabled}"
-                Command="{Binding Command}" 
-                IsDefault="{Binding IsDefaultButton}"
-                IsCancel="{Binding IsCancelButton}"
-                Visibility="{Binding Visibility}" />
+                DataContext="{Binding CloseModel}">
+            </customControls:DialogButton>
+            
+            <customControls:DialogButton 
+                DockPanel.Dock="Right" 
+                Margin="0,6,14,8"
+                DataContext="{Binding RunModel}">
+            </customControls:DialogButton>
+          
+          
 
         </DockPanel>
 

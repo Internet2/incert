@@ -2,7 +2,7 @@
 
 namespace Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.ButtonWrappers
 {
-    class HiddenButton:AbstractButton
+    class HiddenButton:AbstractButtonWrapper
     {
 
         public HiddenButton(IEngine engine):base(engine)
