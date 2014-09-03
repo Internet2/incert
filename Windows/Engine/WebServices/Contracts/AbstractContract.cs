@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Net;
+using System.Net.Mime;
 using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
+using System.Windows;
 using Org.InCommon.InCert.Engine.Extensions;
 using Org.InCommon.InCert.Engine.Logging;
 using Org.InCommon.InCert.Engine.Results;
@@ -237,10 +239,22 @@ namespace Org.InCommon.InCert.Engine.WebServices.Contracts
             var url = GetEndpointUrl();
             var client = new RestClient(url)
             {
-                Timeout = Timeout, 
+                Timeout = Timeout,
                 HttpFactory = GetHttpFactory(url),
+                UserAgent = GetUserAgent(),
             };
             return client;
+        }
+
+        private static string GetUserAgent()
+        {
+            const string format = "Mozilla/5.0 (Windows NT {0}.{1}; {2}/{3})";
+            return string.Format(
+                format, 
+                Environment.OSVersion.Version.Major, 
+                Environment.OSVersion.Version.Minor,
+                Application.Current.GetProductName(),
+                Application.Current.GetVersion());
         }
 
         protected virtual IHttpFactory GetHttpFactory(string requestUrl)
