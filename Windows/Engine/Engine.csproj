@@ -294,6 +294,7 @@
     <Compile Include="Engines\StandardEngine.cs" />
     <Compile Include="Extensions\BrushExtensions.cs" />
     <Compile Include="Extensions\CursorExtensions.cs" />
+    <Compile Include="Extensions\DependencyObjectExtensions.cs" />
     <Compile Include="Extensions\DoEventsExtension.cs" />
     <Compile Include="Conditions\Control\BranchExists.cs" />
     <Compile Include="Conditions\FileAndPath\FileExists.cs" />
@@ -1225,7 +1226,7 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
-    <Content Include="Content\Utility.xml">
+    <Content Include="Content\InCommon\Utility.xml">
       <SubType>Designer</SubType>
     </Content>
     <EmbeddedResource Include="Content\ConfirmCloseBanner.xml">

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Org.InCommon.InCert.Engine.Engines;
@@ -221,7 +222,6 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
             var content = new FramedButtonControl
             {
                 DataContext = this,
-                Foreground = TextBrush,
                 Command = new ButtonSettingsCommand(SettingsManager, this, GetLinkWrapper(wrapper as FramedButton))
             };
 

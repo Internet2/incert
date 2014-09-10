@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="us-ascii" ?>
 <Content xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://incert.incommon.org/schemas ./Schemas/tasklist.xsd">
+  xsi:schemaLocation="http://incert.incommon.org/schemas ../Schemas/tasklist.xsd">
 
   <Branches>
     <RoleBranch name="main" role="Remote" roleMode="Utility">
@@ -142,7 +142,7 @@
           <Setter key="certificate timestamp server">http://timestamp.verisign.com/scripts/timstamp.dll</Setter>
         </Properties>
       </Settings.SetSettingText>
-      
+
       <RegistryTasks.GetStringValue>
         <Conditions.Any>
           <Settings.SettingNotPresent key="wix path" />
@@ -1872,10 +1872,9 @@
   <Banners>
     <SimpleBanner name="Build ready banner" height="450" width="500">
       <Content>
-        <FramedButton controlKey="ready button" settingKey="start build" verticalAlignment="Center" alignment="Center" fontSize="32" margin="0,75,0,0" defaultButton="true">
-          <Content>
-            <DirectTextContent>Build</DirectTextContent>
-          </Content>
+        <FramedButton controlKey="ready button" settingKey="start build" verticalAlignment="Center" alignment="Center" margin="0,75,0,0" defaultButton="true">
+          <Caption fontSize="32">Build</Caption>
+          <Effect type="glow" />
         </FramedButton>
 
         <SimpleParagraph style="Body">
@@ -1919,7 +1918,7 @@
       </Actions>
     </SimpleBanner>
 
-    <SimpleBanner name="certificate banner" width="500" height="450">
+    <SimpleBanner name="certificate banner" width="600" height="650">
       <Content>
         <SimpleParagraph fontSize="24" alignment="Center" margin="0,24,0,0">
           <Content>
@@ -1977,14 +1976,14 @@
 
         <ResultButton>
           <Target>NextButton</Target>
-          <Result>ControlResults.NextResult</Result>
-          <IsDefaultButton>true</IsDefaultButton>
           <Text>Next</Text>
+          <IsDefaultButton>true</IsDefaultButton>
+          <Result>ControlResults.NextResult</Result>
         </ResultButton>
       </Buttons>
     </SimpleBanner>
 
-    <SimpleBanner name="utility paths banner" width="500" height="450">
+    <SimpleBanner name="utility paths banner" width="600" height="650">
       <Content>
         <SimpleParagraph fontSize="24" alignment="Center" margin="0,24,0,0">
           <Content>
@@ -2042,20 +2041,20 @@
 
         <ResultButton>
           <Target>NextButton</Target>
-          <Result>ControlResults.NextResult</Result>
-          <IsDefaultButton>true</IsDefaultButton>
           <Text>Next</Text>
+          <IsDefaultButton>true</IsDefaultButton>
+          <Result>ControlResults.NextResult</Result>
         </ResultButton>
 
         <ResultButton>
           <Target>BackButton</Target>
-          <Result>ControlResults.BackResult</Result>
           <Text>Back</Text>
+          <Result>ControlResults.BackResult</Result>
         </ResultButton>
       </Buttons>
     </SimpleBanner>
 
-    <SimpleBanner name="input paths banner" width="500" height="450">
+    <SimpleBanner name="input paths banner" width="600" height="650">
       <Content>
         <SimpleParagraph fontSize="24" alignment="Center" margin="0,24,0,24">
           <Content>
@@ -2098,7 +2097,8 @@
             <DirectTextContent>Path to folder containing files to compress into settings.cab.</DirectTextContent>
           </Content>
         </SimpleParagraph>
-        <CheckInputField settingKey="download content files" margin="0,12,0,0" padding="4,0,0,0">
+        
+        <CheckInputField settingKey="download content files" margin="0,12,0,0" padding="4,0,0,0" dock="Top">
           <Content>
             <DirectTextContent>Download engine and installer files</DirectTextContent>
           </Content>
@@ -2106,7 +2106,7 @@
       </Content>
 
       <Actions>
-        <HideControlAction>
+        <HideControlAction >
           <Conditions.All>
             <Settings.SettingEquals key="download content files" value="true" ignoreCase="true" />
           </Conditions.All>
@@ -2176,20 +2176,20 @@
 
         <ResultButton>
           <Target>NextButton</Target>
-          <Result>ControlResults.NextResult</Result>
-          <IsDefaultButton>true</IsDefaultButton>
           <Text>Next</Text>
+          <IsDefaultButton>true</IsDefaultButton>
+          <Result>ControlResults.NextResult</Result>
         </ResultButton>
 
         <ResultButton>
           <Target>BackButton</Target>
-          <Result>ControlResults.BackResult</Result>
           <Text>Back</Text>
+          <Result>ControlResults.BackResult</Result>
         </ResultButton>
       </Buttons>
     </SimpleBanner>
 
-    <SimpleBanner name="output paths banner" width="500" height="450">
+    <SimpleBanner name="output paths banner" width="600" height="650">
       <Content>
         <SimpleParagraph fontSize="24" alignment="Center" margin="0,24,0,0">
           <Content>
@@ -2247,20 +2247,20 @@
 
         <ResultButton>
           <Target>NextButton</Target>
-          <Result>ControlResults.NextResult</Result>
-          <IsDefaultButton>true</IsDefaultButton>
           <Text>Next</Text>
+          <IsDefaultButton>true</IsDefaultButton>
+          <Result>ControlResults.NextResult</Result>
         </ResultButton>
 
         <ResultButton>
           <Target>BackButton</Target>
-          <Result>ControlResults.BackResult</Result>
           <Text>Back</Text>
+          <Result>ControlResults.BackResult</Result>
         </ResultButton>
       </Buttons>
     </SimpleBanner>
 
-    <SimpleBanner name="installer version and name banner" width="500" height="450">
+    <SimpleBanner name="installer version and name banner" width="600" height="650">
       <Content>
         <SimpleParagraph fontSize="24" alignment="Center" margin="0,24,0,0">
           <Content>
@@ -2334,21 +2334,21 @@
 
         <ResultButton>
           <Target>NextButton</Target>
-          <Result>ControlResults.NextResult</Result>
-          <IsDefaultButton>true</IsDefaultButton>
           <Text>Next</Text>
+          <IsDefaultButton>true</IsDefaultButton>
+          <Result>ControlResults.NextResult</Result>
         </ResultButton>
 
         <ResultButton>
           <Target>BackButton</Target>
-          <Result>ControlResults.BackResult</Result>
           <Text>Back</Text>
+          <Result>ControlResults.BackResult</Result>
         </ResultButton>
       </Buttons>
 
     </SimpleBanner>
 
-    <SimpleBanner name="installer customizations banner" width="500" height="575">
+    <SimpleBanner name="installer customizations banner" width="600" height="650">
       <Content>
         <SimpleParagraph fontSize="24" alignment="Center" margin="0,24,0,0">
           <Content>
@@ -2455,147 +2455,184 @@
 
         <ResultButton>
           <Target>NextButton</Target>
-          <Result>ControlResults.NextResult</Result>
-          <IsDefaultButton>true</IsDefaultButton>
           <Text>Next</Text>
+          <IsDefaultButton>true</IsDefaultButton>
+          <Result>ControlResults.NextResult</Result>
         </ResultButton>
 
         <ResultButton>
           <Target>BackButton</Target>
-          <Result>ControlResults.BackResult</Result>
           <Text>Back</Text>
+          <Result>ControlResults.BackResult</Result>
         </ResultButton>
       </Buttons>
     </SimpleBanner>
 
     <SimpleBanner name="output path banner">
       <Content>
-        <FolderBrowseButton width="24" height="24" settingKey="output path" dock="Right" verticalAlignment="Center" alignment="Center"
-          margin="8,0,0,2" borderSize="1" glowEffect="false" glowColor="Transparent" caption="..."
-          description="Select the destination folder for the installer package." />
-        <SimpleInputField  maxLines="1" settingKey="output path" dock="Left" alignment="Stretch" verticalAlignment="Center" />
+        <FolderBrowseButton width="36" height="36" settingKey="output path" dock="Right" verticalAlignment="Center" alignment="Center"
+          margin="8,0,2,0" borderSize="1" glowEffect="false" glowColor="Transparent"
+          description="Select the destination folder for the installer package.">
+          <Caption>...</Caption>
+          <Effect type="invert" />
+        </FolderBrowseButton>
+        <SimpleInputField  maxLines="1" margin="0,0,4,0" settingKey="output path" dock="Left" alignment="Stretch" verticalAlignment="Center" />
       </Content>
     </SimpleBanner>
 
     <SimpleBanner name="secure files path banner">
       <Content>
-        <FolderBrowseButton width="24" height="24" settingKey="secure files path" dock="Right" verticalAlignment="Center" alignment="Center"
-          margin="8,0,0,2" borderSize="1" glowEffect="false" glowColor="Transparent" caption="..."
-          description="Select the folder that contains the files that you wish to compress into the secure archive." />
-        <SimpleInputField  maxLines="1" settingKey="secure files path" dock="Left" alignment="Stretch" verticalAlignment="Center" />
+        <FolderBrowseButton width="36" height="36" settingKey="secure files path" dock="Right" verticalAlignment="Center" alignment="Center"
+          margin="8,0,2,0" borderSize="1" glowEffect="false" glowColor="Transparent"
+          description="Select the folder that contains the files that you wish to compress into the secure archive.">
+          <Caption>...</Caption>
+          <Effect type="invert" />
+        </FolderBrowseButton>
+        <SimpleInputField  maxLines="1" margin="0,0,4,0" settingKey="secure files path" dock="Left" alignment="Stretch" verticalAlignment="Center" />
       </Content>
     </SimpleBanner>
 
     <SimpleBanner name="installer files path banner">
       <Content>
-        <FolderBrowseButton width="24" height="24" settingKey="installer files path" dock="Right" verticalAlignment="Center" alignment="Center"
-          margin="8,0,0,2" borderSize="1" glowEffect="false" glowColor="Transparent" caption="..."
-          description="Select the folder that contains the files needed to build the installer." />
-        <SimpleInputField  maxLines="1" settingKey="installer files path" dock="Left" alignment="Stretch" verticalAlignment="Center" />
+        <FolderBrowseButton width="36" height="36" settingKey="installer files path" dock="Right" verticalAlignment="Center" alignment="Center"
+          margin="8,0,2,0" borderSize="1" glowEffect="false" glowColor="Transparent"
+          description="Select the folder that contains the files needed to build the installer.">
+          <Caption>...</Caption>
+          <Effect type="invert" />
+        </FolderBrowseButton>
+        <SimpleInputField  maxLines="1" margin="0,0,4,0" settingKey="installer files path" dock="Left" alignment="Stretch" verticalAlignment="Center" />
       </Content>
     </SimpleBanner>
 
     <SimpleBanner name="engine files path banner">
       <Content>
-        <FolderBrowseButton width="24" height="24" settingKey="engine files path" dock="Right" verticalAlignment="Center" alignment="Center"
-          margin="8,0,0,2" borderSize="1" glowEffect="false" glowColor="Transparent" caption="..."
-          description="Select the folder that contains the core engine files." />
-        <SimpleInputField  maxLines="1" settingKey="engine files path" dock="Left" alignment="Stretch" verticalAlignment="Center" />
+        <FolderBrowseButton width="36" height="36" settingKey="engine files path" dock="Right" verticalAlignment="Center" alignment="Center"
+          margin="8,0,2,0" borderSize="1" glowEffect="false" glowColor="Transparent"
+          description="Select the folder that contains the core engine files.">
+          <Caption>...</Caption>
+          <Effect type="invert" />
+        </FolderBrowseButton>
+        <SimpleInputField  maxLines="1" settingKey="engine files path" dock="Left" margin="0,0,4,0" alignment="Stretch" verticalAlignment="Center" />
       </Content>
     </SimpleBanner>
 
     <SimpleBanner name="content folder path banner">
       <Content>
-        <FolderBrowseButton width="24" height="24" settingKey="content folder path" dock="Right" verticalAlignment="Center" alignment="Center"
-          margin="8,0,0,2" borderSize="1" glowEffect="false" glowColor="Transparent" caption="..."
-          description="Select the folder that will store the generated content files." />
-        <SimpleInputField  maxLines="1" settingKey="content folder path" dock="Left" alignment="Stretch" verticalAlignment="Center" />
+        <FolderBrowseButton width="36" height="36" settingKey="content folder path" dock="Right" verticalAlignment="Center" alignment="Center"
+          margin="8,0,2,0" borderSize="1" glowEffect="false" glowColor="Transparent"
+          description="Select the folder that will store the generated content files.">
+          <Caption>...</Caption>
+          <Effect type="invert" />
+        </FolderBrowseButton>
+        <SimpleInputField  maxLines="1" settingKey="content folder path" dock="Left" alignment="Stretch" margin="0,0,4,0" verticalAlignment="Center" />
       </Content>
     </SimpleBanner>
 
     <SimpleBanner name="engine components folder path banner">
       <Content>
-        <FolderBrowseButton width="24" height="24" settingKey="engine components path" dock="Right" verticalAlignment="Center" alignment="Center"
-          margin="8,0,0,2" borderSize="1" glowEffect="false" glowColor="Transparent" caption="..."
-          description="Select the folder that contains the engine components to process." />
-        <SimpleInputField  maxLines="1" settingKey="engine components path" dock="Left" alignment="Stretch" verticalAlignment="Center" />
+        <FolderBrowseButton width="36" height="36" settingKey="engine components path" dock="Right" verticalAlignment="Center" alignment="Center"
+          margin="8,0,2,0" borderSize="1" glowEffect="false" glowColor="Transparent"
+          description="Select the folder that contains the engine components to process.">
+          <Caption>...</Caption>
+          <Effect type="invert" />
+        </FolderBrowseButton>
+        <SimpleInputField  maxLines="1" settingKey="engine components path" dock="Left" alignment="Stretch" verticalAlignment="Center" margin="0,0,4,0" />
       </Content>
     </SimpleBanner>
 
     <SimpleBanner name="bootstrapper engine components folder path banner">
       <Content>
-        <FolderBrowseButton width="24" height="24" settingKey="bootstrapper engine components path" dock="Right" verticalAlignment="Center" alignment="Center"
-          margin="8,0,0,2" borderSize="1" glowEffect="false" glowColor="Transparent" caption="..."
-          description="Select the folder that contains the bootstrapper engine components to process." />
-        <SimpleInputField  maxLines="1" settingKey="bootstrapper engine components path" dock="Left" alignment="Stretch" verticalAlignment="Center" />
+        <FolderBrowseButton width="36" height="36" settingKey="bootstrapper engine components path" dock="Right" verticalAlignment="Center" alignment="Center"
+          margin="8,0,2,0" borderSize="1" glowEffect="false" glowColor="Transparent"
+          description="Select the folder that contains the bootstrapper engine components to process.">
+          <Caption>...</Caption>
+          <Effect type="invert" />
+        </FolderBrowseButton>
+        <SimpleInputField  maxLines="1" settingKey="bootstrapper engine components path" dock="Left" alignment="Stretch" margin="0,0,4,0" verticalAlignment="Center" />
       </Content>
     </SimpleBanner>
 
     <SimpleBanner name="installer.wxs path banner">
       <Content>
-        <FileBrowseButton width="24" height="24" settingKey="installer.wxs path" dock="Right" verticalAlignment="Center" alignment="Center"
-          margin="8,0,0,2" borderSize="1" glowEffect="false" glowColor="Transparent" caption="..."
+        <FileBrowseButton width="36" height="36" settingKey="installer.wxs path" dock="Right" verticalAlignment="Center" alignment="Center"
+          margin="8,0,2,0" borderSize="1" glowEffect="false" glowColor="Transparent"
           title="Locate installer.wxs"
-          filter = "installer.wxs|installer.wxs" />
-        <SimpleInputField  maxLines="1" settingKey="installer.wxs path" dock="Left" alignment="Stretch" verticalAlignment="Center" />
+          filter = "installer.wxs|installer.wxs">
+          <Caption>...</Caption>
+          <Effect type="invert" />
+        </FileBrowseButton>
+        <SimpleInputField  maxLines="1" settingKey="installer.wxs path" dock="Left" alignment="Stretch" margin="0,0,4,0" verticalAlignment="Center" />
       </Content>
     </SimpleBanner>
 
     <SimpleBanner name="bundle.wxs path banner">
       <Content>
-        <FileBrowseButton width="24" height="24" settingKey="bundle.wxs path" dock="Right" verticalAlignment="Center" alignment="Center"
-          margin="8,0,0,2" borderSize="1" glowEffect="false" glowColor="Transparent" caption="..."
+        <FileBrowseButton width="36" height="36" settingKey="bundle.wxs path" dock="Right" verticalAlignment="Center" alignment="Center"
+          margin="8,0,2,0" borderSize="1" glowEffect="false" glowColor="Transparent"
           title="Locate bundle.wxs"
-          filter = "bundle.wxs|bundle.wxs" />
-        <SimpleInputField  maxLines="1" settingKey="bundle.wxs path" dock="Left" alignment="Stretch" verticalAlignment="Center" />
+          filter = "bundle.wxs|bundle.wxs">
+          <Caption>...</Caption>
+          <Effect type="invert" />
+        </FileBrowseButton>
+        <SimpleInputField  maxLines="1" settingKey="bundle.wxs path" dock="Left" alignment="Stretch" margin="0,0,4,0" verticalAlignment="Center" />
       </Content>
     </SimpleBanner>
 
     <SimpleBanner name="signtool path banner">
       <Content>
-        <FileBrowseButton width="24" height="24" settingKey="signtool path" dock="Right" verticalAlignment="Center" alignment="Center"
-          margin="8,0,0,2" borderSize="1" glowEffect="false" glowColor="Transparent" caption="..."
+        <FileBrowseButton width="36" height="36" settingKey="signtool path" dock="Right" verticalAlignment="Center" alignment="Center"
+          margin="8,0,2,0" borderSize="1" glowEffect="false" glowColor="Transparent"
           title="Locate Signtool Utility"
-          filter = "Signtool Utility|signtool.exe" />
-
-        <SimpleInputField  maxLines="1" settingKey="signtool path" dock="Left" alignment="Stretch" verticalAlignment="Center" />
+          filter = "Signtool Utility|signtool.exe">
+          <Caption>...</Caption>
+          <Effect type="invert" />
+        </FileBrowseButton>
+        <SimpleInputField  maxLines="1" settingKey="signtool path" dock="Left" margin="0,0,4,0" alignment="Stretch" verticalAlignment="Center" />
       </Content>
     </SimpleBanner>
 
     <SimpleBanner name="icon path banner">
       <Content>
-        <FileBrowseButton width="24" height="24" settingKey="installer icon path" dock="Right" verticalAlignment="Center" alignment="Center"
-          margin="8,0,0,2" borderSize="1" glowEffect="false" glowColor="Transparent" caption="..."
+        <FileBrowseButton width="36" height="36" settingKey="installer icon path" dock="Right" verticalAlignment="Center" alignment="Center"
+          margin="8,0,2,0" borderSize="1" glowEffect="false" glowColor="Transparent"
           title="Locate Installer Icon"
-          filter = "Icon Files (*.ico)|*.ico" />
-        <SimpleInputField  maxLines="1" settingKey="installer icon path" dock="Left" alignment="Stretch" verticalAlignment="Center" />
+          filter = "Icon Files (*.ico)|*.ico">
+          <Caption>...</Caption>
+          <Effect type="invert" />
+        </FileBrowseButton>
+        <SimpleInputField  maxLines="1" settingKey="installer icon path" dock="Left" margin="0,0,4,0" alignment="Stretch" verticalAlignment="Center" />
       </Content>
     </SimpleBanner>
 
     <SimpleBanner name="wix path banner">
       <Content>
-        <FolderBrowseButton width="24" height="24" settingKey="wix path" dock="Right" verticalAlignment="Center" alignment="Center"
-          margin="8,0,0,2" borderSize="1" glowEffect="false" glowColor="Transparent" caption="..."
-          description="Select the Windows Installer Xml (WiX) toolset installation folder." />
-        <SimpleInputField  maxLines="1" settingKey="wix path" dock="Left" alignment="Stretch" verticalAlignment="Center" />
+        <FolderBrowseButton width="36" height="36" settingKey="wix path" dock="Right" verticalAlignment="Center" alignment="Center"
+          margin="8,0,2,0" borderSize="1" glowEffect="false" glowColor="Transparent"
+          description="Select the Windows Installer Xml (WiX) toolset installation folder.">
+          <Caption>...</Caption>
+          <Effect type="invert" />
+        </FolderBrowseButton>
+        <SimpleInputField  maxLines="1" settingKey="wix path" dock="Left" alignment="Stretch" margin="0,0,4,0" verticalAlignment="Center" />
       </Content>
     </SimpleBanner>
 
     <SimpleBanner name="hasher target file banner">
       <Content>
-        <FileBrowseButton width="24" height="24" settingKey="hasher target file" dock="Right" verticalAlignment="Center" alignment="Center"
-          margin="8,0,0,2" borderSize="1" glowEffect="false" glowColor="Transparent" caption="..."
-          title="Locate File To Process" />
-        <SimpleInputField  maxLines="1" settingKey="hasher target file" dock="Left" alignment="Stretch" verticalAlignment="Center" />
+        <FileBrowseButton width="36" height="36" settingKey="hasher target file" dock="Right" verticalAlignment="Center" alignment="Center" margin="8,0,2,0" borderSize="1" title="Locate File To Process">
+          <Caption>...</Caption>
+          <Effect type="invert" />
+        </FileBrowseButton>
+        <SimpleInputField  maxLines="1" settingKey="hasher target file" dock="Left" alignment="Stretch" margin="0,0,4,0" verticalAlignment="Center" />
       </Content>
     </SimpleBanner>
 
     <SimpleBanner name="hasher output path banner">
       <Content>
-        <FolderBrowseButton width="24" height="24" settingKey="hasher output folder" dock="Right" verticalAlignment="Center" alignment="Center"
-          margin="8,0,0,2" borderSize="1" glowEffect="false" glowColor="Transparent" caption="..."
-          description="Select the destination folder for the installer package." />
-        <SimpleInputField  maxLines="1" settingKey="hasher output folder" dock="Left" alignment="Stretch" verticalAlignment="Center" />
+        <FolderBrowseButton width="36" height="36" settingKey="hasher output folder" dock="Right" verticalAlignment="Center" alignment="Center" margin="8,0,2,0" borderSize="1" description="Select the destination folder for the installer package.">
+          <Caption>...</Caption>
+          <Effect type="invert" />
+        </FolderBrowseButton>
+        <SimpleInputField  maxLines="1" settingKey="hasher output folder" dock="Left" alignment="Stretch" margin="0,0,4,0" verticalAlignment="Center" />
       </Content>
     </SimpleBanner>
 
@@ -2833,7 +2870,7 @@
       </Actions>
     </SimpleBanner>
 
-    <SimpleBanner name="generate content folder banner" width="500" height="575">
+    <SimpleBanner name="generate content folder banner" width="600" height="650">
       <Content>
         <SimpleParagraph fontSize="24" alignment="Center" margin="0,24,0,0">
           <Content>
@@ -2933,9 +2970,9 @@
 
         <ResultButton>
           <Target>NextButton</Target>
-          <Result>ControlResults.NextResult</Result>
-          <IsDefaultButton>true</IsDefaultButton>
           <Text>Next</Text>
+          <IsDefaultButton>true</IsDefaultButton>
+          <Result>ControlResults.NextResult</Result>
         </ResultButton>
       </Buttons>
     </SimpleBanner>

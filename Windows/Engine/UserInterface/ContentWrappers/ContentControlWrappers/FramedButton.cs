@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
 using System.Xml.Linq;
 using Org.InCommon.InCert.Engine.Dynamics;
@@ -32,7 +33,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.ContentContro
         public string EffectArgument { get; set; }
         public CornerRadius CornerRadius { get; set; }
         public HorizontalAlignment HorizontalAlignment { get; set; }
-
+       
         public override System.Type GetSupportingModelType()
         {
             return typeof(FramedButtonModel);
