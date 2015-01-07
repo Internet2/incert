@@ -12,6 +12,8 @@
   <xs:element name="SystemInfo.IsNotWindows7" />
   <xs:element name="SystemInfo.IsWindows8" />
   <xs:element name="SystemInfo.IsNotWindows8" />
+  <xs:element name="SystemInfo.IsWindows10" />
+  <xs:element name="SystemInfo.IsNotWindows10" />
   <xs:element name="SystemInfo.IsProfessional" />
   <xs:element name="SystemInfo.IsNotProfessional" />
 
