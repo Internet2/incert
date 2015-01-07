@@ -257,6 +257,7 @@
           <SystemInfo.IsWindows7 />
           <SystemInfo.IsWindows8 />
           <SystemInfo.IsWindowsVista />
+          <SystemInfo.IsWindows10 />
         </Conditions.Any>
       </Control.ReturnLeaveBranchNextResult>
 
