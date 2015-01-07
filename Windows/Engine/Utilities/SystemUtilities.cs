@@ -20,7 +20,7 @@ namespace Org.InCommon.InCert.Engine.Utilities
     {
 
         [AttributeUsage(AttributeTargets.Field, Inherited = false, AllowMultiple = false)]
-        internal sealed class VersionInfo : Attribute
+        private sealed class VersionInfo : Attribute
         {
             public VersionInfo(string name)
             {
@@ -37,7 +37,7 @@ namespace Org.InCommon.InCert.Engine.Utilities
             public bool IsServer { get; private set; }
         }
 
-        internal static string FriendlyName(this NativeMethods.KnownProductTypes productType)
+        private static string FriendlyName(this NativeMethods.KnownProductTypes productType)
         {
             try
             {
@@ -570,7 +570,18 @@ namespace Org.InCommon.InCert.Engine.Utilities
             return true;
         }
 
+        /// <summary>
+        /// Determines if the computer is running Windows 10
+        /// </summary>
+        /// <returns></returns>
+        public static bool IsWindows10()
+        {
+            if (Environment.OSVersion.Platform != PlatformID.Win32NT)
+                return false;
 
+            return Environment.OSVersion.Version.Major == 10;
+        }
+        
         /// <summary>
         /// Verifies that the utility is being run with admin privileges 
         /// </summary>
