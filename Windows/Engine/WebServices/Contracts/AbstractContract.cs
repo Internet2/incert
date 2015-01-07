@@ -109,7 +109,7 @@ namespace Org.InCommon.InCert.Engine.WebServices.Contracts
             {
                 var client = GetClient();
 
-                if (string.IsNullOrWhiteSpace(client.BaseUrl))
+                if (client.BaseUrl ==null)
                 {
                     SetError(
                         new Exception("Endpoint manager returned empty endpoint url for " + GetType().Name));

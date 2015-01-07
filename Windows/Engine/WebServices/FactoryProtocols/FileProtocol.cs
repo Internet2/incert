@@ -62,6 +62,11 @@ namespace Org.InCommon.InCert.Engine.WebServices.FactoryProtocols
             throw new NotImplementedException();
         }
 
+        public HttpWebRequest MergeAsync(Action<HttpResponse> action)
+        {
+            throw new NotImplementedException();
+        }
+
         public HttpWebRequest AsPostAsync(Action<HttpResponse> action, string httpMethod)
         {
             throw new NotImplementedException();
@@ -103,6 +108,11 @@ namespace Org.InCommon.InCert.Engine.WebServices.FactoryProtocols
         }
 
         public HttpResponse Patch()
+        {
+            throw new NotImplementedException();
+        }
+
+        public HttpResponse Merge()
         {
             throw new NotImplementedException();
         }
@@ -218,6 +228,13 @@ namespace Org.InCommon.InCert.Engine.WebServices.FactoryProtocols
         public bool AlwaysMultipartFormData { get; set; }
         public string UserAgent { get; set; }
         public int Timeout { get; set; }
+
+        public int ReadWriteTimeout
+        {
+            get { throw new NotImplementedException(); }
+            set { throw new NotImplementedException(); }
+        }
+
         public bool FollowRedirects { get; set; }
         public X509CertificateCollection ClientCertificates { get; set; }
         public int? MaxRedirects { get; set; }
@@ -228,6 +245,13 @@ namespace Org.InCommon.InCert.Engine.WebServices.FactoryProtocols
         public IList<HttpCookie> Cookies { get; private set; }
         public string RequestBody { get; set; }
         public string RequestContentType { get; set; }
+
+        public bool PreAuthenticate
+        {
+            get { throw new NotImplementedException(); }
+            set { throw new NotImplementedException(); }
+        }
+
         public byte[] RequestBodyBytes { get; set; }
         public Uri Url { get; set; }
         public IWebProxy Proxy { get; set; }
