@@ -123,6 +123,8 @@
         <xs:element ref="SystemInfo.IsNotWindows7" />
         <xs:element ref="SystemInfo.IsWindows8" />
         <xs:element ref="SystemInfo.IsNotWindows8" />
+        <xs:element ref="SystemInfo.IsWindows10" />
+        <xs:element ref="SystemInfo.IsNotWindows10" />
         <xs:element ref="SystemInfo.IsProcessRunning" />
         <xs:element ref="SystemInfo.ServicePackAtLeast" />
         <xs:element ref="SystemInfo.ServicePackLessThan" />
