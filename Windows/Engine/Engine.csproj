@@ -212,8 +212,10 @@
     <Compile Include="Conditions\Settings\ValueNotPresentInStoredList.cs" />
     <Compile Include="Conditions\Settings\ValuePresentInStoredList.cs" />
     <Compile Include="Conditions\SystemInfo\IsNotProfessional.cs" />
+    <Compile Include="Conditions\SystemInfo\IsNotWindows10.cs" />
     <Compile Include="Conditions\SystemInfo\IsProcessRunningByName.cs" />
     <Compile Include="Conditions\SystemInfo\IsProfessional.cs" />
+    <Compile Include="Conditions\SystemInfo\IsWindows10.cs" />
     <Compile Include="Conditions\Versioning\FileInfoVersionLessOrEqual.cs" />
     <Compile Include="Conditions\Versioning\FileVersionAtLeast.cs" />
     <Compile Include="Conditions\Versioning\FileVersionNotAtLeast.cs" />
