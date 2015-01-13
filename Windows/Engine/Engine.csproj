@@ -521,6 +521,7 @@
     <Compile Include="Tasks\UserInterface\LoadImageFromUri.cs" />
     <Compile Include="Tasks\UserInterface\LoadImageFromArchive.cs" />
     <Compile Include="Tasks\UserInterface\SetAdvancedMenuOptions.cs" />
+    <Compile Include="Tasks\UserInterface\ShowHtmlBannerModal.cs" />
     <Compile Include="Tasks\Utility\OpenControlPanel.cs" />
     <Compile Include="Tasks\Utility\OpenUrlInExternalBrowser.cs" />
     <Compile Include="Tasks\Utility\ScheduleRunOnceUtility.cs" />
