@@ -18,7 +18,7 @@ namespace Org.InCommon.InCert.Engine.Tasks.UserInterface
         }
 
         [PropertyAllowedFromXml]
-        public string Banner
+        public string Url
         {
             get { return GetDynamicValue(); }
             set { SetDynamicValue(value); }
@@ -38,12 +38,12 @@ namespace Org.InCommon.InCert.Engine.Tasks.UserInterface
                 return new DialogInstanceNotFound { Dialog = Dialog };
 
             DialogsManager.ActiveDialogKey = Dialog;
-            return dialog.ShowPage(Banner);
+            return dialog.ShowPage(Url);
         }
 
         public override string GetFriendlyName()
         {
-            return string.Format("Show html banner {0} in model dialog {1}", Banner, Dialog);
+            return string.Format("Show html banner {0} in model dialog {1}", Url, Dialog);
         }
     }
 }
