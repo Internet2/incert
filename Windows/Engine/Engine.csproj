@@ -887,6 +887,7 @@
     <Compile Include="UserInterface\Dialogs\Models\ContentModels\TextContentModel.cs" />
     <Compile Include="UserInterface\Dialogs\Models\ContentModels\UpdatableTextContentModel.cs" />
     <Compile Include="UserInterface\Dialogs\Models\DialogModels\HelpDialogModel.cs" />
+    <Compile Include="UserInterface\Dialogs\Models\DialogModels\HtmlDialogModel.cs" />
     <Compile Include="UserInterface\Dialogs\Models\HyperlinkModels\ControlPanelHyperlinkModel.cs" />
     <Compile Include="UserInterface\Dialogs\Models\Mockup\ContentModels\MockAdvancedMenuGroupContainer.cs" />
     <Compile Include="UserInterface\Dialogs\Models\Mockup\ContentModels\MockAdvancedMenuItem.cs" />

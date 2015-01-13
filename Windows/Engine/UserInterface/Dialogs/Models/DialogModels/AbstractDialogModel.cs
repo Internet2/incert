@@ -446,7 +446,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
             _buttonAssigners[button.Target].Invoke(button);
         }
 
-        private IResult WaitForResult()
+        protected IResult WaitForResult()
         {
             Result = null;
             do

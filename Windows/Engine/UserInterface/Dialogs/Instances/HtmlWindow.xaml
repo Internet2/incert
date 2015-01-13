@@ -21,6 +21,6 @@
         d:DataContext="{d:DesignInstance Type=dialogModels:MockBorderedModel, IsDesignTimeCreatable=True}"
         >
     <Grid Width="{Binding Width}" Height="{Binding Height}" Cursor="{Binding Cursor}">
-        <WebBrowser Name="BrowserControl"></WebBrowser>
+        <WebBrowser Name="BrowserControl" x:FieldModifier="public"></WebBrowser>
     </Grid>
 </Window>
