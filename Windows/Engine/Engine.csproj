@@ -794,6 +794,9 @@
     <Compile Include="UserInterface\Dialogs\Instances\HelpWindow.xaml.cs">
       <DependentUpon>HelpWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserInterface\Dialogs\Instances\HtmlWindow.xaml.cs">
+      <DependentUpon>HtmlWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserInterface\Dialogs\Instances\Pages\BannerPage.xaml.cs">
       <DependentUpon>BannerPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -1293,6 +1296,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserInterface\Dialogs\Instances\HelpWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterface\Dialogs\Instances\HtmlWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
