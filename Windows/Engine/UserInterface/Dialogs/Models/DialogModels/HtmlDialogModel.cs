@@ -11,30 +11,35 @@ using System.Web;
 using System.Windows;
 using System.Windows.Controls;
 using log4net;
+using Org.InCommon.InCert.Engine.AdvancedMenu;
+using Org.InCommon.InCert.Engine.Dynamics;
 using Org.InCommon.InCert.Engine.Engines;
+using Org.InCommon.InCert.Engine.Help;
 using Org.InCommon.InCert.Engine.Results;
 using Org.InCommon.InCert.Engine.Results.ControlResults;
 using Org.InCommon.InCert.Engine.Settings;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Instances;
 using Org.InCommon.InCert.Engine.Logging;
+using Org.InCommon.InCert.Engine.Utilities;
 
 namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
 {
-    public class HtmlDialogModel:AbstractDialogModel
+    public class HtmlDialogModel : AbstractDialogModel
     {
         private static readonly ILog Log = Logger.Create();
         private readonly WebBrowser _browserInstance;
-        
-        public HtmlDialogModel(IHasEngineFields engine) : base(engine, new HtmlWindow())
+
+        public HtmlDialogModel(IHasEngineFields engine)
+            : base(engine, new HtmlWindow())
         {
             ShowInTaskbar = true;
             WindowStyle = WindowStyle.SingleBorderWindow;
             Width = 600;
             Height = 600;
 
-            _browserInstance = ((HtmlWindow) DialogInstance).BrowserControl;
+            _browserInstance = ((HtmlWindow)DialogInstance).BrowserControl;
             _browserInstance.Loaded += BrowserLoadedHandler;
-            _browserInstance.ObjectForScripting = new ScriptingProxy(engine.SettingsManager, this);
+            _browserInstance.ObjectForScripting = new ScriptingProxy(engine, this);
         }
 
         private Uri Uri
@@ -55,6 +60,11 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
             Uri = new Uri(url);
             DialogInstance.Show();
             return WaitForResult();
+        }
+
+        public void EnableDisableBrowser(bool enable)
+        {
+            _browserInstance.IsEnabled = enable;
         }
 
         private void BrowserLoadedHandler(object sender, RoutedEventArgs e)
@@ -100,17 +110,33 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
         public class ScriptingProxy
         {
             private readonly ISettingsManager _settingsManager;
+            private readonly IHelpManager _helpManager;
+            private readonly IAdvancedMenuManager _advancedMenuManager;
+            private readonly IHasEngineFields _engine;
             private readonly HtmlDialogModel _model;
 
-            public ScriptingProxy(ISettingsManager settingsManager, HtmlDialogModel model)
+            public ScriptingProxy(IHasEngineFields engine, HtmlDialogModel model)
             {
-                _settingsManager = settingsManager;
+                _settingsManager = engine.SettingsManager;
+                _helpManager = engine.HelpManager;
+                _advancedMenuManager = engine.AdvancedMenuManager;
+                _engine = engine;
                 _model = model;
+            }
+
+            public string GetValue(string key)
+            {
+                return _settingsManager.GetTemporarySettingString(key);
+            }
+
+            public void SetValue(string key, string value)
+            {
+                _settingsManager.SetTemporarySettingString(key, value);
             }
 
             public void ReturnNext()
             {
-               _model.Result = new NextResult();
+                _model.Result = new NextResult();
             }
 
             public void ReturnBack()
@@ -118,9 +144,48 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
                 _model.Result = new BackResult();
             }
 
+            public void ShowAdvancedMenu(string group = "")
+            {
+                try
+                {
+                    var left = _model.DialogInstance.Left;
+                    var top = _model.DialogInstance.Top;
+
+                    _model.EnableDisableAllControls(false);
+                    _model.EnableDisableBrowser(false);
+                    var advancedMenuModel = new AdvancedMenuModel(_engine, _model);
+                    advancedMenuModel.ShowDialog(
+                        left,
+                        top,
+                        group.Resolve(_engine.SettingsManager, true));
+
+                    if (advancedMenuModel.Result != null)
+                    {
+                        if (advancedMenuModel.Result is RestartComputerResult ||
+                            advancedMenuModel.Result is SilentRestartComputerResult ||
+                            advancedMenuModel.Result is ExitUtilityResult)
+                        {
+                            _model.Result = advancedMenuModel.Result;
+                            _model.SuppressCloseQuestion = true;
+                            _model.DialogInstance.Close();
+                        }
+                    }
+                }
+                finally
+                {
+                    _model.EnableDisableAllControls(true);
+                    _model.EnableDisableBrowser(true);
+                }
+            }
+
+
+            public void ShowHelpTopic(string value)
+            {
+                _helpManager.ShowHelpTopic(value, _model);
+            }
 
         }
     }
 
-    
+
 }
