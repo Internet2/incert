@@ -1,6 +1,7 @@
 ﻿using System;
 using Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.ContentControlWrappers;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Instances.CustomControls;
+using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModels;
 
 namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
 {
@@ -13,6 +14,8 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
 
         public override T LoadContent<T>(AbstractContentWrapper wrapper)
         {
+            
+            
             var content = new BrowserControl {DataContext = this};
             InitializeBindings(content);
             InitializeValues(wrapper);
@@ -24,6 +27,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
             }
 
             var uri = new Uri(browserWrapper.Url);
+            content.Browser.ObjectForScripting = new ScriptingModel(wrapper.Engine, RootDialogModel);
             content.Browser.Navigate(uri, null, null, "Incert: true\r\n");
             
             Content = content;
@@ -31,6 +35,8 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
             return content as T;
 
         }
+
+
 
         
     }
