@@ -1,9 +1,7 @@
 ﻿using System.Windows.Input;
 using Org.InCommon.InCert.Engine.AdvancedMenu;
-using Org.InCommon.InCert.Engine.Dynamics;
 using Org.InCommon.InCert.Engine.Engines;
 using Org.InCommon.InCert.Engine.Extensions;
-using Org.InCommon.InCert.Engine.Results.ControlResults;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Commands;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels;
 

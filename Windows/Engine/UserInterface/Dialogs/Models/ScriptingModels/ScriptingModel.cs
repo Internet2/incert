@@ -17,8 +17,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModel
         private readonly IAdvancedMenuManager _advancedMenuManager;
         private readonly IHasEngineFields _engine;
         private readonly AbstractDialogModel _dialogModel;
-
-
+        
         public ScriptingModel(IHasEngineFields engine, AbstractDialogModel dialogModel)
         {
             _settingsManager = engine.SettingsManager;
