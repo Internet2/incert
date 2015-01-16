@@ -769,6 +769,9 @@
     <Compile Include="UserInterface\Dialogs\Instances\CustomControls\BorderedContentPanelInstance.xaml.cs">
       <DependentUpon>BorderedContentPanelInstance.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserInterface\Dialogs\Instances\CustomControls\BrowserControl.xaml.cs">
+      <DependentUpon>BrowserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserInterface\Dialogs\Instances\CustomControls\CheckboxParagraph.xaml.cs">
       <DependentUpon>CheckboxParagraph.xaml</DependentUpon>
     </Compile>
@@ -1263,6 +1266,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserInterface\Dialogs\Instances\CustomControls\BorderedContentPanelInstance.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterface\Dialogs\Instances\CustomControls\BrowserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
