@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Navigation;
 using log4net;
 using Org.InCommon.InCert.Engine.AdvancedMenu;
 using Org.InCommon.InCert.Engine.Dynamics;
@@ -38,8 +39,13 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
             Height = 600;
 
             _browserInstance = ((HtmlWindow)DialogInstance).BrowserControl;
-            _browserInstance.Loaded += BrowserLoadedHandler;
+            _browserInstance.Navigated += OnNavigatedHandler;
             _browserInstance.ObjectForScripting = new ScriptingProxy(engine, this);
+        }
+
+        private void OnNavigatedHandler(object sender, NavigationEventArgs e)
+        {
+            SetSilent(_browserInstance,true);   
         }
 
         private Uri Uri
@@ -67,24 +73,32 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
             _browserInstance.IsEnabled = enable;
         }
 
-        private void BrowserLoadedHandler(object sender, RoutedEventArgs e)
+        public static void SetSilent(WebBrowser browser, bool silent)
         {
-            try
-            {
-                var activeX = _browserInstance.GetType().InvokeMember("ActiveXInstance",
-                    BindingFlags.GetProperty | BindingFlags.Instance | BindingFlags.NonPublic,
-                    null, _browserInstance, new object[] { }) as SHDocVw.WebBrowser;
+            if (browser == null)
+                throw new ArgumentNullException("browser");
 
-                if (activeX == null)
-                    return;
-
-                activeX.Silent = true;
-                activeX.NavigateError += HandleNavigateIssue;
-            }
-            catch (Exception ex)
+            // get an IWebBrowser2 from the document
+            IOleServiceProvider sp = browser.Document as IOleServiceProvider;
+            if (sp != null)
             {
-                Log.Warn("An issue occurred while attempting to configure the browser control: {0}", ex);
+                var iidIWebBrowserApp = new Guid("0002DF05-0000-0000-C000-000000000046");
+                var iidIWebBrowser2 = new Guid("D30C1661-CDAF-11d0-8A3E-00C04FC9E26E");
+
+                object webBrowser;
+                sp.QueryService(ref iidIWebBrowserApp, ref iidIWebBrowser2, out webBrowser);
+                if (webBrowser != null)
+                {
+                    webBrowser.GetType().InvokeMember("Silent", BindingFlags.Instance | BindingFlags.Public | BindingFlags.PutDispProperty, null, webBrowser, new object[] { silent });
+                }
             }
+        }
+
+        [ComImport, Guid("6D5140C1-7436-11CE-8034-00AA006009FA"), InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+        private interface IOleServiceProvider
+        {
+            [PreserveSig]
+            int QueryService([In] ref Guid guidService, [In] ref Guid riid, [MarshalAs(UnmanagedType.IDispatch)] out object ppvObject);
         }
 
         private void HandleNavigateIssue(object pdisp, ref object url, ref object frame, ref object statusCode, ref bool cancel)
@@ -122,6 +136,11 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
                 _advancedMenuManager = engine.AdvancedMenuManager;
                 _engine = engine;
                 _model = model;
+            }
+
+            public bool InCertPresent()
+            {
+                return true;
             }
 
             public string GetValue(string key)
