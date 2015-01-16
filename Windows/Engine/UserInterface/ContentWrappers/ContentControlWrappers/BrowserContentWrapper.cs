@@ -7,7 +7,8 @@ namespace Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.ContentContro
     class BrowserContentWrapper:AbstractContentWrapper
     {
         public Uri Uri { get; set; }
-        
+        public bool SilentMode { get; set; }
+
         public BrowserContentWrapper(IEngine engine) : base(engine)
         {
             

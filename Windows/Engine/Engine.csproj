@@ -311,6 +311,7 @@
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Extensions\TaskExtensions.cs" />
     <Compile Include="Extensions\ThicknessExtensions.cs" />
+    <Compile Include="Extensions\WebBrowserControlExtensions.cs" />
     <Compile Include="Extensions\XmlExtensions.cs" />
     <Compile Include="Help\HelpTopic.cs" />
     <Compile Include="Help\IHelpManager.cs" />

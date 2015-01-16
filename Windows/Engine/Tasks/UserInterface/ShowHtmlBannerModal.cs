@@ -11,9 +11,10 @@ using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels;
 
 namespace Org.InCommon.InCert.Engine.Tasks.UserInterface
 {
-    class ShowHtmlBannerModal:AbstractTask
+    class ShowHtmlBannerModal : AbstractTask
     {
-        public ShowHtmlBannerModal(IEngine engine) : base(engine)
+        public ShowHtmlBannerModal(IEngine engine)
+            : base(engine)
         {
         }
 
@@ -43,7 +44,8 @@ namespace Org.InCommon.InCert.Engine.Tasks.UserInterface
                 {
                     Uri = new Uri(Url),
                     Padding = new Thickness(0),
-                    Margin = new Thickness(0)
+                    Margin = new Thickness(0),
+                    SilentMode = true
                 };
 
                 var banner = new SimpleBanner(Engine)

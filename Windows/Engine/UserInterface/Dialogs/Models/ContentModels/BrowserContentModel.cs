@@ -14,8 +14,6 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
 
         public override T LoadContent<T>(AbstractContentWrapper wrapper)
         {
-            
-            
             var content = new BrowserControl {DataContext = this};
             InitializeBindings(content);
             InitializeValues(wrapper);
@@ -26,9 +24,9 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
                 throw new InvalidCastException("Could not cast wrapper to valid type");
             }
 
-            var uri = browserWrapper.Uri;
+            content.SilentMode = browserWrapper.SilentMode;
             content.Browser.ObjectForScripting = new ScriptingModel(wrapper.Engine, RootDialogModel);
-            content.Browser.Navigate(uri, null, null, "Incert: true\r\n");
+            content.Browser.Navigate(browserWrapper.Uri, null, null, "Incert: true\r\n");
             
             Content = content;
 
