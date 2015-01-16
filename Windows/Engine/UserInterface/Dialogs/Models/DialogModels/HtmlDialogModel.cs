@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Net;
 using System.Reflection;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web;
 using System.Windows;
 using System.Windows.Controls;
@@ -16,12 +11,11 @@ using Org.InCommon.InCert.Engine.AdvancedMenu;
 using Org.InCommon.InCert.Engine.Dynamics;
 using Org.InCommon.InCert.Engine.Engines;
 using Org.InCommon.InCert.Engine.Help;
+using Org.InCommon.InCert.Engine.Logging;
 using Org.InCommon.InCert.Engine.Results;
 using Org.InCommon.InCert.Engine.Results.ControlResults;
 using Org.InCommon.InCert.Engine.Settings;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Instances;
-using Org.InCommon.InCert.Engine.Logging;
-using Org.InCommon.InCert.Engine.Utilities;
 
 namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
 {
