@@ -22,6 +22,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.Mockup.DialogM
         public MockNavigationModel BackModel { get; private set; }
         public MockNavigationModel HelpModel { get; private set; }
         public MockNavigationModel AdvancedModel { get; private set; }
+        public Visibility NavigationPanelVisibility { get { return Visibility.Visible;  } }
         public bool ShowInTaskbar { get { return true; } }
         public double Left { get; set; }
         public double Top { get; set; }

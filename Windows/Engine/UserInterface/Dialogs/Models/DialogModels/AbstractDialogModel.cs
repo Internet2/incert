@@ -59,6 +59,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
         private double _left;
         private double _top;
         private string _windowTitle;
+        private Visibility _navigationPanelVisibility;
 
         public IResult Result
         {
@@ -277,6 +278,12 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
             set { _background = value; OnPropertyChanged(); }
         }
 
+        public Visibility NavigationPanelVisibility
+        {
+            get { return _navigationPanelVisibility;}
+            set { _navigationPanelVisibility = value; OnPropertyChanged(); }
+        }
+
         public ImageSource Icon
         {
             get { return AppearanceManager.ApplicationIcon; }
@@ -332,7 +339,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
             return contentModel != null && contentModel.CurrentBanner.Equals(banner);
         }
 
-        private IResult ShowBanner(AbstractBanner banner)
+        public IResult ShowBanner(AbstractBanner banner)
         {
             LoadContent(banner);
 
@@ -394,7 +401,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
             return banner == null ? new BannerNotDefined { Banner = key } : ShowBannerModal(banner);
         }
 
-        private IResult ShowBannerModal(AbstractBanner banner)
+       public IResult ShowBannerModal(AbstractBanner banner)
         {
             var result = ShowBanner(banner);
             return !result.IsOk() ? result : WaitForResult();
@@ -413,8 +420,12 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
             SetModelForKey(ModelKeys.NextButton, invisibleModel);
 
             if (!buttons.Any())
+            {
+                NavigationPanelVisibility = Visibility.Collapsed;
                 return;
-
+            }
+                
+            NavigationPanelVisibility = Visibility.Visible;
             foreach (var button in buttons)
             {
                 AssignNavigationModel(button);
