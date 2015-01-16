@@ -927,6 +927,8 @@
     <Compile Include="UserInterface\Dialogs\Instances\Pages\ScratchPage.xaml.cs">
       <DependentUpon>ScratchPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserInterface\Dialogs\Models\ScriptingModels\IScriptingModel.cs" />
+    <Compile Include="UserInterface\Dialogs\Models\ScriptingModels\ScriptingModel.cs" />
     <Compile Include="UserInterface\Dialogs\Properties\PropertyNotifyBase.cs" />
     <Compile Include="UserInterface\Dialogs\Wrappers\TimedMessageWrapper.cs" />
     <Compile Include="Utilities\CertificateUtilities.cs" />
