@@ -1,4 +1,5 @@
-﻿using Org.InCommon.InCert.Engine.AdvancedMenu;
+﻿using System.Runtime.InteropServices;
+using Org.InCommon.InCert.Engine.AdvancedMenu;
 using Org.InCommon.InCert.Engine.Engines;
 using Org.InCommon.InCert.Engine.Help;
 using Org.InCommon.InCert.Engine.Results.ControlResults;
@@ -7,6 +8,7 @@ using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels;
 
 namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModels
 {
+    [ComVisible(true)]
     public class ScriptingModel : IScriptingModel
     {
         private readonly ISettingsManager _settingsManager;
