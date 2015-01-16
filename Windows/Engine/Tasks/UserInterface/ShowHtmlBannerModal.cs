@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Windows;
 using Org.InCommon.InCert.Engine.Engines;
 using Org.InCommon.InCert.Engine.Importables;
 using Org.InCommon.InCert.Engine.Results;
 using Org.InCommon.InCert.Engine.Results.Errors.UserInterface;
+using Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.BannerWrappers;
+using Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.ContentControlWrappers;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels;
 
 namespace Org.InCommon.InCert.Engine.Tasks.UserInterface
@@ -33,12 +31,26 @@ namespace Org.InCommon.InCert.Engine.Tasks.UserInterface
 
         public override IResult Execute(IResult previousResults)
         {
-            var dialog = DialogsManager.GetDialog<HtmlDialogModel>(Dialog);
+            var dialog = DialogsManager.GetDialog<BorderedDialogModel>(Dialog);
             if (dialog == null)
                 return new DialogInstanceNotFound { Dialog = Dialog };
 
+            var wrapper = new BrowserContentWrapper(Engine) {Url = Url};
+            wrapper.Padding = new Thickness(0);
+            wrapper.Margin = new Thickness(0);
+           
+            var banner = new SimpleBanner(Engine);
+            banner.AddMember(wrapper);
+            banner.Width = 600;
+            banner.Height = 600;
+            banner.CanClose = true;
+            banner.Background = "White";
+            banner.Margin = new Thickness(0);
+            
+         
             DialogsManager.ActiveDialogKey = Dialog;
-            return dialog.ShowPage(Url);
+
+            return dialog.ShowBannerModal(banner);
         }
 
         public override string GetFriendlyName()

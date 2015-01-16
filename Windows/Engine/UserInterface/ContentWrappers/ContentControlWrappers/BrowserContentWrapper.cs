@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Markup;
 using Org.InCommon.InCert.Engine.Engines;
+using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels;
 
 namespace Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.ContentControlWrappers
 {
@@ -15,6 +11,11 @@ namespace Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.ContentContro
         public BrowserContentWrapper(IEngine engine) : base(engine)
         {
             
+        }
+
+        public override Type GetSupportingModelType()
+        {
+            return typeof (BrowserContentModel);
         }
     }
 }
