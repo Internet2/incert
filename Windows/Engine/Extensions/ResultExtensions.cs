@@ -5,6 +5,7 @@ using Org.InCommon.InCert.Engine.Logging;
 using Org.InCommon.InCert.Engine.Results;
 using Org.InCommon.InCert.Engine.Results.Errors;
 using log4net;
+using Org.InCommon.InCert.Engine.Results.ControlResults;
 
 namespace Org.InCommon.InCert.Engine.Extensions
 {
@@ -37,6 +38,18 @@ namespace Org.InCommon.InCert.Engine.Extensions
                 return;
 
             Log.Fatal(errorResult.ErrorName);
+        }
+
+        public static bool IsRestartOrExitResult(this IResult result)
+        {
+            if (result == null)
+            {
+                return false;
+            }
+
+            return result is RestartComputerResult ||
+                   result is SilentRestartComputerResult ||
+                   result is ExitUtilityResult;
         }
 
         public static string GetDetails(this IResult result)

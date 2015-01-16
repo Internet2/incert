@@ -1,6 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Media;
 using System.Xml.Linq;
+using Org.InCommon.InCert.Engine.Engines;
+using Org.InCommon.InCert.Engine.Results;
+using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels;
 
 namespace Org.InCommon.InCert.Engine.AdvancedMenu
 {
@@ -9,7 +12,9 @@ namespace Org.InCommon.InCert.Engine.AdvancedMenu
         Dictionary<string, IAdvancedMenuItem> Items { get; }
         bool ImportItemsFromXml(XElement node);
         bool ImportItems(List<AdvancedMenuItem> items);
-       
+
+        IResult ShowAdvancedMenu(IHasEngineFields engine, AbstractDialogModel parent, string group = "");
+
         void Initialize();
         
         string DefaultTitle { get; set; }
@@ -37,5 +42,7 @@ namespace Org.InCommon.InCert.Engine.AdvancedMenu
 
         string CloseButtonImageKey { get; set; }
         string CloseButtonMouseOverImageKey { get; set; }
+
+        
     }
 }

@@ -1,23 +1,28 @@
 ﻿using System.Windows.Input;
+using Org.InCommon.InCert.Engine.AdvancedMenu;
 using Org.InCommon.InCert.Engine.Dynamics;
 using Org.InCommon.InCert.Engine.Engines;
+using Org.InCommon.InCert.Engine.Extensions;
 using Org.InCommon.InCert.Engine.Results.ControlResults;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Commands;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels;
 
 namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.CommandModels
 {
-    class OpenAdvancedButtonModel:AbstractCommandModel
+    class OpenAdvancedButtonModel : AbstractCommandModel
     {
         private readonly IHasEngineFields _engine;
         private readonly string _group;
         private ICommand _command;
+        private IAdvancedMenuManager _advancedMenuManager;
 
 
-        public OpenAdvancedButtonModel(AbstractDialogModel model, IHasEngineFields engine, string group) : base(model)
+        public OpenAdvancedButtonModel(AbstractDialogModel model, IHasEngineFields engine, string group)
+            : base(model)
         {
             _engine = engine;
             _group = group;
+            _advancedMenuManager = engine.AdvancedMenuManager;
         }
 
         public override ICommand Command
@@ -28,45 +33,28 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.CommandModels
                     _command = new ClearFocusCommand(
                         RootDialogModel.DialogInstance,
                         param => ShowAdvancedMenu(
-                            RootDialogModel, 
+                            RootDialogModel,
                             _group)));
             }
         }
 
-        public void ShowAdvancedMenu(AbstractDialogModel model, string group)
+        private void ShowAdvancedMenu(AbstractDialogModel model, string group)
         {
             try
             {
-
-                if (model == null)
-                    return;
-
-                var left = model.DialogInstance.Left;
-                var top = model.DialogInstance.Top;
-
                 model.EnableDisableAllControls(false);
-                var advancedMenuModel = new AdvancedMenuModel(_engine,model);
-                advancedMenuModel.ShowDialog(
-                    left,
-                    top,
-                    group.Resolve(_engine.SettingsManager, true));
 
-                if (advancedMenuModel.Result != null)
-                {
-                    if (advancedMenuModel.Result is RestartComputerResult ||
-                        advancedMenuModel.Result is SilentRestartComputerResult ||
-                        advancedMenuModel.Result is ExitUtilityResult)
-                    {
-                        model.Result = advancedMenuModel.Result;
-                        model.SuppressCloseQuestion = true;
-                        model.DialogInstance.Close();
-                    }
-                }
+                var result = _advancedMenuManager.ShowAdvancedMenu(_engine, model, group);
+
+                if (!result.IsRestartOrExitResult()) return;
+
+                model.Result = result;
+                model.SuppressCloseQuestion = true;
+                model.DialogInstance.Close();
             }
             finally
             {
-                if (model != null)
-                    model.EnableDisableAllControls(true);
+                model.EnableDisableAllControls(true);
 
             }
 

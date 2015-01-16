@@ -6,12 +6,18 @@ using System.Xml.Linq;
 using Org.InCommon.InCert.Engine.Importables;
 using Org.InCommon.InCert.Engine.Logging;
 using log4net;
+using Org.InCommon.InCert.Engine.Dynamics;
+using Org.InCommon.InCert.Engine.Engines;
+using Org.InCommon.InCert.Engine.Results;
+using Org.InCommon.InCert.Engine.Results.ControlResults;
+using Org.InCommon.InCert.Engine.Settings;
+using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels;
 
 namespace Org.InCommon.InCert.Engine.AdvancedMenu
 {
     class AdvancedMenuManager : IAdvancedMenuManager
     {
-       
+
         private static readonly ILog Log = Logger.Create();
         public Dictionary<string, IAdvancedMenuItem> Items { get; private set; }
 
@@ -79,10 +85,10 @@ namespace Org.InCommon.InCert.Engine.AdvancedMenu
             }
 
         }
-        
+
         public void Initialize()
         {
-            
+
         }
 
         public string DefaultTitle { get; set; }
@@ -106,5 +112,19 @@ namespace Org.InCommon.InCert.Engine.AdvancedMenu
         public string HelpButtonMouseOverImageKey { get; set; }
         public string CloseButtonImageKey { get; set; }
         public string CloseButtonMouseOverImageKey { get; set; }
+
+        public IResult ShowAdvancedMenu(IHasEngineFields engine, AbstractDialogModel parent, string group = "")
+        {
+            var left = parent.DialogInstance.Left;
+            var top = parent.DialogInstance.Top;
+
+            var advancedMenuModel = new AdvancedMenuModel(engine, parent);
+            advancedMenuModel.ShowDialog(
+                left,
+                top,
+                group.Resolve(engine.SettingsManager, true));
+
+            return advancedMenuModel.Result;
+        }
     }
 }
