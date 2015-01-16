@@ -706,6 +706,7 @@
     <Compile Include="UserInterface\ContentWrappers\ButtonWrappers\StoredResultButton.cs" />
     <Compile Include="UserInterface\ContentWrappers\ButtonWrappers\TopicButton.cs" />
     <Compile Include="UserInterface\ContentWrappers\ButtonWrappers\UrlButton.cs" />
+    <Compile Include="UserInterface\ContentWrappers\ContentControlWrappers\BrowserContentWrapper.cs" />
     <Compile Include="UserInterface\ContentWrappers\ContentControlWrappers\ErrorParagraph.cs" />
     <Compile Include="UserInterface\ContentWrappers\ContentControlWrappers\OptionInputField.cs" />
     <Compile Include="UserInterface\ContentWrappers\ImageWrappers\AbstractImageContent.cs" />
