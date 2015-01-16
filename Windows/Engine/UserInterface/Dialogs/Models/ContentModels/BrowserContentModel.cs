@@ -26,7 +26,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
                 throw new InvalidCastException("Could not cast wrapper to valid type");
             }
 
-            var uri = new Uri(browserWrapper.Url);
+            var uri = browserWrapper.Uri;
             content.Browser.ObjectForScripting = new ScriptingModel(wrapper.Engine, RootDialogModel);
             content.Browser.Navigate(uri, null, null, "Incert: true\r\n");
             

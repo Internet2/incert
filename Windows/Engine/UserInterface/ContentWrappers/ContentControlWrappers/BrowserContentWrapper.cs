@@ -6,7 +6,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.ContentContro
 {
     class BrowserContentWrapper:AbstractContentWrapper
     {
-        public string Url { get; set; }
+        public Uri Uri { get; set; }
         
         public BrowserContentWrapper(IEngine engine) : base(engine)
         {

@@ -1,7 +1,9 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using Org.InCommon.InCert.Engine.Engines;
 using Org.InCommon.InCert.Engine.Importables;
 using Org.InCommon.InCert.Engine.Results;
+using Org.InCommon.InCert.Engine.Results.Errors.General;
 using Org.InCommon.InCert.Engine.Results.Errors.UserInterface;
 using Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.BannerWrappers;
 using Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.ContentControlWrappers;
@@ -31,30 +33,37 @@ namespace Org.InCommon.InCert.Engine.Tasks.UserInterface
 
         public override IResult Execute(IResult previousResults)
         {
-            var dialog = DialogsManager.GetDialog<BorderedDialogModel>(Dialog);
-            if (dialog == null)
-                return new DialogInstanceNotFound { Dialog = Dialog };
-
-            var wrapper = new BrowserContentWrapper(Engine)
+            try
             {
-                Url = Url, 
-                Padding = new Thickness(0), 
-                Margin = new Thickness(0)
-            };
+                var dialog = DialogsManager.GetDialog<BorderedDialogModel>(Dialog);
+                if (dialog == null)
+                    return new DialogInstanceNotFound { Dialog = Dialog };
 
-            var banner = new SimpleBanner(Engine)
+                var wrapper = new BrowserContentWrapper(Engine)
+                {
+                    Uri = new Uri(Url),
+                    Padding = new Thickness(0),
+                    Margin = new Thickness(0)
+                };
+
+                var banner = new SimpleBanner(Engine)
+                {
+                    Width = 600,
+                    Height = 600,
+                    CanClose = true,
+                    Margin = new Thickness(0)
+                };
+
+                banner.AddMember(wrapper);
+
+                DialogsManager.ActiveDialogKey = Dialog;
+
+                return dialog.ShowBannerModal(banner);
+            }
+            catch (Exception e)
             {
-                Width = 600, 
-                Height = 600, 
-                CanClose = true, 
-                Margin = new Thickness(0)
-            };
-            
-            banner.AddMember(wrapper);
-            
-            DialogsManager.ActiveDialogKey = Dialog;
-
-            return dialog.ShowBannerModal(banner);
+                return new ExceptionOccurred(e);
+            }
         }
 
         public override string GetFriendlyName()
