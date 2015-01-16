@@ -820,6 +820,7 @@
     </Compile>
     <Compile Include="UserInterface\Dialogs\Models\ContentModels\AdvancedMenuGroupModel.cs" />
     <Compile Include="UserInterface\Dialogs\Models\ContentModels\AdvancedMenuItemModel.cs" />
+    <Compile Include="UserInterface\Dialogs\Models\ContentModels\BrowserContentModel.cs" />
     <Compile Include="UserInterface\Dialogs\Models\ContentModels\CheckedParagraphModel.cs" />
     <Compile Include="UserInterface\Dialogs\Models\ContentModels\FileBrowseButtonModel.cs" />
     <Compile Include="UserInterface\Dialogs\Models\ContentModels\FolderBrowseButtonModel.cs" />
