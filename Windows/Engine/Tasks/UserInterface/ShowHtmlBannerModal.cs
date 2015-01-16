@@ -35,19 +35,23 @@ namespace Org.InCommon.InCert.Engine.Tasks.UserInterface
             if (dialog == null)
                 return new DialogInstanceNotFound { Dialog = Dialog };
 
-            var wrapper = new BrowserContentWrapper(Engine) {Url = Url};
-            wrapper.Padding = new Thickness(0);
-            wrapper.Margin = new Thickness(0);
-           
-            var banner = new SimpleBanner(Engine);
-            banner.AddMember(wrapper);
-            banner.Width = 600;
-            banner.Height = 600;
-            banner.CanClose = true;
-            banner.Background = "White";
-            banner.Margin = new Thickness(0);
+            var wrapper = new BrowserContentWrapper(Engine)
+            {
+                Url = Url, 
+                Padding = new Thickness(0), 
+                Margin = new Thickness(0)
+            };
+
+            var banner = new SimpleBanner(Engine)
+            {
+                Width = 600, 
+                Height = 600, 
+                CanClose = true, 
+                Margin = new Thickness(0)
+            };
             
-         
+            banner.AddMember(wrapper);
+            
             DialogsManager.ActiveDialogKey = Dialog;
 
             return dialog.ShowBannerModal(banner);
