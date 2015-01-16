@@ -1,6 +1,7 @@
 ﻿using System.Runtime.InteropServices;
 using Org.InCommon.InCert.Engine.AdvancedMenu;
 using Org.InCommon.InCert.Engine.Engines;
+using Org.InCommon.InCert.Engine.Extensions;
 using Org.InCommon.InCert.Engine.Help;
 using Org.InCommon.InCert.Engine.Results.ControlResults;
 using Org.InCommon.InCert.Engine.Settings;
@@ -54,7 +55,24 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModel
 
         public void ShowAdvancedMenu(string group="")
         {
-            throw new System.NotImplementedException();
+            try
+            {
+                _dialogModel.EnableDisableAllControls(true);
+
+                var result = _advancedMenuManager.ShowAdvancedMenu(_engine, _dialogModel, group);
+                if (!result.IsRestartOrExitResult())
+                {
+                    return;
+                }
+
+                _dialogModel.Result = result;
+                _dialogModel.SuppressCloseQuestion = true;
+                _dialogModel.DialogInstance.Close();
+            }
+            finally
+            {
+                _dialogModel.EnableDisableAllControls(true);
+            }
         }
 
         public void ShowHelpTopic(string value)
