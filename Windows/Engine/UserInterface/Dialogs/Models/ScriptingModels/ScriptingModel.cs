@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+﻿using System;
+using System.Runtime.InteropServices;
 using Org.InCommon.InCert.Engine.AdvancedMenu;
 using Org.InCommon.InCert.Engine.Engines;
 using Org.InCommon.InCert.Engine.Extensions;
@@ -52,12 +53,16 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModel
             _dialogModel.Result = new BackResult();
         }
 
-        public void ShowAdvancedMenu(string group="")
+        public void ShowAdvancedMenu(string group)
         {
+            if (!_dialogModel.DialogInstance.Dispatcher.CheckAccess())
+            {
+                _dialogModel.DialogInstance.Dispatcher.Invoke(() => ShowAdvancedMenu(group));
+                return;
+            }
+
             try
             {
-                _dialogModel.EnableDisableAllControls(true);
-
                 var result = _advancedMenuManager.ShowAdvancedMenu(_engine, _dialogModel, group);
                 if (!result.IsRestartOrExitResult())
                 {
