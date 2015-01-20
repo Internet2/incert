@@ -48,9 +48,9 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
 
         }
 
-        private void ConsoleMessageHandler(object sender, ConsoleMessageEventArgs e)
+        private static void ConsoleMessageHandler(object sender, ConsoleMessageEventArgs e)
         {
-            Log.InfoFormat(e.Message);
+            Log.DebugFormat("Javascript Console: {0}",e.Message);
         }
 
         private static void InitializeChromium()
