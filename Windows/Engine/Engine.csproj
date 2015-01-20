@@ -73,7 +73,6 @@
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
-  
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x64' ">
     <PlatformTarget>x64</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
@@ -106,7 +105,6 @@
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
-  
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <PlatformTarget>x86</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
@@ -139,7 +137,6 @@
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
-  
   <PropertyGroup>
     <StartupObject>Org.InCommon.InCert.Engine.App</StartupObject>
   </PropertyGroup>
@@ -850,9 +847,6 @@
     <Compile Include="UserInterface\Dialogs\Instances\CustomControls\BorderedContentPanelInstance.xaml.cs">
       <DependentUpon>BorderedContentPanelInstance.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserInterface\Dialogs\Instances\CustomControls\BrowserControl.xaml.cs">
-      <DependentUpon>BrowserControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UserInterface\Dialogs\Instances\CustomControls\CheckboxParagraph.xaml.cs">
       <DependentUpon>CheckboxParagraph.xaml</DependentUpon>
     </Compile>
@@ -1346,10 +1340,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserInterface\Dialogs\Instances\CustomControls\BorderedContentPanelInstance.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserInterface\Dialogs\Instances\CustomControls\BrowserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
