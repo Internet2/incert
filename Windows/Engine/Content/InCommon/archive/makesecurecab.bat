@@ -16,6 +16,7 @@ ECHO .Set RptFileName="%Temp%.\makesecurecab.rpt">>"%ddfFile%"
 ECHO .Set InfFileName="%Temp%.\makesecurecab.inf">>"%ddfFile%"
 ECHO. >>"%ddfFile%"
 ECHO "Init.xml">>"%ddfFile%"
+ECHO "incert.css">>"%ddfFile%"
 ECHO "AdvancedMenu.xml">>"%ddfFile%"
 ECHO "icons\icon.ico">>"%ddfFile%"
 makecab /f "%ddfFile%" /v3

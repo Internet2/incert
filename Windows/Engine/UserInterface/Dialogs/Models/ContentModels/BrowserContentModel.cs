@@ -5,6 +5,7 @@ using log4net;
 using Org.InCommon.InCert.Engine.Logging;
 using Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.ContentControlWrappers;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModels;
+using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModels.SchemeHandlers;
 
 namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
 {
@@ -56,18 +57,22 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
             var settings = new CefSettings
             {
                 PackLoadingDisabled = true,
-                LogSeverity =  LogSeverity.Disable
+                LogSeverity =  LogSeverity.Verbose
                 
             };
+
+            settings.RegisterScheme(new CefCustomScheme
+            {
+                SchemeName = ArchiveSchemeHandlerFactory.SchemeName,
+                SchemeHandlerFactory = new ArchiveSchemeHandlerFactory(),
+               
+            });
+
 
             if (!Cef.Initialize(settings))
             {
                 throw new Exception("Could not initialize Chromium browser");
             }    
         }
-
-
-        
-        
     }
 }
