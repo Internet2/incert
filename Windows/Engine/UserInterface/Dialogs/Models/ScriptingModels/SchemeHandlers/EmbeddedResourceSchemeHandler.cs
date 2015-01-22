@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Net;
 using System.Reflection;
 using CefSharp;
@@ -38,7 +36,9 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModel
 
             response.ResponseStream = assembly.GetManifestResourceStream(resourcePath);
             response.MimeType = GetMimeType(file);
+            response.StatusCode = (int)HttpStatusCode.OK;            
             requestCompletedCallback();
+
             return true;
         }
 

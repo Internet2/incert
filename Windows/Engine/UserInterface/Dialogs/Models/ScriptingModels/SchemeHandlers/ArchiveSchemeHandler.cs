@@ -5,7 +5,7 @@ using System.Net;
 using CefSharp;
 using Org.InCommon.InCert.Engine.Utilities;
 
-//// adapted from http://thechriskent.com/2014/05/12/use-embedded-resources-in-cefsharp/
+// adapted from http://thechriskent.com/2014/05/12/use-embedded-resources-in-cefsharp/
 namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModels.SchemeHandlers
 {
     public class ArchiveSchemeHandlerFactory : ISchemeHandlerFactory
@@ -23,9 +23,16 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModel
         public override bool ProcessRequestAsync(IRequest request, ISchemeHandlerResponse response, OnRequestCompletedHandler requestCompletedCallback)
         {
             var uri = new Uri(request.Url);
-            var fileName = uri.Segments.Last();
+            
             var archivePath = FindArchive(uri.Authority);
             if (string.IsNullOrWhiteSpace(archivePath))
+            {
+                response.StatusCode = (int)HttpStatusCode.NotFound;
+                return false;
+            }
+
+            var fileName = ResolvePath(CabArchiveUtilities.GetFilesInArchive(archivePath), uri.Segments.Last());
+            if (string.IsNullOrWhiteSpace(fileName))
             {
                 response.StatusCode = (int)HttpStatusCode.NotFound;
                 return false;
