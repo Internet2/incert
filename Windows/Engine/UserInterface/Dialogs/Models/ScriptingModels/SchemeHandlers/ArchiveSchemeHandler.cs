@@ -1,13 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 using CefSharp;
 using Org.InCommon.InCert.Engine.Utilities;
 
+//// adapted from http://thechriskent.com/2014/05/12/use-embedded-resources-in-cefsharp/
 namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModels.SchemeHandlers
 {
     public class ArchiveSchemeHandlerFactory : ISchemeHandlerFactory

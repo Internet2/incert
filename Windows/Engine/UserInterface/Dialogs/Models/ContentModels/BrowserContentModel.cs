@@ -68,6 +68,13 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
                
             });
 
+            settings.RegisterScheme(new CefCustomScheme
+            {
+                SchemeName = EmbeddedResourceSchemeHandlerFactory.SchemeName,
+                SchemeHandlerFactory = new EmbeddedResourceSchemeHandlerFactory(),
+
+            });
+
 
             if (!Cef.Initialize(settings))
             {

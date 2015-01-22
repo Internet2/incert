@@ -1,4 +1,7 @@
-﻿using System.IO;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using CefSharp;
 using Org.InCommon.InCert.Engine.Extensions;
 
@@ -8,7 +11,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModel
     {
         public abstract bool ProcessRequestAsync(IRequest request, ISchemeHandlerResponse response, OnRequestCompletedHandler requestCompletedCallback);
 
-        protected string GetMimeType(string fileName)
+        protected static string GetMimeType(string fileName)
         {
             switch (Path.GetExtension(fileName).ToStringOrDefault("").ToLowerInvariant())
             {
@@ -23,6 +26,11 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModel
                 default:
                     return "application/octet-stream";
             }
+        }
+
+        protected static string ResolvePath(IEnumerable<string> knownPaths, string value)
+        {
+            return knownPaths.FirstOrDefault(p => p.Equals(value, StringComparison.InvariantCultureIgnoreCase));
         }
     }
 }
