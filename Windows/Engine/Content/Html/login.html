@@ -1,0 +1,88 @@
+﻿<!DOCTYPE html>
+<!-- saved from url=(0016)http://localhost -->
+
+<html lang="en">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=480, initial-scale=1.0,user-scalable=no, maximum-scale=1.0" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    <!--<link rel="stylesheet" href="resource://html/css/bootstrap.min.css">-->
+   <!-- <link rel="stylesheet" href="incert.css" />-->
+    <link rel="stylesheet" href="archive://settings.cab/inCert.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+    <script src="resource://html/scripts/jquery-2.1.3.min.js"></script>
+    
+    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>-->
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+ 
+    <script src="common.js"></script>
+    <script src="login.js"></script>
+    <title></title>
+
+</head>
+<body style="padding-bottom: 70px">
+    <div class="container">
+        <div class="row" style="margin-top: 1em">
+            <div class="col-sm-12 text-center">
+                <h2>InCert Login</h2>
+            </div>
+        </div>
+        <div class="row" style="margin-top: 1em">
+            <div class="col-sm-12">
+                <form id="loginForm" class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="username">Username</label>
+                        <div class="controls col-sm-8">
+                            <input type="text" class="form-control disable autoset" id="username" placeholder="Username" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="passphrase">Passphrase</label>
+                        <div class="controls col-sm-8">
+                            <input type="password" class="form-control disable autoset" id="passphrase" placeholder="Passphrase" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="credential2">Credential 2</label>
+                        <div class="controls col-sm-8">
+                            <input type="text" class="form-control disable autoset" id="credential2" placeholder="Credential 2" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="credential3">Credential 3</label>
+                        <div class="controls col-sm-8">
+                            <input type="text" class="form-control disable autoset" id="credential3" placeholder="Credential 3" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="credential4">Credential 3</label>
+                        <div class="controls col-sm-8">
+                            <input type="text" class="form-control disable autoset" id="credential4" placeholder="Credential 4" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="row" style="padding-top: 1em">
+            <div class="col-sm-12 text-center" id="instructions">Please provide your network credentials and click Login to continue.</div>
+            <div class="col-sm-12 text-center hide" id="pleaseWait"><i class="fa fa-spinner fa-spin"></i>&nbsp;Please wait while InCert verifies your network credentials</div>
+        </div>
+        <nav class="navbar navbar-fixed-bottom">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-8 col-sm-offset-2">
+                        <a class="btn btn-default pull-left disable" target="_new" href="https://certdev0.incommontest.org/incommon/index.html">Help</a>
+                        <button class="btn btn-default pull-left disable" onclick="disableAllControls(); engine.showAdvancedMenu(''); enableAllControls();" style="margin-left: .75em">Advanced</button>
+                        <button class="btn btn-default pull-right disable" onclick="login()">Login</button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+<script>
+    initialize();
+</script>
+</body>
+</html>
