@@ -9,5 +9,6 @@ namespace Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.BannerWrapper
         bool ImportBanners(List<AbstractBanner> banners);
         bool ImportBannersFromXml(XElement node);
         AbstractBanner GetBanner(string value);
+        AbstractBanner SetBanner(string key, AbstractBanner value);
     }
 }

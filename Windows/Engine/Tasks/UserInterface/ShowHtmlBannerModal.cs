@@ -18,6 +18,8 @@ namespace Org.InCommon.InCert.Engine.Tasks.UserInterface
         {
         }
 
+        private readonly string _identifier = Guid.NewGuid().ToString();
+
         [PropertyAllowedFromXml]
         public string Url
         {
@@ -40,23 +42,7 @@ namespace Org.InCommon.InCert.Engine.Tasks.UserInterface
                 if (dialog == null)
                     return new DialogInstanceNotFound { Dialog = Dialog };
 
-                var wrapper = new BrowserContentWrapper(Engine)
-                {
-                    Uri = new Uri(Url),
-                    Padding = new Thickness(0),
-                    Margin = new Thickness(0),
-                    SilentMode = true
-                };
-
-                var banner = new SimpleBanner(Engine)
-                {
-                    Width = 600,
-                    Height = 600,
-                    CanClose = true,
-                    Margin = new Thickness(0)
-                };
-
-                banner.AddMember(wrapper);
+                var banner = GetOrCreateBanner();
 
                 DialogsManager.ActiveDialogKey = Dialog;
 
@@ -66,6 +52,34 @@ namespace Org.InCommon.InCert.Engine.Tasks.UserInterface
             {
                 return new ExceptionOccurred(e);
             }
+        }
+
+        private AbstractBanner GetOrCreateBanner()
+        {
+            var banner = BannerManager.GetBanner(_identifier);
+            if (banner != null)
+            {
+                return banner;
+            }
+
+            var wrapper = new BrowserContentWrapper(Engine)
+            {
+                Uri = new Uri(Url),
+                Padding = new Thickness(0),
+                Margin = new Thickness(0),
+                SilentMode = true
+            };
+
+            banner = new SimpleBanner(Engine)
+            {
+                Width = 600,
+                Height = 600,
+                CanClose = true,
+                Margin = new Thickness(0)
+            };
+
+            banner.AddMember(wrapper);
+            return BannerManager.SetBanner(_identifier, banner);
         }
 
         public override string GetFriendlyName()

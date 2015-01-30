@@ -81,7 +81,10 @@ namespace Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.BannerWrapper
             return !_banners.ContainsKey(value) ? null : (_banners[value]);
         }
 
-
-
+        public AbstractBanner SetBanner(string key, AbstractBanner value)
+        {
+            _banners[key] = value;
+            return _banners[key];
+        }
     }
 }
