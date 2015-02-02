@@ -1076,7 +1076,6 @@
     <Resource Include="Content\InCommon\networksecurity.xml" />
     <Resource Include="Content\InCommon\screensaver.xml" />
     <EmbeddedResource Include="Content\Html\Css\bootstrap.min.css" />
-    <EmbeddedResource Include="Content\Html\login.html" />
     <Content Include="Content\InCommon\archive\AdvancedMenu.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
