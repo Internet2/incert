@@ -49,6 +49,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModel
             response.MimeType = GetMimeType(fileName);
             response.ResponseStream = stream;
             response.StatusCode = (int)HttpStatusCode.OK;
+            AddAccessControlHeader(response);
             requestCompletedCallback();
             return true;
         }

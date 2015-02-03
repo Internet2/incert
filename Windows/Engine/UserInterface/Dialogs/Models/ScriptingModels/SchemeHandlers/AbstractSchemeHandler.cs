@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using CefSharp;
 using Org.InCommon.InCert.Engine.Extensions;
 
@@ -34,6 +35,16 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModel
         protected static string ResolvePath(IEnumerable<string> knownPaths, string value)
         {
             return knownPaths.FirstOrDefault(p => p.Equals(value, StringComparison.InvariantCultureIgnoreCase));
+        }
+
+        protected static void AddAccessControlHeader(ISchemeHandlerResponse response)
+        {
+            if (response.ResponseHeaders == null)
+            {
+                response.ResponseHeaders = new WebHeaderCollection();
+            }
+
+            response.ResponseHeaders.Set("Access-Control-Allow-Origin", "*");
         }
     }
 }
