@@ -22,6 +22,7 @@ using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContainerModels;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Properties;
 using Org.InCommon.InCert.Engine.Utilities;
 using log4net;
+using Org.BouncyCastle.Asn1.X509.Qualified;
 
 namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
 {
@@ -293,6 +294,34 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
         {
             var banner = _bannerManager.GetBanner(key);
             return banner == null ? new BannerNotDefined { Banner = key } : ShowBanner(banner);
+        }
+
+        public void PreloadContent(AbstractBanner banner)
+        {
+            try
+            {
+                SetNavigationModels(banner.GetButtons());
+                var content = new ContentPanelModel(this);
+                content.LoadContent<DependencyObject>(banner);
+
+                content.Padding = banner.Margin;
+                content.Background = AppearanceManager.GetBrushForColor(banner.Background, AppearanceManager.BackgroundBrush);
+
+                CanClose = banner.CanClose;
+                SuppressCloseQuestion = banner.SuppressCloseQuestion;
+
+                Height = banner.Height;
+                Width = banner.Width;
+                Background = AppearanceManager.GetBrushForColor(banner.Background, AppearanceManager.BackgroundBrush);
+                Cursor = banner.Cursor;
+                ContentModel = content;
+
+                AddActions(banner.GetActions());
+            }
+            catch (Exception e)
+            {
+                Log.WarnFormat("An exception occurred while attempting to load banner content: {0}", e.Message); 
+            }
         }
 
         private void LoadContent(AbstractBanner banner)
@@ -661,7 +690,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
                 model.DoActions(includeOneTime);
             }
         }
-
+        
         public List<AbstractModel> GetModelsBySettingKey(string key)
         {
             var modelList = new List<AbstractModel>();

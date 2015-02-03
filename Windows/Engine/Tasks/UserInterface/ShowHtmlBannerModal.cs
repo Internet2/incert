@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Windows;
 using Org.InCommon.InCert.Engine.Engines;
 using Org.InCommon.InCert.Engine.Importables;
@@ -7,6 +8,7 @@ using Org.InCommon.InCert.Engine.Results.Errors.General;
 using Org.InCommon.InCert.Engine.Results.Errors.UserInterface;
 using Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.BannerWrappers;
 using Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.ContentControlWrappers;
+using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels;
 
 namespace Org.InCommon.InCert.Engine.Tasks.UserInterface
@@ -46,12 +48,25 @@ namespace Org.InCommon.InCert.Engine.Tasks.UserInterface
 
                 DialogsManager.ActiveDialogKey = Dialog;
 
+                dialog.PreloadContent(banner);
+                SetAddress(dialog, Url);
                 return dialog.ShowBannerModal(banner);
             }
             catch (Exception e)
             {
                 return new ExceptionOccurred(e);
             }
+        }
+
+        private static void SetAddress(AbstractDialogModel dialog, string url)
+        {
+            var model = dialog.ContentModel.FindChildModel<BrowserContentModel>("browser");
+            if (model == null)
+            {
+                throw new Exception("Could not retrieve browser content model");
+            }
+
+            model.Address = url;
         }
 
         private AbstractBanner GetOrCreateBanner()
@@ -67,7 +82,8 @@ namespace Org.InCommon.InCert.Engine.Tasks.UserInterface
                 Uri = new Uri(Url),
                 Padding = new Thickness(0),
                 Margin = new Thickness(0),
-                SilentMode = true
+                SilentMode = true,
+                ControlKey = "browser"
             };
 
             banner = new SimpleBanner(Engine)
@@ -82,6 +98,7 @@ namespace Org.InCommon.InCert.Engine.Tasks.UserInterface
             return BannerManager.SetBanner(_identifier, banner);
         }
 
+        
         public override string GetFriendlyName()
         {
             return string.Format("Show html banner {0} in model dialog {1}", Url, Dialog);

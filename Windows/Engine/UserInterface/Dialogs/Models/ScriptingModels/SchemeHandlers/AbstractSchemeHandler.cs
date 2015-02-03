@@ -9,23 +9,26 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModel
 {
     public abstract  class AbstractSchemeHandler:ISchemeHandler
     {
+        private static readonly Dictionary<string, string> MimeTypesDictionary = new Dictionary<string, string>
+        {
+            {".html", "text/html"},
+            {".js", "text/js"},
+            {".png", "image/png"},
+            {".css", "text/css"},
+            {".eot","application/vnd.ms-fontobject"},
+            {".ttf","application/octet-stream"},
+            {".svg","image/svg+xml"},
+            {".woff","application/x-woff"}
+        }; 
+        
         public abstract bool ProcessRequestAsync(IRequest request, ISchemeHandlerResponse response, OnRequestCompletedHandler requestCompletedCallback);
 
         protected static string GetMimeType(string fileName)
         {
-            switch (Path.GetExtension(fileName).ToStringOrDefault("").ToLowerInvariant())
-            {
-                case ".html":
-                    return "text/html";
-                case ".js":
-                    return "text/javascript";
-                case ".png":
-                    return "image/png";
-                case ".css":
-                    return "text/css";
-                default:
-                    return "application/octet-stream";
-            }
+            var extension = Path.GetExtension(fileName).ToStringOrDefault("").ToLowerInvariant();
+            return MimeTypesDictionary.ContainsKey(extension)
+                ? MimeTypesDictionary[extension]
+                : "application/octet-stream";
         }
 
         protected static string ResolvePath(IEnumerable<string> knownPaths, string value)

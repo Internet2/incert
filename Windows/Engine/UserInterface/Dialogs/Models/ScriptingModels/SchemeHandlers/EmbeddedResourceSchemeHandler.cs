@@ -36,7 +36,10 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModel
 
             response.ResponseStream = assembly.GetManifestResourceStream(resourcePath);
             response.MimeType = GetMimeType(file);
-            response.StatusCode = (int)HttpStatusCode.OK;            
+            response.StatusCode = (int)HttpStatusCode.OK;
+            response.ResponseHeaders = new WebHeaderCollection();
+            response.ResponseHeaders.Set("Access-Control-Allow-Origin", "*");
+            
             requestCompletedCallback();
 
             return true;

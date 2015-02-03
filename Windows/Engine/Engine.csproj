@@ -997,6 +997,8 @@
       <DependentUpon>ScratchPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserInterface\Dialogs\Models\ScriptingModels\IScriptingModel.cs" />
+    <Compile Include="UserInterface\Dialogs\Models\ScriptingModels\LifespanHandlers\LifespanHandler.cs" />
+    <Compile Include="UserInterface\Dialogs\Models\ScriptingModels\LifespanHandlers\RequestHandler.cs" />
     <Compile Include="UserInterface\Dialogs\Models\ScriptingModels\SchemeHandlers\AbstractSchemeHandler.cs" />
     <Compile Include="UserInterface\Dialogs\Models\ScriptingModels\SchemeHandlers\ArchiveSchemeHandler.cs" />
     <Compile Include="UserInterface\Dialogs\Models\ScriptingModels\SchemeHandlers\EmbeddedResourceSchemeHandler.cs" />
@@ -1059,6 +1061,10 @@
     <Compile Include="WebServices\Contracts\InCommon\RegisterComputerRequest.cs" />
     <Compile Include="WebServices\Contracts\InCommon\StatusInfoRequest.cs" />
     <Compile Include="WebServices\Contracts\InCommon\SynchronousLogRequest.cs" />
+    <EmbeddedResource Include="Content\Html\Fonts\glyphicons-halflings-regular.eot" />
+    <EmbeddedResource Include="Content\Html\Fonts\glyphicons-halflings-regular.ttf" />
+    <EmbeddedResource Include="Content\Html\Fonts\glyphicons-halflings-regular.woff" />
+    <EmbeddedResource Include="Content\Html\Fonts\glyphicons-halflings-regular.woff2" />
     <None Include="Resources\TestImage72.png" />
     <None Include="Resources\TestImage32.png" />
     <EmbeddedResource Include="Content\VerifyUserCertContent.xml">
@@ -1076,6 +1082,7 @@
     <Resource Include="Content\InCommon\networksecurity.xml" />
     <Resource Include="Content\InCommon\screensaver.xml" />
     <EmbeddedResource Include="Content\Html\Css\bootstrap.min.css" />
+    <EmbeddedResource Include="Content\Html\Fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\InCommon\archive\AdvancedMenu.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

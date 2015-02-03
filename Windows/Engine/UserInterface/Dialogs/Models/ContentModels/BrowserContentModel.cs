@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Windows;
 using CefSharp;
 using CefSharp.Wpf;
 using log4net;
 using Org.InCommon.InCert.Engine.Logging;
 using Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.ContentControlWrappers;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModels;
+using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModels.LifespanHandlers;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModels.SchemeHandlers;
 
 namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
@@ -16,7 +18,26 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
         public BrowserContentModel(AbstractModel parentModel) : base(parentModel)
         {
             InitializeChromium();
-            
+        }
+
+        public string Address
+        {
+            get { return Browser.Address; }
+            set { Browser.Address = value; }
+        }
+
+        private ChromiumWebBrowser Browser
+        {
+            get
+            {
+                var browser = Content as ChromiumWebBrowser;
+                if (browser == null)
+                {
+                    throw new Exception("Could not convert content to Chromium Web Browser");
+                }
+
+                return browser;
+            }
         }
 
         public override T LoadContent<T>(AbstractContentWrapper wrapper)
@@ -29,15 +50,14 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
             }
 
             content.RegisterJsObject("engine", new ScriptingModel(wrapper.Engine, RootDialogModel));
-            content.Address = browserWrapper.Uri.AbsoluteUri;
-            
             content.Width = 600;
             content.Height = 600;
-
+            
+            content.RequestHandler = new RequestHandler();
+            content.LifeSpanHandler = new LifespanHandler();
             content.ConsoleMessage += ConsoleMessageHandler;
-
             Content = content;
-
+            
             return content as T;
 
         }
@@ -56,11 +76,12 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
 
             var settings = new CefSettings
             {
-                PackLoadingDisabled = true,
+                PackLoadingDisabled =true,
                 LogSeverity =  LogSeverity.Verbose
                 
             };
-
+            
+            
             settings.RegisterScheme(new CefCustomScheme
             {
                 SchemeName = ArchiveSchemeHandlerFactory.SchemeName,
@@ -75,7 +96,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
 
             });
 
-
+            
             if (!Cef.Initialize(settings))
             {
                 throw new Exception("Could not initialize Chromium browser");
