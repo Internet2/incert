@@ -1083,6 +1083,8 @@
     <Resource Include="Content\InCommon\screensaver.xml" />
     <EmbeddedResource Include="Content\Html\Css\bootstrap.min.css" />
     <EmbeddedResource Include="Content\Html\Fonts\glyphicons-halflings-regular.svg" />
+    <EmbeddedResource Include="Content\Html\Scripts\bootstrap.min.js" />
+    <EmbeddedResource Include="Content\Html\Scripts\npm.js" />
     <Content Include="Content\InCommon\archive\AdvancedMenu.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
