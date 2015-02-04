@@ -11,6 +11,7 @@ using Org.InCommon.InCert.Engine.Results.Misc;
 using Org.InCommon.InCert.Engine.Engines;
 using Org.InCommon.InCert.Engine.Tasks;
 using log4net;
+using Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.EventWrappers;
 
 namespace Org.InCommon.InCert.Engine.TaskBranches
 {
@@ -28,7 +29,7 @@ namespace Org.InCommon.InCert.Engine.TaskBranches
         {
             {
                 Log.Branch(this);
-                EngineEvents.OnBranchStarted(this, new EventArgs());
+                EngineEvents.OnBranchStarted(this, new BranchEventData(this));
 
                 // if somehow the branch gets into a state where it has no members,
                 // log and return a skip-result
@@ -58,7 +59,7 @@ namespace Org.InCommon.InCert.Engine.TaskBranches
 
                     if (result is ErrorResult)
                     {
-                        EngineEvents.OnIssueOccurred(this, new EventArgs());
+                        EngineEvents.OnIssueOccurred(this, new IssueEventData(result));
                         result = ExecuteErrorBranch(currentTask.ErrorBranch, result);
                     }
                         
@@ -77,7 +78,7 @@ namespace Org.InCommon.InCert.Engine.TaskBranches
                 // in case user clicked close button during this time
                 result = CheckForCloseRequest(result);
 
-                EngineEvents.OnBranchCompleted(this, new EventArgs());
+                EngineEvents.OnBranchCompleted(this, new BranchEventData(this));
 
                 return result.AdjustResultByBranchContext(this);
             }
@@ -93,7 +94,7 @@ namespace Org.InCommon.InCert.Engine.TaskBranches
             }
 
             Log.Task(currentTask);
-            EngineEvents.OnTaskStarted(this, new EventArgs());
+            EngineEvents.OnTaskStarted(this, new TaskEventData(currentTask));
             
             var startTime = DateTime.UtcNow;
 
@@ -104,7 +105,7 @@ namespace Org.InCommon.InCert.Engine.TaskBranches
                 startTime, 
                 new TimeSpan(0,0,0,currentTask.MinimumTaskTime));
 
-            EngineEvents.OnTaskCompleted(this, new EventArgs());
+            EngineEvents.OnTaskCompleted(this, new TaskEventData(currentTask));
             return result;
         }
 

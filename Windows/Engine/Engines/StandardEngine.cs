@@ -17,6 +17,7 @@ using Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.BannerWrappers;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Managers;
 using Org.InCommon.InCert.Engine.WebServices.Managers;
 using log4net;
+using Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.EventWrappers;
 
 namespace Org.InCommon.InCert.Engine.Engines
 {
@@ -37,13 +38,13 @@ namespace Org.InCommon.InCert.Engine.Engines
         public IAdvancedMenuManager AdvancedMenuManager { get; private set; }
         public IEndpointManager EndpointManager { get; private set; }
 
-        public event EventHandler TaskStarted;
-        public event EventHandler TaskCompleted;
-        public event EventHandler BranchStarted;
-        public event EventHandler BranchCompleted;
-        public event EventHandler IssueOccurred;
+        public event EventHandler<TaskEventData> TaskStarted;
+        public event EventHandler<TaskEventData> TaskCompleted;
+        public event EventHandler<BranchEventData> BranchStarted;
+        public event EventHandler<BranchEventData> BranchCompleted;
+        public event EventHandler<IssueEventData> IssueOccurred;
 
-        public void OnTaskStarted(object sender, EventArgs e)
+        public void OnTaskStarted(object sender, TaskEventData e)
         {
             if (TaskStarted == null)
             {
@@ -53,7 +54,7 @@ namespace Org.InCommon.InCert.Engine.Engines
             TaskStarted(sender, e);
         }
 
-        public void OnTaskCompleted(object sender, EventArgs e)
+        public void OnTaskCompleted(object sender, TaskEventData e)
         {
             if (TaskCompleted == null)
             {
@@ -63,7 +64,7 @@ namespace Org.InCommon.InCert.Engine.Engines
             TaskCompleted(sender, e);
         }
 
-        public void OnBranchStarted(object sender, EventArgs e)
+        public void OnBranchStarted(object sender, BranchEventData e)
         {
             if (BranchStarted == null)
             {
@@ -73,7 +74,7 @@ namespace Org.InCommon.InCert.Engine.Engines
             BranchStarted(sender, e);
         }
 
-        public void OnBranchCompleted(object sender, EventArgs e)
+        public void OnBranchCompleted(object sender, BranchEventData e)
         {
             if (BranchCompleted == null)
             {
@@ -83,7 +84,7 @@ namespace Org.InCommon.InCert.Engine.Engines
             BranchCompleted(sender, e);
         }
 
-        public void OnIssueOccurred(object sender, EventArgs e)
+        public void OnIssueOccurred(object sender, IssueEventData e)
         {
             if (IssueOccurred == null)
             {

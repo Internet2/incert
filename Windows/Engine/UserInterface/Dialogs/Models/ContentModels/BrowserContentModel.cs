@@ -6,6 +6,7 @@ using log4net;
 using Org.InCommon.InCert.Engine.Engines;
 using Org.InCommon.InCert.Engine.Logging;
 using Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.ContentControlWrappers;
+using Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.EventWrappers;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModels;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModels.LifespanHandlers;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModels.SchemeHandlers;
@@ -123,31 +124,31 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
 
         private const string EventScriptFormat = "if (typeof raiseEvent!='undefined'){{raiseEvent('{0}',{1});}}";
 
-        private void OnTaskCompleted(object sender, EventArgs e)
+        private void OnTaskCompleted(object sender, TaskEventData e)
         {
             var script = string.Format(EventScriptFormat, "task_completed", "'testing'");
             Browser.EvaluateScriptAsync(script);
         }
 
-        private void OnTaskStarted(object sender, EventArgs e)
+        private void OnTaskStarted(object sender, TaskEventData e)
         {
             var script = string.Format(EventScriptFormat, "task_started", "'testing'");
             Browser.EvaluateScriptAsync(script);
         }
-        
-        private void OnIssueOccurred(object sender, EventArgs e)
+
+        private void OnIssueOccurred(object sender, IssueEventData e)
         {
             var script = string.Format(EventScriptFormat, "issue_occurred", "'testing'");
             Browser.EvaluateScriptAsync(script);
         }
 
-        private void OnBranchStated(object sender, EventArgs e)
+        private void OnBranchStated(object sender, BranchEventData e)
         {
             var script = string.Format(EventScriptFormat, "branch_started", "'testing'");
             Browser.EvaluateScriptAsync(script);
         }
 
-        private void OnBranchCompleted(object sender, EventArgs e)
+        private void OnBranchCompleted(object sender, BranchEventData e)
         {
             var script = string.Format(EventScriptFormat, "branch_completed", "'testing'");
             Browser.EvaluateScriptAsync(script);

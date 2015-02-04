@@ -791,6 +791,7 @@
     <Compile Include="UserInterface\ContentWrappers\ContentControlWrappers\OptionInputField.cs" />
     <Compile Include="UserInterface\ContentWrappers\EventWrappers\AbstractEventData.cs" />
     <Compile Include="UserInterface\ContentWrappers\EventWrappers\BranchEventData.cs" />
+    <Compile Include="UserInterface\ContentWrappers\EventWrappers\IssueEventData.cs" />
     <Compile Include="UserInterface\ContentWrappers\EventWrappers\TaskEventData.cs" />
     <Compile Include="UserInterface\ContentWrappers\ImageWrappers\AbstractImageContent.cs" />
     <Compile Include="UserInterface\ContentWrappers\ImageWrappers\BuiltInSystemIconImage.cs" />
