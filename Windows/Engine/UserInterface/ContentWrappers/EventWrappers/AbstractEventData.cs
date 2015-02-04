@@ -1,8 +1,10 @@
 ﻿using System.IO;
+using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
 
 namespace Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.EventWrappers
 {
+    [DataContract]
     public abstract class AbstractEventData
     {
         public string ToJson()

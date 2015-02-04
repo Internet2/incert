@@ -126,31 +126,31 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
 
         private void OnTaskCompleted(object sender, TaskEventData e)
         {
-            var script = string.Format(EventScriptFormat, "task_completed", "'testing'");
+            var script = string.Format(EventScriptFormat, "task_completed", e.ToJson());
             Browser.EvaluateScriptAsync(script);
         }
 
         private void OnTaskStarted(object sender, TaskEventData e)
         {
-            var script = string.Format(EventScriptFormat, "task_started", "'testing'");
+            var script = string.Format(EventScriptFormat, "task_started", e.ToJson());
             Browser.EvaluateScriptAsync(script);
         }
 
         private void OnIssueOccurred(object sender, IssueEventData e)
         {
-            var script = string.Format(EventScriptFormat, "issue_occurred", "'testing'");
+            var script = string.Format(EventScriptFormat, "issue_occurred", e.ToJson());
             Browser.EvaluateScriptAsync(script);
         }
 
         private void OnBranchStated(object sender, BranchEventData e)
         {
-            var script = string.Format(EventScriptFormat, "branch_started", "'testing'");
+            var script = string.Format(EventScriptFormat, "branch_started", e.ToJson());
             Browser.EvaluateScriptAsync(script);
         }
 
         private void OnBranchCompleted(object sender, BranchEventData e)
         {
-            var script = string.Format(EventScriptFormat, "branch_completed", "'testing'");
+            var script = string.Format(EventScriptFormat, "branch_completed", e.ToJson());
             Browser.EvaluateScriptAsync(script);
         }
     }
