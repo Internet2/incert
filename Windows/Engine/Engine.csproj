@@ -190,6 +190,7 @@
     <Reference Include="System.IO.Compression" />
     <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.Management" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.ServiceModel.Activities" />
     <Reference Include="System.ServiceModel.Channels" />
@@ -788,6 +789,9 @@
     <Compile Include="UserInterface\ContentWrappers\ContentControlWrappers\BrowserContentWrapper.cs" />
     <Compile Include="UserInterface\ContentWrappers\ContentControlWrappers\ErrorParagraph.cs" />
     <Compile Include="UserInterface\ContentWrappers\ContentControlWrappers\OptionInputField.cs" />
+    <Compile Include="UserInterface\ContentWrappers\EventWrappers\AbstractEventData.cs" />
+    <Compile Include="UserInterface\ContentWrappers\EventWrappers\BranchEventData.cs" />
+    <Compile Include="UserInterface\ContentWrappers\EventWrappers\TaskEventData.cs" />
     <Compile Include="UserInterface\ContentWrappers\ImageWrappers\AbstractImageContent.cs" />
     <Compile Include="UserInterface\ContentWrappers\ImageWrappers\BuiltInSystemIconImage.cs" />
     <Compile Include="UserInterface\ContentWrappers\ImageWrappers\ApiSystemIconImage.cs" />
