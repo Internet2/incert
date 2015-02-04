@@ -3,10 +3,10 @@ using System.Xml.Linq;
 using Org.InCommon.InCert.Engine.Conditions;
 using Org.InCommon.InCert.Engine.Conditions.Grouping;
 using Org.InCommon.InCert.Engine.Dynamics;
+using Org.InCommon.InCert.Engine.Engines;
 using Org.InCommon.InCert.Engine.Importables;
 using Org.InCommon.InCert.Engine.Results;
 using Org.InCommon.InCert.Engine.Results.Misc;
-using Org.InCommon.InCert.Engine.Engines;
 using Org.InCommon.InCert.Engine.TaskBranches;
 using Org.InCommon.InCert.Engine.Utilities;
 
@@ -70,6 +70,10 @@ namespace Org.InCommon.InCert.Engine.Tasks
             return !String.IsNullOrWhiteSpace(GetFriendlyName()) ? GetFriendlyName() : GetType().Name;
         }
 
+        public string Id { get; set; }
+
+        public string UiMessage { get; set; }
+
         public BooleanReason EvaluateRootCondition()
         {
             if (_rootCondition == null)
@@ -88,6 +92,8 @@ namespace Org.InCommon.InCert.Engine.Tasks
             LogIfSkipped = XmlUtilities.GetBooleanFromAttribute(node, "logIfSkipped", false);
             Delay = XmlUtilities.GetIntegerFromAttribute(node, "delay", 0);
             MinimumTaskTime = XmlUtilities.GetIntegerFromAttribute(node, "minimumTaskTime", 0);
+            Id = XmlUtilities.GetTextFromAttribute(node, "id");
+            UiMessage = XmlUtilities.GetTextFromAttribute(node, "message");
 
             SetRootCondition(GetInstanceFromNode<AllTrue>(node.Element("Conditions.All")));
             SetRootCondition(GetInstanceFromNode<AnyTrue>(node.Element("Conditions.Any")));

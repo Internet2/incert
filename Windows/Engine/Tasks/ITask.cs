@@ -28,6 +28,8 @@ namespace Org.InCommon.InCert.Engine.Tasks
         string GetFriendlyName();
         string GetLogName();
 
+        string Id { get; set; }
+        string UiMessage { get; set; }
         BooleanReason EvaluateRootCondition();
 
 
