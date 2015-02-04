@@ -31,7 +31,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModel
         public bool OnBeforeResourceLoad(IWebBrowser browser, IRequest request, IResponse response)
         {
            
-            Log.InfoFormat("resource load request: {0}", request.Url);
+            Log.DebugFormat("resource load request: {0}", request.Url);
             return false;
         }
 

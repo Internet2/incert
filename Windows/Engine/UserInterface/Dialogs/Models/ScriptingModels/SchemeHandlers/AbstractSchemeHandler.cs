@@ -19,7 +19,8 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModel
             {".eot","application/vnd.ms-fontobject"},
             {".ttf","application/octet-stream"},
             {".svg","image/svg+xml"},
-            {".woff","application/x-woff"}
+            {".woff","application/x-woff"},
+            {".otf","font/opentype"}
         }; 
         
         public abstract bool ProcessRequestAsync(IRequest request, ISchemeHandlerResponse response, OnRequestCompletedHandler requestCompletedCallback);
