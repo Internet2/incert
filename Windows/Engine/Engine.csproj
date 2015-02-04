@@ -367,6 +367,7 @@
     </Compile>
     <Compile Include="Engines\EngineModes.cs" />
     <Compile Include="Engines\IEngine.cs" />
+    <Compile Include="Engines\IHasEngineEvents.cs" />
     <Compile Include="Engines\IHasEngineFields.cs" />
     <Compile Include="Engines\StandardEngine.cs" />
     <Compile Include="Extensions\BrushExtensions.cs" />

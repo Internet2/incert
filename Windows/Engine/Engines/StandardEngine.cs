@@ -20,7 +20,7 @@ using log4net;
 
 namespace Org.InCommon.InCert.Engine.Engines
 {
-    public class StandardEngine : IEngine, IInitializable
+    public class StandardEngine : IEngine, IHasEngineEvents, IInitializable
     {
         private static readonly ILog Log = Logger.Create();
         public EngineModes Mode { get; set; }
@@ -36,6 +36,62 @@ namespace Org.InCommon.InCert.Engine.Engines
         public IHelpManager HelpManager { get; private set; }
         public IAdvancedMenuManager AdvancedMenuManager { get; private set; }
         public IEndpointManager EndpointManager { get; private set; }
+
+        public event EventHandler TaskStarted;
+        public event EventHandler TaskCompleted;
+        public event EventHandler BranchStarted;
+        public event EventHandler BranchCompleted;
+        public event EventHandler IssueOccurred;
+
+        public void OnTaskStarted(object sender, EventArgs e)
+        {
+            if (TaskStarted == null)
+            {
+                return;
+            }
+
+            TaskStarted(sender, e);
+        }
+
+        public void OnTaskCompleted(object sender, EventArgs e)
+        {
+            if (TaskCompleted == null)
+            {
+                return;
+            }
+
+            TaskCompleted(sender, e);
+        }
+
+        public void OnBranchStarted(object sender, EventArgs e)
+        {
+            if (BranchStarted == null)
+            {
+                return;
+            }
+
+            BranchStarted(sender, e);
+        }
+
+        public void OnBranchCompleted(object sender, EventArgs e)
+        {
+            if (BranchCompleted == null)
+            {
+                return;
+            }
+
+            BranchCompleted(sender, e);
+        }
+
+        public void OnIssueOccurred(object sender, EventArgs e)
+        {
+            if (IssueOccurred == null)
+            {
+                return;
+            }
+
+            IssueOccurred(sender, e);
+        }
 
         public StandardEngine(
             ISettingsManager settingsManager,
@@ -63,18 +119,18 @@ namespace Org.InCommon.InCert.Engine.Engines
 
             Identifier = Guid.NewGuid();
         }
-        
+
         public IResult Execute()
         {
             try
             {
                 var result = ExecuteBranch(BranchRoles.Default, null);
-                
+
                 result.LogFatalIfError();
 
                 if (result is ErrorResult)
                     ExecuteBranch(BranchRoles.Error, result);
-                
+
                 result = ExecuteBranch(BranchRoles.Restart, result);
                 ExecuteBranch(BranchRoles.Final, result);
 
@@ -86,7 +142,7 @@ namespace Org.InCommon.InCert.Engine.Engines
                 return new ExceptionOccurred(e);
             }
         }
-        
+
         private IResult ExecuteBranch(BranchRoles role, IResult result)
         {
             var manager = Application.Current.CurrentKernel().Get<IBranchManager>();

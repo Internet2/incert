@@ -28,6 +28,7 @@ namespace Org.InCommon.InCert.Engine.TaskBranches
         {
             {
                 Log.Branch(this);
+                EngineEvents.OnBranchStarted(this, new EventArgs());
 
                 // if somehow the branch gets into a state where it has no members,
                 // log and return a skip-result
@@ -56,8 +57,11 @@ namespace Org.InCommon.InCert.Engine.TaskBranches
                         result = ExecuteBranch(result);
 
                     if (result is ErrorResult)
+                    {
+                        EngineEvents.OnIssueOccurred(this, new EventArgs());
                         result = ExecuteErrorBranch(currentTask.ErrorBranch, result);
-                    
+                    }
+                        
                     currentTask = result.GetBranchStrategy().GetNextTask(this, currentTask);
                     movingForward = IsForwardProgress(currentTask, lastTask);
                     lastTask = currentTask;
@@ -73,6 +77,8 @@ namespace Org.InCommon.InCert.Engine.TaskBranches
                 // in case user clicked close button during this time
                 result = CheckForCloseRequest(result);
 
+                EngineEvents.OnBranchCompleted(this, new EventArgs());
+
                 return result.AdjustResultByBranchContext(this);
             }
         }
@@ -87,7 +93,8 @@ namespace Org.InCommon.InCert.Engine.TaskBranches
             }
 
             Log.Task(currentTask);
-
+            EngineEvents.OnTaskStarted(this, new EventArgs());
+            
             var startTime = DateTime.UtcNow;
 
             var result = currentTask.Execute(previousResults);
@@ -97,6 +104,7 @@ namespace Org.InCommon.InCert.Engine.TaskBranches
                 startTime, 
                 new TimeSpan(0,0,0,currentTask.MinimumTaskTime));
 
+            EngineEvents.OnTaskCompleted(this, new EventArgs());
             return result;
         }
 

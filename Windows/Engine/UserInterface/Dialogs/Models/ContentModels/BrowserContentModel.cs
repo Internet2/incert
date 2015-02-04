@@ -3,6 +3,7 @@ using System.Windows;
 using CefSharp;
 using CefSharp.Wpf;
 using log4net;
+using Org.InCommon.InCert.Engine.Engines;
 using Org.InCommon.InCert.Engine.Logging;
 using Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.ContentControlWrappers;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModels;
@@ -18,6 +19,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
         public BrowserContentModel(AbstractModel parentModel) : base(parentModel)
         {
             InitializeChromium();
+         
         }
 
         public string Address
@@ -48,6 +50,8 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
             {
                 throw new InvalidCastException("Could not cast wrapper to valid type");
             }
+
+            SubscribeToEngineEvents(wrapper.Engine as IHasEngineEvents);
 
             content.RegisterJsObject("engine", new ScriptingModel(wrapper.Engine, RootDialogModel));
             content.Width = 600;
@@ -101,6 +105,52 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
             {
                 throw new Exception("Could not initialize Chromium browser");
             }    
+        }
+
+        private void SubscribeToEngineEvents(IHasEngineEvents engine)
+        {
+            if (engine == null)
+            {
+                throw new Exception("Could not subscribe to engine events.");
+            }
+
+            engine.BranchCompleted += OnBranchCompleted;
+            engine.BranchStarted += OnBranchStated;
+            engine.IssueOccurred += OnIssueOccurred;
+            engine.TaskStarted += OnTaskStarted;
+            engine.TaskCompleted += OnTaskCompleted;
+        }
+
+        private const string EventScriptFormat = "if (typeof raiseEvent!='undefined'){{raiseEvent('{0}',{1});}}";
+
+        private void OnTaskCompleted(object sender, EventArgs e)
+        {
+            var script = string.Format(EventScriptFormat, "task_completed", "'testing'");
+            Browser.EvaluateScriptAsync(script);
+        }
+
+        private void OnTaskStarted(object sender, EventArgs e)
+        {
+            var script = string.Format(EventScriptFormat, "task_started", "'testing'");
+            Browser.EvaluateScriptAsync(script);
+        }
+        
+        private void OnIssueOccurred(object sender, EventArgs e)
+        {
+            var script = string.Format(EventScriptFormat, "issue_occurred", "'testing'");
+            Browser.EvaluateScriptAsync(script);
+        }
+
+        private void OnBranchStated(object sender, EventArgs e)
+        {
+            var script = string.Format(EventScriptFormat, "branch_started", "'testing'");
+            Browser.EvaluateScriptAsync(script);
+        }
+
+        private void OnBranchCompleted(object sender, EventArgs e)
+        {
+            var script = string.Format(EventScriptFormat, "branch_completed", "'testing'");
+            Browser.EvaluateScriptAsync(script);
         }
     }
 }

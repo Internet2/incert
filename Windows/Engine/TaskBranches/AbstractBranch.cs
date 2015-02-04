@@ -19,7 +19,7 @@ namespace Org.InCommon.InCert.Engine.TaskBranches
 
         protected AbstractBranch(IEngine engine) : base(engine)
         {
-            
+            EngineEvents = engine as IHasEngineEvents;
         }
 
         public string Name { get; private set; }
@@ -31,6 +31,7 @@ namespace Org.InCommon.InCert.Engine.TaskBranches
             get { return _tasks; }
         }
 
+        protected IHasEngineEvents EngineEvents { get; private set; }
         
         public override bool Initialized()
         {
