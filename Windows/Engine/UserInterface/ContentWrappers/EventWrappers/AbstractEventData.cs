@@ -13,11 +13,17 @@ namespace Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.EventWrappers
             using (var stream = new MemoryStream())
             {
                 serializer.WriteObject(stream, this);
+                stream.Position = 0;
                 using (var reader = new StreamReader(stream))
                 {
                     return reader.ReadToEnd();
                 }
             }
+
+
         }
+
+
     }
+
 }
