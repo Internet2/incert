@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Threading;
 using System.Windows;
 using Org.InCommon.InCert.Engine.Engines;
+using Org.InCommon.InCert.Engine.Extensions;
 using Org.InCommon.InCert.Engine.Importables;
 using Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.BannerWrappers;
 using Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.ContentControlWrappers;
@@ -41,6 +43,20 @@ namespace Org.InCommon.InCert.Engine.Tasks.UserInterface
             }
 
             model.Address = url;
+        }
+
+        protected void WaitForLoad(AbstractDialogModel dialog)
+        {
+            var model = dialog.ContentModel.FindChildModel<BrowserContentModel>("browser");
+            if (model == null)
+            {
+                return;
+            }
+            while (!model.IsLoaded)
+            {
+                Application.Current.DoEvents();
+                Thread.Sleep(5);
+            }
         }
 
         protected AbstractBanner GetOrCreateBanner()

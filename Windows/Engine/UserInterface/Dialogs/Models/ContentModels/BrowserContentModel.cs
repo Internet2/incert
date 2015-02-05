@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Threading;
 using CefSharp;
 using CefSharp.Wpf;
 using log4net;
@@ -13,20 +15,25 @@ using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModels.Sc
 
 namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
 {
-    public class BrowserContentModel:AbstractContentModel
+    public class BrowserContentModel : AbstractContentModel
     {
         private static readonly ILog Log = Logger.Create();
 
-        public BrowserContentModel(AbstractModel parentModel) : base(parentModel)
+        public BrowserContentModel(AbstractModel parentModel)
+            : base(parentModel)
         {
             InitializeChromium();
-         
+
         }
+
+        public bool IsLoaded { get; private set; }
+        public bool LoadErrorOccurred { get; private set; }
+        public string LoadError { get; private set; }
 
         public string Address
         {
             get { return Browser.Address; }
-            set { Browser.Address = value; }
+            set {Browser.Address = value; }
         }
 
         private ChromiumWebBrowser Browser
@@ -57,19 +64,45 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
             content.RegisterJsObject("engine", new ScriptingModel(wrapper.Engine, RootDialogModel));
             content.Width = 600;
             content.Height = 600;
-            
+
             content.RequestHandler = new RequestHandler();
             content.LifeSpanHandler = new LifespanHandler();
             content.ConsoleMessage += ConsoleMessageHandler;
+            content.LoadError += OnContentLoadError;
+            content.FrameLoadEnd += OnFrameLoadEnd;
+            content.FrameLoadStart += OnFrameLoadStart;
+          
             Content = content;
-            
+
             return content as T;
 
         }
 
+        private void OnFrameLoadStart(object sender, FrameLoadStartEventArgs e)
+        {
+            var test = 0;
+        }
+
+        private void OnFrameLoadEnd(object sender, FrameLoadEndEventArgs e)
+        {
+            if (!e.IsMainFrame)
+            {
+                return;
+            };
+
+            IsLoaded = true;
+            
+        }
+
+        private void OnContentLoadError(object sender, LoadErrorEventArgs e)
+        {
+            LoadErrorOccurred = true;
+            LoadError = e.ErrorText;
+        }
+
         private static void ConsoleMessageHandler(object sender, ConsoleMessageEventArgs e)
         {
-            Log.DebugFormat("Javascript Console: {0}",e.Message);
+            Log.DebugFormat("Javascript Console: {0}", e.Message);
         }
 
         private static void InitializeChromium()
@@ -81,17 +114,18 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
 
             var settings = new CefSettings
             {
-                PackLoadingDisabled =true,
-                LogSeverity =  LogSeverity.Verbose
-                
+                PackLoadingDisabled = true,
+                LogSeverity = LogSeverity.Verbose
+                 
+
             };
-            
-            
+
+
             settings.RegisterScheme(new CefCustomScheme
             {
                 SchemeName = ArchiveSchemeHandlerFactory.SchemeName,
                 SchemeHandlerFactory = new ArchiveSchemeHandlerFactory(),
-               
+
             });
 
             settings.RegisterScheme(new CefCustomScheme
@@ -101,11 +135,11 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
 
             });
 
-            
+
             if (!Cef.Initialize(settings))
             {
                 throw new Exception("Could not initialize Chromium browser");
-            }    
+            }
         }
 
         private void SubscribeToEngineEvents(IHasEngineEvents engine)
