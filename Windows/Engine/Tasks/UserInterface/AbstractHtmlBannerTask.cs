@@ -33,7 +33,6 @@ namespace Org.InCommon.InCert.Engine.Tasks.UserInterface
             set { SetDynamicValue(value); }
         }
 
-
         internal static void SetAddress(AbstractDialogModel dialog, string url)
         {
             var model = dialog.ContentModel.FindChildModel<BrowserContentModel>("browser");
@@ -45,7 +44,7 @@ namespace Org.InCommon.InCert.Engine.Tasks.UserInterface
             model.Address = url;
         }
 
-        protected void WaitForLoad(AbstractDialogModel dialog)
+        protected static void WaitForLoad(AbstractDialogModel dialog)
         {
             var model = dialog.ContentModel.FindChildModel<BrowserContentModel>("browser");
             if (model == null)

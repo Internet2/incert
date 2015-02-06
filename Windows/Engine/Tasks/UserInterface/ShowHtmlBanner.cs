@@ -2,7 +2,6 @@
 using Org.InCommon.InCert.Engine.Engines;
 using Org.InCommon.InCert.Engine.Logging;
 using Org.InCommon.InCert.Engine.Results;
-using Org.InCommon.InCert.Engine.Results.ControlResults;
 using Org.InCommon.InCert.Engine.Results.Errors.UserInterface;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels;
 
@@ -42,7 +41,7 @@ namespace Org.InCommon.InCert.Engine.Tasks.UserInterface
 
         public override string GetFriendlyName()
         {
-            return string.Format("Show html banner {0} in model dialog {1}", Url, Dialog);
+            return string.Format("Show html banner ({0}) in dialog {1}", Url, Dialog);
         }
     }
 }
