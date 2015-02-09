@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using System.Windows;
+using System.Xml.Linq;
 using Org.InCommon.InCert.Engine.Engines;
 using Org.InCommon.InCert.Engine.Extensions;
 using Org.InCommon.InCert.Engine.Importables;
@@ -8,6 +9,7 @@ using Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.BannerWrappers;
 using Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.ContentControlWrappers;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels;
+using Org.InCommon.InCert.Engine.Utilities;
 
 namespace Org.InCommon.InCert.Engine.Tasks.UserInterface
 {
@@ -32,6 +34,12 @@ namespace Org.InCommon.InCert.Engine.Tasks.UserInterface
             get { return GetDynamicValue(); }
             set { SetDynamicValue(value); }
         }
+
+        [PropertyAllowedFromXml]
+        public double Width { get; set; }
+
+        [PropertyAllowedFromXml]
+        public double Height { get; set; }
 
         internal static void SetAddress(AbstractDialogModel dialog, string url)
         {
@@ -77,14 +85,21 @@ namespace Org.InCommon.InCert.Engine.Tasks.UserInterface
 
             banner = new SimpleBanner(Engine)
             {
-                Width = 600,
-                Height = 600,
+                Width = Width,
+                Height = Height,
                 CanClose = true,
                 Margin = new Thickness(0)
             };
 
             banner.AddMember(wrapper);
             return BannerManager.SetBanner(_identifier, banner);
+        }
+
+        public override void ConfigureFromNode(XElement node)
+        {
+            base.ConfigureFromNode(node);
+            Width = XmlUtilities.GetIntegerFromChildNode(node, "Width", 600);
+            Height = XmlUtilities.GetIntegerFromChildNode(node, "Height", 600);
         }
     }
 }
