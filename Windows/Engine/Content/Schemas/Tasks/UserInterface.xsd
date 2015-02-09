@@ -781,7 +781,8 @@
                   <xs:element name="Url" type="xs:string" minOccurs="1" maxOccurs="1"  />
                   <xs:element name="Width" type="xs:int" minOccurs="0" maxOccurs="1" />
                   <xs:element name="Height" type="xs:int" minOccurs="0" maxOccurs="1" />
-                </xs:sequence>
+                  <xs:element name="Shadowed" type="xs:boolean" minOccurs="0" maxOccurs="1" />
+                 </xs:sequence>
               </xs:complexType>
             </xs:element>
           </xs:sequence>
