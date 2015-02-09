@@ -208,6 +208,7 @@
         <xs:element ref="UserInterface.ShowErrorDialog" />
         <xs:element ref="UserInterface.ShowBorderedBannerModal" />
         <xs:element ref="UserInterface.ShowBorderedBannerNonModal" />
+        <xs:element ref="UserInterface.ShowBorderlessHtmlBanner" />
         <xs:element ref="UserInterface.ShowHtmlBanner" />
         <xs:element ref="UserInterface.ShowHtmlBannerModal" />
         <xs:element ref="UserInterface.StartMessageTimer" />
