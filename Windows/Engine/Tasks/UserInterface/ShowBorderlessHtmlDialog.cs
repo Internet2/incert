@@ -8,9 +8,9 @@ using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels;
 
 namespace Org.InCommon.InCert.Engine.Tasks.UserInterface
 {
-    class ShowBorderlessHtmlDialog : AbstractHtmlBannerTask
+    class ShowBorderlessHtmlBanner : AbstractHtmlBannerTask
     {
-        public ShowBorderlessHtmlDialog(IEngine engine)
+        public ShowBorderlessHtmlBanner(IEngine engine)
             : base(engine)
         {
         }

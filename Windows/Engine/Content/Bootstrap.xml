@@ -29,7 +29,8 @@
         </Properties>
       </Settings.SetSettingText>
 
-      <Verification.VerifyApplicationSignature />
+     
+     <Verification.VerifyApplicationSignature />
 
       <Control.ImportContentFromSignedArchive>
         <Conditions.All>
@@ -138,30 +139,19 @@
     </RoleBranch>
 
     <RoleBranch name="configure computer as admin" roleMode="Normal" role="Local">
-      <UserInterface.ShowBorderlessDialog>
+      <UserInterface.ShowBorderlessHtmlBanner>
         <Properties>
           <Dialog>Splash screen dialog</Dialog>
-          <Banner>Splash screen banner</Banner>
+          <Url>resource://html/SplashScreen.html</Url>
+          <Width>500</Width>
+          <Height>400</Height>
           <Shadowed>true</Shadowed>
         </Properties>
-      </UserInterface.ShowBorderlessDialog>
+      </UserInterface.ShowBorderlessHtmlBanner>
 
-      <UserInterface.StartMessageTimer minimumTaskTime="2">
-        <Properties>
-          <SettingKey>Splash screen progress text</SettingKey>
-        </Properties>
-      </UserInterface.StartMessageTimer>
+      <Verification.VerifyServerVersion message="Verifying utility" />
 
-      <UserInterface.ChangeProgressMessage>
-        <Properties>
-          <SettingKey>Splash screen progress text</SettingKey>
-          <Value>Verifying utility</Value>
-        </Properties>
-      </UserInterface.ChangeProgressMessage>
-
-      <Verification.VerifyServerVersion />
-
-      <Control.ReturnBranchResult>
+      <Control.ReturnBranchResult >
         <Properties>
           <Branch>Check for update</Branch>
         </Properties>
@@ -188,14 +178,7 @@
         </Properties>
       </Control.ReturnBranchResult>
 
-      <UserInterface.ChangeProgressMessage>
-        <Properties>
-          <SettingKey>Splash screen progress text</SettingKey>
-          <Value>Downloading configuration files</Value>
-        </Properties>
-      </UserInterface.ChangeProgressMessage>
-
-      <Control.ReturnBranchResult>
+      <Control.ReturnBranchResult  message="Downloading configuration files">
         <Properties>
           <Branch>download task list</Branch>
         </Properties>

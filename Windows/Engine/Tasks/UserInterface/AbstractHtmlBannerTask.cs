@@ -80,7 +80,9 @@ namespace Org.InCommon.InCert.Engine.Tasks.UserInterface
                 Padding = new Thickness(0),
                 Margin = new Thickness(0),
                 SilentMode = true,
-                ControlKey = "browser"
+                ControlKey = "browser",
+                Width = Width,
+                Height = Height
             };
 
             banner = new SimpleBanner(Engine)
@@ -98,8 +100,9 @@ namespace Org.InCommon.InCert.Engine.Tasks.UserInterface
         public override void ConfigureFromNode(XElement node)
         {
             base.ConfigureFromNode(node);
-            Width = XmlUtilities.GetIntegerFromChildNode(node, "Width", 600);
-            Height = XmlUtilities.GetIntegerFromChildNode(node, "Height", 600);
+            
+            if (Width <= 0) Width = 600;
+            if (Height <= 0) Height = 600;
         }
     }
 }

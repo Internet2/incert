@@ -8,6 +8,8 @@ namespace Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.ContentContro
     {
         public Uri Uri { get; set; }
         public bool SilentMode { get; set; }
+        public double Width { get; set; }
+        public double Height { get; set; }
 
         public BrowserContentWrapper(IEngine engine) : base(engine)
         {

@@ -18,24 +18,25 @@
         ShowInTaskbar="{Binding ShowInTaskbar}"
         Cursor="{Binding Cursor}"
         d:DataContext="{d:DesignInstance Type=dialogModels:MockBorderlessModel, IsDesignTimeCreatable=True}"
-        Height="{Binding Height}"
-        Width="{Binding Width}"
-        MinHeight="{Binding Height}"
-        MinWidth="{Binding Width}"
+       
         BorderThickness="10"
         >
 
     <Window.Resources>
         <ResourceDictionary Source="CommonResources.xaml" />
     </Window.Resources>
-   
+
     <Border Effect="{Binding DropShadow}">
         <Grid  
-        MouseDown="GridMouseDownHandler" 
-        DataContext="{Binding ContentModel}" 
-        Cursor="{Binding Cursor}"
-        VerticalAlignment="Stretch"
-        HorizontalAlignment="Stretch">
+            Height="{Binding Height}"
+            Width="{Binding Width}"
+            MinHeight="{Binding Height}"
+            MinWidth="{Binding Width}"
+            MouseDown="GridMouseDownHandler" 
+            DataContext="{Binding ContentModel}" 
+            Cursor="{Binding Cursor}"
+            VerticalAlignment="Stretch"
+            HorizontalAlignment="Stretch">
             <ContentPresenter Content="{Binding Content}" />
 
         </Grid>

@@ -62,8 +62,8 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
             SubscribeToEngineEvents(wrapper.Engine as IHasEngineEvents);
 
             content.RegisterJsObject("engine", new ScriptingModel(wrapper.Engine, RootDialogModel));
-            content.Width = 600;
-            content.Height = 600;
+            content.Width = browserWrapper.Width;
+            content.Height = browserWrapper.Height;
 
             content.RequestHandler = new RequestHandler();
             content.LifeSpanHandler = new LifespanHandler();

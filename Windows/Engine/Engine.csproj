@@ -1101,6 +1101,9 @@
     <EmbeddedResource Include="Content\Html\Scripts\npm.js" />
     <EmbeddedResource Include="Content\Html\Css\font-awesome.min.css" />
     <EmbeddedResource Include="Content\Html\Fonts\fontawesome-webfont.svg" />
+    <EmbeddedResource Include="Content\Html\SplashScreen.html" />
+    <EmbeddedResource Include="Content\Html\Css\incert.css" />
+    <EmbeddedResource Include="Content\Html\Scripts\common.js" />
     <Content Include="Content\InCommon\archive\AdvancedMenu.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -1426,7 +1429,9 @@
     </Page>
     <Resource Include="icon.ico" />
     <EmbeddedResource Include="Content\ErrorContent.xml" />
-    <EmbeddedResource Include="Content\SplashScreenBanner.xml" />
+    <EmbeddedResource Include="Content\SplashScreenBanner.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Content\GenericDownloader.xml" />
     <EmbeddedResource Include="Content\GenericIssueRetryBanner.xml">
       <SubType>Designer</SubType>
