@@ -40,7 +40,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModel
 
         public string ResolveValue(string value)
         {
-            throw new NotImplementedException();   
+            return _engine.ValueResolver.Resolve(value, true);
         }
 
         public void SetValue(string key, string value)
