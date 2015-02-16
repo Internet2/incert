@@ -8,6 +8,7 @@ using Org.InCommon.InCert.Engine.Logging;
 using log4net;
 using Org.InCommon.InCert.Engine.Dynamics;
 using Org.InCommon.InCert.Engine.Engines;
+using Org.InCommon.InCert.Engine.Extensions;
 using Org.InCommon.InCert.Engine.Results;
 using Org.InCommon.InCert.Engine.Results.ControlResults;
 using Org.InCommon.InCert.Engine.Settings;
@@ -119,10 +120,9 @@ namespace Org.InCommon.InCert.Engine.AdvancedMenu
             var top = parent.DialogInstance.Top;
 
             var advancedMenuModel = new AdvancedMenuModel(engine, parent);
-            advancedMenuModel.ShowDialog(
-                left,
-                top,
-                group.Resolve(engine.SettingsManager, true));
+            var resolvedGroup = engine.ValueResolver.Resolve(group, true);
+
+            advancedMenuModel.ShowDialog(left, top, resolvedGroup);
 
             return advancedMenuModel.Result;
         }

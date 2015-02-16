@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Org.InCommon.InCert.Engine.Properties;
-
-namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModels
+﻿namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModels
 {
     public interface IScriptingModel
     {
         bool InCertPresent();
         string GetValue(string key);
+        string ResolveValue(string value);
         void SetValue(string key, string value);
         void ReturnNext();
         void ReturnBack();

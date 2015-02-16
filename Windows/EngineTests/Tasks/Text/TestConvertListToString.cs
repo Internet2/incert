@@ -17,7 +17,7 @@ namespace EngineTests.Tasks.Text
         [TestInitialize]
         public void Initialize()
         {
-            _engine = new StandardEngine(new SettingsManager(), null, null, null, null, null, null, null, null, null);
+            _engine = new StandardEngine(new SettingsManager(), null, null, null, null, null, null, null, null, null,null);
         }
 
         [TestMethod]

@@ -18,7 +18,7 @@ using Logger = Org.InCommon.InCert.Engine.Logging.Logger;
 
 namespace Org.InCommon.InCert.Engine.Dynamics
 {
-    public class StandardTokens
+    public class StandardTokens : IStandardTokens
     {
         private readonly ISettingsManager _settingsManager;
         private readonly IEndpointManager _endpointManager;
@@ -30,13 +30,6 @@ namespace Org.InCommon.InCert.Engine.Dynamics
             _settingsManager = settingsManager;
             _endpointManager = endpointManager;
             _appearanceManager = appearanceManager;
-        }
-
-
-        public static StandardTokens GetInstance()
-        {
-            var kernel = Application.Current.CurrentKernel();
-            return kernel == null ? null : Application.Current.CurrentKernel().Get<StandardTokens>();
         }
 
         /// <summary>

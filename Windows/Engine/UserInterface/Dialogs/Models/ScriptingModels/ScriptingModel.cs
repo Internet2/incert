@@ -38,6 +38,11 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModel
             return _settingsManager.GetTemporarySettingString(key);
         }
 
+        public string ResolveValue(string value)
+        {
+            throw new NotImplementedException();   
+        }
+
         public void SetValue(string key, string value)
         {
             _settingsManager.SetTemporarySettingString(key, value);

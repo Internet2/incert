@@ -362,10 +362,10 @@
     <Compile Include="Conditions\Wireless\ProfileEquivalent.cs" />
     <Compile Include="Conditions\Wireless\WirelessAdapterPresent.cs" />
     <Compile Include="Dynamics\AbstractDynamicPropertyContainer.cs" />
+    <Compile Include="Dynamics\IStandardTokens.cs" />
+    <Compile Include="Dynamics\IValueResolver.cs" />
     <Compile Include="Dynamics\StandardTokens.cs" />
-    <Compile Include="Dynamics\StaticDynamicsResolver.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="Dynamics\ValueResolver.cs" />
     <Compile Include="Engines\EngineModes.cs" />
     <Compile Include="Engines\IEngine.cs" />
     <Compile Include="Engines\IHasEngineEvents.cs" />

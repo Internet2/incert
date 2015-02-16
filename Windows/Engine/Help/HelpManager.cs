@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Xml.Linq;
+using log4net;
 using Org.InCommon.InCert.Engine.Dynamics;
 using Org.InCommon.InCert.Engine.Help.SchemeHandlers;
 using Org.InCommon.InCert.Engine.Importables;
@@ -14,24 +15,25 @@ using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Properties;
 using Org.InCommon.InCert.Engine.WebServices.Contracts;
 using Org.InCommon.InCert.Engine.WebServices.DataWrappers;
 using Org.InCommon.InCert.Engine.WebServices.Managers;
-using log4net;
 
 namespace Org.InCommon.InCert.Engine.Help
 {
     public class HelpManager : PropertyNotifyBase, IHelpManager
     {
-        private readonly ISettingsManager _settingsManager;
+        
         private readonly IEndpointManager _endpointManager;
-
+        private readonly IValueResolver _valueResolver;
         private readonly List<IHelpTopic> _helpTopics = new List<IHelpTopic>();
         private static readonly ILog Log = Logger.Create();
         private readonly HelpDialogModel _model;
 
-        public HelpManager(IAppearanceManager appearanceManager, ISettingsManager settingsManager, IEndpointManager endpointManager)
+        public HelpManager(IEndpointManager endpointManager, IAppearanceManager appearanceManager, IValueResolver valueResolver)
         {
-            _settingsManager = settingsManager;
             _endpointManager = endpointManager;
+            _valueResolver = valueResolver;
+
             _model = new HelpDialogModel(this, appearanceManager);
+            
             SchemeHandlers = new Dictionary<string, IHelpSchemeHandler>
                 {
                     {"archive", new ArchiveSchemeHandler()}
@@ -47,7 +49,7 @@ namespace Org.InCommon.InCert.Engine.Help
         {
             try
             {
-                var resolvedValue = value.Resolve(_settingsManager, true);
+                var resolvedValue = _valueResolver.Resolve(value, true);
                 UploadTopicReportingEntry(resolvedValue);
                 
                 var topics =
@@ -121,7 +123,7 @@ namespace Org.InCommon.InCert.Engine.Help
         {
             var topics =
                 _helpTopics.FindAll(e => e.Identifier.Equals(
-                    value.Resolve(_settingsManager, true),
+                    _valueResolver.Resolve(value,true),
                     StringComparison.InvariantCultureIgnoreCase));
 
             return topics.Any(e => e.IsValid);

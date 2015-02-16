@@ -1,6 +1,6 @@
-﻿using System;
-using Org.InCommon.InCert.Engine.AdvancedMenu;
+﻿using Org.InCommon.InCert.Engine.AdvancedMenu;
 using Org.InCommon.InCert.Engine.CommandLineProcessors;
+using Org.InCommon.InCert.Engine.Dynamics;
 using Org.InCommon.InCert.Engine.Help;
 using Org.InCommon.InCert.Engine.Results.Errors.Mapping;
 using Org.InCommon.InCert.Engine.Settings;
@@ -23,5 +23,6 @@ namespace Org.InCommon.InCert.Engine.Engines
         IHelpManager HelpManager { get; }
         IAdvancedMenuManager AdvancedMenuManager { get; }
         IEndpointManager EndpointManager { get; }
+        IValueResolver ValueResolver { get; }
     }
 }

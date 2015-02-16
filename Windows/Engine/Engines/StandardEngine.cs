@@ -17,6 +17,7 @@ using Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.BannerWrappers;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Managers;
 using Org.InCommon.InCert.Engine.WebServices.Managers;
 using log4net;
+using Org.InCommon.InCert.Engine.Dynamics;
 using Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.EventWrappers;
 
 namespace Org.InCommon.InCert.Engine.Engines
@@ -37,7 +38,8 @@ namespace Org.InCommon.InCert.Engine.Engines
         public IHelpManager HelpManager { get; private set; }
         public IAdvancedMenuManager AdvancedMenuManager { get; private set; }
         public IEndpointManager EndpointManager { get; private set; }
-
+        public IValueResolver ValueResolver {get; private set; }
+       
         public event EventHandler<TaskEventData> TaskStarted;
         public event EventHandler<TaskEventData> TaskCompleted;
         public event EventHandler<BranchEventData> BranchStarted;
@@ -104,7 +106,8 @@ namespace Org.InCommon.InCert.Engine.Engines
             IDialogsManager dialogsManager,
             IHelpManager helpManager,
             IAdvancedMenuManager advancedMenuManager,
-            IEndpointManager endpointManager
+            IEndpointManager endpointManager,
+            IValueResolver valueResolver
             )
         {
             SettingsManager = settingsManager;
@@ -117,7 +120,7 @@ namespace Org.InCommon.InCert.Engine.Engines
             HelpManager = helpManager;
             AdvancedMenuManager = advancedMenuManager;
             EndpointManager = endpointManager;
-
+            ValueResolver = valueResolver;
             Identifier = Guid.NewGuid();
         }
 

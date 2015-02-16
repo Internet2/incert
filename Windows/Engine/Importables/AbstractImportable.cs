@@ -17,6 +17,7 @@ using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Managers;
 using Org.InCommon.InCert.Engine.Utilities;
 using Org.InCommon.InCert.Engine.WebServices.Managers;
 using log4net;
+using Org.InCommon.InCert.Engine.Dynamics;
 
 namespace Org.InCommon.InCert.Engine.Importables
 {
@@ -53,7 +54,7 @@ namespace Org.InCommon.InCert.Engine.Importables
 
             return _propertiesSpecified.Any(e => e.Equals(name));
         }
-        
+
         public static T GetInstanceFromNode<T>(XElement node) where T : class,IImportable
         {
             try
@@ -66,7 +67,8 @@ namespace Org.InCommon.InCert.Engine.Importables
 
                 var type = typeof(T);
                 var result = ReflectionUtilities.LoadFromAssembly<T>(node.Name.LocalName);
-                if (result == null){
+                if (result == null)
+                {
                     Log.WarnFormat("could not initialize {0}.{1} from xml", type.Namespace, node.Name.LocalName);
                     return default(T);
                 }
@@ -81,7 +83,7 @@ namespace Org.InCommon.InCert.Engine.Importables
                 return default(T);
             }
         }
-        
+
         protected void MapChildrenToProperties(XElement node, object target)
         {
             if (node == null)
@@ -134,14 +136,14 @@ namespace Org.InCommon.InCert.Engine.Importables
                 var propertyInfo = target.GetType().GetProperty(node.Name.LocalName, BindingFlags.IgnoreCase | BindingFlags.Instance | BindingFlags.Public);
                 if (propertyInfo == null)
                     throw new Exception("The attribute " + node.Name + " does not map to a valid property of " + target.GetType().FullName);
-                
+
                 if (!PropertyIsValidTarget(propertyInfo, target))
                     throw new Exception("Could not assign property " + node.Name + " to " + target.GetType().FullName);
-                
+
                 var value = ConvertNodeToCorrectType(node, propertyInfo);
                 if (value == null)
                     throw new Exception("Could not convert property " + node.Name + " to correct type");
-                    
+
                 _propertiesSpecified.Add(node.Name.LocalName);
                 propertyInfo.SetValue(target, value, null);
             }
@@ -172,7 +174,7 @@ namespace Org.InCommon.InCert.Engine.Importables
                 return null;
             }
         }
-        
+
         private static object ConvertNodeToEnum(XElement node, PropertyInfo info)
         {
             try
@@ -225,13 +227,13 @@ namespace Org.InCommon.InCert.Engine.Importables
                 var method = target.GetType().GetMethod(node.Name.LocalName, BindingFlags.IgnoreCase | BindingFlags.Instance | BindingFlags.Public);
                 if (method == null)
                     throw new Exception(node.Name + " does not map to a valid method of " + target.GetType().FullName);
-                
+
                 if (ReflectionUtilities.IsObsolete(method))
                     Log.WarnFormat("The method {0} is obsolete for the class {1}.", method.Name, target.GetType().FullName);
-                
+
                 if (!ReflectionUtilities.IsMethodAllowedFromXml(method))
                     throw new Exception("The method " + method.Name + " cannot be invoked from xml");
-                
+
                 var parameters = MapAttributesToParameters(node, method.GetParameters());
                 method.Invoke(target, parameters);
             }
@@ -286,6 +288,7 @@ namespace Org.InCommon.InCert.Engine.Importables
         public IHelpManager HelpManager { get { return Engine.HelpManager; } }
         public IAdvancedMenuManager AdvancedMenuManager { get { return Engine.AdvancedMenuManager; } }
         public IEndpointManager EndpointManager { get { return Engine.EndpointManager; } }
+        public IValueResolver ValueResolver { get { return Engine.ValueResolver; } }
     }
 
 

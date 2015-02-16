@@ -45,7 +45,7 @@ namespace Org.InCommon.InCert.Engine.Tasks.Time
                 var matchFound = false;
                 foreach (var value in _timeZones)
                 {
-                    var timeZone = ResolveDynamicTokenValues(SettingsManager, value, true);
+                    var timeZone = ValueResolver.Resolve(value,true);
                     if (!VerifyZimeZone(timeZone))
                         continue;
 

@@ -19,6 +19,7 @@ using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Managers;
 using Org.InCommon.InCert.Engine.Utilities;
 using Org.InCommon.InCert.Engine.WebServices.Managers;
 using log4net;
+using Org.InCommon.InCert.Engine.Dynamics;
 
 namespace Org.InCommon.InCert.Engine
 {
@@ -63,6 +64,7 @@ namespace Org.InCommon.InCert.Engine
             {
                 Bind<IEngine>().To<StandardEngine>().InSingletonScope();
                 Bind<IHasEngineFields>().ToMethod(c => c.Kernel.Get<IEngine>());
+
                 Bind<ISettingsManager>().To<SettingsManager>().InSingletonScope();
                 Bind<IBranchManager>().To<BranchManager>().InSingletonScope();
                 Bind<ICommandLineManager>().To<CommandLineManager>().InSingletonScope();
@@ -73,8 +75,10 @@ namespace Org.InCommon.InCert.Engine
                 Bind<IEndpointManager>().To<EndpointManager>().InSingletonScope();
                 Bind<IHelpManager>().To<HelpManager>().InSingletonScope();
                 Bind<IAdvancedMenuManager>().To<AdvancedMenuManager>().InSingletonScope();
-
+                Bind<IValueResolver>().To<ValueResolver>().InSingletonScope();
+                Bind<IStandardTokens>().To<StandardTokens>().InSingletonScope();
                 Bind<IClientIdentifier>().To<StoredClientIdentifier>().InSingletonScope();
+
             }
         }
     }
