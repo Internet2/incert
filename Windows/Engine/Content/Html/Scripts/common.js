@@ -12,9 +12,9 @@ function autoGet() {
 }
 
 function setTextInputValues() {
-    $("input:text, input:password").each(function (index) {
+    $("input:text, input:password").each(function(index) {
         $(this).val(engine.getValue(this.id));
-    })
+    });
 }
 
 function setCheckboxValues() {
@@ -31,16 +31,16 @@ function autoPut() {
 }
 
 function getTextInputValues() {
-    $("input:text, input:password").each(function (index) {
-        engine.setValue(this.id, $(this).val())
-    })
+    $("input:text, input:password").each(function(index) {
+        engine.setValue(this.id, $(this).val());
+    });
 }
 
 function getCheckBoxValues() {
-    $("input:checkbox").each(function (index) {
+    $("input:checkbox").each(function(index) {
         var value = !($(this).prop("checked")) ? "False" : "True";
-        engine.setValue(this.id, value)
-    })
+        engine.setValue(this.id, value);
+    });
 }
 
 function configureForInBrowserTesting() {
@@ -54,6 +54,10 @@ function configureForInBrowserTesting() {
 
     engine.getValue = function (property) {
         return property + " value";
+    }
+
+    engine.resolveValue = function(value) {
+        return value + " value";
     }
 
     engine.setValue = function (property, value) {
