@@ -1104,6 +1104,7 @@
     <EmbeddedResource Include="Content\Html\SplashScreen.html" />
     <EmbeddedResource Include="Content\Html\Css\incert.css" />
     <EmbeddedResource Include="Content\Html\Scripts\common.js" />
+    <EmbeddedResource Include="Content\Html\ConfirmClose.html" />
     <Content Include="Content\InCommon\archive\AdvancedMenu.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

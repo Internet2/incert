@@ -6,6 +6,7 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
+using log4net;
 using Org.InCommon.InCert.Engine.Engines;
 using Org.InCommon.InCert.Engine.Extensions;
 using Org.InCommon.InCert.Engine.Logging;
@@ -15,14 +16,14 @@ using Org.InCommon.InCert.Engine.Results.Errors.General;
 using Org.InCommon.InCert.Engine.Results.Errors.UserInterface;
 using Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.BannerWrappers;
 using Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.ButtonWrappers;
+using Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.ContentControlWrappers;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.ControlActions;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Managers;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.CommandModels;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContainerModels;
+using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Properties;
 using Org.InCommon.InCert.Engine.Utilities;
-using log4net;
-using Org.BouncyCastle.Asn1.X509.Qualified;
 
 namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
 {
@@ -40,10 +41,12 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
         private readonly Dictionary<ButtonTargets, Action<AbstractButtonWrapper>> _buttonAssigners;
         private readonly Dictionary<ModelKeys, AbstractModel> _childModels = new Dictionary<ModelKeys, AbstractModel>();
 
+        private readonly string _confirmCloseBannerIdentifier = Guid.NewGuid().ToString();
+
         private readonly IDialogsManager _dialogsManager;
         private readonly IBannerManager _bannerManager;
 
-        private readonly IHasEngineFields _engine;
+        private readonly IEngine _engine;
         private readonly Window _dialogInstance;
 
         private static readonly ILog Log = Logger.Create();
@@ -157,7 +160,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
 
         public IAppearanceManager AppearanceManager { get; private set; }
 
-        protected AbstractDialogModel(IHasEngineFields engine, Window dialogInstance)
+        protected AbstractDialogModel(IEngine engine, Window dialogInstance)
         {
             AppearanceManager = engine.AppearanceManager;
             _dialogsManager = engine.DialogsManager;
@@ -500,6 +503,11 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
 
         public IResult ShowChildBanner(AbstractDialogModel childDialog, string banner)
         {
+            return ShowChildBanner(childDialog, _bannerManager.GetBanner(banner));
+        }
+
+        public IResult ShowChildBanner(AbstractDialogModel childDialog, AbstractBanner banner)
+        {
             try
             {
                 if (childDialog == null)
@@ -515,8 +523,13 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
                 return new ExceptionOccurred(e);
             }
         }
-
+        
         public IResult ShowChildBannerModal(AbstractDialogModel childDialog, string banner)
+        {
+            return ShowChildBannerModal(childDialog, _bannerManager.GetBanner(banner));
+        }
+
+        public IResult ShowChildBannerModal(AbstractDialogModel childDialog, AbstractBanner banner)
         {
             EnableDisableAllControls(false);
             try
@@ -567,8 +580,13 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
                     return;
                 }
 
+
                 _dialogsManager.CancelPending = true;
-                var result = ShowChildBannerModal(closeWindow, "Confirm close banner");
+
+                var banner = GetConfirmCloseBanner();
+                closeWindow.PreloadContent(banner);
+                closeWindow.SetBrowserAddress("resource://html/ConfirmClose.html");
+                var result = ShowChildBannerModal(closeWindow, banner);
                 if ((result as CloseResult) == null)
                 {
                     Result = null;
@@ -583,6 +601,48 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
             {
                 _dialogsManager.CancelPending = false;
             }
+        }
+
+        private AbstractBanner GetConfirmCloseBanner()
+        {
+            var banner = _bannerManager.GetBanner(_confirmCloseBannerIdentifier);
+            if (banner != null)
+            {
+                return banner;
+            }
+
+            var wrapper = new BrowserContentWrapper(_engine)
+            {
+                Uri = new Uri("resource://html/ConfirmClose.html"),
+                Padding = new Thickness(0),
+                Margin = new Thickness(0),
+                SilentMode = true,
+                ControlKey = "browser",
+                Width = 450,
+                Height = 400
+            };
+
+            banner = new SimpleBanner(_engine)
+            {
+                Width = 450,
+                Height = 400,
+                CanClose =false,
+                Margin = new Thickness(0)
+            };
+
+            banner.AddMember(wrapper);
+            return _bannerManager.SetBanner(_confirmCloseBannerIdentifier, banner);
+        }
+
+        public void SetBrowserAddress(string url)
+        {
+            var model = ContentModel.FindChildModel<BrowserContentModel>("browser");
+            if (model == null)
+            {
+                throw new Exception("Could not retrieve browser content model");
+            }
+
+            model.Address = url;
         }
 
         public void EnableDisableAllControls(List<string> excludeList, bool enabled)

@@ -43,13 +43,7 @@ namespace Org.InCommon.InCert.Engine.Tasks.UserInterface
 
         internal static void SetAddress(AbstractDialogModel dialog, string url)
         {
-            var model = dialog.ContentModel.FindChildModel<BrowserContentModel>("browser");
-            if (model == null)
-            {
-                throw new Exception("Could not retrieve browser content model");
-            }
-
-            model.Address = url;
+            dialog.SetBrowserAddress(url);
         }
 
         protected static void WaitForLoad(AbstractDialogModel dialog)

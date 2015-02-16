@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no, maximum-scale=1.0" />
+    <link rel="stylesheet" href="Css/bootstrap.min.css">
+    <link rel="stylesheet" href="Css/inCert.css" />
+    <link rel="stylesheet" href="Css/font-awesome.min.css" />
+    <script src="Scripts/jquery-2.1.3.min.js"></script>
+    <script src="Scripts/common.js"></script>
+    <title></title>
+
+    <style>
+        .vcenter {
+            display: inline-block;
+            vertical-align: middle;
+            float: none;
+        }
+    </style>
+</head>
+<body class="bordered">
+    <div class="container">
+        <div class="row" style="margin-top: 20px">
+            <div class="col-sm-12 text-center"></div>
+            <h2><i class="fa fa-question-circle fa-2x"></i>&nbsp;<span id="closeQuestion"></span></h2>
+        </div>
+
+
+    </div>
+
+    <nav class="navbar navbar-fixed-bottom" style="border: solid 1px">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 navbar-text">
+                    <button type="button" class="btn btn-default pull-left">Help</button>
+                    <button type="button" class="btn btn-default pull-right" style="margin-left: .75em" onclick="engine.returnNext();">No</button>
+                    <button type="button" class="btn btn-default pull-right">Yes</button>
+
+
+                </div>
+            </div>
+        </div>
+    </nav>
+    <script>
+        $("#closeQuestion").text(engine.resolveValue("[engine close question]"));
+    </script>
+</body>
+</html>

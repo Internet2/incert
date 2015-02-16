@@ -14,6 +14,8 @@ namespace Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.BannerWrapper
 
     public sealed class BannerManager : IBannerManager
     {
+        private readonly string _closeBannerIdentifer = Guid.NewGuid().ToString();
+        
         private static readonly ILog Log = Logger.Create();
 
         private readonly Dictionary<String, AbstractBanner> _banners = new Dictionary<String, AbstractBanner>();
@@ -126,5 +128,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.BannerWrapper
                 throw new Exception("Could not initialize Chromium browser");
             }
         }
+
+      
     }
 }
