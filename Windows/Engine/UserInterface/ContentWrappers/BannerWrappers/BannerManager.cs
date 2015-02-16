@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
+using CefSharp;
 using Org.InCommon.InCert.Engine.Importables;
 using Org.InCommon.InCert.Engine.Logging;
 using Org.InCommon.InCert.Engine.Utilities;
 using log4net;
+using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModels.SchemeHandlers;
 
 namespace Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.BannerWrappers
 {
@@ -20,6 +22,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.BannerWrapper
         {
             try
             {
+                InitializeChromium();
 
                 _banners.Clear();
 
@@ -85,6 +88,43 @@ namespace Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.BannerWrapper
         {
             _banners[key] = value;
             return _banners[key];
+        }
+
+        private static void InitializeChromium()
+        {
+            if (Cef.IsInitialized)
+            {
+                return;
+            }
+
+            var settings = new CefSettings
+            {
+                PackLoadingDisabled = true,
+                LogSeverity = LogSeverity.Disable
+            };
+
+            settings.CefCommandLineArgs.Add(new KeyValuePair<string, string>("no-proxy-server", ""));
+
+
+            settings.RegisterScheme(new CefCustomScheme
+            {
+                SchemeName = ArchiveSchemeHandlerFactory.SchemeName,
+                SchemeHandlerFactory = new ArchiveSchemeHandlerFactory(),
+
+            });
+
+            settings.RegisterScheme(new CefCustomScheme
+            {
+                SchemeName = EmbeddedResourceSchemeHandlerFactory.SchemeName,
+                SchemeHandlerFactory = new EmbeddedResourceSchemeHandlerFactory(),
+
+            });
+
+
+            if (!Cef.Initialize(settings))
+            {
+                throw new Exception("Could not initialize Chromium browser");
+            }
         }
     }
 }

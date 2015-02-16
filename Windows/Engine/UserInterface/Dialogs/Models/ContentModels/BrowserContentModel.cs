@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Threading;
 using CefSharp;
 using CefSharp.Wpf;
 using log4net;
@@ -11,7 +8,6 @@ using Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.ContentControlWra
 using Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.EventWrappers;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModels;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModels.LifespanHandlers;
-using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModels.SchemeHandlers;
 
 namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
 {
@@ -22,7 +18,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
         public BrowserContentModel(AbstractModel parentModel)
             : base(parentModel)
         {
-            InitializeChromium();
+            
 
         }
 
@@ -105,42 +101,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
             Log.DebugFormat("Javascript Console: {0}", e.Message);
         }
 
-        private static void InitializeChromium()
-        {
-            if (Cef.IsInitialized)
-            {
-                return;
-            }
-
-            var settings = new CefSettings
-            {
-                PackLoadingDisabled = true,
-                LogSeverity = LogSeverity.Verbose
-                 
-
-            };
-
-
-            settings.RegisterScheme(new CefCustomScheme
-            {
-                SchemeName = ArchiveSchemeHandlerFactory.SchemeName,
-                SchemeHandlerFactory = new ArchiveSchemeHandlerFactory(),
-
-            });
-
-            settings.RegisterScheme(new CefCustomScheme
-            {
-                SchemeName = EmbeddedResourceSchemeHandlerFactory.SchemeName,
-                SchemeHandlerFactory = new EmbeddedResourceSchemeHandlerFactory(),
-
-            });
-
-
-            if (!Cef.Initialize(settings))
-            {
-                throw new Exception("Could not initialize Chromium browser");
-            }
-        }
+        
 
         private void SubscribeToEngineEvents(IHasEngineEvents engine)
         {
