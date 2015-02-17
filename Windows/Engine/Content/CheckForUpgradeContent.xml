@@ -53,12 +53,19 @@
         </Properties>
       </UserInterface.StopMessageTimer>
 
-      <UserInterface.ShowBorderedBannerModal>
+      <UserInterface.ShowHtmlBannerModal>
+        <Properties>
+          <Dialog>Main dialog</Dialog>
+          <Url>resource://html/UpgradeEngine.html</Url>
+        </Properties>
+      </UserInterface.ShowHtmlBannerModal>
+      
+      <!--<UserInterface.ShowBorderedBannerModal>
         <Properties>
           <Dialog>Main dialog</Dialog>
           <Banner>Prompt to upgrade banner</Banner>
         </Properties>
-      </UserInterface.ShowBorderedBannerModal>
+      </UserInterface.ShowBorderedBannerModal>-->
 
       <UserInterface.HideDialog>
         <Properties>
