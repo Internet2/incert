@@ -318,7 +318,6 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
                 Background = AppearanceManager.GetBrushForColor(banner.Background, AppearanceManager.BackgroundBrush);
                 Cursor = banner.Cursor;
                 ContentModel = content;
-
                 AddActions(banner.GetActions());
             }
             catch (Exception e)
@@ -618,13 +617,13 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
                 Margin = new Thickness(0),
                 SilentMode = true,
                 ControlKey = "browser",
-                Width = 450,
+                Width = 550,
                 Height = 400
             };
 
             banner = new SimpleBanner(_engine)
             {
-                Width = 450,
+                Width = 550,
                 Height = 400,
                 CanClose =false,
                 Margin = new Thickness(0)

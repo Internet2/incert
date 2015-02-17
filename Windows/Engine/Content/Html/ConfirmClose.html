@@ -1,7 +1,6 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no, maximum-scale=1.0" />
     <link rel="stylesheet" href="Css/bootstrap.min.css">
@@ -21,29 +20,28 @@
 </head>
 <body class="bordered">
     <div class="container">
-        <div class="row" style="margin-top: 20px">
-            <div class="col-sm-12 text-center"></div>
-            <h2><i class="fa fa-question-circle fa-2x"></i>&nbsp;<span id="closeQuestion"></span></h2>
-        </div>
-
-
-    </div>
-
-    <nav class="navbar navbar-fixed-bottom" style="border: solid 1px">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-12 navbar-text">
-                    <button type="button" class="btn btn-default pull-left">Help</button>
-                    <button type="button" class="btn btn-default pull-right" style="margin-left: .75em" onclick="engine.returnNext();">No</button>
-                    <button type="button" class="btn btn-default pull-right" onclick="engine.returnClose();">Yes</button>
-
-
+        <div class="row" style="margin-top: 120px">
+            <div class="col-sm-12 text-center">
+                <div style="display: table; margin-left: auto; margin-right: auto">
+                    <div style="display: table-row">
+                        <div style="display: table-cell; vertical-align: middle"><i class="fa fa-question-circle fa-4x" style="margin-right: .25em"></i></div>
+                        <div style="display: table-cell; vertical-align: middle"><h4><span data-resolve="[engine close question]" class="vcenter"></span></h4></div>
+                    </div>
                 </div>
             </div>
         </div>
-    </nav>
-    <script>
-        $("#closeQuestion").text(engine.resolveValue("[engine close question]"));
-    </script>
+
+        <nav class="navbar navbar-fixed-bottom">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <button type="button" class="btn btn-default pull-left" data-help-button="close utility">Help</button>
+                        <button type="button" class="btn btn-default pull-right" data-next-button style="margin-left: .75em">No</button>
+                        <button type="button" class="btn btn-default pull-right" data-close-button>Yes</button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
 </body>
 </html>
