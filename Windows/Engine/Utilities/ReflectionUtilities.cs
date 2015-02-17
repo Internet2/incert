@@ -1,14 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Windows;
-using System;
+using log4net;
 using Ninject;
 using Org.InCommon.InCert.Engine.Extensions;
 using Org.InCommon.InCert.Engine.Importables;
 using Org.InCommon.InCert.Engine.Logging;
-using log4net;
 
 namespace Org.InCommon.InCert.Engine.Utilities
 {
@@ -16,6 +16,8 @@ namespace Org.InCommon.InCert.Engine.Utilities
     {
 
         private static readonly ILog Log = Logger.Create();
+
+        private static List<string> _knownAssemblyNames = Assembly.GetExecutingAssembly().GetTypes().Select(t => string.Format("{0}.{1}", t.Namespace, t.Name)).ToList(); 
 
         public static bool IsMethodAllowedFromXml(MemberInfo method)
         {
@@ -42,11 +44,16 @@ namespace Org.InCommon.InCert.Engine.Utilities
             if (!baseType.IsAbstract)
                 return baseType;
 
-            var fullTypeName = string.Format("{0}.{1}", baseType.Namespace, typeName);
-            
             var targetAssembly = Assembly.GetExecutingAssembly();
+            var fullTypeName = ResolvePath(string.Format("{0}.{1}", baseType.Namespace, typeName));
+            
             return targetAssembly.GetType(fullTypeName);
         }
+
+       private static string ResolvePath(string value)
+       {
+           return _knownAssemblyNames.FirstOrDefault(t => t.Equals(value, StringComparison.InvariantCultureIgnoreCase));
+       }
 
         public static T LoadFromAssembly<T>(string typeName) where T: class
         {
