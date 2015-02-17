@@ -60,6 +60,7 @@ function autoAddButtonEvents() {
     $("[data-back-button]").click(returnBackClickHandler);
     $("[data-close-button]").click(returnCloseClickHandler);
     $("[data-help-button]").click(showHelpTopicClickHandler);
+    $("[data-error-button]").click(returnErrorClickHandler);
 }
 
 function returnNextClickHandler() {
@@ -78,8 +79,13 @@ function returnCloseClickHandler() {
 }
 
 function showHelpTopicClickHandler(event, data) {
-    var topic = $(event.target).data("help-button");
+    var topic = $(event.target).data("help-topic");
     engine.showHelpTopic(topic);
+}
+
+function returnErrorClickHandler(event) {
+    var errorType = $(event.target).data("error-type");
+    engine.returnError(errorType);
 }
 
 function configureForInBrowserTesting() {
@@ -119,6 +125,9 @@ function configureForInBrowserTesting() {
         console.log("showing help topic " + topic);
     }
 
+    engine.returnError = function(errorType) {
+        console.log("returning error result (" + errorType + ")");
+    }
 }
 
 function raiseEvent(type, data) {

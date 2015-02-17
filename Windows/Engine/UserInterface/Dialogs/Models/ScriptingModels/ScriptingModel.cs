@@ -5,6 +5,8 @@ using Org.InCommon.InCert.Engine.Engines;
 using Org.InCommon.InCert.Engine.Extensions;
 using Org.InCommon.InCert.Engine.Help;
 using Org.InCommon.InCert.Engine.Results.ControlResults;
+using Org.InCommon.InCert.Engine.Results.Errors;
+using Org.InCommon.InCert.Engine.Results.Errors.General;
 using Org.InCommon.InCert.Engine.Settings;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels;
 
@@ -61,6 +63,14 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModel
         public void ReturnClose()
         {
             _dialogModel.Result = new CloseResult();
+        }
+
+        public void ReturnError(string errorType)
+        {
+            var result = ErrorResult.FromTypeName(errorType) 
+                ?? new ExceptionOccurred(new Exception(string.Format("Could not result error type {0}", errorType)));
+
+            _dialogModel.Result = result;
         }
         
         public void ShowAdvancedMenu(string group)

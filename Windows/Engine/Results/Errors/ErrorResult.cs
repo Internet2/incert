@@ -1,5 +1,8 @@
-﻿using Org.InCommon.InCert.Engine.Extensions;
+﻿using System;
+using Org.InCommon.InCert.Engine.Extensions;
+using Org.InCommon.InCert.Engine.Results.Errors.General;
 using Org.InCommon.InCert.Engine.TaskBranches.BranchStrategies;
+using Org.InCommon.InCert.Engine.Utilities;
 
 
 namespace Org.InCommon.InCert.Engine.Results.Errors
@@ -37,8 +40,21 @@ namespace Org.InCommon.InCert.Engine.Results.Errors
         {
             get { return IssueCode; }
         }
-            
 
+        public static ErrorResult FromTypeName(string typeName)
+        {
+            if (string.IsNullOrWhiteSpace(typeName))
+            {
+                return null;
+            }
+
+            if (!typeName.StartsWith("errors.", StringComparison.InvariantCultureIgnoreCase))
+            {
+                typeName = "Errors." + typeName;
+            }
+
+            return ReflectionUtilities.LoadFromAssembly<AbstractTaskResult>(typeName) as ErrorResult;
+        }
      
     }
 }

@@ -41,7 +41,7 @@ namespace Org.InCommon.InCert.Engine.Tasks.Control
         {
             try
             {
-                var result = ReflectionUtilities.LoadFromAssembly<AbstractTaskResult>(Result) as ErrorResult;
+                var result = ErrorResult.FromTypeName(Result);
                 if (result ==null)
                     throw new Exception(string.Format("Could not instatiate error result for type {0}", Result));
 

@@ -9,6 +9,7 @@
         void ReturnNext();
         void ReturnBack();
         void ReturnClose();
+        void ReturnError(string errorType);
         void ShowAdvancedMenu(string group="");
         void ShowHelpTopic(string value);
         
