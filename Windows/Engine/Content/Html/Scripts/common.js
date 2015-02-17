@@ -43,12 +43,51 @@ function getCheckBoxValues() {
     });
 }
 
+function globalInitialize() {
+    console.log("global initialize called");
+    autoResolveValues();
+    autoAddButtonEvents();
+}
+
+function autoResolveValues() {
+    $("[data-resolve]").each(function() {
+        $(this).text(engine.resolveValue($(this).data("resolve")));
+    });
+}
+
+function autoAddButtonEvents() {
+    $("[data-next-button]").click(returnNextClickHandler);
+    $("[data-back-button]").click(returnBackClickHandler);
+    $("[data-close-button]").click(returnCloseClickHandler);
+    $("[data-help-button]").click(showHelpTopicClickHandler);
+}
+
+function returnNextClickHandler() {
+    disableAllControls();
+    engine.returnNext();
+}
+
+function returnBackClickHandler() {
+    disableAllControls();
+    engine.returnBack();
+}
+
+function returnCloseClickHandler() {
+    disableAllControls();
+    engine.returnClose();
+}
+
+function showHelpTopicClickHandler(event, data) {
+    var topic = $(event.target).data("help-button");
+    engine.showHelpTopic(topic);
+}
+
 function configureForInBrowserTesting() {
     if (typeof engine !== "undefined") {
         return;
     }
 
-    console.log("InCert engine not detected. Adding mock methods to simulate running inside InCert engine.")
+    console.log("InCert engine not detected. Adding mock methods to simulate running inside InCert engine.");
 
     engine = {};
 
@@ -75,6 +114,11 @@ function configureForInBrowserTesting() {
     engine.returnClose = function() {
         console.log("returning close value");
     }
+
+    engine.showHelpTopic = function(topic) {
+        console.log("showing help topic " + topic);
+    }
+
 }
 
 function raiseEvent(type, data) {
@@ -107,3 +151,25 @@ ellipsis = {
 }
 
 ellipsis.start();
+
+
+$(document).ready(function () {
+    globalInitialize();
+});
+
+$(document).on("task_started", function (event, data) {
+    if (!data) { return; }
+
+    if (!data.message || !data.message.length) { return; }
+
+    $("[data-task-started-message]").text(data.message);
+});
+
+
+$(document).on("branch_started", function (event, data) {
+    if (!data) { return; }
+
+    if (!data.message || !data.message.length) { return; }
+
+    $("[data-branch-started-message]").text(data.message);
+});
