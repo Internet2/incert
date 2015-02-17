@@ -43,7 +43,7 @@
           <Dialog>Splash screen dialog</Dialog>
         </Properties>
       </UserInterface.HideDialog>
-
+<!--
       <UserInterface.StopMessageTimer>
         <Conditions.All>
           <UserInterface.TimedMessageExists key="Splash screen progress text" />
@@ -51,7 +51,7 @@
         <Properties>
           <SettingKey>Splash screen progress text</SettingKey>
         </Properties>
-      </UserInterface.StopMessageTimer>
+      </UserInterface.StopMessageTimer>-->
 
       <UserInterface.ShowHtmlBannerModal>
         <Properties>
@@ -73,15 +73,25 @@
         </Properties>
       </UserInterface.HideDialog>
 
-      <UserInterface.ShowBorderlessDialog>
+      <UserInterface.ShowBorderlessHtmlBanner>
+        <Properties>
+          <Dialog>Splash screen dialog</Dialog>
+          <Url>resource://html/SplashScreen.html</Url>
+          <Width>500</Width>
+          <Height>400</Height>
+          <Shadowed>true</Shadowed>
+        </Properties>
+      </UserInterface.ShowBorderlessHtmlBanner>
+      
+      <!--<UserInterface.ShowBorderlessDialog>
         <Properties>
           <Dialog>Splash screen dialog</Dialog>
           <Banner>Splash screen banner</Banner>
           <Shadowed>true</Shadowed>
         </Properties>
-      </UserInterface.ShowBorderlessDialog>
+      </UserInterface.ShowBorderlessDialog>-->
 
-      <UserInterface.ChangeProgressMessage>
+      <!--<UserInterface.ChangeProgressMessage>
         <Properties>
           <SettingKey>Splash screen progress text</SettingKey>
           <Value>Downloading new version</Value>
@@ -93,8 +103,8 @@
           <SettingKey>Splash screen progress text</SettingKey>
         </Properties>
       </UserInterface.StartMessageTimer>
-
-      <Downloader.DownloadFile>
+-->
+      <Downloader.DownloadFile message="Downloading new version">
         <Conditions.All>
           <Downloader.FileNotValid key="Engine update info" />
         </Conditions.All>
