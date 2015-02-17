@@ -58,6 +58,11 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModel
             _dialogModel.Result = new BackResult();
         }
 
+        public void ReturnClose()
+        {
+            _dialogModel.Result = new CloseResult();
+        }
+        
         public void ShowAdvancedMenu(string group)
         {
             if (!_dialogModel.DialogInstance.Dispatcher.CheckAccess())

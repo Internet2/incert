@@ -65,12 +65,15 @@ function configureForInBrowserTesting() {
     }
 
     engine.returnNext = function () {
-        console.log("returning next value")
+        console.log("returning next value");
+    }
+    
+    engine.returnBack = function () {
+        console.log("returning back value");
     }
 
-
-    engine.returnBack = function () {
-        console.log("returning back value")
+    engine.returnClose = function() {
+        console.log("returning close value");
     }
 }
 
