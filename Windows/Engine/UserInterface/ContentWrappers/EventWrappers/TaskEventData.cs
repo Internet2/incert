@@ -22,5 +22,10 @@ namespace Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.EventWrappers
 
         [DataMember(Name="message", Order=2)]
         public string Message { get; set; }
+
+        public bool HasContent()
+        {
+            return !string.IsNullOrWhiteSpace(Id) || !string.IsNullOrWhiteSpace(Message);
+        }
     }
 }

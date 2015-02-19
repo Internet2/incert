@@ -109,43 +109,39 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
             {
                 throw new Exception("Could not subscribe to engine events.");
             }
-
-            engine.BranchCompleted += OnBranchCompleted;
-            engine.BranchStarted += OnBranchStated;
+            
             engine.IssueOccurred += OnIssueOccurred;
             engine.TaskStarted += OnTaskStarted;
             engine.TaskCompleted += OnTaskCompleted;
         }
 
-        private const string EventScriptFormat = "if (typeof raiseEvent!='undefined'){{raiseEvent('{0}',{1});}}";
+        private const string EventScriptFormat = "if (typeof document.raiseEngineEvent!='undefined'){{document.raiseEngineEvent('{0}',{1});}}";
 
         private void OnTaskCompleted(object sender, TaskEventData e)
         {
-            var script = string.Format(EventScriptFormat, "task_completed", e.ToJson());
+            if (!e.HasContent())
+            {
+                return;
+            }
+
+            var script = string.Format(EventScriptFormat, "engine_task_start", e.ToJson());
             Browser.EvaluateScriptAsync(script);
         }
 
         private void OnTaskStarted(object sender, TaskEventData e)
         {
-            var script = string.Format(EventScriptFormat, "task_started", e.ToJson());
+            if (!e.HasContent())
+            {
+                return;
+            }
+
+            var script = string.Format(EventScriptFormat, "engine_task_finish", e.ToJson());
             Browser.EvaluateScriptAsync(script);
         }
 
         private void OnIssueOccurred(object sender, IssueEventData e)
         {
             var script = string.Format(EventScriptFormat, "issue_occurred", e.ToJson());
-            Browser.EvaluateScriptAsync(script);
-        }
-
-        private void OnBranchStated(object sender, BranchEventData e)
-        {
-            var script = string.Format(EventScriptFormat, "branch_started", e.ToJson());
-            Browser.EvaluateScriptAsync(script);
-        }
-
-        private void OnBranchCompleted(object sender, BranchEventData e)
-        {
-            var script = string.Format(EventScriptFormat, "branch_completed", e.ToJson());
             Browser.EvaluateScriptAsync(script);
         }
     }
