@@ -24,6 +24,7 @@ function init() {
         addChangeEvents();
         configureInitialVisibility();
         configureInitialEnabledState();
+        configureValidation();
     }
 
     function resolveValues() {
@@ -61,18 +62,68 @@ function init() {
         $("input:checkbox[data-setting]").change(checkBoxValueChangeHandler);
     }
 
-
     function configureInitialVisibility() {
         $("[data-show]").hide();
         $("[data-hide]").show();
     }
 
     function configureInitialEnabledState() {
+
+
         $("[data-enable]").attr("disabled", true);
         $("[data-disable]").attr("disabled", false);
     }
 
-    function returnNextClickHandler() {
+    function configureValidation() {
+        if (!$("[data-validate-form]").length) {
+            return;
+        }
+
+        $("form").validate({
+            showErrors: getValidationErrorHandler()
+        });
+    }
+
+    function validateForm(target) {
+        if (!$(target).filter("[data-validate-form]").length) {
+            return true;
+        }
+
+        return ($("form").valid());
+    }
+
+    function getValidationErrorHandler() {
+        return bootstrapPresent()
+            ? popoverValidationHandler
+            : undefined;
+    }
+
+    function bootstrapPresent() {
+        return $.fn.popover;
+    }
+
+    function popoverValidationHandler(errorMap, errorList) {
+        $.each(this.successList, function (index, value) {
+            return $(value).popover("destroy");
+        });
+        return $.each(errorList, function (index, value) {
+            console.log(value.message);
+            var result = $(value.element).popover({
+                trigger: "manual",
+                placement: "top",
+                content: value.message
+            });
+            
+            var resulta = $(value.element).popover("show");
+            return resulta;
+        });
+    }
+
+    function returnNextClickHandler(event) {
+        if (!validateForm(event.target)) {
+            return;
+        }
+
         engine.returnNext();
     }
 
@@ -84,11 +135,18 @@ function init() {
     }
 
     function returnBackClickHandler() {
-        disableAllControls();
+        if (!validateForm(event.target)) {
+            return;
+        }
+
         engine.returnBack();
     }
 
     function returnCloseClickHandler() {
+        if (!validateForm(event.target)) {
+            return;
+        }
+
         engine.returnClose();
     }
 
