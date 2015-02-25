@@ -63,13 +63,13 @@ function init() {
 
 
     function configureInitialVisibility() {
-        $("[data-show-on]").hide();
-        $("[data-hide-on]").show();
+        $("[data-show]").hide();
+        $("[data-hide]").show();
     }
 
     function configureInitialEnabledState() {
-        $("[data-enable-on]").attr("disabled", true);
-        $("[data-disable-on]").attr("disabled", false);
+        $("[data-enable]").attr("disabled", true);
+        $("[data-disable]").attr("disabled", false);
     }
 
     function returnNextClickHandler() {
@@ -173,41 +173,51 @@ function init() {
         engine.showAdvancedMenu = function (group) {
             console.log("showing advanced menu (group = '" + group + "')");
         }
+
+
     }
 
     document.raiseEngineEvent = function (type, data) {
         $(document).trigger(type, data);
     }
 
-    function showTargetsForMessage(id, predicate) {
-        var selector = getSelectorForMessage("show", id, predicate);
-        $(selector).show();
+    function getEventSelector(taskId) {
+        return taskId
+            ? ":not([data-task-id]),[data-task-id='" + taskId + "']"
+            : ":not([data-task-id])";
     }
 
-    function hideTargetsForMessage(id, predicate) {
-        var selector = getSelectorForMessage("hide", id, predicate);
-        $(selector).hide();
+    function processTaskEvents(targets, data) {
+        var taskId = getTaskIdFromData(data);
+
+        var selector = getEventSelector(taskId);
+        var affected = targets.filter(selector);
+        if (!affected.length) { return; }
+
+        affected.filter("[data-disable]").attr("disabled", true);
+        affected.filter("[data-enable]").attr("disabled", false);
+        affected.filter("[data-show]").show();
+        affected.filter("[data-hide]").hide();
+
+        var message = getMessageFromData(data);
+        if (message) {
+            affected.filter("[data-task-message]").text(message);
+        }
     }
 
-    function enableTargetsForMessage(id, predicate) {
-        var selector = getSelectorForMessage("enable", id, predicate);
-        $(selector).attr("disabled", false);
-    }
+    function processGlobalTaskMessages(data) {
+        var message = getMessageFromData(data);
+        if (!message) {
+            return;
+        }
 
-    function disableTargetsForMessage(id, predicate) {
-        var selector = getSelectorForMessage("disable", id, predicate);
-        $(selector).attr("disabled", true);
-    }
+        var taskId = getTaskIdFromData(data);
+        var selector = getEventSelector(taskId);
+        var targets = $("[data-task-message]:not([data-on-task-start]):not(data-on-task-finish)")
+            .filter(selector);
 
-    function getSelectorForMessage(method, taskId, predicate) {
-        return "[data-" + method + "-on-" + predicate + "=" + taskId + "]";
-    }
-
-    function processTaskEvent(taskId, predicate) {
-        showTargetsForMessage(taskId, predicate);
-        hideTargetsForMessage(taskId, predicate);
-        enableTargetsForMessage(taskId, predicate);
-        disableTargetsForMessage(taskId, predicate);
+        console.log(targets);
+        targets.text(message);
     }
 
     configureForInBrowserTesting();
@@ -237,38 +247,19 @@ function init() {
 
     ellipsis.start();
 
-
     $(document).ready(function () {
         globalInitialize();
     });
 
     $(document).on("engine_task_start", function (event, data) {
-        var taskId = getTaskIdFromData(data);
-        processTaskEvent(taskId, "finish");
+        processTaskEvents($("[data-on-task-start]"), data);
+        processGlobalTaskMessages(data);
+
     });
 
     $(document).on("engine_task_finish", function (event, data) {
-        var taskId = getTaskIdFromData(data);
-        processTaskEvent(taskId, "finish");
-
-    });
-
-
-    $(document).on("task_started", function (event, data) {
-        if (!data) { return; }
-
-        if (!data.message || !data.message.length) { return; }
-
-        $("[data-task-started-message]").text(data.message);
-    });
-
-
-    $(document).on("branch_started", function (event, data) {
-        if (!data) { return; }
-
-        if (!data.message || !data.message.length) { return; }
-
-        $("[data-branch-started-message]").text(data.message);
+        processTaskEvents($("[data-on-task-finish]"), data);
+        processGlobalTaskMessages(data);
     });
 }
 
