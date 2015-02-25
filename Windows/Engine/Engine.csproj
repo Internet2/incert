@@ -1106,6 +1106,8 @@
     <EmbeddedResource Include="Content\Html\Scripts\common.js" />
     <EmbeddedResource Include="Content\Html\ConfirmClose.html" />
     <EmbeddedResource Include="Content\Html\UpgradeEngine.html" />
+    <EmbeddedResource Include="Content\Html\Scripts\jquery.validate.min.js" />
+    <EmbeddedResource Include="Content\Html\Scripts\jquery.validate.additional-methods.min.js" />
     <Content Include="Content\InCommon\archive\AdvancedMenu.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
