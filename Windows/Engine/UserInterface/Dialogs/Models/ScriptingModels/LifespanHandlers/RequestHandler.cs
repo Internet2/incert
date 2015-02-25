@@ -27,7 +27,8 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModel
 
         public bool OnCertificateError(IWebBrowser browser, CefErrorCode errorCode, string requestUrl)
         {
-            return true;
+            // todo: figure out what correct action is here
+            return false;
         }
 
         public void OnPluginCrashed(IWebBrowser browser, string pluginPath)
