@@ -1098,12 +1098,11 @@
     <EmbeddedResource Include="Content\Html\Css\bootstrap.min.css" />
     <EmbeddedResource Include="Content\Html\Fonts\glyphicons-halflings-regular.svg" />
     <EmbeddedResource Include="Content\Html\Scripts\bootstrap.min.js" />
-    <EmbeddedResource Include="Content\Html\Scripts\npm.js" />
     <EmbeddedResource Include="Content\Html\Css\font-awesome.min.css" />
     <EmbeddedResource Include="Content\Html\Fonts\fontawesome-webfont.svg" />
     <EmbeddedResource Include="Content\Html\SplashScreen.html" />
     <EmbeddedResource Include="Content\Html\Css\incert.css" />
-    <EmbeddedResource Include="Content\Html\Scripts\common.js" />
+    <EmbeddedResource Include="Content\Html\Scripts\inCert.js" />
     <EmbeddedResource Include="Content\Html\ConfirmClose.html" />
     <EmbeddedResource Include="Content\Html\UpgradeEngine.html" />
     <EmbeddedResource Include="Content\Html\Scripts\jquery.validate.min.js" />
