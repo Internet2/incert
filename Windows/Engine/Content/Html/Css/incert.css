@@ -19,3 +19,45 @@ body.bordered {
 ::-webkit-scrollbar-thumb {
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
 }
+
+.has-error .help-block,
+.has-error .control-label,
+.has-error .radio,
+.has-error .checkbox,
+.has-error .radio-inline,
+.has-error .checkbox-inline,
+.has-error.radio label,
+.has-error.checkbox label,
+.has-error.radio-inline label,
+.has-error.checkbox-inline label {
+    color: #FFE373;
+}
+
+.has-error .form-control {
+    border-color: #FFE373;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+}
+
+    .has-error .form-control:focus {
+        border-color: #FFE373;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+    }
+
+.has-error .input-group-addon {
+    color:  #a94442;
+    border-color:  #FFE373;
+    background-color: #eee;
+}
+
+.has-error .form-control-feedback {
+    color: #BF9C0F;
+}
+
+.has-error .help-block {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    color: #FFE373
+
+}

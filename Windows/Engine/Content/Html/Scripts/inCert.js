@@ -68,20 +68,63 @@ function init() {
     }
 
     function configureInitialEnabledState() {
-
-
         $("[data-enable]").attr("disabled", true);
         $("[data-disable]").attr("disabled", false);
     }
 
     function configureValidation() {
-        if (!$("[data-validate-form]").length) {
+        $("form[data-validate]").validate({
+            onfocusout: function(element, event) {
+                if (isValidationOnSubmitSpecified(this)){
+                    return;
+                }
+                $(element).valid();
+            },
+            highlight: function(element) {
+                $(element).closest(".form-group").addClass("has-error");
+            },
+            unhighlight: function(element) {
+                $(element).closest(".form-group").removeClass("has-error");
+            },
+            errorElement: 'span',
+            errorClass: 'help-block',
+            errorPlacement: function (error, element) {
+                if (element.parent('.input-group').length) {
+                    error.insertAfter(element.parent());
+                } else {
+                    error.insertAfter(element);
+                }
+            },
+            showErrors: function (errorMap, errorList) {
+                var eventType = errorList.length > 0
+                    ? "engine_form_invalid" :
+                    "engine_form_valid";
+
+                document.raiseEngineEvent(eventType, {});
+               
+                if (!isFormValidationInitializing(this.currentForm)) {
+                    this.defaultShowErrors();
+                }
+            }
+        });
+
+        if (isValidationOnSubmitSpecified(this)) {
             return;
         }
 
-        $("form").validate({
-            showErrors: getValidationErrorHandler()
-        });
+        $("form").data("initializing", true);
+        $("form").valid();
+    }
+
+    function isValidationOnSubmitSpecified(form) {
+        var value = $(form).data("validate-on");
+        return value !== "change";
+    }
+
+    function isFormValidationInitializing(form) {
+        var initializing = $(form).data("initializing");
+        $(form).removeData("initializing");
+        return initializing;
     }
 
     function validateForm(target) {
@@ -90,33 +133,6 @@ function init() {
         }
 
         return ($("form").valid());
-    }
-
-    function getValidationErrorHandler() {
-        return bootstrapPresent()
-            ? popoverValidationHandler
-            : undefined;
-    }
-
-    function bootstrapPresent() {
-        return $.fn.popover;
-    }
-
-    function popoverValidationHandler(errorMap, errorList) {
-        $.each(this.successList, function (index, value) {
-            return $(value).popover("destroy");
-        });
-        return $.each(errorList, function (index, value) {
-            console.log(value.message);
-            var result = $(value.element).popover({
-                trigger: "manual",
-                placement: "top",
-                content: value.message
-            });
-            
-            var resulta = $(value.element).popover("show");
-            return resulta;
-        });
     }
 
     function returnNextClickHandler(event) {
@@ -231,8 +247,6 @@ function init() {
         engine.showAdvancedMenu = function (group) {
             console.log("showing advanced menu (group = '" + group + "')");
         }
-
-
     }
 
     document.raiseEngineEvent = function (type, data) {
@@ -261,6 +275,16 @@ function init() {
         if (message) {
             affected.filter("[data-task-message]").text(message);
         }
+    }
+
+    function processValidationEvents(targets, isValid) {
+        if (targets.length === 0) {
+            return;
+        }
+
+        targets.filter("[data-on-form-valid").attr("disabled", isValid);
+        targets.filter("[data-on-form-invalid").attr("disabled", !isValid);
+
     }
 
     function processGlobalTaskMessages(data) {
@@ -318,6 +342,14 @@ function init() {
     $(document).on("engine_task_finish", function (event, data) {
         processTaskEvents($("[data-on-task-finish]"), data);
         processGlobalTaskMessages(data);
+    });
+
+    $(document).on("engine_form_valid", function(event, data) {
+        processValidationEvents($("[data-on-form-valid],[data-on-form-invalid]"), true);
+    });
+
+    $(document).on("engine_form_invalid", function (event, data) {
+        processValidationEvents($("[data-on-form-valid],[data-on-form-invalid]"), false);
     });
 }
 
