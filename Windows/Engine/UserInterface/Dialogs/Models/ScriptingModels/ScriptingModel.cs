@@ -4,6 +4,7 @@ using Org.InCommon.InCert.Engine.AdvancedMenu;
 using Org.InCommon.InCert.Engine.Engines;
 using Org.InCommon.InCert.Engine.Extensions;
 using Org.InCommon.InCert.Engine.Help;
+using Org.InCommon.InCert.Engine.Results;
 using Org.InCommon.InCert.Engine.Results.ControlResults;
 using Org.InCommon.InCert.Engine.Results.Errors;
 using Org.InCommon.InCert.Engine.Results.Errors.General;
@@ -72,7 +73,13 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModel
 
             _dialogModel.Result = result;
         }
-        
+
+        public void ReturnStoredResult(string settingKey)
+        {
+            _dialogModel.Result = _settingsManager.GetTemporaryObject(settingKey) as AbstractTaskResult 
+                ?? new ExceptionOccurred(new Exception(string.Format("No valid result object exists for the key {0}", settingKey)));
+        }
+
         public void ShowAdvancedMenu(string group)
         {
             if (!_dialogModel.DialogInstance.Dispatcher.CheckAccess())

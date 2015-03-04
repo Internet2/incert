@@ -55,6 +55,7 @@ function init() {
         $("[data-help-button]").click(showHelpTopicClickHandler);
         $("[data-error-button]").click(returnErrorClickHandler);
         $("[data-advanced-menu-button]").click(showAdvancedMenuButtonClickHandler);
+        $("[data-stored-result-button").click(returnStoredResultClickHandler);
     }
 
     function addChangeEvents() {
@@ -73,7 +74,12 @@ function init() {
     }
 
     function configureValidation() {
-        $("form[data-validate]").validate({
+        var instances = $("form[data-validate]");
+        if (!instances.length) {
+            return;
+        }
+
+        instances.validate({
             onfocusout: function(element, event) {
                 if (isValidationOnSubmitSpecified(this)){
                     return;
@@ -86,10 +92,16 @@ function init() {
             unhighlight: function(element) {
                 $(element).closest(".form-group").removeClass("has-error");
             },
-            errorElement: 'span',
-            errorClass: 'help-block',
+            errorElement: "span",
+            errorClass: "help-block",
             errorPlacement: function (error, element) {
-                if (element.parent('.input-group').length) {
+                var errorElement = element.parent().find(".error");
+                if (errorElement.length > 0) {
+                    $(errorElement).replaceWith(error);
+                    return;
+                }
+               
+                if (element.parent(".input-group").length) {
                     error.insertAfter(element.parent());
                 } else {
                     error.insertAfter(element);
@@ -164,6 +176,15 @@ function init() {
         }
 
         engine.returnClose();
+    }
+
+    function returnStoredResultClickHandler(event) {
+        if (!validateForm(event.target)) {
+            return;
+        }
+
+        engine.returnStoredResult($(event.target).data("setting"));
+
     }
 
     function inputValueChangeHandler(event) {
@@ -246,6 +267,10 @@ function init() {
 
         engine.showAdvancedMenu = function (group) {
             console.log("showing advanced menu (group = '" + group + "')");
+        }
+
+        engine.returnStoredResult = function(key) {
+            console.log("returning stored result for key " + key);
         }
     }
 
@@ -351,6 +376,7 @@ function init() {
     $(document).on("engine_form_invalid", function (event, data) {
         processValidationEvents($("[data-on-form-valid],[data-on-form-invalid]"), false);
     });
+
 }
 
 init();

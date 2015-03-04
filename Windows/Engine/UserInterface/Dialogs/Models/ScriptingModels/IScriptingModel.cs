@@ -10,6 +10,7 @@
         void ReturnBack();
         void ReturnClose();
         void ReturnError(string errorType);
+        void ReturnStoredResult(string settingKey);
         void ShowAdvancedMenu(string group="");
         void ShowHelpTopic(string value);
         
