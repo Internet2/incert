@@ -1,9 +1,12 @@
-﻿using System.Text.RegularExpressions;
+﻿using System.IO;
+using System.Text.RegularExpressions;
+using Org.InCommon.InCert.Engine.Extensions;
 using Org.InCommon.InCert.Engine.Settings;
+using Org.InCommon.InCert.Engine.Utilities;
 
 namespace Org.InCommon.InCert.Engine.Dynamics
 {
-    class ValueResolver:IValueResolver
+    class ValueResolver : IValueResolver
     {
         private readonly ISettingsManager _settingsManager;
         private readonly IStandardTokens _standardTokens;
@@ -14,7 +17,7 @@ namespace Org.InCommon.InCert.Engine.Dynamics
             _standardTokens = standardTokens;
         }
 
-        public string Resolve(string value,bool resolveSystemTokens)
+        public string Resolve(string value, bool resolveSystemTokens)
         {
             var resolvedValue = ResolveDynamicValue(_settingsManager, value);
             return !resolveSystemTokens
@@ -30,14 +33,23 @@ namespace Org.InCommon.InCert.Engine.Dynamics
             if (string.IsNullOrWhiteSpace(value))
                 return result;
 
+            result = ResolveTextValues(manager, result);
+            result = ResolveObjectValues(manager, result);
+
+            return result;
+
+        }
+
+        private static string ResolveTextValues(ISettingsManager manager, string value)
+        {
+            var result = value;
             var matches = Regex.Matches(value, @"\[(.*?)\]");
             if (matches.Count == 0)
                 return result;
 
             foreach (Match match in matches)
             {
-                if (match.Groups.Count < 2)
-                    continue;
+                if (match.Groups.Count < 2) continue;
 
                 var matchText = match.Groups[0].Value;
                 if (string.IsNullOrWhiteSpace(matchText))
@@ -49,9 +61,41 @@ namespace Org.InCommon.InCert.Engine.Dynamics
 
                 result = result.Replace(matchText, manager.GetTemporarySettingString(key));
             }
-
             return result;
+        }
 
+        private static string ResolveObjectValues(ISettingsManager manager, string value)
+        {
+            var result = value;
+            var matches = Regex.Matches(value, @"\{(.*?)\}");
+            if (matches.Count == 0)
+                return result;
+
+            foreach (Match match in matches)
+            {
+                if (match.Groups.Count < 2) continue;
+
+                var matchText = match.Groups[0].Value;
+                if (string.IsNullOrWhiteSpace(matchText))
+                    continue;
+
+                var fullKey = match.Groups[1].Value;
+                if (string.IsNullOrWhiteSpace(fullKey))
+                    continue;
+
+                var parts = fullKey.Split('.');
+                if (parts.Length!=2) continue;
+                
+                var key = parts[0];
+                var propertyName = parts[1];
+
+                var instance = manager.GetTemporaryObject(key);
+                if (instance == null) continue;
+
+                var replaceWith = ReflectionUtilities.GetPropertyValue(instance, propertyName).ToStringOrDefault("");
+                result = result.Replace(matchText,replaceWith);
+            }
+            return result;
         }
     }
 }
