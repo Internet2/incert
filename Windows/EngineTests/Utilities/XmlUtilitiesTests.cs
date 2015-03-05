@@ -1,14 +1,14 @@
 ﻿using System.Security.Cryptography.X509Certificates;
 using System.Xml.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using Org.InCommon.InCert.Engine.Utilities;
 
 namespace EngineTests.Utilities
 {
-    [TestClass]
+    [TestFixture]
     public class XmlUtilitiesTests
     {
-        [TestMethod]
+        [Test]
         public void TestGetEnumFlagsValueFromAttribute()
         {
             const string testString1 = "IgnoreNotTimeValid";

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NSubstitute;
+using NUnit.Framework;
+using Org.InCommon.InCert.Engine.Dynamics;
 using Org.InCommon.InCert.Engine.Engines;
 using Org.InCommon.InCert.Engine.Results.ControlResults;
 using Org.InCommon.InCert.Engine.Settings;
@@ -8,19 +10,23 @@ using Org.InCommon.InCert.Engine.Tasks.Text;
 
 namespace EngineTests.Tasks.Text
 {
-    [TestClass]
+    [TestFixture]
     public class TestConvertListToString
     {
 
         private IEngine _engine;
 
-        [TestInitialize]
+        [SetUp]
         public void Initialize()
         {
-            _engine = new StandardEngine(new SettingsManager(), null, null, null, null, null, null, null, null, null,null);
+            var settingsManager = new SettingsManager();
+            var tokenResolver = Substitute.For<IStandardTokens>();
+            tokenResolver.ResolveTokens(Arg.Any<string>()).Returns(a => a.Arg<string>());
+            var valuesResolver = new ValueResolver(settingsManager, tokenResolver);
+            _engine = new StandardEngine(settingsManager, null, null, null, null, null, null, null, null, null,valuesResolver);
         }
 
-        [TestMethod]
+        [Test]
         public void TestTask()
         {
             var task = new ConvertListToString(_engine) {ListKey = "listkey", SettingKey = "resultkey"};
@@ -36,7 +42,7 @@ namespace EngineTests.Tasks.Text
 
             var result = task.Execute(null);
 
-            Assert.IsInstanceOfType(result, typeof(NextResult), "result shoud be next result");
+            Assert.IsInstanceOf<NextResult>(result, "result shoud be next result");
 
             var resultString = _engine.SettingsManager.GetTemporarySettingString(task.SettingKey);
             Assert.IsFalse(string.IsNullOrWhiteSpace(resultString), "result string should not be empty");
@@ -46,7 +52,7 @@ namespace EngineTests.Tasks.Text
 
             result = task.Execute(null);
 
-            Assert.IsInstanceOfType(result, typeof(NextResult), "result shoud be next result");
+            Assert.IsInstanceOf<NextResult>(result, "result shoud be next result");
 
             resultString = _engine.SettingsManager.GetTemporarySettingString(task.SettingKey);
             Assert.IsFalse(string.IsNullOrWhiteSpace(resultString), "result string should not be empty");
@@ -56,7 +62,7 @@ namespace EngineTests.Tasks.Text
 
             result = task.Execute(null);
 
-            Assert.IsInstanceOfType(result, typeof(NextResult), "result shoud be next result");
+            Assert.IsInstanceOf<NextResult>(result, "result shoud be next result");
 
             resultString = _engine.SettingsManager.GetTemporarySettingString(task.SettingKey);
             Assert.IsFalse(string.IsNullOrWhiteSpace(resultString), "result string should not be empty");

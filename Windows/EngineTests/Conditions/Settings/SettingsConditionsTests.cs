@@ -1,22 +1,27 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NSubstitute;
+using NUnit.Framework;
 using Org.InCommon.InCert.Engine.Conditions.Settings;
+using Org.InCommon.InCert.Engine.Dynamics;
 using Org.InCommon.InCert.Engine.Engines;
 using Org.InCommon.InCert.Engine.Settings;
 
 namespace EngineTests.Conditions.Settings
 {
-    [TestClass]
+    [TestFixture]
     public class SettingsConditionsTests
     {
        private IEngine _engine;
 
-        [TestInitialize]
+        [SetUp]
         public void Initialize()
         {
-            _engine = new StandardEngine(new SettingsManager(), null, null, null, null, null, null, null, null, null, null);
+            var valuesResolver = Substitute.For<IValueResolver>();
+            valuesResolver.Resolve(Arg.Any<string>(), true).Returns(a => a.Arg<string>());
+
+            _engine = new StandardEngine(new SettingsManager(), null, null, null, null, null, null, null, null, null, valuesResolver);
         }
         
-        [TestMethod]
+        [Test]
         public void SettingEqualsConditionTest()
         {
             _engine.SettingsManager.SetTemporarySettingString("test key", "test value");
@@ -34,7 +39,7 @@ namespace EngineTests.Conditions.Settings
                           "a settings equals condition should return a negative boolean reason when the parameters match");
         }
 
-        [TestMethod]
+        [Test]
         public void SettingNotEqualTest()
         {
             _engine.SettingsManager.SetTemporarySettingString("test key", "test value");
@@ -51,7 +56,7 @@ namespace EngineTests.Conditions.Settings
                           "A settings not equal condition should return a positive boolean reason when the parameters match");
         }
 
-        [TestMethod]
+        [Test]
         public void SettingPresentText()
         {
             _engine.SettingsManager.SetTemporarySettingString("test key", "test value");
@@ -69,7 +74,7 @@ namespace EngineTests.Conditions.Settings
                          "a setting present condition should return a negative boolean reason when the setting value is absent");
         }
 
-        [TestMethod]
+        [Test]
         public void SettingNotPresentTest()
         {
             _engine.SettingsManager.SetTemporarySettingString("test key", "test value");

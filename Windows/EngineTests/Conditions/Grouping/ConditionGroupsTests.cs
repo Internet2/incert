@@ -1,23 +1,30 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NSubstitute;
+using NUnit.Framework;
 using Org.InCommon.InCert.Engine.Conditions.Grouping;
 using Org.InCommon.InCert.Engine.Conditions.Settings;
+using Org.InCommon.InCert.Engine.Dynamics;
 using Org.InCommon.InCert.Engine.Engines;
 using Org.InCommon.InCert.Engine.Settings;
 
 namespace EngineTests.Conditions.Grouping
 {
-    [TestClass]
+    [TestFixture]
     public class ConditionGroupsTests
     {
         private IEngine _engine;
 
-        [TestInitialize]
+        [SetUp]
         public void Initialize()
         {
-            _engine = new StandardEngine(new SettingsManager(), null, null, null, null, null, null, null, null, null,null);
+            var settingsManager = new SettingsManager();
+
+            var valuesResolver = Substitute.For<IValueResolver>();
+            valuesResolver.Resolve(Arg.Any<string>(), true).Returns(a => a.Arg<string>());
+
+            _engine = new StandardEngine(settingsManager, null, null, null, null, null, null, null, null, null, valuesResolver);
         }
 
-        [TestMethod]
+        [Test]
         public void TestAnyTrueCondition()
         {
             var condition = new AnyTrue(_engine);
@@ -48,7 +55,7 @@ namespace EngineTests.Conditions.Grouping
                            "If at least of the conditions is met, the result should be a positive BooleanReason class");
         }
 
-        [TestMethod]
+        [Test]
         public void TestAllTrueCondition()
         {
             var collection = new AllTrue(_engine);

@@ -1,23 +1,23 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using Org.InCommon.InCert.Engine.CommandLineProcessors;
 using Org.InCommon.InCert.Engine.Engines;
 using Org.InCommon.InCert.Engine.Settings;
 
 namespace EngineTests.CommandLineProcessors
 {
-    [TestClass]
+    [TestFixture]
     public class TestManagerAndInstantiationLogic
     {
        private IEngine _engine;
         
-        [TestInitialize]
+        [SetUp]
         public void Intialize()
         {
             _engine = new StandardEngine(new SettingsManager(), null, null, null, null, null, null, null, null, null,null);
         }
 
-        [TestMethod]
+        [Test]
         public void TestInstantiation()
         {
             var manager = new CommandLineManager();
@@ -39,7 +39,7 @@ namespace EngineTests.CommandLineProcessors
             Assert.IsNotNull(manager.GetProcessor(validKey), "Processors with valid keys should be added to the processor dictionary.");
         }
 
-        [TestMethod]
+        [Test]
         public void TestBasicLogic()
         {
             var manager = new CommandLineManager();
@@ -88,7 +88,7 @@ namespace EngineTests.CommandLineProcessors
             Assert.IsTrue(result.Equals("succeeded", StringComparison.Ordinal), "Command-line processors that don't require parameters should succeed when passed command-lines with parameters, ignoring the parameters");
         }
         
-        [TestMethod]
+        [Test]
         public void TestParameterLogic()
         {
             var manager = new CommandLineManager();

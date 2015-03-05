@@ -1,14 +1,14 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using Org.InCommon.InCert.Engine.Results.Misc;
 
 namespace EngineTests.Results.Misc
 {
-    [TestClass]
+    [TestFixture]
     public class BooleanReasonTests
     {
 
-        [TestMethod]
+        [Test]
         public void TestInvert()
         {
             var result = new BooleanReason(true, "testing");

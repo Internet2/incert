@@ -1,21 +1,28 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NSubstitute;
+using NUnit.Framework;
+using Org.InCommon.InCert.Engine.Dynamics;
 using Org.InCommon.InCert.Engine.Engines;
 using Org.InCommon.InCert.Engine.Settings;
 
 namespace EngineTests.Dynamics
 {
-    [TestClass]
+    [TestFixture]
     public class DynamicPropertyContainerTest
     {
        private IEngine _engine;
 
-        [TestInitialize]
+        [SetUp]
         public void Initialize()
         {
-            _engine = new StandardEngine(new SettingsManager(), null, null, null, null, null, null, null, null, null, null);
+            var settingsManager = new SettingsManager();
+            var tokenResolver = Substitute.For<IStandardTokens>();
+            tokenResolver.ResolveTokens(Arg.Any<string>()).Returns(a => a.Arg<string>());
+            var valuesResolver = new ValueResolver(settingsManager, tokenResolver);
+            
+            _engine = new StandardEngine(settingsManager, null, null, null, null, null, null, null, null, null, valuesResolver);
         }
         
-        [TestMethod]
+        [Test]
         public void TestDynamicPropertyContainer()
         {
             _engine.SettingsManager.SetTemporarySettingString("test key 1", "test value");
@@ -33,10 +40,10 @@ namespace EngineTests.Dynamics
                 };
 
            
-            Assert.IsTrue(mockObject.DynamicProperty1.Equals("test value"), "after resolving dynamic properties, property value should equal setting value.");
-            Assert.IsTrue(mockObject.DynamicProperty2.Equals("test value.test value 2"), "after resolving dynamic properties, property value should equal setting value.");
-            Assert.IsTrue(mockObject.StaticProperty1.Equals(staticProperty1), "non dynamic properties should always equal initial values");
-            Assert.IsTrue(mockObject.StaticProperty2.Equals(staticProperty2), "non dynamic properties should always equal initial values");
+            Assert.That(mockObject.DynamicProperty1, Is.EqualTo("test value"), "after resolving dynamic properties, property value should equal setting value.");
+            Assert.That(mockObject.DynamicProperty2, Is.EqualTo("test value.test value 2"), "after resolving dynamic properties, property value should equal setting value.");
+            Assert.That(mockObject.StaticProperty1, Is.EqualTo(staticProperty1), "non dynamic properties should always equal initial values");
+            Assert.That(mockObject.StaticProperty2, Is.EqualTo(staticProperty2), "non dynamic properties should always equal initial values");
 
            
         }

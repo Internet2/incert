@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Windows;
+using System.Windows.Forms.VisualStyles;
 using log4net;
 using Ninject;
 using Org.InCommon.InCert.Engine.Extensions;
@@ -92,6 +93,22 @@ namespace Org.InCommon.InCert.Engine.Utilities
                 return value;
 
             return nameSpace + "." + value;
+        }
+
+        public static object GetPropertyValue(object target, string[] propertyNames)
+        {
+            var result = target;
+
+            foreach (var propertyName in propertyNames)
+            {
+                var info = result.GetType().GetProperty(propertyName);
+                if (info == null) return null;
+
+                result = result.GetType().GetProperty(propertyName).GetValue(result, null);
+                if (result == null) return null;
+            }
+
+            return result;
         }
 
         public static object GetPropertyValue(object target, string propertyName)

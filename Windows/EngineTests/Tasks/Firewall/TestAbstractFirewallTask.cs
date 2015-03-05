@@ -1,22 +1,22 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using Org.InCommon.InCert.Engine.Engines;
 using Org.InCommon.InCert.Engine.Settings;
 using Org.InCommon.InCert.Engine.Tasks.Firewall;
 
 namespace EngineTests.Tasks.Firewall
 {
-    [TestClass]
+    [TestFixture]
     public class TestAbstractFirewallTask
     {
         private IEngine _engine;
         
-        [TestInitialize]
+        [SetUp]
         public void Initialize()
         {
             _engine = new StandardEngine(new SettingsManager(), null, null, null, null, null, null, null, null, null,null);
         }
 
-        [TestMethod]
+        [Test]
         public void TestSettingProfileTypes()
         {
             var instance = new AddRule(_engine);

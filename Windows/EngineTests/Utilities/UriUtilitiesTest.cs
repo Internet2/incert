@@ -1,13 +1,13 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using Org.InCommon.InCert.Engine.Utilities;
 
 namespace EngineTests.Utilities
 {
-    [TestClass]
+    [TestFixture]
     public class UriUtilitiesTest
     {
-        [TestMethod]
+        [Test]
         public void TestGetfileFromUriMethod()
         {
             var testUri = new Uri("http://test.test.org/blah/blah/blah.txt", UriKind.RelativeOrAbsolute);

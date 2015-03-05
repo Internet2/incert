@@ -1,14 +1,14 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using Org.InCommon.InCert.Engine.Extensions;
 
 namespace EngineTests.Extensions
 {
-    [TestClass]
+    [TestFixture]
     public class StringExtensionTests
     {
 
-        [TestMethod]
+        [Test]
         public void ToStringOrDefaultTest()
         {
             const string defaultValue = "[default value]";

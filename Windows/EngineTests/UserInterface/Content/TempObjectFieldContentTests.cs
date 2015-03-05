@@ -1,24 +1,30 @@
 ﻿using System;
 using EngineTests.Dynamics;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NSubstitute;
+using NUnit.Framework;
+using Org.InCommon.InCert.Engine.Dynamics;
 using Org.InCommon.InCert.Engine.Engines;
 using Org.InCommon.InCert.Engine.Settings;
 using Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.TextWrappers;
 
 namespace EngineTests.UserInterface.Content
 {
-    [TestClass]
+    [TestFixture]
     public class TempObjectFieldContentTests
     {
        private IEngine _engine;
         
-        [TestInitialize]
+        [SetUp]
         public void Initialize()
         {
-            _engine = new StandardEngine(new SettingsManager(), null, null, null, null, null, null, null, null, null,null);
+            var settingsManager = new SettingsManager();
+            var tokenResolver = Substitute.For<IStandardTokens>();
+            tokenResolver.ResolveTokens(Arg.Any<string>()).Returns(a => a.Arg<string>());
+            var valuesResolver = new ValueResolver(settingsManager, tokenResolver);
+            _engine = new StandardEngine(settingsManager, null, null, null, null, null, null, null, null, null,valuesResolver);
         }
 
-        [TestMethod]
+        [Test]
         public void TestTempObjectFieldContent()
         {
             var mockObject = new MockDynamicObject(_engine)

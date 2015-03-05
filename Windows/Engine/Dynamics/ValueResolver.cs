@@ -1,4 +1,4 @@
-﻿using System.IO;
+﻿using System.Linq;
 using System.Text.RegularExpressions;
 using Org.InCommon.InCert.Engine.Extensions;
 using Org.InCommon.InCert.Engine.Settings;
@@ -6,7 +6,7 @@ using Org.InCommon.InCert.Engine.Utilities;
 
 namespace Org.InCommon.InCert.Engine.Dynamics
 {
-    class ValueResolver : IValueResolver
+    public class ValueResolver : IValueResolver
     {
         private readonly ISettingsManager _settingsManager;
         private readonly IStandardTokens _standardTokens;
@@ -84,18 +84,17 @@ namespace Org.InCommon.InCert.Engine.Dynamics
                     continue;
 
                 var parts = fullKey.Split('.');
-                if (parts.Length!=2) continue;
+                if (parts.Length<2) continue;
                 
-                var key = parts[0];
-                var propertyName = parts[1];
-
-                var instance = manager.GetTemporaryObject(key);
+                var instance = manager.GetTemporaryObject(parts[0]);
                 if (instance == null) continue;
 
-                var replaceWith = ReflectionUtilities.GetPropertyValue(instance, propertyName).ToStringOrDefault("");
+                var replaceWith = ReflectionUtilities.GetPropertyValue(instance, parts.Skip(1).ToArray()).ToStringOrDefault("");
                 result = result.Replace(matchText,replaceWith);
             }
             return result;
         }
+
+        
     }
 }
