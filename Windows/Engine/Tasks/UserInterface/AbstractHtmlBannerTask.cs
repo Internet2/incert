@@ -9,7 +9,6 @@ using Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.BannerWrappers;
 using Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.ContentControlWrappers;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels;
-using Org.InCommon.InCert.Engine.Utilities;
 
 namespace Org.InCommon.InCert.Engine.Tasks.UserInterface
 {
@@ -30,6 +29,13 @@ namespace Org.InCommon.InCert.Engine.Tasks.UserInterface
 
         [PropertyAllowedFromXml]
         public string Dialog
+        {
+            get { return GetDynamicValue(); }
+            set { SetDynamicValue(value); }
+        }
+
+        [PropertyAllowedFromXml]
+        public string ParentDialog
         {
             get { return GetDynamicValue(); }
             set { SetDynamicValue(value); }
@@ -97,6 +103,42 @@ namespace Org.InCommon.InCert.Engine.Tasks.UserInterface
             
             if (Width <= 0) Width = 600;
             if (Height <= 0) Height = 600;
+        }
+
+        protected class DialogInstanceNotFound : Exception
+        {
+            public string Dialog { get;  private set; }
+
+            public DialogInstanceNotFound(string dialog)
+            {
+                Dialog = dialog;
+            }
+        }
+
+        protected T GetBannerDialog<T>() where T:AbstractDialogModel
+        {
+            var result = DialogsManager.GetDialog<T>(Dialog);
+            if (result == null)
+            {
+                throw new DialogInstanceNotFound(Dialog);
+            }
+            return result;
+        }
+
+        protected AbstractDialogModel GetParentDialog()
+        {
+            if (string.IsNullOrWhiteSpace(ParentDialog))
+            {
+                return null;
+            }
+
+            var result = DialogsManager.GetExistingDialog(ParentDialog);
+            if (result == null)
+            {
+                throw new DialogInstanceNotFound(ParentDialog);
+            }
+
+            return result;
         }
     }
 }
