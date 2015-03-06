@@ -49,11 +49,21 @@ function init() {
     }
 
     function addButtonEvents() {
-        $("[data-next-button]").click(returnNextClickHandler);
-        $("[data-back-button]").click(returnBackClickHandler);
-        $("[data-close-button]").click(returnCloseClickHandler);
+        $("[data-back-button]").click(new genericButtonClickHandler("returnBackResult").handler);
+        $("[data-close-button]").click(new genericButtonClickHandler("returnCloseResult").handler);
+        $("[data-exit-utility-button]").click(new genericButtonClickHandler("returnExitUtilityResult").handler);
+        $("[data-leave-branch-back-button]").click(new genericButtonClickHandler("returnLeaveBranchBackResult").handler);
+        $("[data-leave-branch-next-button]").click(new genericButtonClickHandler("returnLeaveBranchNextResult").handler);
+        $("[data-next-button]").click(new genericButtonClickHandler("returnNextResult").handler);
+        $("[data-repeat-branching-task-result]").click(new genericButtonClickHandler("returnRepeatBranchingTaskResult").handler);
+        $("[data-repeat-current-branch-result]").click(new genericButtonClickHandler("returnRepeatCurrentBranchResult").handler);
+        $("[data-repeat-current-task-result]").click(new genericButtonClickHandler("returnRepeatCurrentTaskResult").handler);
+        $("[data-repeat-parent-branch-result]").click(new genericButtonClickHandler("returnRepeatParentBranchResult").handler);
+        $("[data-restart-computer-result]").click(new genericButtonClickHandler("returnRestartComputerResult").handler);
+        
         $("[data-help-button]").click(showHelpTopicClickHandler);
         $("[data-error-button]").click(returnErrorClickHandler);
+
         $("[data-advanced-menu-button]").click(showAdvancedMenuButtonClickHandler);
         $("[data-stored-result-button").click(returnStoredResultClickHandler);
     }
@@ -80,16 +90,16 @@ function init() {
         }
 
         instances.validate({
-            onfocusout: function(element, event) {
-                if (isValidationOnSubmitSpecified(this)){
+            onfocusout: function (element, event) {
+                if (isValidationOnSubmitSpecified(this)) {
                     return;
                 }
                 $(element).valid();
             },
-            highlight: function(element) {
+            highlight: function (element) {
                 $(element).closest(".form-group").addClass("has-error");
             },
-            unhighlight: function(element) {
+            unhighlight: function (element) {
                 $(element).closest(".form-group").removeClass("has-error");
             },
             errorElement: "span",
@@ -100,7 +110,7 @@ function init() {
                     $(errorElement).replaceWith(error);
                     return;
                 }
-               
+
                 if (element.parent(".input-group").length) {
                     error.insertAfter(element.parent());
                 } else {
@@ -113,7 +123,7 @@ function init() {
                     "engine_form_valid";
 
                 document.raiseEngineEvent(eventType, {});
-               
+
                 if (!isFormValidationInitializing(this.currentForm)) {
                     this.defaultShowErrors();
                 }
@@ -152,7 +162,7 @@ function init() {
             return;
         }
 
-        engine.returnNext();
+        engine.returnNextResult();
     }
 
     function showAdvancedMenuButtonClickHandler(event) {
@@ -167,7 +177,7 @@ function init() {
             return;
         }
 
-        engine.returnBack();
+        engine.returnBackResult();
     }
 
     function returnCloseClickHandler() {
@@ -175,7 +185,7 @@ function init() {
             return;
         }
 
-        engine.returnClose();
+        engine.returnCloseResult();
     }
 
     function returnStoredResultClickHandler(event) {
@@ -224,6 +234,20 @@ function init() {
         return data.id;
     }
 
+    function genericButtonClickHandler(method) {
+        function handler(event) {
+            if (!validateForm(event.target)) {
+                return;
+            }
+
+            engine[method]();
+        }
+
+        return {
+            handler: handler
+        }
+    }
+
     function configureForInBrowserTesting() {
         if (typeof engine !== "undefined") {
             return;
@@ -245,33 +269,67 @@ function init() {
             console.log("setting " + property + " to " + value);
         }
 
-        engine.returnNext = function () {
-            console.log("returning next value");
+        engine.returnBackResult = function () {
+            console.log("returning back result");
         }
 
-        engine.returnBack = function () {
-            console.log("returning back value");
+        engine.returnCloseResult = function () {
+            console.log("returning close result");
         }
 
-        engine.returnClose = function () {
-            console.log("returning close value");
+        engine.returnExitUtilityResult = function () {
+            console.log("returning exit utility result");
         }
 
-        engine.showHelpTopic = function (topic) {
-            console.log("showing help topic " + topic);
+        engine.ReturnLeaveBranchBackResult = function () {
+            console.log("returning leave-branch-back result");
         }
 
-        engine.returnError = function (errorType) {
+        engine.ReturnLeaveBranchNextResult = function () {
+            console.log("returning leave-branch-next result");
+        }
+
+        engine.returnNextResult = function () {
+            console.log("returning next result");
+        }
+
+        engine.returnRepeatBranchingTaskResult = function () {
+            console.log("returning repeat-branching-task result");
+        }
+
+        engine.ReturnRepeatCurrentBranchResult = function () {
+            console.log("returning repeat-current-branch result");
+        }
+
+        engine.ReturnRepeatCurrentTaskResult = function () {
+            console.log("returning repeat-current-task result");
+        }
+
+        engine.ReturnRepeatParentBranchResult = function () {
+            console.log("returning repeat-parent-branch result");
+        }
+
+        engine.ReturnRestartComputerResult = function () {
+            console.log("returning restart-computer result");
+        }
+        
+        engine.returnErrorResult = function (errorType) {
             console.log("returning error result (" + errorType + ")");
+        }
+
+        engine.returnStoredResult = function (key) {
+            console.log("returning stored result for key " + key);
         }
 
         engine.showAdvancedMenu = function (group) {
             console.log("showing advanced menu (group = '" + group + "')");
         }
 
-        engine.returnStoredResult = function(key) {
-            console.log("returning stored result for key " + key);
+        engine.showHelpTopic = function (topic) {
+            console.log("showing help topic " + topic);
         }
+
+
     }
 
     document.raiseEngineEvent = function (type, data) {
@@ -369,7 +427,7 @@ function init() {
         processGlobalTaskMessages(data);
     });
 
-    $(document).on("engine_form_valid", function(event, data) {
+    $(document).on("engine_form_valid", function (event, data) {
         processValidationEvents($("[data-on-form-valid],[data-on-form-invalid]"), true);
     });
 

@@ -6,11 +6,24 @@
         string GetValue(string key);
         string ResolveValue(string value);
         void SetValue(string key, string value);
-        void ReturnNext();
-        void ReturnBack();
-        void ReturnClose();
-        void ReturnError(string errorType);
+        
+        // control results
+        void ReturnBackResult();
+        void ReturnCloseResult();
+        void ReturnExitUtilityResult();
+        void ReturnLeaveBranchBackResult();
+        void ReturnLeaveBranchNextResult();
+        void ReturnNextResult();
+        void ReturnRepeatBranchingTaskResult();
+        void ReturnRepeatCurrentBranchResult();
+        void ReturnRepeatCurrentTaskResult();
+        void ReturnRepeatParentBranchResult();
+        void ReturnRestartComputerResult();
+
+        // other results
+        void ReturnErrorResult(string errorType);
         void ReturnStoredResult(string settingKey);
+        
         void ShowAdvancedMenu(string group="");
         void ShowHelpTopic(string value);
         

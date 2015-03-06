@@ -51,22 +51,62 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModel
             _settingsManager.SetTemporarySettingString(key, value);
         }
 
-        public void ReturnNext()
+        public void ReturnLeaveBranchNextResult()
+        {
+            _dialogModel.Result = new LeaveBranchNextResult();
+        }
+
+        public void ReturnNextResult()
         {
             _dialogModel.Result = new NextResult();
         }
 
-        public void ReturnBack()
+        public void ReturnRepeatBranchingTaskResult()
+        {
+            _dialogModel.Result = new RepeatBranchingTaskResult();
+        }
+
+        public void ReturnRepeatCurrentBranchResult()
+        {
+            _dialogModel.Result = new RepeatCurrentBranchResult();
+        }
+
+        public void ReturnRepeatCurrentTaskResult()
+        {
+            _dialogModel.Result = new RepeatCurrentTaskResult();
+        }
+
+        public void ReturnRepeatParentBranchResult()
+        {
+            _dialogModel.Result = new RepeatParentBranchResult();
+        }
+
+        public void ReturnRestartComputerResult()
+        {
+            _dialogModel.Result = new RestartComputerResult();
+        }
+
+        public void ReturnBackResult()
         {
             _dialogModel.Result = new BackResult();
         }
 
-        public void ReturnClose()
+        public void ReturnCloseResult()
         {
             _dialogModel.Result = new CloseResult();
         }
 
-        public void ReturnError(string errorType)
+        public void ReturnExitUtilityResult()
+        {
+            _dialogModel.Result = new ExitUtilityResult();
+        }
+
+        public void ReturnLeaveBranchBackResult()
+        {
+            _dialogModel.Result = new LeaveBranchBackResult();
+        }
+
+        public void ReturnErrorResult(string errorType)
         {
             var result = ErrorResult.FromTypeName(errorType) 
                 ?? new ExceptionOccurred(new Exception(string.Format("Could not result error type {0}", errorType)));
