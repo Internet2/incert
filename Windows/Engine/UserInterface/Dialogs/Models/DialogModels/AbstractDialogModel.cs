@@ -517,6 +517,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
                 childDialog.DialogInstance.WindowStartupLocation = WindowStartupLocation.CenterOwner;
                 childDialog.ShowInTaskbar = false;
                 childDialog.WindowStyle = WindowStyle.ToolWindow;
+                childDialog.SuppressCloseQuestion = true;
                 return childDialog.ShowBanner(banner);
             }
             catch (Exception e)
@@ -544,6 +545,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
                 window.WindowStartupLocation = WindowStartupLocation.CenterOwner;
                 childDialog.ShowInTaskbar = false;
                 childDialog.WindowStyle = WindowStyle.ToolWindow;
+                childDialog.SuppressCloseQuestion = true;
                 var result = childDialog.ShowBannerModal(banner);
                 window.Hide();
 
