@@ -3,6 +3,8 @@
     public interface IScriptingModel
     {
         bool InCertPresent();
+
+        // settings
         string GetValue(string key);
         string ResolveValue(string value);
         void SetValue(string key, string value);
@@ -24,8 +26,13 @@
         void ReturnErrorResult(string errorType);
         void ReturnStoredResult(string settingKey);
         
+        // advanced menu
         void ShowAdvancedMenu(string group="");
-        void ShowHelpTopic(string value);
         
+        // help 
+        void ShowHelpTopic(string topic);
+        bool HelpTopicAvailable(string topic);
+
+
     }
 }

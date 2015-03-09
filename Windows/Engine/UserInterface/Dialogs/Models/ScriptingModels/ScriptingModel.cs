@@ -150,5 +150,11 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModel
         {
             _helpManager.ShowHelpTopic(value, _dialogModel);
         }
+
+        public bool HelpTopicAvailable(string topic)
+        {
+            topic = _engine.ValueResolver.Resolve(topic, false);
+            return _helpManager.TopicExists(topic);
+        }
     }
 }

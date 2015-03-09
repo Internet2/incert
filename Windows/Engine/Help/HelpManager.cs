@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Windows.Threading;
 using System.Xml.Linq;
 using log4net;
 using Org.InCommon.InCert.Engine.Dynamics;

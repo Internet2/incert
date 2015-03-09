@@ -24,6 +24,8 @@ function init() {
         addChangeEvents();
         configureInitialVisibility();
         configureInitialEnabledState();
+        configureConditionalVisibility();
+        configureConditionalEnabledState();
         configureValidation();
     }
 
@@ -60,7 +62,7 @@ function init() {
         $("[data-repeat-current-task-result]").click(new genericButtonClickHandler("returnRepeatCurrentTaskResult").handler);
         $("[data-repeat-parent-branch-result]").click(new genericButtonClickHandler("returnRepeatParentBranchResult").handler);
         $("[data-restart-computer-result]").click(new genericButtonClickHandler("returnRestartComputerResult").handler);
-        
+
         $("[data-help-button]").click(showHelpTopicClickHandler);
         $("[data-error-button]").click(returnErrorClickHandler);
 
@@ -81,6 +83,38 @@ function init() {
     function configureInitialEnabledState() {
         $("[data-enable]").attr("disabled", true);
         $("[data-disable]").attr("disabled", false);
+    }
+
+    function configureConditionalVisibility() {
+        $("[data-show][data-if-help-topic-exists]").each(function () {
+            var topic = $(this).data("help-topic");
+            if (engine.helpTopicAvailable(topic)) {
+                $(this).show();
+            } else {
+                $(this).hide();
+            }
+        });
+        $("[data-hide][data-if-help-topic-exists]").each(function () {
+            var topic = $(this).data("help-topic");
+            if (engine.helpTopicAvailable(topic)) {
+                $(this).hide();
+            } else {
+                $(this).show();
+            }
+        });
+    }
+
+    function configureConditionalEnabledState() {
+        $("[data-enable][data-if-help-topic-exists]").each(function () {
+            var topic = $(this).data("help-topic");
+            var available = engine.helpTopicAvailable(topic);
+            $(this).attr("disabled", !available);
+        });
+        $("[data-disable][data-if-help-topic-exists]").each(function () {
+            var topic = $(this).data("help-topic");
+            var available = engine.helpTopicAvailable(topic);
+            $(this).attr("disabled", available);
+        });
     }
 
     function configureValidation() {
@@ -157,35 +191,11 @@ function init() {
         return ($("form").valid());
     }
 
-    function returnNextClickHandler(event) {
-        if (!validateForm(event.target)) {
-            return;
-        }
-
-        engine.returnNextResult();
-    }
-
     function showAdvancedMenuButtonClickHandler(event) {
         var group = $(event.target).data("advanced-menu-group");
         disableAllControls();
         engine.showAdvancedMenu(group);
         enableAllControls();
-    }
-
-    function returnBackClickHandler() {
-        if (!validateForm(event.target)) {
-            return;
-        }
-
-        engine.returnBackResult();
-    }
-
-    function returnCloseClickHandler() {
-        if (!validateForm(event.target)) {
-            return;
-        }
-
-        engine.returnCloseResult();
     }
 
     function returnStoredResultClickHandler(event) {
@@ -312,7 +322,7 @@ function init() {
         engine.ReturnRestartComputerResult = function () {
             console.log("returning restart-computer result");
         }
-        
+
         engine.returnErrorResult = function (errorType) {
             console.log("returning error result (" + errorType + ")");
         }
@@ -329,6 +339,10 @@ function init() {
             console.log("showing help topic " + topic);
         }
 
+        engine.helpTopicAvailable = function (topic) {
+            console.log("asserting that " + topic + " exists");
+            return true;
+        }
 
     }
 
