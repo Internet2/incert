@@ -109,13 +109,11 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
 
         }
 
-        private delegate void NavigatingHandlerDelegate(object sender, NavigatingCancelEventArgs e);
-
         private void NavigatingHandler(object sender, NavigatingCancelEventArgs e)
         {
             if (!_dialogInstance.Browser.Dispatcher.CheckAccess())
             {
-                _dialogInstance.Browser.Dispatcher.Invoke(new NavigatingHandlerDelegate(NavigatingHandler), new[] { sender, e });
+                _dialogInstance.Browser.Dispatcher.Invoke(()=>NavigatingHandler( sender, e ));
                 return;
             }
 
@@ -198,7 +196,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
 
         public void ShowUri(Uri uri, double left, double top)
         {
-            if (_dialogInstance.Visibility != Visibility.Visible && !_positioned)
+           if (_dialogInstance.Visibility != Visibility.Visible && !_positioned)
             {
                 Left = GetLeftPosition(left);
                 Top = GetTopPosition(top);
@@ -210,6 +208,12 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
 
         public void ShowUri(Uri uri)
         {
+            if (!_dialogInstance.Browser.Dispatcher.CheckAccess())
+            {
+                _dialogInstance.Browser.Dispatcher.Invoke(() => ShowUri(uri));
+                return;
+            }
+
             _dialogInstance.Browser.Navigate(uri);
             _dialogInstance.Show();
         }
