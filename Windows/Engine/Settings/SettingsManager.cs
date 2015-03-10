@@ -160,6 +160,11 @@ namespace Org.InCommon.InCert.Engine.Settings
             _settingsDictionary[key] = value;
         }
 
+        public bool IsTemporaryObjectPresent(string key)
+        {
+            return _tempObjectsCollection.ContainsKey(key);
+        }
+
         [SecurityCritical]
         public object GetTemporaryObject(string key)
         {

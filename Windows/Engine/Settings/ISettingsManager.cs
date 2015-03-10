@@ -25,6 +25,7 @@ namespace Org.InCommon.InCert.Engine.Settings
         [SecurityCritical]
         void SetTemporarySettingString(string key, SecureString value);
 
+        bool IsTemporaryObjectPresent(string key);
         object GetTemporaryObject(string key);
         void SetTemporaryObject(string key, object value);
         void RemoveTemporaryObject(string key);
