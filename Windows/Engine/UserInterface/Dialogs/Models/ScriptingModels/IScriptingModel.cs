@@ -8,6 +8,7 @@
         string GetValue(string key);
         string ResolveValue(string value);
         void SetValue(string key, string value);
+        bool SettingExists(string key);
         
         // control results
         void ReturnBackResult();

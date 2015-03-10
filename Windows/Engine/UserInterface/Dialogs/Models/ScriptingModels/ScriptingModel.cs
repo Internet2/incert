@@ -51,6 +51,12 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModel
             _settingsManager.SetTemporarySettingString(key, value);
         }
 
+        public bool SettingExists(string key)
+        {
+            return _settingsManager.IsTemporarySettingStringPresent(key) 
+                || _settingsManager.IsTemporaryObjectPresent(key);
+        }
+
         public void ReturnLeaveBranchNextResult()
         {
             _dialogModel.Result = new LeaveBranchNextResult();
@@ -153,7 +159,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModel
 
         public bool HelpTopicAvailable(string topic)
         {
-            topic = _engine.ValueResolver.Resolve(topic, false);
+            topic = _engine.ValueResolver.Resolve(topic, true);
             return _helpManager.TopicExists(topic);
         }
     }
