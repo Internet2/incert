@@ -94,9 +94,29 @@ function init() {
                 $(this).hide();
             }
         });
+
+
+        $("[data-show][data-if-setting-exists]").each(function () {
+            var key = $(this).data("setting");
+            if (engine.settingExists(key)) {
+                $(this).show();
+            } else {
+                $(this).hide();
+            }
+        });
+
         $("[data-hide][data-if-help-topic-exists]").each(function () {
             var topic = $(this).data("help-topic");
             if (engine.helpTopicAvailable(topic)) {
+                $(this).hide();
+            } else {
+                $(this).show();
+            }
+        });
+
+        $("[data-hide][data-if-setting-exists]").each(function () {
+            var key = $(this).data("setting");
+            if (engine.settingExists(key)) {
                 $(this).hide();
             } else {
                 $(this).show();
@@ -110,10 +130,23 @@ function init() {
             var available = engine.helpTopicAvailable(topic);
             $(this).attr("disabled", !available);
         });
+
+        $("[data-enable][data-if-setting-exists]").each(function () {
+            var key = $(this).data("setting");
+            var exists = engine.settingExists(key);
+            $(this).attr("disabled", !exists);
+        });
+
         $("[data-disable][data-if-help-topic-exists]").each(function () {
             var topic = $(this).data("help-topic");
             var available = engine.helpTopicAvailable(topic);
             $(this).attr("disabled", available);
+        });
+
+        $("[data-disable][data-if-setting-exists]").each(function () {
+            var key= $(this).data("setting");
+            var available = engine.settingExists(key);
+            $(this).attr("disabled", !available);
         });
     }
 
@@ -341,6 +374,11 @@ function init() {
 
         engine.helpTopicAvailable = function (topic) {
             console.log("asserting that " + topic + " exists");
+            return true;
+        }
+
+        engine.settingExists = function(key) {
+            console.log("asserting that setting for key " + key + " exsts");
             return true;
         }
 
