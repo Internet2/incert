@@ -22,6 +22,8 @@ function init() {
         getCheckBoxValues();
         addButtonEvents();
         addChangeEvents();
+        configureCloseButton();
+        confugreCloseQuestion();
         configureInitialVisibility();
         configureInitialEnabledState();
         configureConditionalVisibility();
@@ -73,6 +75,26 @@ function init() {
     function addChangeEvents() {
         $("input:text[data-setting], input:password[data-setting]").change(inputValueChangeHandler);
         $("input:checkbox[data-setting]").change(checkBoxValueChangeHandler);
+    }
+
+    function configureCloseButton() {
+        if ($(document.body).data("disable-close-button") !=undefined) {
+            engine.disableCloseButton(true);
+        }
+
+        if ($(document.body).data("enable-close-button") !=undefined) {
+            engine.disableCloseButton(false);
+        }
+    }
+
+    function confugreCloseQuestion() {
+        if ($(document.body).data("suppress-close-question") != undefined) {
+            engine.suppressCloseQuestion(true);
+        }
+
+        if ($(document.body).data("raise-close-button") != undefined) {
+            engine.suppressCloseQuestion(false);
+        }
     }
 
     function configureInitialVisibility() {
@@ -380,6 +402,14 @@ function init() {
         engine.settingExists = function(key) {
             console.log("asserting that setting for key " + key + " exsts");
             return true;
+        }
+
+        engine.disableCloseButton = function(value) {
+            console.log("calling DisableCloseButton with value of " + value);
+        }
+
+        engine.suppressCloseQuestion = function (value) {
+            console.log("calling SuppressCloseQuestion with value of " + value);
         }
 
     }
