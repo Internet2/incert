@@ -750,11 +750,19 @@ namespace Org.InCommon.InCert.Engine.Utilities
         /// <remarks>adapted from http://stackoverflow.com/questions/743906/how-to-hide-close-button-in-wpf-window </remarks>
         public static void DisableCloseButton(Window instance)
         {
+            if (instance == null)
+            {
+                return;
+            }
+                
+
             try
             {
-                if (instance == null)
+                if (!instance.Dispatcher.CheckAccess())
+                {
+                    instance.Dispatcher.Invoke(() => DisableCloseButton(instance));
                     return;
-
+                }
                 var helper = new WindowInteropHelper(instance);
 
                 var windowHandle = helper.Handle;
@@ -789,11 +797,19 @@ namespace Org.InCommon.InCert.Engine.Utilities
         /// <remarks>adapted from http://stackoverflow.com/questions/743906/how-to-hide-close-button-in-wpf-window </remarks>
         public static void EnableCloseButton(Window instance)
         {
-            try
+            if (instance == null)
             {
-                if (instance == null)
+                return;
+            }
+                
+            try
+            {                
+                if (!instance.Dispatcher.CheckAccess())
+                {
+                    instance.Dispatcher.Invoke(() => EnableCloseButton(instance));
                     return;
-
+                }
+                
                 var windowHandle = new WindowInteropHelper(instance).Handle;
                 if (windowHandle == IntPtr.Zero)
                     return; 

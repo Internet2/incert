@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no, maximum-scale=1.0" />
+    <link rel="stylesheet" href="Css/bootstrap.min.css">
+    <link rel="stylesheet" href="Css/inCert.css" />
+    <link rel="stylesheet" href="Css/font-awesome.min.css" />
+    <script src="Scripts/jquery-2.1.3.min.js"></script>
+    <script src="Scripts/inCert.js"></script>
+    <title></title>
+</head>
+<body data-suppress-close-question>
+    <div class="container">
+        <div class="row" style="margin-top: 60px">
+            <div class="col-sm-12 text-center">
+                <div style="display: table; margin-left: auto; margin-right: auto">
+                    <div style="display: table-row">
+                        <div style="display: table-cell; vertical-align: top"><i class="fa fa-exclamation-triangle fa-4x" style="margin-right: .25em"></i></div>
+                        <div style="display: table-cell; vertical-align: middle; text-align: left">
+                            <h4>Error: <span data-resolve="{current issue info.Title}"></span></h4>
+                            <pre data-resolve="{current issue info.Text}"></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <nav class="navbar navbar-fixed-bottom">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <button type="button" class="btn btn-default pull-left" data-help-button data-help-topic="[generic issue retry banner help topic]" data-show data-if-help-topic-exists>Help</button>
+                        <button type="button" class="btn btn-default pull-right" data-repeat-branching-task-result style="margin-left: .75em">Retry</button>
+                        <button type="button" class="btn btn-default pull-right" data-stored-result-button data-setting="generic issue retry banner stored result">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+</body>
+</html>

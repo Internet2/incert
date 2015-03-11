@@ -10,11 +10,11 @@
         </Properties>
       </Control.PreserveLastResult>
       <UserInterface.CloseAllDialogs />
-      <UserInterface.ShowErrorDialog>
+      <UserInterface.ShowHtmlErrorBanner>
         <Properties>
           <ErrorKey>CurrentIssue</ErrorKey>
         </Properties>
-      </UserInterface.ShowErrorDialog>
+      </UserInterface.ShowHtmlErrorBanner>
 
       <Control.ReturnPreservedResult>
         <Properties>
