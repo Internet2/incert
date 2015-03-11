@@ -162,5 +162,15 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModel
             topic = _engine.ValueResolver.Resolve(topic, true);
             return _helpManager.TopicExists(topic);
         }
+
+        public void SuppressCloseQuestion(bool value)
+        {
+            _dialogModel.SuppressCloseQuestion = value;
+        }
+
+        public void DisableCloseButton(bool value)
+        {
+            _dialogModel.CanClose = !value;
+        }
     }
 }

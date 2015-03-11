@@ -34,6 +34,8 @@
         void ShowHelpTopic(string topic);
         bool HelpTopicAvailable(string topic);
 
-
+        // dialog behavior, etc.
+        void SuppressCloseQuestion(bool value);
+        void DisableCloseButton(bool value);
     }
 }
