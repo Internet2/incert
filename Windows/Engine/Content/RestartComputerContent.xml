@@ -17,28 +17,12 @@
         </Conditions.All>
       </Control.ReturnRestartComputerResult>
 
-      <UserInterface.ShowBorderedBannerModal>
+      <UserInterface.ShowHtmlBannerModal>
         <Properties>
           <Dialog>Main dialog</Dialog>
-          <Banner>restart computer banner</Banner>
+          <Url>resource://html/RestartComputer.html</Url>
         </Properties>
-      </UserInterface.ShowBorderedBannerModal>
-
-      <Logging.LogEvent>
-        <Conditions.All>
-          <Settings.SettingEquals key="restart computer.exit now" value="true" ignoreCase="true"/>
-        </Conditions.All>
-        <Properties>
-          <Event>Warn</Event>
-          <Message>User opted *not* to restart computer</Message>
-        </Properties>
-      </Logging.LogEvent>
-
-      <Control.ReturnLeaveBranchNextResult>
-        <Conditions.All>
-          <Settings.SettingEquals key="restart computer.exit now" value="true" ignoreCase="true"/>
-        </Conditions.All>
-      </Control.ReturnLeaveBranchNextResult>
+      </UserInterface.ShowHtmlBannerModal>
 
       <Logging.LogEvent>
         <Properties>

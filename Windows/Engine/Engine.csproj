@@ -1111,6 +1111,7 @@
     <EmbeddedResource Include="Content\Html\GenericRetry.html" />
     <EmbeddedResource Include="Content\Html\Error.html" />
     <EmbeddedResource Include="Content\Html\RelaunchAdmin.html" />
+    <EmbeddedResource Include="Content\Html\RestartComputer.html" />
     <Content Include="Content\InCommon\archive\AdvancedMenu.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -1466,7 +1467,9 @@
     <Resource Include="Content\InCommon\license.xml">
       <SubType>Designer</SubType>
     </Resource>
-    <EmbeddedResource Include="Content\RestartComputerContent.xml" />
+    <EmbeddedResource Include="Content\RestartComputerContent.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Content\Html\Scripts\jquery-2.1.3.min.js" />
     <Content Include="Content\Styles.xaml">
       <SubType>Designer</SubType>

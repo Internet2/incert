@@ -36,7 +36,12 @@ button.startButton {
 
 h3.errorText {
     font-weight: bold;
-    margin-top: 10px;
+    margin-top: 5px;
+}
+
+h3.restartText {
+    font-weight: bold;
+    margin-top: 5px;
 }
 
 pre.errorText {
