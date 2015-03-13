@@ -62,7 +62,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModel
 
         public void OnRenderProcessTerminated(IWebBrowser browser, CefTerminationStatus status)
         {
-
+            var test = 0;
         }
 
         private static Dictionary<string, string> BuildEmbeddedResourceDictionary()
