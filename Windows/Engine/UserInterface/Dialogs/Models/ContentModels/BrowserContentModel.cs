@@ -1,13 +1,17 @@
 ﻿using System;
+using System.Net;
 using CefSharp;
 using CefSharp.Wpf;
 using log4net;
 using Org.InCommon.InCert.Engine.Engines;
+using Org.InCommon.InCert.Engine.Extensions;
 using Org.InCommon.InCert.Engine.Logging;
+using Org.InCommon.InCert.Engine.Results.Errors.UserInterface;
 using Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.ContentControlWrappers;
 using Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.EventWrappers;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModels;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModels.LifespanHandlers;
+using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModels.SchemeHandlers;
 
 namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
 {
@@ -18,18 +22,14 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
         public BrowserContentModel(AbstractModel parentModel)
             : base(parentModel)
         {
-            
-
         }
 
         public bool IsLoaded { get; private set; }
-        public bool LoadErrorOccurred { get; private set; }
-        public string LoadError { get; private set; }
-
+      
         public string Address
         {
             get { return Browser.Address; }
-            set {Browser.Address = value; }
+            set { Browser.Address = value; }
         }
 
         private ChromiumWebBrowser Browser
@@ -66,25 +66,29 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
             content.ConsoleMessage += ConsoleMessageHandler;
             content.LoadError += OnContentLoadError;
             content.FrameLoadEnd += OnFrameLoadEnd;
-            content.FrameLoadStart += OnFrameLoadStart;
-          
+            
             Content = content;
 
             return content as T;
 
         }
-
-        private void OnFrameLoadStart(object sender, FrameLoadStartEventArgs e)
-        {
-            var test = 0;
-        }
-
+        
         private void OnFrameLoadEnd(object sender, FrameLoadEndEventArgs e)
         {
+            if (sender.InvokeIfRequired(() => OnFrameLoadEnd(sender, e)))
+            {
+                return;
+            }
+            
             if (!e.IsMainFrame)
             {
                 return;
-            };
+            }
+
+            if (e.HttpStatusCode != 200 && e.HttpStatusCode != 0)
+            {
+                SetError(e);
+            }
 
             IsLoaded = true;
             
@@ -92,17 +96,68 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
 
         private void OnContentLoadError(object sender, LoadErrorEventArgs e)
         {
-            LoadErrorOccurred = true;
-            LoadError = e.ErrorText;
+            if (sender.InvokeIfRequired(() => OnContentLoadError(sender, e)))
+            {
+                return;
+            }
+            
+            if (e.ErrorCode == CefErrorCode.Aborted)
+            {
+                return;
+            }
+
+            SetError(e);
+        }
+
+        private void SetError(FrameLoadEndEventArgs e)
+        {
+            var statusCode = Enum.IsDefined(typeof (HttpStatusCode), e.HttpStatusCode)
+                ? ((HttpStatusCode) e.HttpStatusCode).ToString().SplitByCapitalLetters()
+                : "Unknown Issue";
+
+            statusCode = string.Format("{0} ({1})", statusCode, e.HttpStatusCode);
+
+            SetError(e.Url, statusCode);
+        }
+
+        private void SetError(LoadErrorEventArgs e)
+        {
+            SetError(e.FailedUrl, e.ErrorCode.ToString().SplitByCapitalLetters());
+        }
+
+        private void SetError(string url, string issue)
+        {
+            RootDialogModel.Result = new CouldNotLoadHtmlContent
+            {
+                Issue = issue,
+                Url = url,
+                IsExternalUrl = !IsInternalUrl(url)
+            };
+        }
+
+        private static bool IsInternalUrl(string url)
+        {
+            return false;
+            if (string.IsNullOrWhiteSpace(url))
+            {
+                return false;
+            }
+
+            return EmbeddedResourceSchemeHandlerFactory.IsSchemeUrl(url)
+                   || ArchiveSchemeHandlerFactory.IsSchemeUrl(url);
         }
 
         private static void ConsoleMessageHandler(object sender, ConsoleMessageEventArgs e)
         {
+            if (sender.InvokeIfRequired(() => ConsoleMessageHandler(sender, e)))
+            {
+                return;
+            }
+            
             Log.DebugFormat("Javascript Console: {0}", e.Message);
         }
 
         
-
         private void SubscribeToEngineEvents(IHasEngineEvents engine)
         {
             if (engine == null)

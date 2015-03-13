@@ -53,7 +53,6 @@ namespace Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.BannerWrapper
             return true;
         }
 
-
         public bool ImportBannersFromXml(XElement node)
         {
             if (node == null)
@@ -98,16 +97,16 @@ namespace Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.BannerWrapper
             {
                 return;
             }
-
+            
             var settings = new CefSettings
             {
                 PackLoadingDisabled = true,
                 LogSeverity = LogSeverity.Disable
+                    
             };
 
             settings.CefCommandLineArgs.Add(new KeyValuePair<string, string>("no-proxy-server", ""));
-
-
+            
             settings.RegisterScheme(new CefCustomScheme
             {
                 SchemeName = ArchiveSchemeHandlerFactory.SchemeName,
@@ -121,8 +120,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.BannerWrapper
                 SchemeHandlerFactory = new EmbeddedResourceSchemeHandlerFactory(),
 
             });
-
-
+            
             if (!Cef.Initialize(settings))
             {
                 throw new Exception("Could not initialize Chromium browser");

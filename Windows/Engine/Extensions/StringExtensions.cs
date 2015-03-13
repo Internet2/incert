@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.RegularExpressions;
 using Org.InCommon.InCert.Engine.Logging;
 using log4net;
 
@@ -53,23 +54,12 @@ namespace Org.InCommon.InCert.Engine.Extensions
             }
         }
 
-        public static string SplitByCaptialLetters(this string value)
+        public static string SplitByCapitalLetters(this string value)
         {
+            const string regEx = "([a-z](?=[A-Z])|[A-Z](?=[A-Z][a-z]))";
             try
             {
-                var output = new StringBuilder();
-                foreach (var letter in value)
-                {
-                    if (Char.IsUpper(letter))
-                        output.Append(" ");
-
-                    if (Char.IsNumber(letter))
-                        output.Append(" ");
-
-                    output.Append(letter);
-                }
-
-                return output.ToString();
+                return Regex.Replace(value, regEx, "$1 ");
             }
             catch (Exception e)
             {

@@ -13,7 +13,7 @@ namespace Org.InCommon.InCert.Engine.Tasks.UserInterface
         {
         }
 
-        public override IResult Execute(IResult previousResults)
+        protected override IResult ShowBanner(IResult previousResults)
         {
             try
             {
@@ -25,6 +25,7 @@ namespace Org.InCommon.InCert.Engine.Tasks.UserInterface
                 DialogsManager.ActiveDialogKey = Dialog;
 
                 dialog.PreloadContent(banner);
+                
                 SetAddress(dialog, Url);
 
                 return (parent == null)

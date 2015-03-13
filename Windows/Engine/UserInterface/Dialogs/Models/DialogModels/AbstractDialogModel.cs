@@ -646,7 +646,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
             {
                 throw new Exception("Could not retrieve browser content model");
             }
-
+            
             model.Address = url;
         }
 

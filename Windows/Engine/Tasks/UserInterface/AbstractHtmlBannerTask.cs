@@ -5,6 +5,10 @@ using System.Xml.Linq;
 using Org.InCommon.InCert.Engine.Engines;
 using Org.InCommon.InCert.Engine.Extensions;
 using Org.InCommon.InCert.Engine.Importables;
+using Org.InCommon.InCert.Engine.Results;
+using Org.InCommon.InCert.Engine.Results.ControlResults;
+using Org.InCommon.InCert.Engine.Results.Errors.UserInterface;
+using Org.InCommon.InCert.Engine.TaskBranches;
 using Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.BannerWrappers;
 using Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.ContentControlWrappers;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels;
@@ -52,18 +56,62 @@ namespace Org.InCommon.InCert.Engine.Tasks.UserInterface
             dialog.SetBrowserAddress(url);
         }
 
-        protected static void WaitForLoad(AbstractDialogModel dialog)
+        protected abstract IResult ShowBanner(IResult previousResults);
+
+        public override IResult Execute(IResult previousResults)
+        {
+            var result = ShowBanner(previousResults);
+            if (!PostProcessResult(result))
+            {
+                return result;
+            }
+
+            SetErrorBranch();
+            
+            return result;
+        }
+
+        private void SetErrorBranch()
+        {
+            if (!string.IsNullOrWhiteSpace(ErrorBranch))
+            {
+                return;
+            }
+
+            var instance = BranchManager.GetBranchForRole(BranchRoles.GenericRetry, Engine.Mode,true);
+            if (instance == null)
+            {
+                return;
+            }
+
+            ErrorBranch = instance.Name;
+        }
+
+        private bool PostProcessResult(IResult result)
+        {
+            if (result.IsOk())
+            {
+                return false;
+            }
+
+            var instance = result as CouldNotLoadHtmlContent;
+            return instance != null && instance.IsExternalUrl;
+        }
+
+        protected static IResult WaitForLoad(AbstractDialogModel dialog)
         {
             var model = dialog.ContentModel.FindChildModel<BrowserContentModel>("browser");
             if (model == null)
             {
-                return;
+                return new NextResult();
             }
             while (!model.IsLoaded)
             {
-                Application.Current.DoEvents();
+                dialog.DialogInstance.Dispatcher.DoEvents();
                 Thread.Sleep(5);
             }
+
+            return dialog.Result ?? new NextResult();
         }
 
         protected AbstractBanner GetOrCreateBanner()

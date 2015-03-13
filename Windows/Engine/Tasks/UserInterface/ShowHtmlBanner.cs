@@ -12,7 +12,7 @@ namespace Org.InCommon.InCert.Engine.Tasks.UserInterface
         {
         }
 
-        public override IResult Execute(IResult previousResults)
+        protected override IResult ShowBanner(IResult previousResults)
         {
             try
             {
@@ -35,9 +35,7 @@ namespace Org.InCommon.InCert.Engine.Tasks.UserInterface
                     return result;
                 }
 
-                WaitForLoad(dialog);
-
-                return result;
+                return WaitForLoad(dialog);
             }
             catch (DialogInstanceNotFound e)
             {

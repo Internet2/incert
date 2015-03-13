@@ -16,6 +16,12 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModel
         {
             return new ArchiveSchemeHandler();
         }
+
+        public static bool IsSchemeUrl(string url)
+        {
+            return !string.IsNullOrWhiteSpace(url)
+                && url.StartsWith(SchemeName, StringComparison.InvariantCultureIgnoreCase);
+        }
     }
 
     public class ArchiveSchemeHandler : AbstractSchemeHandler

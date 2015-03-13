@@ -7,9 +7,9 @@
         Error,
         Final,
         Restart,
+        GenericRetry,
         Initialize,
         Local,
         Remote
-
     }
 }

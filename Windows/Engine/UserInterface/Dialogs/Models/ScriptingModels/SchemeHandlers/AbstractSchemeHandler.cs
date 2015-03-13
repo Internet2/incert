@@ -10,6 +10,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModel
 {
     public abstract  class AbstractSchemeHandler:ISchemeHandler
     {
+        
         private static readonly Dictionary<string, string> MimeTypesDictionary = new Dictionary<string, string>
         {
             {".html", "text/html"},
@@ -31,6 +32,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModel
             return MimeTypesDictionary.ContainsKey(extension)
                 ? MimeTypesDictionary[extension]
                 : "application/octet-stream";
+
         }
 
         protected static string ResolvePath(IEnumerable<string> knownPaths, string value)
