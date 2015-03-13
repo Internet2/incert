@@ -1110,6 +1110,7 @@
     <EmbeddedResource Include="Content\Html\Scripts\jquery.validate.additional-methods.min.js" />
     <EmbeddedResource Include="Content\Html\GenericRetry.html" />
     <EmbeddedResource Include="Content\Html\Error.html" />
+    <EmbeddedResource Include="Content\Html\RelaunchAdmin.html" />
     <Content Include="Content\InCommon\archive\AdvancedMenu.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

@@ -3,12 +3,19 @@
   xsi:schemaLocation="http://incert.incommon.org/schemas ./Schemas/tasklist.xsd">
   <Branches>
     <TaskBranch name="relaunch as admin">
-      <UserInterface.ShowBorderedBannerModal>
+      <UserInterface.HideDialog>
+        <Properties>
+          <Dialog>Splash screen dialog</Dialog>
+        </Properties>
+      </UserInterface.HideDialog>
+      <UserInterface.ShowHtmlBannerModal>
         <Properties>
           <Dialog>Issue dialog</Dialog>
-          <Banner>Relaunch as admin banner</Banner>
+          <Url>resource://html/RelaunchAdmin.html</Url>
+          <Width>500</Width>
+          <Height>350</Height>
         </Properties>
-      </UserInterface.ShowBorderedBannerModal>
+      </UserInterface.ShowHtmlBannerModal>
       <Settings.SetSettingText>
         <Properties>
           <Setter key="exit launch application">!ApplicationExecutable!</Setter>
@@ -19,7 +26,7 @@
     </TaskBranch>
   </Branches>
 
-  <Banners>
+  <!--<Banners>
     <SimpleBanner name="Relaunch as admin banner" width ="450" height="350" canClose="true" noCloseQuestion="true" margin="0,24,14,0">
       <Content>
         <EllipseGlyph glyph="!" dock="Left" alignment="Center" verticalAlignment="Top" fontSize="30" fontWeight="Bold" margin="24,36,24,0" />
@@ -71,6 +78,6 @@
         </SimpleParagraph>
       </Content>
     </SimpleBanner>
-  </Banners>
+  </Banners>-->
 </Content>
 

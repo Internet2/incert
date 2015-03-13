@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no, maximum-scale=1.0" />
+    <link rel="stylesheet" href="Css/bootstrap.min.css">
+    <link rel="stylesheet" href="Css/inCert.css" />
+    <link rel="stylesheet" href="Css/font-awesome.min.css" />
+    <script src="Scripts/jquery-2.1.3.min.js"></script>
+    <script src="Scripts/inCert.js"></script>
+    <title></title>
+</head>
+<body class="bordered">
+    <div class="container">
+        <div class="row" style="margin-top: 60px">
+            <div class="col-sm-12 text-center">
+                <div style="display: table; margin-left: auto; margin-right: auto">
+                    <div style="display: table-row">
+                        <div style="display: table-cell; vertical-align: top"><i class="fa fa-exclamation-circle fa-4x" style="margin-right: .25em"></i></div>
+                        <div style="display: table-cell; vertical-align: middle; text-align: left">
+                            <h4>Elevated Permissions Required</h4>
+                            <p><span data-resolve="!ApplicationTitle!"></span> requires administrative rights to configure your computer.</p>
+                            <p style="margin-top: 3em">Click Restart to relaunch <span data-resolve="!ApplicationTitle!"></span> with elevated permissions.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <nav class="navbar navbar-fixed-bottom">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <button type="button" class="btn btn-default pull-left" data-help-button data-help-topic="relaunch as admin" data-show data-if-help-topic-exists>Help</button>
+                        <button type="button" class="btn btn-default pull-right" data-exit-utility-button style="margin-left: .75em">Exit</button>
+                        <button type="button" class="btn btn-default pull-right" data-next-button>Restart</button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+</body>
+</html>
