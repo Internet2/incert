@@ -48,6 +48,7 @@
       <xs:enumeration value="Errors.Time.TimezoneWrong" />
       <xs:enumeration value="Errors.UserInterface.BannerNotDefined" />
       <xs:enumeration value="Errors.UserInterface.DialogInstanceNotFound" />
+      <xs:enumeration value="Errors.UserInterface.CouldNotLoadHtmlContent" />
       <xs:enumeration value="Errors.Verification.CouldNotVerifyApplicationSignature" />
       <xs:enumeration value="Errors.Versioning.EngineUpdateAvailable" />
       <xs:enumeration value="Errors.WebServices.CouldNotLogMessage" />

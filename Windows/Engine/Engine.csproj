@@ -467,6 +467,7 @@
     <Compile Include="Results\Errors\System\WindowsVistaServicePackRequired.cs" />
     <Compile Include="Results\Errors\Time\DaylightSavingsTimeWrong.cs" />
     <Compile Include="Results\Errors\Time\TimezoneWrong.cs" />
+    <Compile Include="Results\Errors\UserInterface\CouldNotLoadHtmlContent.cs" />
     <Compile Include="Results\Errors\Versioning\EngineUpdateAvailable.cs" />
     <Compile Include="Results\Errors\WebServices\CouldNotUploadReport.cs" />
     <Compile Include="Results\Errors\WindowsUpdate\AbstractWindowsUpdateIssue.cs" />

@@ -608,5 +608,18 @@
         <TempObjectFieldContent key="CurrentIssue">!ApplicationTitle! could not locate or instatiate an instance of the {ServiceName} service.</TempObjectFieldContent>
       </Content>
     </SimpleErrorEntry>
+
+    <SimpleErrorEntry>
+      <Properties>
+        <Key>Errors.UserInterface.CouldNotLoadHtmlContent</Key>
+        <Title>Could Not Load Content</Title>
+        <Summary>The utility could not load html content</Summary>
+      </Properties>
+      <Content>
+        <DirectTextContent>!ApplicationTitle! could not retrieve a critical content resource.</DirectTextContent>
+        <DirectTextContent>Issue: {CurrentIssue.Issue}</DirectTextContent>
+        <DirectTextContent>Url: {CurrentIssue.Url}</DirectTextContent>
+      </Content>
+    </SimpleErrorEntry>
   </Errors>
 </Content>
