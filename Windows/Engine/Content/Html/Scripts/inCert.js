@@ -23,7 +23,7 @@ function init() {
         addButtonEvents();
         addChangeEvents();
         configureCloseButton();
-        confugreCloseQuestion();
+        configureCloseQuestion();
         configureInitialVisibility();
         configureInitialEnabledState();
         configureConditionalVisibility();
@@ -53,6 +53,9 @@ function init() {
     }
 
     function addButtonEvents() {
+        $("[data-setting-button").click(settingButtonClickHandler);
+        $("[data-help-button]").click(showHelpTopicClickHandler);
+
         $("[data-back-button]").click(new genericButtonClickHandler("returnBackResult").handler);
         $("[data-close-button]").click(new genericButtonClickHandler("returnCloseResult").handler);
         $("[data-exit-utility-button]").click(new genericButtonClickHandler("returnExitUtilityResult").handler);
@@ -65,7 +68,6 @@ function init() {
         $("[data-repeat-parent-branch-result]").click(new genericButtonClickHandler("returnRepeatParentBranchResult").handler);
         $("[data-restart-computer-result]").click(new genericButtonClickHandler("returnRestartComputerResult").handler);
 
-        $("[data-help-button]").click(showHelpTopicClickHandler);
         $("[data-error-button]").click(returnErrorClickHandler);
 
         $("[data-advanced-menu-button]").click(showAdvancedMenuButtonClickHandler);
@@ -87,7 +89,7 @@ function init() {
         }
     }
 
-    function confugreCloseQuestion() {
+    function configureCloseQuestion() {
         if ($(document.body).data("suppress-close-question") != undefined) {
             engine.suppressCloseQuestion(true);
         }
@@ -116,8 +118,7 @@ function init() {
                 $(this).hide();
             }
         });
-
-
+        
         $("[data-show][data-if-setting-exists]").each(function () {
             var key = $(this).data("setting");
             if (engine.settingExists(key)) {
@@ -246,6 +247,12 @@ function init() {
         return ($("form").valid());
     }
 
+    function settingButtonClickHandler(event) {
+        var setting = $(event.target).data("setting");
+        var value = $(event.target).data("value");
+        setValueSafe(setting, value);
+    }
+
     function showAdvancedMenuButtonClickHandler(event) {
         var group = $(event.target).data("advanced-menu-group");
         disableAllControls();
@@ -264,13 +271,13 @@ function init() {
 
     function inputValueChangeHandler(event) {
         var setting = $(event.target).data("setting");
-        engine.setValue(setting, $(event.target).val());
+        setValueSafe(setting, $(event.target).val());
     }
 
     function checkBoxValueChangeHandler(event) {
         var setting = $(event.target).data("setting");
         var value = !($(this).prop("checked")) ? "False" : "True";
-        engine.setValue(setting, value);
+        setValueSafe(setting, value);
     }
 
     function showHelpTopicClickHandler(event) {
@@ -305,12 +312,18 @@ function init() {
                 return;
             }
 
+            event.stopImmediatePropagation();
+
             engine[method]();
         }
 
         return {
             handler: handler
         }
+    }
+
+    function setValueSafe(key, value) {
+        engine.setValue(key, String(value));
     }
 
     function configureForInBrowserTesting() {
