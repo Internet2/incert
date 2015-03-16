@@ -44,11 +44,6 @@
           <xs:documentation>This token generally is used to designate the default tasklist from those downloaded remotely.</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
-      <xs:enumeration value="GenericRetry">
-        <xs:annotation>
-          <xs:documentation>This task branch is the Generic Retry branch, meaning that it contains logic to retry a task or branch if that branch fails.</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
     </xs:restriction>
   </xs:simpleType>
 
