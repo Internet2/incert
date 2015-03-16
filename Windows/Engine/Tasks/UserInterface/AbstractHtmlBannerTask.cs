@@ -8,7 +8,6 @@ using Org.InCommon.InCert.Engine.Importables;
 using Org.InCommon.InCert.Engine.Results;
 using Org.InCommon.InCert.Engine.Results.ControlResults;
 using Org.InCommon.InCert.Engine.Results.Errors.UserInterface;
-using Org.InCommon.InCert.Engine.TaskBranches;
 using Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.BannerWrappers;
 using Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.ContentControlWrappers;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels;
@@ -19,7 +18,7 @@ namespace Org.InCommon.InCert.Engine.Tasks.UserInterface
     public abstract class AbstractHtmlBannerTask:AbstractTask
     {
         private readonly string _identifier = Guid.NewGuid().ToString();
-
+     
         protected AbstractHtmlBannerTask(IEngine engine) : base(engine)
         {
         }
@@ -51,6 +50,9 @@ namespace Org.InCommon.InCert.Engine.Tasks.UserInterface
         [PropertyAllowedFromXml]
         public double Height { get; set; }
 
+        [PropertyAllowedFromXml]
+        public bool SuppressRetry { get; set; }
+
         internal static void SetAddress(AbstractDialogModel dialog, string url)
         {
             dialog.SetBrowserAddress(url);
@@ -66,34 +68,44 @@ namespace Org.InCommon.InCert.Engine.Tasks.UserInterface
                 return result;
             }
 
-            SetErrorBranch();
-            
-            return result;
+            return ShowRetryDialog(result);
         }
 
-        private void SetErrorBranch()
+        protected virtual IResult ShowRetryDialog(IResult issue)
         {
-            if (!string.IsNullOrWhiteSpace(ErrorBranch))
-            {
-                return;
-            }
+            SettingsManager.SetTemporarySettingString("generic issue retry banner title", "Could not display page");
+            SettingsManager.SetTemporarySettingString("generic issue retry banner description", "!ApplicationTitle! was unable to load this page. Would you like to try again?");
+            SettingsManager.SetTemporaryObject("generic issue retry banner stored result", issue);
 
-            var instance = BranchManager.GetBranchForRole(BranchRoles.GenericRetry, Engine.Mode,true);
-            if (instance == null)
+            var task = new ShowHtmlBannerModal(Engine)
             {
-                return;
-            }
+                Url = "resource://html/GenericRetry.html",
+                Dialog = Dialog,
+                Width = Width,
+                Height = Height,
+                SuppressRetry = true
+            };
 
-            ErrorBranch = instance.Name;
+            return task.Execute(issue);
         }
-
+        
         private bool PostProcessResult(IResult result)
         {
+            if (SuppressRetry)
+            {
+                return false;
+            }
+            
             if (result.IsOk())
             {
                 return false;
             }
 
+            if (!string.IsNullOrWhiteSpace(ErrorBranch))
+            {
+                return false;
+            }
+            
             var instance = result as CouldNotLoadHtmlContent;
             return instance != null && instance.IsExternalUrl;
         }
