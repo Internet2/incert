@@ -1113,6 +1113,8 @@
     <EmbeddedResource Include="Content\Html\Error.html" />
     <EmbeddedResource Include="Content\Html\RelaunchAdmin.html" />
     <EmbeddedResource Include="Content\Html\RestartComputer.html" />
+    <EmbeddedResource Include="Content\Html\AdvancedMenu.html" />
+    <Content Include="Content\Html\Scripts\incert-advanced-menu.js" />
     <Content Include="Content\InCommon\archive\AdvancedMenu.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

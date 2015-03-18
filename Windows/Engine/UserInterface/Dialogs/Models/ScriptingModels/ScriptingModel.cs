@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Runtime.InteropServices;
 using Org.InCommon.InCert.Engine.AdvancedMenu;
 using Org.InCommon.InCert.Engine.Engines;
@@ -150,6 +151,11 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModel
             {
                 _dialogModel.EnableDisableAllControls(true);
             }
+        }
+
+        public IAdvancedMenuItem[] GetAdvancedMenuItems()
+        {
+            return _engine.AdvancedMenuManager.Items.Values.Where(i => i.Show).ToArray();
         }
 
         public void ShowHelpTopic(string value)

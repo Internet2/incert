@@ -1,4 +1,4 @@
-function init() {
+(function () {
     if (document.engineScriptVersion) {
         if (document.engineScriptVersion >= 1.0) {
             return;
@@ -80,11 +80,11 @@ function init() {
     }
 
     function configureCloseButton() {
-        if ($(document.body).data("disable-close-button") !=undefined) {
+        if ($(document.body).data("disable-close-button") != undefined) {
             engine.disableCloseButton(true);
         }
 
-        if ($(document.body).data("enable-close-button") !=undefined) {
+        if ($(document.body).data("enable-close-button") != undefined) {
             engine.disableCloseButton(false);
         }
     }
@@ -118,7 +118,7 @@ function init() {
                 $(this).hide();
             }
         });
-        
+
         $("[data-show][data-if-setting-exists]").each(function () {
             var key = $(this).data("setting");
             if (engine.settingExists(key)) {
@@ -167,7 +167,7 @@ function init() {
         });
 
         $("[data-disable][data-if-setting-exists]").each(function () {
-            var key= $(this).data("setting");
+            var key = $(this).data("setting");
             var available = engine.settingExists(key);
             $(this).attr("disabled", !available);
         });
@@ -412,17 +412,37 @@ function init() {
             return true;
         }
 
-        engine.settingExists = function(key) {
+        engine.settingExists = function (key) {
             console.log("asserting that setting for key " + key + " exsts");
             return true;
         }
 
-        engine.disableCloseButton = function(value) {
+        engine.disableCloseButton = function (value) {
             console.log("calling DisableCloseButton with value of " + value);
         }
 
         engine.suppressCloseQuestion = function (value) {
             console.log("calling SuppressCloseQuestion with value of " + value);
+        }
+
+        engine.getAdvancedMenuItems = function () {
+            var result = [];
+            for (var i = 1; i <= 10; i++) {
+                var group = i <= 5 ? "group1" : "group2";
+                result.push({
+                    show: true,
+                    group: group,
+                    buttonText: i,
+                    branch: "branch " + i,
+                    title: "title " + i,
+                    description: "description " + i,
+                    workingTitle: "working title " + i,
+                    workingDescription: "working description " + i,
+                    key: "item" + i
+                });
+            }
+
+            return result;
         }
 
     }
@@ -530,9 +550,9 @@ function init() {
         processValidationEvents($("[data-on-form-valid],[data-on-form-invalid]"), false);
     });
 
-}
+})();
 
-init();
+
 
 
 

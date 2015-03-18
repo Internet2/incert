@@ -1,4 +1,6 @@
-﻿namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModels
+﻿using Org.InCommon.InCert.Engine.AdvancedMenu;
+
+namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModels
 {
     public interface IScriptingModel
     {
@@ -29,6 +31,7 @@
         
         // advanced menu
         void ShowAdvancedMenu(string group="");
+        IAdvancedMenuItem[] GetAdvancedMenuItems();
         
         // help 
         void ShowHelpTopic(string topic);
