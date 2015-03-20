@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
 using Org.InCommon.InCert.Engine.Logging;
@@ -86,5 +87,33 @@ namespace Org.InCommon.InCert.Engine.Extensions
                     : string.Format("Error details not available");
             }
         }
+
+        public static Dictionary<string, string> GetDetailsDictionary(this IResult value)
+        {
+            try
+            {
+                if (value == null)
+                {
+                    return new Dictionary<string, string>();
+                }
+
+
+                var result = new Dictionary<string, string>();
+                
+                foreach (var property in value.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance))
+                {
+                    if (property.GetCustomAttribute<IncludeInErrorDetails>() == null)
+                        continue;
+
+                    result[property.Name] = property.GetValue(value).ToString();
+                }
+
+                return result;
+            }
+            catch (Exception)
+            {
+                return new Dictionary<string, string>();
+            }
+        } 
     }
 }

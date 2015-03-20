@@ -29,6 +29,8 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
 {
     public abstract class AbstractDialogModel : PropertyNotifyBase, IHasControlActions
     {
+        public string DialogKey { get; set; }
+
         private enum ModelKeys
         {
             ContentModel,
@@ -284,7 +286,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
 
         public Visibility NavigationPanelVisibility
         {
-            get { return _navigationPanelVisibility;}
+            get { return _navigationPanelVisibility; }
             set { _navigationPanelVisibility = value; OnPropertyChanged(); }
         }
 
@@ -322,7 +324,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
             }
             catch (Exception e)
             {
-                Log.WarnFormat("An exception occurred while attempting to load banner content: {0}", e.Message); 
+                Log.WarnFormat("An exception occurred while attempting to load banner content: {0}", e.Message);
             }
         }
 
@@ -432,7 +434,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
             return banner == null ? new BannerNotDefined { Banner = key } : ShowBannerModal(banner);
         }
 
-       public IResult ShowBannerModal(AbstractBanner banner)
+        public IResult ShowBannerModal(AbstractBanner banner)
         {
             var result = ShowBanner(banner);
             return !result.IsOk() ? result : WaitForResult();
@@ -445,7 +447,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
                 FontSize = 12,
                 Font = AppearanceManager.DefaultFontFamily
             };
-            SetModelForKey(ModelKeys.AdvancedButton,invisibleModel);
+            SetModelForKey(ModelKeys.AdvancedButton, invisibleModel);
             SetModelForKey(ModelKeys.BackButton, invisibleModel);
             SetModelForKey(ModelKeys.HelpButton, invisibleModel);
             SetModelForKey(ModelKeys.NextButton, invisibleModel);
@@ -455,7 +457,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
                 NavigationPanelVisibility = Visibility.Collapsed;
                 return;
             }
-                
+
             NavigationPanelVisibility = Visibility.Visible;
             foreach (var button in buttons)
             {
@@ -525,7 +527,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
                 return new ExceptionOccurred(e);
             }
         }
-        
+
         public IResult ShowChildBannerModal(AbstractDialogModel childDialog, string banner)
         {
             return ShowChildBannerModal(childDialog, _bannerManager.GetBanner(banner));
@@ -631,7 +633,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
             {
                 Width = 550,
                 Height = 400,
-                CanClose =false,
+                CanClose = false,
                 Margin = new Thickness(0)
             };
 
@@ -646,7 +648,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
             {
                 throw new Exception("Could not retrieve browser content model");
             }
-            
+
             model.Address = url;
         }
 
@@ -755,7 +757,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
                 model.DoActions(includeOneTime);
             }
         }
-        
+
         public List<AbstractModel> GetModelsBySettingKey(string key)
         {
             var modelList = new List<AbstractModel>();

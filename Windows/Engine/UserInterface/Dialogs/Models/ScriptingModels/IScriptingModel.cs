@@ -1,4 +1,5 @@
 ﻿using Org.InCommon.InCert.Engine.AdvancedMenu;
+using Org.InCommon.InCert.Engine.Results;
 
 namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModels
 {
@@ -11,7 +12,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModel
         string ResolveValue(string value);
         void SetValue(string key, string value);
         bool SettingExists(string key);
-        
+
         // control results
         void ReturnBackResult();
         void ReturnCloseResult();
@@ -28,11 +29,11 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModel
         // other results
         void ReturnErrorResult(string errorType);
         void ReturnStoredResult(string settingKey);
-        
+
         // advanced menu
-        void ShowAdvancedMenu(string group="");
-        IAdvancedMenuItem[] GetAdvancedMenuItems();
-        
+        void ShowAdvancedMenu(string group = "");
+        string GetAdvancedMenuItems();
+
         // help 
         void ShowHelpTopic(string topic);
         bool HelpTopicAvailable(string topic);
@@ -40,5 +41,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModel
         // dialog behavior, etc.
         void SuppressCloseQuestion(bool value);
         void DisableCloseButton(bool value);
+
+        void RunTaskBranch(string branchName);
     }
 }

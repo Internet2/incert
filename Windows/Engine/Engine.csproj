@@ -173,6 +173,10 @@
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="Ninject, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Ninject.3.2.0.0\lib\net45-full\Ninject.dll</HintPath>
@@ -1014,6 +1018,7 @@
     <Compile Include="UserInterface\Dialogs\Models\ScriptingModels\SchemeHandlers\ArchiveSchemeHandler.cs" />
     <Compile Include="UserInterface\Dialogs\Models\ScriptingModels\SchemeHandlers\EmbeddedResourceSchemeHandler.cs" />
     <Compile Include="UserInterface\Dialogs\Models\ScriptingModels\ScriptingModel.cs" />
+    <Compile Include="UserInterface\Dialogs\Models\ScriptingModels\Wrappers\ResultWrapper.cs" />
     <Compile Include="UserInterface\Dialogs\Properties\PropertyNotifyBase.cs" />
     <Compile Include="UserInterface\Dialogs\Wrappers\TimedMessageWrapper.cs" />
     <Compile Include="Utilities\CertificateUtilities.cs" />
@@ -1114,7 +1119,7 @@
     <EmbeddedResource Include="Content\Html\RelaunchAdmin.html" />
     <EmbeddedResource Include="Content\Html\RestartComputer.html" />
     <EmbeddedResource Include="Content\Html\AdvancedMenu.html" />
-    <Content Include="Content\Html\Scripts\incert-advanced-menu.js" />
+    <EmbeddedResource Include="Content\Html\Scripts\inCert-advanced-menu.js" />
     <Content Include="Content\InCommon\archive\AdvancedMenu.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

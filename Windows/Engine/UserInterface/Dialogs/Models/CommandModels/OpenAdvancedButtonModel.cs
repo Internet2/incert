@@ -9,13 +9,13 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.CommandModels
 {
     class OpenAdvancedButtonModel : AbstractCommandModel
     {
-        private readonly IHasEngineFields _engine;
+        private readonly IEngine _engine;
         private readonly string _group;
         private ICommand _command;
         private IAdvancedMenuManager _advancedMenuManager;
 
 
-        public OpenAdvancedButtonModel(AbstractDialogModel model, IHasEngineFields engine, string group)
+        public OpenAdvancedButtonModel(AbstractDialogModel model, IEngine engine, string group)
             : base(model)
         {
             _engine = engine;

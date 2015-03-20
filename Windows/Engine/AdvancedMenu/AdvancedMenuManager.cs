@@ -3,15 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Media;
 using System.Xml.Linq;
-using Org.InCommon.InCert.Engine.Importables;
-using Org.InCommon.InCert.Engine.Logging;
 using log4net;
-using Org.InCommon.InCert.Engine.Dynamics;
 using Org.InCommon.InCert.Engine.Engines;
 using Org.InCommon.InCert.Engine.Extensions;
+using Org.InCommon.InCert.Engine.Importables;
+using Org.InCommon.InCert.Engine.Logging;
 using Org.InCommon.InCert.Engine.Results;
 using Org.InCommon.InCert.Engine.Results.ControlResults;
-using Org.InCommon.InCert.Engine.Settings;
+using Org.InCommon.InCert.Engine.Tasks.UserInterface;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels;
 
 namespace Org.InCommon.InCert.Engine.AdvancedMenu
@@ -114,17 +113,39 @@ namespace Org.InCommon.InCert.Engine.AdvancedMenu
         public string CloseButtonImageKey { get; set; }
         public string CloseButtonMouseOverImageKey { get; set; }
 
-        public IResult ShowAdvancedMenu(IHasEngineFields engine, AbstractDialogModel parent, string group = "")
+        public IResult ShowAdvancedMenu(IEngine engine, AbstractDialogModel parent, string group = "")
         {
-            var left = parent.DialogInstance.Left;
-            var top = parent.DialogInstance.Top;
+            try
+            {
+                var task = new ShowHtmlBannerModal(engine)
+                {
+                    Dialog = "Advanced Menu Dialog",
+                    ParentDialog = parent.DialogKey,
+                    Url = "resource://html/AdvancedMenu.html",
+                    Width = 600,
+                    Height = 600
+                };
 
-            var advancedMenuModel = new AdvancedMenuModel(engine, parent);
-            var resolvedGroup = engine.ValueResolver.Resolve(group, true);
+                var result= task.Execute(new NextResult());
+                
+                if (!result.IsRestartOrExitResult()) return result;
+                
+                parent.Result = result;
+                parent.SuppressCloseQuestion = true;
+                parent.DialogInstance.Close();
 
-            advancedMenuModel.ShowDialog(left, top, resolvedGroup);
+                return result;
+            }
+            finally
+            {
+                var closeDialogTask = new HideDialog(engine)
+                {
+                    Dialog = "Advanced Menu Dialog"
+                };
+                closeDialogTask.Execute(new NextResult());    
+            }
+            
 
-            return advancedMenuModel.Result;
         }
     }
 }

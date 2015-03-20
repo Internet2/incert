@@ -12,79 +12,122 @@
     <title></title>
 
     <style>
+        .header {
+            height: 108px;
+            max-height: 108px;
+            overflow: hidden
+        }
+
+        .expandable {
+            
+        }
+
+        h4.menu-group-title {
+            margin-top: 1em;
+            font-weight: bold;
+        }
+
+            h4.menu-group-title.disabled {
+                opacity: .5;
+            }
+
         div.menu-item {
             text-align: center;
+            vertical-align: top;
+            padding-top: .25em;
+            padding-bottom: .25em;
+            padding-left: .5em;
+            padding-right: .5em;
         }
 
         a.menu-item-title {
             text-align: center;
             cursor: pointer;
-            text-decoration: none
-       }
-
-        a.menu-item-title.focused {
-            font-weight: bolder
+            text-decoration: none;
         }
+
+            a.menu-item-title.focused {
+                font-weight: bolder;
+            }
+
+            a.menu-item-title.disabled {
+                cursor: default;
+                opacity: .5;
+            }
 
         button.number-circle {
             border-radius: 50%;
             width: 60px;
             height: 60px;
             background-color: white;
-            color: #4f7fb0; 
+            color: #4f7fb0;
             border: 4px solid;
             text-align: center;
             font-size: 32px;
             margin-bottom: 8px;
             margin-top: 8px;
             font-family: monospace;
-            outline: 0
+            outline: 0;
         }
 
-        /*button.number-circle:focus {
-            color: white;
-            background-color: #4f7fb0;
-            outline: 0
-        }*/
+            button.number-circle.disabled {
+                opacity: .5;
+            }
 
-       /* button.number-circle:hover {
-            color: white;
-            background-color: #4f7fb0;
-            outline: 0
-        }*/
+            button.number-circle.focused {
+                color: white;
+                background-color: #4f7fb0;
+                outline: 0;
+            }
 
-        button.number-circle.focused {
-            color: white;
-            background-color: #4f7fb0;
-            outline: 0
+        html {
+            position: relative;
+            min-height: 100%;
         }
 
+        body {
+            /* Margin bottom by footer height */
+            margin-bottom: 60px;
+            background-color: white;
+        }
 
-
+        .footer {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            /* Set the fixed height of the footer here */
+            height: 60px;
+            background-color: #4f7fb0;
+            padding-top: 1em;
+        }
     </style>
 </head>
+
 <body>
-    <div class="container-fluid">
-        <div class="row" style="background-color: #4f7fb0; color: white">
-            <div class="col-sm-12">
-                <h3 data-advanced-menu-title="Advanced Support Tools"></h3>
-                <p data-advanced-menu-description="To begin, select a support tool from the list below."></p>
-            </div>
-        </div>
-        <div data-advanced-menu-items-container style="background: white; color: #4f7fb0; padding: 1em; overflow-y: scroll; overflow-x:hidden"></div>
-    </div>
-        
-        <nav class="navbar navbar-fixed-bottom">
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <button type="button" class="btn btn-default pull-left" data-help-button data-help-topic="[generic issue retry banner help topic]" data-show data-if-help-topic-exists>Help</button>
-                        <button type="button" class="btn btn-default pull-right" data-repeat-branching-task-result style="margin-left: .75em">Retry</button>
-                        <button type="button" class="btn btn-default pull-right" data-stored-result-button data-setting="generic issue retry banner stored result">Cancel</button>
-                    </div>
+    <div style="background-color: #4f7fb0" class="header">
+        <div class="container">
+            <div class="row" style="background-color: #4f7fb0; color: white">
+                <div class="col-sm-12">
+                    <h3 data-advanced-menu-title="Advanced Support Tools"></h3>
+                    <p data-advanced-menu-description="To begin, select a support tool from the list below."></p>
                 </div>
             </div>
-        </nav>
+        </div>
+    </div>
+    <div class="expandable container" style="background: white; color: #4f7fb0; padding: 1em; overflow-y: auto; overflow-x: hidden;">
+        <div data-advanced-menu-items-container></div>
+    </div>
     
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <button type="button" class="btn btn-default pull-left" data-help-button data-help-topic="advanced menu" data-show data-if-help-topic-exists>Help</button>
+                    <button type="button" class="btn btn-default pull-right" data-next-button>Close</button>
+                </div>
+            </div>
+        </div>
+    </footer>
+
 </body>
 </html>

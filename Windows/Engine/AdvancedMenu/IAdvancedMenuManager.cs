@@ -13,7 +13,7 @@ namespace Org.InCommon.InCert.Engine.AdvancedMenu
         bool ImportItemsFromXml(XElement node);
         bool ImportItems(List<AdvancedMenuItem> items);
 
-        IResult ShowAdvancedMenu(IHasEngineFields engine, AbstractDialogModel parent, string group = "");
+        IResult ShowAdvancedMenu(IEngine engine, AbstractDialogModel parent, string group = "");
 
         void Initialize();
         

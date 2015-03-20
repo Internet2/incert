@@ -1,4 +1,5 @@
-﻿using Org.InCommon.InCert.Engine.Dynamics;
+﻿using Newtonsoft.Json;
+using Org.InCommon.InCert.Engine.Dynamics;
 using Org.InCommon.InCert.Engine.Importables;
 using Org.InCommon.InCert.Engine.Engines;
 
@@ -84,6 +85,73 @@ namespace Org.InCommon.InCert.Engine.AdvancedMenu
                 return false;
 
             return true;
+        }
+    }
+
+    public class AdvancedMenuExportable : IAdvancedMenuItem
+    {
+        public AdvancedMenuExportable(IAdvancedMenuItem menuItem)
+        {
+            Show = menuItem.Show;
+            Group = menuItem.Group;
+            ButtonText = menuItem.ButtonText;
+            Branch = menuItem.Branch;
+            Title = menuItem.Title;
+            Description = menuItem.Description;
+            WorkingTitle = menuItem.WorkingTitle;
+            WorkingDescription = menuItem.WorkingDescription;
+        }
+
+        [JsonProperty("show")]
+        public bool Show { get; private set; }
+
+        [JsonProperty("group")]
+        public string Group
+        {
+            get;
+            set;
+        }
+
+        [JsonProperty("buttonText")]
+        public string ButtonText
+        {
+            get;
+            set;
+        }
+
+        [JsonProperty("branch")]
+        public string Branch
+        {
+            get;
+            set;
+        }
+
+        [JsonProperty("title")]
+        public string Title
+        {
+            get;
+            set;
+        }
+
+        [JsonProperty("description")]
+        public string Description
+        {
+            get;
+            set;
+        }
+
+        [JsonProperty("workingTitle")]
+        public string WorkingTitle
+        {
+            get;
+            set;
+        }
+
+        [JsonProperty("workingDescription")]
+        public string WorkingDescription
+        {
+            get;
+            set;
         }
     }
 }

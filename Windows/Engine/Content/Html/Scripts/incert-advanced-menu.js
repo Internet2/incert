@@ -1,6 +1,8 @@
-﻿(function() {
+﻿(function () {
+    var runningItem = false;
+
     function initializeTitle() {
-        $.each($("[data-advanced-menu-title]"), function() {
+        $.each($("[data-advanced-menu-title]"), function () {
             $(this).text($(this).data("advanced-menu-title"));
         });
     };
@@ -11,53 +13,108 @@
         });
     }
 
+    function setTitle(value) {
+        $("[data-advanced-menu-title]").text(engine.resolveValue(value));
+    }
+
+    function setDescription(value) {
+        $("[data-advanced-menu-description]").text(engine.resolveValue(value));
+    }
+
     function addGroupElements() {
         var target = $("[data-advanced-menu-items-container]");
-        console.log(target);
-        var groups = groupItems(engine.getAdvancedMenuItems());
+
+        var items = deserializeItems();
+        var groups = groupItems(items);
         for (var propertyName in groups) {
             if (groups.hasOwnProperty(propertyName)) {
-                var titleElement = createGroupTitleElement(propertyName);
-                var itemsElement = createGroupItemsElement(groups[propertyName]);
-                target.append(titleElement);
-                target.append(itemsElement);
+                appendGroupTitleElement(propertyName, target);
+
+                addGroupItemsElement(groups[propertyName], target);
             }
         }
+        target.append(target);
     }
 
-    function createGroupTitleElement(name) {
-        var result = "<div class='row'><div class='col-sm-12'><h4>" + name + "</h4></div></div>";
-        return $(result);
+    function deserializeItems() {
+        return $.parseJSON(engine.getAdvancedMenuItems());
     }
 
-    function createGroupItemsElement(items) {
-        var rowElement = $("<div class='row'></div>");
-        $.each(items, function() {
-            var divElement = $("<div class='col-sm-2 menu-item'></div");
-            divElement.append(createItemButtonElement(this));
-            divElement.append(createItemTitleElement(this));
-            divElement.data("item", this);
-            divElement.hover(null, hoverOutHandler);
-            rowElement.append(divElement);
+    function appendGroupTitleElement(name, table) {
+        var element = $("<div class='row'><div class='col-xs-12'><h4 class='menu-group-title'>" + name + "</h4></div></div>");
+        table.append(element);
+    }
+
+    function adjustExpandable() {
+        var expandable = $(".expandable");
+        if (expandable.length === 0) {
+            return;
+        }
+
+        var siblingsHeight = 0;
+        expandable.siblings().each(function () {
+            console.log(this.clientHeight);
+            siblingsHeight = siblingsHeight + this.clientHeight;
         });
-       
-        return rowElement;
+
+        $(window).unbind("resize");
+        var expandableHeight = $(window).height() - siblingsHeight;
+        expandable.css("max-height", expandableHeight);
+
+        $(window).resize(adjustExpandable);
+
     }
 
-    function hoverInHandler() {
+    function addGroupItemsElement(items, table) {
+        var count = 0;
+
+        var rowElements = [];
+        var currentRow;
+        $.each(items, function () {
+            if (count === 0) {
+                rowElements.push($("<div class='row'></div>"));
+                currentRow = rowElements[rowElements.length - 1];
+            }
+
+            var cellElement = $("<div class='col-xs-2 menu-item'></div");
+            cellElement.append(createItemButtonElement(this));
+            cellElement.append(createItemTitleElement(this));
+            cellElement.data("item", this);
+            cellElement.hover(null, hoverOutHandler);
+
+            currentRow.append(cellElement);
+
+            count++;
+            if (count > 4) {
+                count = 0;
+            }
+        });
+
+        table.append(rowElements);
+    }
+
+    function hoverInHandler(event) {
+        if (runningItem) {
+            return;
+        }
+
         var container = $(event.target).closest(".menu-item");
         focusItems(container);
 
         var item = container.data("item");
         if (!item) return;
 
+        setTitle(item.title);
+        setDescription(item.description);
 
-        $("[data-advanced-menu-title]").text(engine.resolveValue(item.title));
-        $("[data-advanced-menu-description]").text(engine.resolveValue(item.description));
 
     }
 
-    function hoverOutHandler() {
+    function hoverOutHandler(event) {
+        if (runningItem) {
+            return;
+        }
+
         var container = $(event.target).closest(".menu-item");
         unfocusItems(container);
 
@@ -78,30 +135,16 @@
         var titleAnchor = $("<a href='' class='menu-item-title'></a>");
         titleAnchor.text(engine.resolveValue(item.title));
         titleAnchor.data("item", item);
-        titleAnchor.attr("id", item.key);
         titleAnchor.click(itemClickHandler);
         titleElement.append(titleAnchor);
         titleElement.hover(hoverInHandler);
         return titleElement;
     }
-    
-   /* function focusOutHandler(event) {
-        var container = $(event.target).closest(".menu-item");
-        
-        unfocusItems(container);
-      
-        if ($(event.relatedTarget).is("button.number-circle") || $(event.relatedTarget).is("a.menu-item-title")) {
-            return;
-        }
-        
-        initializeTitle();
-        initializeDescription();
-    }*/
 
     function itemClickHandler(event) {
-        console.log("click");
-     /*   event.preventDefault();
-        event.stopPropagation();
+        if (runningItem) {
+            return;
+        }
 
         var container = $(event.target).closest(".menu-item");
         if (!container) return;
@@ -109,22 +152,27 @@
         var item = container.data("item");
         if (!item) return;
 
-        focusItems(container);
-      
-        $("[data-advanced-menu-title]").text(engine.resolveValue(item.title));
-        $("[data-advanced-menu-description]").text(engine.resolveValue(item.description));*/
-    }
-    
-    function setStartIcon(target) {
-        var items = $(target).closest(".menu-item").find(".number-circle");
-        items.find("span").hide();
-        items.find("i").show();
+        setTitle(item.workingTitle);
+        setDescription(item.workingDescription);
+        console.log("click");
+
+        runningItem = true;
+        disableAllControls();
+        setTimeout(function () { engine.runTaskBranch(item.branch); }, 500);
+
     }
 
-    function removeStartIcon(target) {
-        var items = $(target).closest(".menu-item").find(".number-circle");
-        items.find("span").show();
-        items.find("i").hide();
+    function disableAllControls() {
+        $(":input").attr("disabled", true);
+        $(":button").attr("disabled", true);
+        $(".menu-item-title, .menu-group-title, .number-circle").removeClass("focused");
+        $(".menu-item-title, .menu-group-title, .number-circle").addClass("disabled");
+    }
+
+    function enableAllControls() {
+        $(":input").attr("disabled", false);
+        $(":button").attr("disabled", false);
+        $(".menu-item-title, .menu-group-title, .number-circle").removeClass("disabled");
     }
 
     function focusItems(container) {
@@ -174,8 +222,17 @@
         initializeTitle();
         initializeDescription();
         addGroupElements();
+        adjustExpandable();
+    });
+
+    $(document).on("engine_advanced_menu_branch_finish", function (event, data) {
+        enableAllControls();
+        initializeDescription();
+        initializeTitle();
+        runningItem = false;
+        console.log(data);
     });
 
 })();
 
-//initInCertAdvancedMenuSupport();
+

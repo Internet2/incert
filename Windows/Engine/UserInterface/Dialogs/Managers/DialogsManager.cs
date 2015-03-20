@@ -84,6 +84,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Managers
             }
 
             var dialog = Application.Current.CurrentKernel().Get<T>();
+            dialog.DialogKey = key;
             _dialogs[key] = dialog;
             
             return dialog;

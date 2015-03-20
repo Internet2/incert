@@ -31,6 +31,7 @@
         configureValidation();
     }
 
+
     function resolveValues() {
         $("[data-resolve]").each(function () {
             $(this).text(engine.resolveValue($(this).data("resolve")));
@@ -427,8 +428,8 @@
 
         engine.getAdvancedMenuItems = function () {
             var result = [];
-            for (var i = 1; i <= 10; i++) {
-                var group = i <= 5 ? "group1" : "group2";
+            for (var i = 1; i <= 15; i++) {
+                var group = i <= 9 ? "group1" : "group2";
                 result.push({
                     show: true,
                     group: group,
@@ -437,12 +438,19 @@
                     title: "title " + i,
                     description: "description " + i,
                     workingTitle: "working title " + i,
-                    workingDescription: "working description " + i,
-                    key: "item" + i
+                    workingDescription: "working description " + i
                 });
             }
 
-            return result;
+            return JSON.stringify(result, null, 2);
+        }
+
+        engine.runTaskBranch = function (branchName) {
+            console.log("simulating run task branch: " + branchName);
+            document.raiseEngineEvent("engine_advanced_menu_branch_start", {});
+            setTimeout(function() {
+                document.raiseEngineEvent("engine_advanced_menu_branch_finish", {});
+            }, 3000);
         }
 
     }
