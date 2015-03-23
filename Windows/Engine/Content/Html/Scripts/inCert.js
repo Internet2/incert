@@ -16,7 +16,6 @@
     }
 
     function globalInitialize() {
-        console.log("global initialize called");
         resolveValues();
         getInputValues();
         getCheckBoxValues();
@@ -504,7 +503,6 @@
         var targets = $("[data-task-message]:not([data-on-task-start]):not(data-on-task-finish)")
             .filter(selector);
 
-        console.log(targets);
         targets.text(message);
     }
 

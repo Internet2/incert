@@ -53,7 +53,6 @@
 
         var siblingsHeight = 0;
         expandable.siblings().each(function () {
-            console.log(this.clientHeight);
             siblingsHeight = siblingsHeight + this.clientHeight;
         });
 
@@ -154,12 +153,20 @@
 
         setTitle(item.workingTitle);
         setDescription(item.workingDescription);
-        console.log("click");
 
         runningItem = true;
         disableAllControls();
+        showEllipsis();
         setTimeout(function () { engine.runTaskBranch(item.branch); }, 500);
 
+    }
+
+    function showEllipsis() {
+        $(".ellipsis").show();
+    }
+
+    function hideEllipsis() {
+        $(".ellipsis").hide();
     }
 
     function disableAllControls() {
@@ -218,19 +225,20 @@
     }
 
     $(document).ready(function () {
-        console.log("initializing advanced menu");
         initializeTitle();
         initializeDescription();
+        hideEllipsis();
         addGroupElements();
         adjustExpandable();
+
     });
 
     $(document).on("engine_advanced_menu_branch_finish", function (event, data) {
         enableAllControls();
         initializeDescription();
         initializeTitle();
+        hideEllipsis();
         runningItem = false;
-        console.log(data);
     });
 
 })();

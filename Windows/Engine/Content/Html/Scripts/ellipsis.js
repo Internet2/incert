@@ -18,7 +18,6 @@
             run: false,
             timer: null,
             start: function () {
-                console.log("starting");
                 var t = this;
                 this.run = true;
                 this.timer = setInterval(function () {
@@ -29,7 +28,6 @@
                 }, 500);
             },
             stop: function () {
-                console.log("stopping");
                 this.run = false;
                 clearInterval(this.timer);
                 this.count = 0;
