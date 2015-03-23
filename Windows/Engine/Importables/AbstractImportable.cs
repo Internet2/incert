@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.Serialization;
 using System.Xml;
 using System.Xml.Linq;
 using Org.InCommon.InCert.Engine.AdvancedMenu;
@@ -21,6 +22,8 @@ using Org.InCommon.InCert.Engine.Dynamics;
 
 namespace Org.InCommon.InCert.Engine.Importables
 {
+    [DataContract]
+    [KnownType(typeof(AbstractDynamicPropertyContainer))]
     public abstract class AbstractImportable : IImportable, IHasEngineFields
     {
         private static readonly ILog Log = Logger.Create();

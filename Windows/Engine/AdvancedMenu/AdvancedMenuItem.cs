@@ -7,6 +7,7 @@ using Org.InCommon.InCert.Engine.Importables;
 
 namespace Org.InCommon.InCert.Engine.AdvancedMenu
 {
+    [DataContract]
     public class AdvancedMenuItem : AbstractDynamicPropertyContainer, IAdvancedMenuItem
     {
         public AdvancedMenuItem(IEngine engine)
@@ -16,6 +17,7 @@ namespace Org.InCommon.InCert.Engine.AdvancedMenu
 
         public bool Show { get { return true; } }
 
+        [DataMember(Name = "group", Order = 1)]
         [PropertyAllowedFromXml]
         public string Group
         {
@@ -23,6 +25,7 @@ namespace Org.InCommon.InCert.Engine.AdvancedMenu
             set { SetDynamicValue(value); }
         }
 
+        [DataMember(Name = "buttonText", Order = 2)]
         [PropertyAllowedFromXml]
         public string ButtonText
         {
@@ -30,6 +33,7 @@ namespace Org.InCommon.InCert.Engine.AdvancedMenu
             set { SetDynamicValue(value); }
         }
 
+        [DataMember(Name = "branch", Order = 3)]
         [PropertyAllowedFromXml]
         public string Branch
         {
@@ -37,6 +41,7 @@ namespace Org.InCommon.InCert.Engine.AdvancedMenu
             set { SetDynamicValue(value); }
         }
 
+        [DataMember(Name = "title", Order = 4)]
         [PropertyAllowedFromXml]
         public string Title
         {
@@ -44,14 +49,15 @@ namespace Org.InCommon.InCert.Engine.AdvancedMenu
             set { SetDynamicValue(value); }
         }
 
+        [DataMember(Name = "description", Order = 5)]
         [PropertyAllowedFromXml]
         public string Description
         {
             get { return GetDynamicValue(); }
             set { SetDynamicValue(value); }
         }
-
-
+        
+        [DataMember(Name = "workingTitle", Order = 6)]
         [PropertyAllowedFromXml]
         public string WorkingTitle
         {
@@ -59,6 +65,7 @@ namespace Org.InCommon.InCert.Engine.AdvancedMenu
             set { SetDynamicValue(value); }
         }
 
+        [DataMember(Name = "workingDescription", Order = 7)]
         [PropertyAllowedFromXml]
         public string WorkingDescription
         {
@@ -87,102 +94,6 @@ namespace Org.InCommon.InCert.Engine.AdvancedMenu
                 return false;
 
             return true;
-        }
-    }
-
-    [DataContract]
-    public class AdvancedMenuExportable : IAdvancedMenuItem
-    {
-        public AdvancedMenuExportable(IAdvancedMenuItem menuItem)
-        {
-            Show = menuItem.Show;
-            Group = menuItem.Group;
-            ButtonText = menuItem.ButtonText;
-            Branch = menuItem.Branch;
-            Title = menuItem.Title;
-            Description = menuItem.Description;
-            WorkingTitle = menuItem.WorkingTitle;
-            WorkingDescription = menuItem.WorkingDescription;
-        }
-
-        [DataMember(Name = "show", Order = 1)]
-        public bool Show { get; private set; }
-
-        [DataMember(Name = "group", Order = 2)]
-        public string Group
-        {
-            get;
-            set;
-        }
-
-        [DataMember(Name = "buttonText", Order = 3)]
-        public string ButtonText
-        {
-            get;
-            set;
-        }
-
-        [DataMember(Name = "branch", Order = 4)]
-        public string Branch
-        {
-            get;
-            set;
-        }
-
-        [DataMember(Name = "title", Order = 5)]
-        public string Title
-        {
-            get;
-            set;
-        }
-
-        [DataMember(Name = "description", Order = 6)]
-        public string Description
-        {
-            get;
-            set;
-        }
-
-        [DataMember(Name = "workingTitle", Order = 7)]
-        public string WorkingTitle
-        {
-            get;
-            set;
-        }
-
-        [DataMember(Name = "workingDescription", Order = 8)]
-        public string WorkingDescription
-        {
-            get;
-            set;
-        }
-
-        public string ToJson()
-        {
-            var serializer = new DataContractJsonSerializer(GetType());
-            using (var stream = new MemoryStream())
-            {
-                serializer.WriteObject(stream, this);
-                stream.Position = 0;
-                using (var reader = new StreamReader(stream))
-                {
-                    return reader.ReadToEnd();
-                }
-            }
-        }
-
-        public static string ToJson(AdvancedMenuExportable[] values)
-        {
-            var serializer = new DataContractJsonSerializer(typeof(AdvancedMenuExportable[]));
-            using (var stream = new MemoryStream())
-            {
-                serializer.WriteObject(stream, values);
-                stream.Position = 0;
-                using (var reader = new StreamReader(stream))
-                {
-                    return reader.ReadToEnd();
-                }
-            }
         }
     }
 }

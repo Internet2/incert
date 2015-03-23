@@ -3,6 +3,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using CefSharp.Wpf;
 using Org.InCommon.InCert.Engine.AdvancedMenu;
+using Org.InCommon.InCert.Engine.Dynamics;
 using Org.InCommon.InCert.Engine.Engines;
 using Org.InCommon.InCert.Engine.Extensions;
 using Org.InCommon.InCert.Engine.Help;
@@ -219,8 +220,8 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModel
                 return _dialogModel.DialogInstance.Dispatcher.Invoke(() => GetAdvancedMenuItems());
             }
 
-            var items = _engine.AdvancedMenuManager.Items.Values.Where(i => i.Show).Select(i => new AdvancedMenuExportable(i)).ToArray();
-            var result = AdvancedMenuExportable.ToJson(items);
+            var items = _engine.AdvancedMenuManager.Items.Values.Where(i => i.Show).ToArray(); 
+            var result = AbstractDynamicPropertyContainer.ToJson(items); 
             return result;
         }
 
