@@ -1116,6 +1116,7 @@
     <EmbeddedResource Include="Content\Html\RestartComputer.html" />
     <EmbeddedResource Include="Content\Html\AdvancedMenu.html" />
     <EmbeddedResource Include="Content\Html\Scripts\inCert-advanced-menu.js" />
+    <EmbeddedResource Include="Content\Html\Scripts\ellipsis.js" />
     <Content Include="Content\InCommon\archive\AdvancedMenu.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
