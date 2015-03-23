@@ -123,7 +123,9 @@ namespace Org.InCommon.InCert.Engine.AdvancedMenu
                     ParentDialog = parent.DialogKey,
                     Url = "resource://html/AdvancedMenu.html",
                     Width = 600,
-                    Height = 600
+                    Height = 600,
+                    XOffset = -100,
+                    YOffset = -100
                 };
 
                 var result= task.Execute(new NextResult());

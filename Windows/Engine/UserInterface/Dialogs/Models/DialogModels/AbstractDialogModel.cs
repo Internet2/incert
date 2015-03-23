@@ -516,7 +516,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
 
                 childDialog.DialogInstance.Hide();
                 childDialog.DialogInstance.Owner = DialogInstance;
-                childDialog.DialogInstance.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+                childDialog.DialogInstance.WindowStartupLocation = childDialog.StartupLocation;
                 childDialog.ShowInTaskbar = false;
                 childDialog.WindowStyle = WindowStyle.ToolWindow;
                 childDialog.SuppressCloseQuestion = true;
@@ -544,7 +544,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
                 var window = childDialog.DialogInstance;
                 window.Hide();
                 window.Owner = DialogInstance;
-                window.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+                window.WindowStartupLocation = childDialog.StartupLocation;
                 childDialog.ShowInTaskbar = false;
                 childDialog.WindowStyle = WindowStyle.ToolWindow;
                 childDialog.SuppressCloseQuestion = true;
@@ -587,6 +587,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
                     return;
                 }
 
+                closeWindow.StartupLocation = WindowStartupLocation.CenterOwner;
 
                 _dialogsManager.CancelPending = true;
 
@@ -606,6 +607,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
             }
             finally
             {
+                _dialogsManager.RemoveDialog("CloseWindow");
                 _dialogsManager.CancelPending = false;
             }
         }

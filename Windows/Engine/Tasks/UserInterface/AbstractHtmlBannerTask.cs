@@ -15,14 +15,15 @@ using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels;
 
 namespace Org.InCommon.InCert.Engine.Tasks.UserInterface
 {
-    public abstract class AbstractHtmlBannerTask:AbstractTask
+    public abstract class AbstractHtmlBannerTask : AbstractTask
     {
         private readonly string _identifier = Guid.NewGuid().ToString();
-     
-        protected AbstractHtmlBannerTask(IEngine engine) : base(engine)
+
+        protected AbstractHtmlBannerTask(IEngine engine)
+            : base(engine)
         {
         }
-        
+
         [PropertyAllowedFromXml]
         public string Url
         {
@@ -52,6 +53,12 @@ namespace Org.InCommon.InCert.Engine.Tasks.UserInterface
 
         [PropertyAllowedFromXml]
         public bool SuppressRetry { get; set; }
+
+        [PropertyAllowedFromXml]
+        public int XOffset { get; set; }
+
+        [PropertyAllowedFromXml]
+        public int YOffset { get; set; }
 
         internal static void SetAddress(AbstractDialogModel dialog, string url)
         {
@@ -88,14 +95,33 @@ namespace Org.InCommon.InCert.Engine.Tasks.UserInterface
 
             return task.Execute(issue);
         }
-        
+
+        protected void ConfigurePosition(AbstractDialogModel dialog, AbstractDialogModel parent)
+        {
+            if (parent == null)
+            {
+                dialog.StartupLocation = WindowStartupLocation.CenterScreen;
+                return;
+            }
+
+            if (XOffset == 0 && YOffset == 0)
+            {
+                dialog.StartupLocation = WindowStartupLocation.CenterOwner;
+                return;
+            }
+
+            dialog.StartupLocation = WindowStartupLocation.Manual;
+            dialog.Left = parent.Left + XOffset;
+            dialog.Top = parent.Top + YOffset;
+        }
+
         private bool PostProcessResult(IResult result)
         {
             if (SuppressRetry)
             {
                 return false;
             }
-            
+
             if (result.IsOk())
             {
                 return false;
@@ -105,7 +131,7 @@ namespace Org.InCommon.InCert.Engine.Tasks.UserInterface
             {
                 return false;
             }
-            
+
             var instance = result as CouldNotLoadHtmlContent;
             return instance != null && instance.IsExternalUrl;
         }
@@ -160,14 +186,14 @@ namespace Org.InCommon.InCert.Engine.Tasks.UserInterface
         public override void ConfigureFromNode(XElement node)
         {
             base.ConfigureFromNode(node);
-            
+
             if (Width <= 0) Width = 600;
             if (Height <= 0) Height = 600;
         }
 
         protected class DialogInstanceNotFound : Exception
         {
-            public string Dialog { get;  private set; }
+            public string Dialog { get; private set; }
 
             public DialogInstanceNotFound(string dialog)
             {
@@ -175,7 +201,7 @@ namespace Org.InCommon.InCert.Engine.Tasks.UserInterface
             }
         }
 
-        protected T GetBannerDialog<T>() where T:AbstractDialogModel
+        protected T GetBannerDialog<T>() where T : AbstractDialogModel
         {
             var result = DialogsManager.GetDialog<T>(Dialog);
             if (result == null)

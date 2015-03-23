@@ -24,6 +24,9 @@ namespace Org.InCommon.InCert.Engine.Tasks.UserInterface
                 DialogsManager.ActiveDialogKey = Dialog;
 
                 dialog.PreloadContent(banner);
+                
+                ConfigurePosition(dialog, parent);
+
                 SetAddress(dialog, Url);
 
                 var result = (parent == null)

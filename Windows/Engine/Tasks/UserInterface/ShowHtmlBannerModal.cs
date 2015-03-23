@@ -26,6 +26,8 @@ namespace Org.InCommon.InCert.Engine.Tasks.UserInterface
 
                 dialog.PreloadContent(banner);
                 
+                ConfigurePosition(dialog, parent);
+                
                 SetAddress(dialog, Url);
 
                 return (parent == null)

@@ -90,6 +90,16 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Managers
             return dialog;
         }
 
+        public void RemoveDialog(string key)
+        {
+            if (!_dialogs.ContainsKey(key))
+            {
+                return;
+            }
+
+            _dialogs.Remove(key);
+        }
+
         public AbstractDialogModel GetExistingDialog(string key)
         {
             if (string.IsNullOrWhiteSpace(key))
