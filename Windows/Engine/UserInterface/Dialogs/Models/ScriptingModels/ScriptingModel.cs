@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Runtime.InteropServices;
 using CefSharp.Wpf;
-using Newtonsoft.Json;
 using Org.InCommon.InCert.Engine.AdvancedMenu;
 using Org.InCommon.InCert.Engine.Engines;
 using Org.InCommon.InCert.Engine.Extensions;
@@ -221,7 +220,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModel
             }
 
             var items = _engine.AdvancedMenuManager.Items.Values.Where(i => i.Show).Select(i => new AdvancedMenuExportable(i)).ToArray();
-            var result = JsonConvert.SerializeObject(items);
+            var result = AdvancedMenuExportable.ToJson(items);
             return result;
         }
 

@@ -1,7 +1,9 @@
-﻿using Newtonsoft.Json;
+﻿using System.IO;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Json;
 using Org.InCommon.InCert.Engine.Dynamics;
-using Org.InCommon.InCert.Engine.Importables;
 using Org.InCommon.InCert.Engine.Engines;
+using Org.InCommon.InCert.Engine.Importables;
 
 namespace Org.InCommon.InCert.Engine.AdvancedMenu
 {
@@ -88,6 +90,7 @@ namespace Org.InCommon.InCert.Engine.AdvancedMenu
         }
     }
 
+    [DataContract]
     public class AdvancedMenuExportable : IAdvancedMenuItem
     {
         public AdvancedMenuExportable(IAdvancedMenuItem menuItem)
@@ -102,56 +105,84 @@ namespace Org.InCommon.InCert.Engine.AdvancedMenu
             WorkingDescription = menuItem.WorkingDescription;
         }
 
-        [JsonProperty("show")]
+        [DataMember(Name = "show", Order = 1)]
         public bool Show { get; private set; }
 
-        [JsonProperty("group")]
+        [DataMember(Name = "group", Order = 2)]
         public string Group
         {
             get;
             set;
         }
 
-        [JsonProperty("buttonText")]
+        [DataMember(Name = "buttonText", Order = 3)]
         public string ButtonText
         {
             get;
             set;
         }
 
-        [JsonProperty("branch")]
+        [DataMember(Name = "branch", Order = 4)]
         public string Branch
         {
             get;
             set;
         }
 
-        [JsonProperty("title")]
+        [DataMember(Name = "title", Order = 5)]
         public string Title
         {
             get;
             set;
         }
 
-        [JsonProperty("description")]
+        [DataMember(Name = "description", Order = 6)]
         public string Description
         {
             get;
             set;
         }
 
-        [JsonProperty("workingTitle")]
+        [DataMember(Name = "workingTitle", Order = 7)]
         public string WorkingTitle
         {
             get;
             set;
         }
 
-        [JsonProperty("workingDescription")]
+        [DataMember(Name = "workingDescription", Order = 8)]
         public string WorkingDescription
         {
             get;
             set;
+        }
+
+        public string ToJson()
+        {
+            var serializer = new DataContractJsonSerializer(GetType());
+            using (var stream = new MemoryStream())
+            {
+                serializer.WriteObject(stream, this);
+                stream.Position = 0;
+                using (var reader = new StreamReader(stream))
+                {
+                    return reader.ReadToEnd();
+                }
+            }
+        }
+
+        public static string ToJson(AdvancedMenuExportable[] values)
+        {
+            var serializer = new DataContractJsonSerializer(typeof(AdvancedMenuExportable[]));
+            using (var stream = new MemoryStream())
+            {
+                serializer.WriteObject(stream, values);
+                stream.Position = 0;
+                using (var reader = new StreamReader(stream))
+                {
+                    return reader.ReadToEnd();
+                }
+            }
         }
     }
 }
