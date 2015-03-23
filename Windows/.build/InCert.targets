@@ -20,8 +20,8 @@
     <DesktopShortcut Condition=" '$(DesktopShortcut)'== ''">1</DesktopShortcut>
     
     <!--certificate thumprint -->
-    <CertThumbprint Condition="'$(CertThumbprint)' == ''">59e8284092c07f03bfc61cb0811c6365f7a7b414</CertThumbprint>
-    <CertTimestampServer Condition="'$(CertTimestampServer)' == ''">http://tsa.starfieldtech.com</CertTimestampServer>
+    <CertThumbprint Condition="'$(CertThumbprint)' == ''"></CertThumbprint>
+    <CertTimestampServer Condition="'$(CertTimestampServer)' == ''"></CertTimestampServer>
     
     <!--.net 4.5 framework installer download url-->
     <NetFx45DownloadUrl>http://go.microsoft.com/?linkid=9816306</NetFx45DownloadUrl>

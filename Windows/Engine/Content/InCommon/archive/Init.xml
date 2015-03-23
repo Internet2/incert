@@ -63,19 +63,18 @@
         </Properties>
       </Settings.SetSettingText>
 
-   <!--   <WebServices.SetEndpointUrlForFunction>
+      <WebServices.SetEndpointUrlForFunction>
         <Properties>
           <Function>GetContent</Function>
           <Url>https://certdev0.incommontest.org/incommon/windows/content/</Url>
         </Properties>
       </WebServices.SetEndpointUrlForFunction>
--->
-      <WebServices.SetEndpointUrlForFunction>
+     <!-- <WebServices.SetEndpointUrlForFunction>
         <Properties>
           <Function>GetContent</Function>
           <Url>file:///c:/users/bmoberly/desktop/contenttest/</Url>
         </Properties>
-      </WebServices.SetEndpointUrlForFunction>
+      </WebServices.SetEndpointUrlForFunction>-->
 
       <WebServices.SetEndpointUrlForFunction>
         <Properties>
