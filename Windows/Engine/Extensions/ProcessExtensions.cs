@@ -197,7 +197,7 @@ namespace Org.InCommon.InCert.Engine.Extensions
             do
             {
                 process.WaitForExit(25);
-                Application.Current.DoEvents();
+                Application.Current.DoEvents(250);
             } while (!process.HasExited);
         }
 

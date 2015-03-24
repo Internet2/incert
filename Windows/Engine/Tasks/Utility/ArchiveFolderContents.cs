@@ -74,7 +74,7 @@ namespace Org.InCommon.InCert.Engine.Tasks.Utility
                 {
                     do
                     {
-                        Application.Current.DoEvents();
+                        Application.Current.DoEvents(250);
                         process.WaitForExit(5);
                     } while (!process.HasExited);
 

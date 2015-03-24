@@ -39,7 +39,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.ControlActions
 
             FocusManager.SetFocusedElement(model.RootDialogModel.DialogInstance, element);
             Keyboard.Focus(element);
-            Application.Current.DoEvents();
+            Application.Current.DoEvents(250);
         }
     }
 }

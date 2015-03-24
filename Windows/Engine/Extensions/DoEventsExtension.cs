@@ -27,9 +27,10 @@ namespace Org.InCommon.InCert.Engine.Extensions
         public static void DoEvents(this Application application, double milliseconds)
         {
             var frame = new DispatcherFrame();
+            
             var thread = new Thread(() =>
             {
-                Thread.Sleep(TimeSpan.FromSeconds(milliseconds));
+                Thread.Sleep(TimeSpan.FromMilliseconds(milliseconds));
                 frame.Continue = false;
             });
             thread.Start();

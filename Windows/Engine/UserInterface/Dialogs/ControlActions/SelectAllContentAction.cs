@@ -48,7 +48,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.ControlActions
                     target.Focus();
                 }
                 
-                Application.Current.DoEvents();
+                Application.Current.DoEvents(250);
             }
             catch (Exception e)
             {
