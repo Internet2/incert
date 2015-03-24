@@ -153,8 +153,7 @@ namespace Org.InCommon.InCert.Engine.Tasks.WindowsUpdate
                 if (DialogsManager.CancelRequested)
                     job.RequestAbort();
 
-                Thread.Sleep(5);
-                Application.Current.DoEvents();
+                Application.Current.DoEvents(250);
              } while (!job.IsCompleted);
         }
 

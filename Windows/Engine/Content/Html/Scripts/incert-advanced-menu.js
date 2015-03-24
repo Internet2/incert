@@ -157,7 +157,7 @@
         runningItem = true;
         disableAllControls();
         showEllipsis();
-        setTimeout(function () { engine.runTaskBranch(item.branch); }, 500);
+        setTimeout(function () { engine.runTaskBranch(item.branch); }, 1500);
 
     }
 

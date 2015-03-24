@@ -192,8 +192,7 @@ namespace Org.InCommon.InCert.Engine.Tasks.WindowsUpdate
                 downloadJob = downloader.BeginDownload(displayManager, displayManager, null);
                 while (!downloadJob.IsCompleted)
                 {
-                    System.Threading.Thread.Sleep(5);
-                    Application.Current.DoEvents();
+                    Application.Current.DoEvents(250);
 
                     if (DialogsManager.CancelRequested)
                     {
@@ -275,8 +274,7 @@ namespace Org.InCommon.InCert.Engine.Tasks.WindowsUpdate
                 SetCreepTimer(displayManager);
                 while (!installJob.IsCompleted)
                 {
-                    System.Threading.Thread.Sleep(5);
-                    Application.Current.DoEvents();
+                    Application.Current.DoEvents(250);
 
                     if (DialogsManager.CancelRequested)
                     {

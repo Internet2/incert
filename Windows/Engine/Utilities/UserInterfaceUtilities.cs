@@ -536,8 +536,7 @@ namespace Org.InCommon.InCert.Engine.Utilities
             TimeSpan elapsed;
             do
             {
-                Thread.Sleep(5);
-                Application.Current.DoEvents();
+                Application.Current.DoEvents(250);
                 elapsed = DateTime.UtcNow.Subtract(start);
             } while (elapsed.Duration().TotalSeconds <= interval.Duration().TotalSeconds);
         }

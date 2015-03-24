@@ -145,8 +145,7 @@ namespace Org.InCommon.InCert.Engine.Tasks.UserInterface
             }
             while (!model.IsLoaded)
             {
-                dialog.DialogInstance.Dispatcher.DoEvents();
-                Thread.Sleep(5);
+                Application.Current.DoEvents(250);
             }
 
             return dialog.Result ?? new NextResult();

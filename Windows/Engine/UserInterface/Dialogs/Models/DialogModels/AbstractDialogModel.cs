@@ -495,8 +495,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
             Result = null;
             do
             {
-                Application.Current.DoEvents();
-                Thread.Sleep(5);
+                Application.Current.DoEvents(250);
             } while (Result == null);
 
             return Result;

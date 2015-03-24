@@ -124,7 +124,7 @@
       <Network.Dhcp.EnableDhcp />
     </TaskBranch>
 
-    <TaskBranch name="advanced.support tools.open utility log" minimumBranchTime="3">
+    <TaskBranch name="advanced.support tools.open utility log" minimumBranchTime="30">
       <Utility.ExecuteUtilityNoWait>
         <Properties>
           <TargetPath>!SystemFolder!\Notepad.exe</TargetPath>

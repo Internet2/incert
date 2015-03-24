@@ -135,8 +135,7 @@ namespace Org.InCommon.InCert.Engine.TaskBranches
         {
             while (DialogsManager.CancelPending)
             {
-                Thread.Sleep(5);
-                Application.Current.DoEvents();
+                Application.Current.DoEvents(250);
             }
         }
 

@@ -164,8 +164,7 @@ namespace Org.InCommon.InCert.Engine.Tasks.Downloader
                     client.DownloadFileAsync(uri, targetPath, resultWrapper);
                     do
                     {
-                        Thread.Sleep(5);
-                        Application.Current.DoEvents();
+                        Application.Current.DoEvents(250);
 
                         // check for cancel
                         _cancelRequested = CancelRequested();

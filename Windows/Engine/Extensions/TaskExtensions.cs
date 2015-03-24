@@ -1,5 +1,4 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Windows;
 
 namespace Org.InCommon.InCert.Engine.Extensions
@@ -14,8 +13,7 @@ namespace Org.InCommon.InCert.Engine.Extensions
             while (!instance.IsCompleted && !instance.IsFaulted)
             {
                 instance.Wait(5);
-                Application.Current.DoEvents();
-                Thread.Sleep(5);
+                Application.Current.DoEvents(250);
             }
         }
 

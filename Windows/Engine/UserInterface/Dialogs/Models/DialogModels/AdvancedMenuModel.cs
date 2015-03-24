@@ -30,7 +30,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
         private readonly IHasEngineFields _engine;
         private readonly AbstractDialogModel _model;
         private readonly AdvancedMenuWindow _dialogInstance;
-        
+
         private string _title;
         private string _description;
         private bool _isEnabled;
@@ -133,11 +133,14 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
                        ?? _engine.AppearanceManager.BackgroundBrush;
             }
         }
-        
+
         public Brush ContainerBackground
         {
-            get { return _engine.AdvancedMenuManager.ContainerBackground 
-                ?? _engine.AppearanceManager.BodyTextBrush; }
+            get
+            {
+                return _engine.AdvancedMenuManager.ContainerBackground
+                    ?? _engine.AppearanceManager.BodyTextBrush;
+            }
         }
 
         public Brush Background
@@ -158,7 +161,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
         {
             get { return _engine.AdvancedMenuManager.TopBannerForeground ?? _engine.AppearanceManager.BodyTextBrush; }
         }
-        
+
         public AbstractDialogModel ParentModel
         {
             get { return _model; }
@@ -274,8 +277,6 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
             get { return _engine.AppearanceManager.DefaultFontFamily; }
         }
 
-       
-
         public List<AdvancedMenuItemContainer> Groups
         {
             get
@@ -285,7 +286,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
                         select model.Instance).ToList();
             }
         }
-        
+
         public void ShowDialog(double left, double top, string group)
         {
             try
@@ -297,8 +298,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
                 ScrollToGroup(group);
                 do
                 {
-                    Application.Current.DoEvents();
-                    Thread.Sleep(5);
+                    Application.Current.DoEvents(250);
                 } while (_dialogInstance.IsLoaded);
 
 
@@ -323,7 +323,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
 
             if (groupModel.Instance == null)
                 return;
-          
+
             LogicalTreeHelper.BringIntoView(groupModel.Instance);
         }
 

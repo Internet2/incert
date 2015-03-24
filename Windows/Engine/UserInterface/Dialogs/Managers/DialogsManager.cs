@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Windows;
+using System.Windows.Threading;
 using Ninject;
 using Org.InCommon.InCert.Engine.Extensions;
 using Org.InCommon.InCert.Engine.Logging;
@@ -48,16 +49,16 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Managers
             TimeSpan elapsed;
             do
             {
-                Thread.Sleep(5);
-                Application.Current.DoEvents();
+                Application.Current.DoEvents(250);
                 elapsed = DateTime.UtcNow.Subtract(start);
 
                 if (CancelRequested)
                     break;
 
             } while (elapsed.Duration().TotalSeconds <= interval.Duration().TotalSeconds);
+            Application.Current.DoEvents(interval.TotalMilliseconds);
         }
-
+        
         public IAppearanceManager AppearanceManager
         {
             get { return _appearanceManager; }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
@@ -22,6 +23,20 @@ namespace Org.InCommon.InCert.Engine.Extensions
             dispatcher.BeginInvoke(DispatcherPriority.Background, new ExitFrameHandler(frm => frm.Continue = false), frame);
             Dispatcher.PushFrame(frame);
         }
+
+        public static void DoEvents(this Application application, double milliseconds)
+        {
+            var frame = new DispatcherFrame();
+            var thread = new Thread(() =>
+            {
+                Thread.Sleep(TimeSpan.FromSeconds(milliseconds));
+                frame.Continue = false;
+            });
+            thread.Start();
+            Dispatcher.PushFrame(frame);
+        }
+
+
 
         public static bool InvokeIfRequired(this object target, Action action)
         {
