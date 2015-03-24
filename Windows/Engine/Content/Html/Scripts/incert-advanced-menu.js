@@ -105,8 +105,19 @@
 
         setTitle(item.title);
         setDescription(item.description);
+        showCogIcon(container);
+    }
 
+    function showCogIcon(container) {
+        var target = $(container).find(".itemIcon");
+        target.removeClass("fa-spin");
+        target.show();
+    }
 
+    function spinCogIcon(container) {
+        var target = $(container).find(".itemIcon");
+        target.addClass("fa-spin");
+        target.show();
     }
 
     function hoverOutHandler(event) {
@@ -119,11 +130,15 @@
 
         initializeTitle();
         initializeDescription();
+        hideIcons();
     }
 
     function createItemButtonElement(item) {
         var buttonElement = $("<button class='number-circle'></button>");
-        buttonElement.text(item.buttonText);
+        var cogElement = $("<i class='fa fa-fw fa-cog itemIcon'></i>");
+        cogElement.hide();
+        buttonElement.append(cogElement);
+        buttonElement.append($("<span class='itemText'>" + item.buttonText + "</span>"));
         buttonElement.click(itemClickHandler);
         buttonElement.hover(hoverInHandler);
         return buttonElement;
@@ -145,6 +160,8 @@
             return;
         }
 
+        event.preventDefault();
+
         var container = $(event.target).closest(".menu-item");
         if (!container) return;
 
@@ -156,23 +173,19 @@
 
         runningItem = true;
         disableAllControls();
-        showEllipsis();
+        spinCogIcon(container);
         setTimeout(function () { engine.runTaskBranch(item.branch); }, 1500);
 
     }
-
-    function showEllipsis() {
-        $(".ellipsis").show();
-    }
-
-    function hideEllipsis() {
-        $(".ellipsis").hide();
+    
+    function hideIcons() {
+        $(".itemIcon").hide();
+        $(".itemText").show();
     }
 
     function disableAllControls() {
         $(":input").attr("disabled", true);
         $(":button").attr("disabled", true);
-        $(".menu-item-title, .menu-group-title, .number-circle").removeClass("focused");
         $(".menu-item-title, .menu-group-title, .number-circle").addClass("disabled");
     }
 
@@ -220,6 +233,19 @@
         return result;
     }
 
+    function resetHover() {
+        
+        $(".menu-item-title, .number-circle").removeClass("focused");
+        var current = $(".menu-item-title:hover, .number-circle:hover");
+        if (current.length === 0) {
+            return;
+        }
+        var container = $(current[0]).closest(".menu-item");
+        console.log(container);
+        focusItems(container);
+        showCogIcon(container);
+    }
+
     function groupValid(value) {
         return value && value.length > 0;
     }
@@ -227,7 +253,7 @@
     $(document).ready(function () {
         initializeTitle();
         initializeDescription();
-        hideEllipsis();
+        hideIcons();
         addGroupElements();
         adjustExpandable();
 
@@ -237,8 +263,10 @@
         enableAllControls();
         initializeDescription();
         initializeTitle();
-        hideEllipsis();
+        hideIcons();
+        resetHover();
         runningItem = false;
+       
     });
 
 })();

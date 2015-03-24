@@ -16,11 +16,10 @@
         .header {
             height: 108px;
             max-height: 108px;
-            overflow: hidden
+            overflow: hidden;
         }
 
         .expandable {
-            
         }
 
         h4.menu-group-title {
@@ -56,10 +55,18 @@
                 opacity: .5;
             }
 
+        i.itemIcon {
+           
+        }
+
+        span.itemText {
+            font-family: monospace;
+        }
+
         button.number-circle {
             border-radius: 50%;
-            width: 60px;
-            height: 60px;
+            width: 61px;
+            height: 61px;
             background-color: white;
             color: #4f7fb0;
             border: 4px solid;
@@ -67,18 +74,22 @@
             font-size: 32px;
             margin-bottom: 8px;
             margin-top: 8px;
-            font-family: monospace;
             outline: 0;
         }
 
             button.number-circle.disabled {
                 opacity: .5;
+                padding-top: 5px;
+                padding-left: 6px
             }
 
             button.number-circle.focused {
                 color: white;
                 background-color: #4f7fb0;
                 outline: 0;
+                padding-top: 5px;
+                padding-left: 6px;
+               
             }
 
         html {
@@ -110,7 +121,7 @@
             <div class="row" style="background-color: #4f7fb0; color: white">
                 <div class="col-sm-12">
                     <h3 data-advanced-menu-title="Advanced Support Tools"></h3>
-                    <p><span data-advanced-menu-description="To begin, select a support tool from the list below."></span><span class="ellipsis"></span></p>
+                    <p><span data-advanced-menu-description="To begin, select a support tool from the list below."></span></p>
                 </div>
             </div>
         </div>
@@ -118,7 +129,7 @@
     <div class="expandable container" style="background: white; color: #4f7fb0; padding: 1em; overflow-y: auto; overflow-x: hidden;">
         <div data-advanced-menu-items-container></div>
     </div>
-    
+
     <footer class="footer">
         <div class="container">
             <div class="row">
