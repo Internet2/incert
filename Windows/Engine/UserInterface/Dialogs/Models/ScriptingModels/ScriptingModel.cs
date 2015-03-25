@@ -153,6 +153,11 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModel
             _dialogModel.Result = new RestartComputerResult();
         }
 
+        public void ReturnBranchResult(string branch)
+        {
+            _dialogModel.Result = new BranchResult(branch);
+        }
+
         public void ReturnBackResult()
         {
             _dialogModel.Result = new BackResult();

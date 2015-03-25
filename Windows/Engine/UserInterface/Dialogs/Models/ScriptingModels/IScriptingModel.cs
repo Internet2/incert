@@ -25,6 +25,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModel
         void ReturnRepeatCurrentTaskResult();
         void ReturnRepeatParentBranchResult();
         void ReturnRestartComputerResult();
+        void ReturnBranchResult(string branch);
 
         // other results
         void ReturnErrorResult(string errorType);
