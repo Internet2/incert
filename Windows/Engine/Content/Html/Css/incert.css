@@ -26,6 +26,7 @@ button.startButton {
     border: solid 3px;
     font-size: 24pt;
     background: transparent;
+    outline: none;
 }
 
     button.startButton:hover {
