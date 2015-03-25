@@ -113,13 +113,20 @@
         </Properties>
       </Settings.SetSettingText>
 
-      <UserInterface.ShowBorderedBannerModal>
+     <!-- <UserInterface.ShowBorderedBannerModal>
         <Properties>
           <Dialog>Renew certificate dialog</Dialog>
           <Banner>Renew certificate banner</Banner>
         </Properties>
       </UserInterface.ShowBorderedBannerModal>
-
+-->
+      <UserInterface.ShowHtmlBannerModal>
+        <Properties>
+          <Dialog>Renew certificate dialog</Dialog>
+          <Url>resource://html/RenewCertificate.html</Url>
+        </Properties>
+      </UserInterface.ShowHtmlBannerModal>
+      
       <Control.ReturnBranchResult>
         <Conditions.All>
           <Settings.SettingEquals key="change certificate monitor options" value="true" ignoreCase="true"/>
@@ -161,6 +168,7 @@
           <Branch>Manage utility shortcut</Branch>
         </Properties>
       </Control.ReturnBranchResult>
+      <Control.ReturnLeaveBranchRepeatTaskResult />
       <Control.ReturnRepeatParentBranchResult />
     </TaskBranch>
 

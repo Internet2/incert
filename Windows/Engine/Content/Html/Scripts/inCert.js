@@ -1,4 +1,6 @@
 (function () {
+    var counter = 10;
+
     if (document.engineScriptVersion) {
         if (document.engineScriptVersion >= 1.0) {
             return;
@@ -29,7 +31,6 @@
         configureConditionalEnabledState();
         configureValidation();
     }
-
 
     function resolveValues() {
         $("[data-resolve]").each(function () {
@@ -67,6 +68,10 @@
         $("[data-repeat-current-task-result]").click(new genericButtonClickHandler("returnRepeatCurrentTaskResult").handler);
         $("[data-repeat-parent-branch-result]").click(new genericButtonClickHandler("returnRepeatParentBranchResult").handler);
         $("[data-restart-computer-result]").click(new genericButtonClickHandler("returnRestartComputerResult").handler);
+
+        $("[data-branch-button]").each(function () {
+            $(this).click(new genericButtonClickHandler("returnBranchResult", $(this).data("branch")).handler);
+        });
 
         $("[data-error-button]").click(returnErrorClickHandler);
 
@@ -306,7 +311,7 @@
         return data.id;
     }
 
-    function genericButtonClickHandler(method) {
+    function genericButtonClickHandler(method, arg) {
         function handler(event) {
             if (!validateForm(event.target)) {
                 return;
@@ -314,7 +319,11 @@
 
             event.stopImmediatePropagation();
 
-            engine[method]();
+            if (arg) {
+                engine[method](engine.resolveValue(arg));
+            } else {
+                engine[method]();
+            }
         }
 
         return {
@@ -399,6 +408,10 @@
             console.log("returning stored result for key " + key);
         }
 
+        engine.returnBranchResult = function (branch) {
+            console.log("returning branch result (branch = " + branch + ")");
+        }
+
         engine.showAdvancedMenu = function (group) {
             console.log("showing advanced menu (group = '" + group + "')");
         }
@@ -447,7 +460,7 @@
         engine.runTaskBranch = function (branchName) {
             console.log("simulating run task branch: " + branchName);
             document.raiseEngineEvent("engine_advanced_menu_branch_start", {});
-            setTimeout(function() {
+            setTimeout(function () {
                 document.raiseEngineEvent("engine_advanced_menu_branch_finish", {});
             }, 3000);
         }
