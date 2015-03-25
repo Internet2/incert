@@ -31,8 +31,7 @@ namespace Org.InCommon.InCert.Engine.Tasks.UserInterface
                 SetShadow(dialog);
                 DialogsManager.ActiveDialogKey = Dialog;
 
-                dialog.PreloadContent(banner);
-                SetAddress(dialog, Url);
+                dialog.PreloadHtmlContent(banner, Url);
                 
                 var result = (parent==null) 
                     ? dialog.ShowBanner(banner)

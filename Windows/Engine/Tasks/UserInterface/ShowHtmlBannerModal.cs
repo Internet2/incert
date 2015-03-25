@@ -24,12 +24,10 @@ namespace Org.InCommon.InCert.Engine.Tasks.UserInterface
 
                 DialogsManager.ActiveDialogKey = Dialog;
 
-                dialog.PreloadContent(banner);
+                dialog.PreloadHtmlContent(banner, Url);
                 
                 ConfigurePosition(dialog, parent);
                 
-                SetAddress(dialog, Url);
-
                 return (parent == null)
                     ? dialog.ShowBannerModal(banner)
                     : parent.ShowChildBannerModal(dialog, banner);

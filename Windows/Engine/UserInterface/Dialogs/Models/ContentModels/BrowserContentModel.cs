@@ -3,12 +3,10 @@ using System.Net;
 using CefSharp;
 using CefSharp.Wpf;
 using log4net;
-using Org.InCommon.InCert.Engine.Engines;
 using Org.InCommon.InCert.Engine.Extensions;
 using Org.InCommon.InCert.Engine.Logging;
 using Org.InCommon.InCert.Engine.Results.Errors.UserInterface;
 using Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.ContentControlWrappers;
-using Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.EventWrappers;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModels;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModels.LifespanHandlers;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModels.SchemeHandlers;
@@ -25,7 +23,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
         }
 
         public bool IsLoaded { get; private set; }
-      
+
         public string Address
         {
             get { return Browser.Address; }
@@ -46,6 +44,38 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
             }
         }
 
+        public string GetAddress()
+        {
+            if (!Browser.Dispatcher.CheckAccess())
+            {
+                return Browser.Dispatcher.Invoke(() => GetAddress());
+            }
+
+            return Browser.Address;
+        }
+
+        public void SetAddress(string value)
+        {
+            if (Browser.Dispatcher.InvokeIfRequired(() => SetAddress(value)))
+            {
+                return;
+            }
+            ;
+
+            Browser.Address = value;
+        }
+
+        public void Reload()
+        {
+            if (Browser.Dispatcher.InvokeIfRequired(Reload))
+            {
+                return;
+            }
+            ;
+
+            Browser.Reload();
+        }
+
         public override T LoadContent<T>(AbstractContentWrapper wrapper)
         {
             var content = new ChromiumWebBrowser();
@@ -64,20 +94,19 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
             content.ConsoleMessage += ConsoleMessageHandler;
             content.LoadError += OnContentLoadError;
             content.FrameLoadEnd += OnFrameLoadEnd;
-            
+
             Content = content;
 
             return content as T;
-
         }
-        
+
         private void OnFrameLoadEnd(object sender, FrameLoadEndEventArgs e)
         {
             if (sender.InvokeIfRequired(() => OnFrameLoadEnd(sender, e)))
             {
                 return;
             }
-            
+
             if (!e.IsMainFrame)
             {
                 return;
@@ -89,7 +118,6 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
             }
 
             IsLoaded = true;
-            
         }
 
         private void OnContentLoadError(object sender, LoadErrorEventArgs e)
@@ -98,7 +126,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
             {
                 return;
             }
-            
+
             if (e.ErrorCode == CefErrorCode.Aborted)
             {
                 return;
@@ -150,11 +178,8 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
             {
                 return;
             }
-            
+
             Log.DebugFormat("Javascript Console: {0}", e.Message);
         }
-
-        
-        
     }
 }

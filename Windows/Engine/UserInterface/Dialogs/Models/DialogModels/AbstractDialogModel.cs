@@ -301,17 +301,21 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
             return banner == null ? new BannerNotDefined { Banner = key } : ShowBanner(banner);
         }
 
-        public void PreloadContent(AbstractBanner banner)
+        public void PreloadHtmlContent(AbstractBanner banner, string url)
         {
             try
             {
                 SetNavigationModels(banner.GetButtons());
-                var content = new ContentPanelModel(this);
-                content.LoadContent<DependencyObject>(banner);
-
-                content.Padding = banner.Margin;
-                content.Background = AppearanceManager.GetBrushForColor(banner.Background, AppearanceManager.BackgroundBrush);
-
+                
+                if (!ShowingUrl(url))
+                {
+                    var content = new ContentPanelModel(this);
+                    content.LoadContent<DependencyObject>(banner);
+                    content.Padding = banner.Margin;
+                    content.Background = AppearanceManager.GetBrushForColor(banner.Background, AppearanceManager.BackgroundBrush);
+                    ContentModel = content;
+                }
+                
                 CanClose = banner.CanClose;
                 SuppressCloseQuestion = banner.SuppressCloseQuestion;
 
@@ -319,8 +323,9 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
                 Width = banner.Width;
                 Background = AppearanceManager.GetBrushForColor(banner.Background, AppearanceManager.BackgroundBrush);
                 Cursor = banner.Cursor;
-                ContentModel = content;
-                AddActions(banner.GetActions());
+
+                SetBrowserAddress(url);
+                
             }
             catch (Exception e)
             {
@@ -548,7 +553,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
                 childDialog.WindowStyle = WindowStyle.ToolWindow;
                 childDialog.SuppressCloseQuestion = true;
                 var result = childDialog.ShowBannerModal(banner);
-                window.Hide();
+                childDialog.HideDialog();
 
                 return result;
             }
@@ -591,8 +596,9 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
                 _dialogsManager.CancelPending = true;
 
                 var banner = GetConfirmCloseBanner();
-                closeWindow.PreloadContent(banner);
-                closeWindow.SetBrowserAddress("resource://html/ConfirmClose.html");
+                
+                closeWindow.PreloadHtmlContent(banner, "resource://html/ConfirmClose.html");
+                
                 var result = ShowChildBannerModal(closeWindow, banner);
                 if ((result as CloseResult) == null)
                 {
@@ -650,7 +656,42 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
                 throw new Exception("Could not retrieve browser content model");
             }
 
-            model.Address = url;
+            if (ShowingUrl(model, url))
+            {
+                model.Reload();
+            }
+            else
+            {
+                model.SetAddress(url);
+            }
+        }
+
+        private bool ShowingUrl(string url)
+        {
+            if (ContentModel == null)
+            {
+                return false;
+            }
+
+            var model = ContentModel.FindChildModel<BrowserContentModel>("browser");
+            return ShowingUrl(model, url);
+        }
+
+        private static bool ShowingUrl(BrowserContentModel browser, string url)
+        {
+            if (browser == null)
+            {
+                return false;
+            }
+
+            var address = browser.GetAddress();
+            if (string.IsNullOrWhiteSpace(address))
+            {
+                return false;
+
+            }
+
+            return address.Equals(url, StringComparison.InvariantCultureIgnoreCase);
         }
 
         public void EnableDisableAllControls(List<string> excludeList, bool enabled)

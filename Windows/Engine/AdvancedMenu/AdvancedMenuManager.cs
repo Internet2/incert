@@ -21,6 +21,8 @@ namespace Org.InCommon.InCert.Engine.AdvancedMenu
         private static readonly ILog Log = Logger.Create();
         public Dictionary<string, IAdvancedMenuItem> Items { get; private set; }
 
+        private ShowHtmlBannerModal ShowMenuTask;
+
         public AdvancedMenuManager()
         {
             Items = new Dictionary<string, IAdvancedMenuItem>();
@@ -29,6 +31,8 @@ namespace Org.InCommon.InCert.Engine.AdvancedMenu
             RunButtonText = "Run";
             CloseButtonText = "Close";
             HelpButtonText = "Help";
+
+
         }
 
         public bool ImportItemsFromXml(XElement node)
@@ -115,9 +119,9 @@ namespace Org.InCommon.InCert.Engine.AdvancedMenu
 
         public IResult ShowAdvancedMenu(IEngine engine, AbstractDialogModel parent, string group = "")
         {
-            try
+            if (ShowMenuTask == null)
             {
-                var task = new ShowHtmlBannerModal(engine)
+                ShowMenuTask = new ShowHtmlBannerModal(engine)
                 {
                     Dialog = "Advanced Menu Dialog",
                     ParentDialog = parent.DialogKey,
@@ -127,27 +131,17 @@ namespace Org.InCommon.InCert.Engine.AdvancedMenu
                     XOffset = -100,
                     YOffset = -100
                 };
-
-                var result= task.Execute(new NextResult());
-                
-                if (!result.IsRestartOrExitResult()) return result;
-                
-                parent.Result = result;
-                parent.SuppressCloseQuestion = true;
-                parent.DialogInstance.Close();
-
-                return result;
             }
-            finally
-            {
-                var closeDialogTask = new HideDialog(engine)
-                {
-                    Dialog = "Advanced Menu Dialog"
-                };
-                closeDialogTask.Execute(new NextResult());    
-            }
-            
 
+            var result = ShowMenuTask.Execute(new NextResult());
+
+            if (!result.IsRestartOrExitResult()) return result;
+
+            parent.Result = result;
+            parent.SuppressCloseQuestion = true;
+            parent.DialogInstance.Close();
+
+            return result;
         }
     }
 }
