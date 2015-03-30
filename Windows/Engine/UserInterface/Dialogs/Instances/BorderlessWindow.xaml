@@ -12,33 +12,30 @@
         Background="{Binding Background}"
         FontFamily="{Binding Font}" 
         ResizeMode="NoResize"
-        AllowsTransparency="True" 
+        AllowsTransparency="True"
         SizeToContent="WidthAndHeight"
         WindowStartupLocation="CenterScreen"
         ShowInTaskbar="{Binding ShowInTaskbar}"
         Cursor="{Binding Cursor}"
         d:DataContext="{d:DesignInstance Type=dialogModels:MockBorderlessModel, IsDesignTimeCreatable=True}"
-       
-        BorderThickness="10"
-        >
+        BorderThickness="10">
 
     <Window.Resources>
         <ResourceDictionary Source="CommonResources.xaml" />
     </Window.Resources>
 
     <Border Effect="{Binding DropShadow}">
-        <Grid  
-            Height="{Binding Height}"
-            Width="{Binding Width}"
-            MinHeight="{Binding Height}"
-            MinWidth="{Binding Width}"
-            MouseDown="GridMouseDownHandler" 
-            DataContext="{Binding ContentModel}" 
-            Cursor="{Binding Cursor}"
-            VerticalAlignment="Stretch"
-            HorizontalAlignment="Stretch">
-            <ContentPresenter Content="{Binding Content}" />
-
+        <Grid Width="{Binding Width}" Height="{Binding Height}" Cursor="{Binding Cursor}" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid DataContext="{Binding ContentModel}" Background="{Binding Background}">
+                <ContentPresenter Name="ContentGrid" Content="{Binding Content}" />
+            </Grid>
+            <Grid Background="Transparent" Name="OverlayGrid" MouseDown="GridMouseDownHandler"></Grid>
         </Grid>
     </Border>
 </Window>
