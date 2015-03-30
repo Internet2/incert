@@ -742,6 +742,7 @@
                   <xs:element name="Height" type="xs:int" minOccurs="0" maxOccurs="1" />
                   <xs:element name="XOffset" type="xs:int" minOccurs="0" maxOccurs="1" />
                   <xs:element name="YOffset" type="xs:int" minOccurs="0" maxOccurs="1" />
+                  <xs:element name="Cursor" type="Cursors" minOccurs="1" maxOccurs="1" />
                   <xs:element name="SuppressRetry" type="xs:int" minOccurs="0" maxOccurs="1" />
                 </xs:sequence>
               </xs:complexType>
@@ -767,6 +768,7 @@
                   <xs:element name="Height" type="xs:int" minOccurs="0" maxOccurs="1" />
                   <xs:element name="XOffset" type="xs:int" minOccurs="0" maxOccurs="1" />
                   <xs:element name="YOffset" type="xs:int" minOccurs="0" maxOccurs="1" />
+                  <xs:element name="Cursor" type="Cursors" minOccurs="1" maxOccurs="1" />
                   <xs:element name="SuppressRetry" type="xs:int" minOccurs="0" maxOccurs="1" />
                 </xs:sequence>
               </xs:complexType>
@@ -793,6 +795,7 @@
                   <xs:element name="XOffset" type="xs:int" minOccurs="0" maxOccurs="1" />
                   <xs:element name="YOffset" type="xs:int" minOccurs="0" maxOccurs="1" />
                   <xs:element name="Shadowed" type="xs:boolean" minOccurs="0" maxOccurs="1" />
+                  <xs:element name="Cursor" type="Cursors" minOccurs="1" maxOccurs="1" />
                   <xs:element name="SuppressRetry" type="xs:int" minOccurs="0" maxOccurs="1" />
                  </xs:sequence>
               </xs:complexType>

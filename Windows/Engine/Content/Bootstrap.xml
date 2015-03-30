@@ -146,6 +146,7 @@
           <Width>500</Width>
           <Height>400</Height>
           <Shadowed>true</Shadowed>
+          <Cursor>Wait</Cursor>
         </Properties>
       </UserInterface.ShowBorderlessHtmlBanner>
 

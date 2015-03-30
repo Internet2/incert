@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using System.Windows;
+using System.Windows.Input;
 using System.Xml.Linq;
 using Org.InCommon.InCert.Engine.Engines;
 using Org.InCommon.InCert.Engine.Extensions;
@@ -61,12 +62,17 @@ namespace Org.InCommon.InCert.Engine.Tasks.UserInterface
         [PropertyAllowedFromXml]
         public int YOffset { get; set; }
 
+        [PropertyAllowedFromXml]
+        public Cursor Cursor { get; set; }
+
         internal static void SetAddress(AbstractHtmlDialogModel dialog, string url)
         {
             dialog.SetBrowserAddress(url);
         }
 
         protected abstract IResult ShowBanner(IResult previousResults);
+
+        
 
         public override IResult Execute(IResult previousResults)
         {
@@ -159,28 +165,18 @@ namespace Org.InCommon.InCert.Engine.Tasks.UserInterface
             {
                 return banner;
             }
-
-            var wrapper = new BrowserContentWrapper(Engine)
-            {
-                Uri = new Uri(Url),
-                Padding = new Thickness(0),
-                Margin = new Thickness(0),
-                SilentMode = true,
-                ControlKey = "browser",
-                Width = Width,
-                Height = Height
-            };
-
+            
             banner = new HtmlBanner(Engine)
             {
                 Width = Width,
                 Height = Height,
                 CanClose = true,
                 Margin = new Thickness(0),
-                Url = Url
+                Url = Url,
+                Cursor = Cursor
             };
 
-            banner.AddMember(wrapper);
+            
             return BannerManager.SetBanner(_identifier, banner) as HtmlBanner;
         }
 

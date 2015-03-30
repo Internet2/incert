@@ -3,11 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.Serialization;
+using System.Windows.Input;
 using System.Xml;
 using System.Xml.Linq;
+using log4net;
 using Org.InCommon.InCert.Engine.AdvancedMenu;
 using Org.InCommon.InCert.Engine.CommandLineProcessors;
+using Org.InCommon.InCert.Engine.Dynamics;
 using Org.InCommon.InCert.Engine.Engines;
+using Org.InCommon.InCert.Engine.Extensions;
 using Org.InCommon.InCert.Engine.Help;
 using Org.InCommon.InCert.Engine.Logging;
 using Org.InCommon.InCert.Engine.Results.Errors.Mapping;
@@ -17,22 +21,76 @@ using Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.BannerWrappers;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Managers;
 using Org.InCommon.InCert.Engine.Utilities;
 using Org.InCommon.InCert.Engine.WebServices.Managers;
-using log4net;
-using Org.InCommon.InCert.Engine.Dynamics;
 
 namespace Org.InCommon.InCert.Engine.Importables
 {
     [DataContract]
-    [KnownType(typeof(AbstractDynamicPropertyContainer))]
+    [KnownType(typeof (AbstractDynamicPropertyContainer))]
     public abstract class AbstractImportable : IImportable, IHasEngineFields
     {
         private static readonly ILog Log = Logger.Create();
-
         private readonly List<string> _propertiesSpecified = new List<string>();
 
         protected AbstractImportable(IEngine engine)
         {
             Engine = engine;
+        }
+
+        public IEngine Engine { get; private set; }
+
+        public ISettingsManager SettingsManager
+        {
+            get { return Engine.SettingsManager; }
+        }
+
+        public IBranchManager BranchManager
+        {
+            get { return Engine.BranchManager; }
+        }
+
+        public ICommandLineManager CommandLineManager
+        {
+            get { return Engine.CommandLineManager; }
+        }
+
+        public IBannerManager BannerManager
+        {
+            get { return Engine.BannerManager; }
+        }
+
+        public IAppearanceManager AppearanceManager
+        {
+            get { return Engine.AppearanceManager; }
+        }
+
+        public IErrorManager ErrorManager
+        {
+            get { return Engine.ErrorManager; }
+        }
+
+        public IDialogsManager DialogsManager
+        {
+            get { return Engine.DialogsManager; }
+        }
+
+        public IHelpManager HelpManager
+        {
+            get { return Engine.HelpManager; }
+        }
+
+        public IAdvancedMenuManager AdvancedMenuManager
+        {
+            get { return Engine.AdvancedMenuManager; }
+        }
+
+        public IEndpointManager EndpointManager
+        {
+            get { return Engine.EndpointManager; }
+        }
+
+        public IValueResolver ValueResolver
+        {
+            get { return Engine.ValueResolver; }
         }
 
         public virtual void ConfigureFromNode(XElement element)
@@ -42,7 +100,6 @@ namespace Org.InCommon.InCert.Engine.Importables
 
             var methodsNode = element.Elements("Methods").FirstOrDefault();
             MapChildrenToMethods(methodsNode, this);
-
         }
 
         public virtual bool Initialized()
@@ -58,7 +115,7 @@ namespace Org.InCommon.InCert.Engine.Importables
             return _propertiesSpecified.Any(e => e.Equals(name));
         }
 
-        public static T GetInstanceFromNode<T>(XElement node) where T : class,IImportable
+        public static T GetInstanceFromNode<T>(XElement node) where T : class, IImportable
         {
             try
             {
@@ -68,7 +125,7 @@ namespace Org.InCommon.InCert.Engine.Importables
                 if (!XmlUtilities.IsContentNode(node))
                     return default(T);
 
-                var type = typeof(T);
+                var type = typeof (T);
                 var result = ReflectionUtilities.LoadFromAssembly<T>(node.Name.LocalName);
                 if (result == null)
                 {
@@ -162,12 +219,22 @@ namespace Org.InCommon.InCert.Engine.Importables
             {
                 var result = ConvertNodeToEnum(node, info);
                 if (result != null)
+                {
                     return result;
+                }
+
+                result = ConvertNodeToEnumClass(node, info);
+                if (result != null)
+                {
+                    return result;
+                }
 
                 result = ConvertNodeToImportable(node, info);
                 if (result != null)
+                {
                     return result;
-
+                }
+                    
                 var value = XmlUtilities.GetTextFromNode(node);
                 return Convert.ChangeType(value, info.PropertyType);
             }
@@ -199,19 +266,44 @@ namespace Org.InCommon.InCert.Engine.Importables
             }
         }
 
+        private static object ConvertNodeToEnumClass(XElement node, PropertyInfo info)
+        {
+            try
+            {
+                var value = XmlUtilities.GetTextFromNode(node);
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    throw new Exception("node must have a value set");
+                }
+
+                // right now only deal with cursor class
+                if (!(info.PropertyType == typeof (Cursor)))
+                {
+                    return null;
+                }
+
+                return value.ConvertToCursor();
+            }
+            catch (Exception e)
+            {
+                Log.Warn(e);
+                return null;
+            }
+        }
+
         private static object ConvertNodeToImportable(XElement node, PropertyInfo info)
         {
             try
             {
-                if (!info.PropertyType.GetInterfaces().Contains(typeof(IImportable)))
+                if (!info.PropertyType.GetInterfaces().Contains(typeof (IImportable)))
                     return null;
 
                 var method = info.PropertyType.GetMethod("GetInstanceFromNode", BindingFlags.Static | BindingFlags.Public | BindingFlags.FlattenHierarchy);
                 if (method == null)
                     return null;
 
-                var generic = method.MakeGenericMethod(new[] { info.PropertyType });
-                return generic.Invoke(null, new object[] { node });
+                var generic = method.MakeGenericMethod(info.PropertyType);
+                return generic.Invoke(null, new object[] {node});
             }
             catch (Exception e)
             {
@@ -279,22 +371,5 @@ namespace Org.InCommon.InCert.Engine.Importables
                 return null;
             }
         }
-
-        public IEngine Engine { get; private set; }
-        public ISettingsManager SettingsManager { get { return Engine.SettingsManager; } }
-        public IBranchManager BranchManager { get { return Engine.BranchManager; } }
-        public ICommandLineManager CommandLineManager { get { return Engine.CommandLineManager; } }
-        public IBannerManager BannerManager { get { return Engine.BannerManager; } }
-        public IAppearanceManager AppearanceManager { get { return Engine.AppearanceManager; } }
-        public IErrorManager ErrorManager { get { return Engine.ErrorManager; } }
-        public IDialogsManager DialogsManager { get { return Engine.DialogsManager; } }
-        public IHelpManager HelpManager { get { return Engine.HelpManager; } }
-        public IAdvancedMenuManager AdvancedMenuManager { get { return Engine.AdvancedMenuManager; } }
-        public IEndpointManager EndpointManager { get { return Engine.EndpointManager; } }
-        public IValueResolver ValueResolver { get { return Engine.ValueResolver; } }
     }
-
-
-
-
 }
