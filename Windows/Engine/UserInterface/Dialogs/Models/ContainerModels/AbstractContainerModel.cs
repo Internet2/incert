@@ -106,7 +106,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContainerModel
 
         public Cursor Cursor { get { return RootDialogModel.Cursor; } }
 
-        public AbstractBanner CurrentBanner { get; private set; }
+        public AbstractBanner CurrentBanner { get; protected set; }
         
         public virtual T LoadContent<T>(AbstractBanner banner) where T : DependencyObject
         {

@@ -776,6 +776,7 @@
     <Compile Include="Tasks\WindowsUpdate\StopService.cs" />
     <Compile Include="Tasks\Wireless\AddWirelessProfile.cs" />
     <Compile Include="UserInterface\ContentWrappers\BannerWrappers\BannerManager.cs" />
+    <Compile Include="UserInterface\ContentWrappers\BannerWrappers\HtmlBanner.cs" />
     <Compile Include="UserInterface\ContentWrappers\BannerWrappers\IBannerManager.cs" />
     <Compile Include="UserInterface\ContentWrappers\ButtonWrappers\AbstractButtonWrapper.cs" />
     <Compile Include="UserInterface\ContentWrappers\ButtonWrappers\OpenAdvancedMenuButton.cs" />
@@ -902,7 +903,7 @@
     </Compile>
     <Compile Include="UserInterface\Dialogs\Models\ContentModels\AdvancedMenuGroupModel.cs" />
     <Compile Include="UserInterface\Dialogs\Models\ContentModels\AdvancedMenuItemModel.cs" />
-    <Compile Include="UserInterface\Dialogs\Models\ContentModels\BrowserContentModel.cs" />
+    <Compile Include="UserInterface\Dialogs\Models\ContainerModels\BrowserContentModel.cs" />
     <Compile Include="UserInterface\Dialogs\Models\ContentModels\CheckedParagraphModel.cs" />
     <Compile Include="UserInterface\Dialogs\Models\ContentModels\FileBrowseButtonModel.cs" />
     <Compile Include="UserInterface\Dialogs\Models\ContentModels\FolderBrowseButtonModel.cs" />
@@ -910,6 +911,7 @@
     <Compile Include="UserInterface\Dialogs\Models\DialogModels\AdvancedMenuModel.cs" />
     <Compile Include="UserInterface\Dialogs\Models\DialogModels\BorderedChildDialogModel.cs" />
     <Compile Include="UserInterface\Dialogs\Models\DialogModels\BorderedDialogModel.cs" />
+    <Compile Include="UserInterface\Dialogs\Models\DialogModels\BorderedHtmlDialogModel.cs" />
     <Compile Include="UserInterface\Dialogs\Models\DialogModels\BorderlessChildDialogModel.cs" />
     <Compile Include="UserInterface\Dialogs\Models\DialogModels\BorderlessDialogModel.cs" />
     <Compile Include="UserInterface\Dialogs\Commands\AbstractButtonCommand.cs" />
@@ -974,7 +976,9 @@
     <Compile Include="UserInterface\Dialogs\Models\ContentModels\ProgressTextContentModel.cs" />
     <Compile Include="UserInterface\Dialogs\Models\ContentModels\TextContentModel.cs" />
     <Compile Include="UserInterface\Dialogs\Models\ContentModels\UpdatableTextContentModel.cs" />
+    <Compile Include="UserInterface\Dialogs\Models\DialogModels\BorderlessHtmlDialogModel.cs" />
     <Compile Include="UserInterface\Dialogs\Models\DialogModels\HelpDialogModel.cs" />
+    <Compile Include="UserInterface\Dialogs\Models\DialogModels\AbstractHtmlDialogModel.cs" />
     <Compile Include="UserInterface\Dialogs\Models\HyperlinkModels\ControlPanelHyperlinkModel.cs" />
     <Compile Include="UserInterface\Dialogs\Models\Mockup\ContentModels\MockAdvancedMenuGroupContainer.cs" />
     <Compile Include="UserInterface\Dialogs\Models\Mockup\ContentModels\MockAdvancedMenuItem.cs" />

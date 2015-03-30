@@ -1,23 +1,26 @@
 ﻿using System;
 using System.Net;
+using System.Windows;
 using CefSharp;
 using CefSharp.Wpf;
 using log4net;
 using Org.InCommon.InCert.Engine.Extensions;
 using Org.InCommon.InCert.Engine.Logging;
 using Org.InCommon.InCert.Engine.Results.Errors.UserInterface;
+using Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.BannerWrappers;
 using Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.ContentControlWrappers;
+using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModels;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModels.LifespanHandlers;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModels.SchemeHandlers;
 
-namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
+namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContainerModels
 {
-    public class BrowserContentModel : AbstractContentModel
+    public class BrowserContentModel : AbstractContainerModel
     {
-        private static readonly ILog Log = Logger.Create();
+       private static readonly ILog Log = Logger.Create();
 
-        public BrowserContentModel(AbstractModel parentModel)
+        public BrowserContentModel(AbstractDialogModel parentModel)
             : base(parentModel)
         {
         }
@@ -30,19 +33,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
             set { Browser.Address = value; }
         }
 
-        private ChromiumWebBrowser Browser
-        {
-            get
-            {
-                var browser = Content as ChromiumWebBrowser;
-                if (browser == null)
-                {
-                    throw new Exception("Could not convert content to Chromium Web Browser");
-                }
-
-                return browser;
-            }
-        }
+        public ChromiumWebBrowser Browser { get; set; }
 
         public string GetAddress()
         {
@@ -71,33 +62,49 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
             {
                 return;
             }
-            ;
-
+            
             Browser.Reload();
         }
 
         public override T LoadContent<T>(AbstractContentWrapper wrapper)
         {
-            var content = new ChromiumWebBrowser();
-            var browserWrapper = wrapper as BrowserContentWrapper;
-            if (browserWrapper == null)
-            {
-                throw new InvalidCastException("Could not cast wrapper to valid type");
-            }
+            throw new NotImplementedException();
+        }
 
-            content.RegisterJsObject("engine", new ScriptingModel(wrapper.Engine, RootDialogModel, content));
-            content.Width = browserWrapper.Width;
-            content.Height = browserWrapper.Height;
+        public override T LoadContent<T>(AbstractBanner banner)
+        {
+            Content = CreateInstance(banner);
+            Browser = Content as ChromiumWebBrowser;
+            return Content as T;
+        }
+        
+        protected override DependencyObject CreateInstance(AbstractBanner banner)
+        {
+            var content = new ChromiumWebBrowser { DataContext = this };
+            content.RegisterJsObject("engine", new ScriptingModel(banner.Engine, RootDialogModel, content));
 
             content.RequestHandler = new RequestHandler();
             content.LifeSpanHandler = new LifespanHandler();
             content.ConsoleMessage += ConsoleMessageHandler;
             content.LoadError += OnContentLoadError;
             content.FrameLoadEnd += OnFrameLoadEnd;
+            content.FrameLoadStart += OnFrameLoadStart;
+            return content;
+        }
 
-            Content = content;
+        private void OnFrameLoadStart(object sender, FrameLoadStartEventArgs e)
+        {
+            if (sender.InvokeIfRequired(() => OnFrameLoadStart(sender, e)))
+            {
+                return;
+            }
 
-            return content as T;
+            if (!e.IsMainFrame)
+            {
+                return;
+            }
+
+            IsLoaded = false;
         }
 
         private void OnFrameLoadEnd(object sender, FrameLoadEndEventArgs e)
@@ -181,5 +188,6 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels
 
             Log.DebugFormat("Javascript Console: {0}", e.Message);
         }
+
     }
 }

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Windows;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Effects;
 using Org.InCommon.InCert.Engine.Engines;
@@ -6,6 +8,7 @@ using Org.InCommon.InCert.Engine.Importables;
 using Org.InCommon.InCert.Engine.Results;
 using Org.InCommon.InCert.Engine.Results.Errors.General;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels;
+using Org.InCommon.InCert.Engine.Utilities;
 
 namespace Org.InCommon.InCert.Engine.Tasks.UserInterface
 {
@@ -23,15 +26,13 @@ namespace Org.InCommon.InCert.Engine.Tasks.UserInterface
         {
             try
             {
-                var dialog = GetBannerDialog<BorderlessDialogModel>();
+                var dialog = GetBannerDialog<BorderlessHtmlDialogModel>();
                 var parent = GetParentDialog();
 
                 var banner = GetOrCreateBanner();
 
                 SetShadow(dialog);
                 DialogsManager.ActiveDialogKey = Dialog;
-
-                dialog.PreloadHtmlContent(banner, Url);
                 
                 var result = (parent==null) 
                     ? dialog.ShowBanner(banner)
@@ -55,7 +56,7 @@ namespace Org.InCommon.InCert.Engine.Tasks.UserInterface
             }
         }
 
-        private void SetShadow(BorderlessDialogModel dialog)
+        private void SetShadow(BorderlessHtmlDialogModel dialog)
         {
             if (!Shadowed)
             {

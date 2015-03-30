@@ -16,14 +16,12 @@ namespace Org.InCommon.InCert.Engine.Tasks.UserInterface
         {
             try
             {
-                var dialog = GetBannerDialog<BorderedDialogModel>();
+                var dialog = GetBannerDialog<BorderedHtmlDialogModel>();
                 var parent = GetParentDialog();
 
                 var banner = GetOrCreateBanner();
 
                 DialogsManager.ActiveDialogKey = Dialog;
-
-                dialog.PreloadHtmlContent(banner, Url);
                 
                 ConfigurePosition(dialog, parent);
 

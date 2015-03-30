@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Threading;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -21,7 +20,6 @@ using Org.InCommon.InCert.Engine.UserInterface.Dialogs.ControlActions;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Managers;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.CommandModels;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContainerModels;
-using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Properties;
 using Org.InCommon.InCert.Engine.Utilities;
 
@@ -45,7 +43,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
 
         private readonly string _confirmCloseBannerIdentifier = Guid.NewGuid().ToString();
 
-        private readonly IDialogsManager _dialogsManager;
+        protected IDialogsManager DialogsManager { get; private set; }
         private readonly IBannerManager _bannerManager;
 
         private readonly IEngine _engine;
@@ -165,7 +163,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
         protected AbstractDialogModel(IEngine engine, Window dialogInstance)
         {
             AppearanceManager = engine.AppearanceManager;
-            _dialogsManager = engine.DialogsManager;
+            DialogsManager = engine.DialogsManager;
             _bannerManager = engine.BannerManager;
             _engine = engine;
             _dialogInstance = dialogInstance;
@@ -301,39 +299,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
             return banner == null ? new BannerNotDefined { Banner = key } : ShowBanner(banner);
         }
 
-        public void PreloadHtmlContent(AbstractBanner banner, string url)
-        {
-            try
-            {
-                SetNavigationModels(banner.GetButtons());
-                
-                if (!ShowingUrl(url))
-                {
-                    var content = new ContentPanelModel(this);
-                    content.LoadContent<DependencyObject>(banner);
-                    content.Padding = banner.Margin;
-                    content.Background = AppearanceManager.GetBrushForColor(banner.Background, AppearanceManager.BackgroundBrush);
-                    ContentModel = content;
-                }
-                
-                CanClose = banner.CanClose;
-                SuppressCloseQuestion = banner.SuppressCloseQuestion;
-
-                Height = banner.Height;
-                Width = banner.Width;
-                Background = AppearanceManager.GetBrushForColor(banner.Background, AppearanceManager.BackgroundBrush);
-                Cursor = banner.Cursor;
-
-                SetBrowserAddress(url);
-                
-            }
-            catch (Exception e)
-            {
-                Log.WarnFormat("An exception occurred while attempting to load banner content: {0}", e.Message);
-            }
-        }
-
-        private void LoadContent(AbstractBanner banner)
+        public virtual void LoadContent(AbstractBanner banner)
         {
             try
             {
@@ -374,7 +340,22 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
 
             var contentModel = ContentModel as AbstractContainerModel;
 
-            return contentModel != null && contentModel.CurrentBanner.Equals(banner);
+            if (contentModel == null)
+            {
+                return false;
+            }
+
+            if (contentModel is BrowserContentModel)
+            {
+                return true;
+            }
+
+            if (contentModel.CurrentBanner == null)
+            {
+                return false;
+            }
+
+            return contentModel.CurrentBanner.Equals(banner);
         }
 
         public IResult ShowBanner(AbstractBanner banner)
@@ -445,7 +426,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
             return !result.IsOk() ? result : WaitForResult();
         }
 
-        private void SetNavigationModels(List<AbstractButtonWrapper> buttons)
+        protected void SetNavigationModels(List<AbstractButtonWrapper> buttons)
         {
             var invisibleModel = new InvisibleCommandModel(this)
             {
@@ -583,7 +564,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
                     return;
                 }
 
-                var closeWindow = _dialogsManager.GetDialog<BorderedChildDialogModel>("CloseWindow");
+                var closeWindow = DialogsManager.GetDialog<BorderedHtmlDialogModel>("CloseWindow");
                 if (closeWindow == null)
                 {
                     Log.Warn("Could not obtain child dialog for the key 'CloseWindow'. Suppressing close dialog");
@@ -593,107 +574,50 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
 
                 closeWindow.StartupLocation = WindowStartupLocation.CenterOwner;
 
-                _dialogsManager.CancelPending = true;
+                DialogsManager.CancelPending = true;
 
                 var banner = GetConfirmCloseBanner();
                 
-                closeWindow.PreloadHtmlContent(banner, "resource://html/ConfirmClose.html");
+                closeWindow.LoadContent(banner);
                 
                 var result = ShowChildBannerModal(closeWindow, banner);
                 if ((result as CloseResult) == null)
                 {
                     Result = null;
-                    _dialogsManager.CancelRequested = false;
+                    DialogsManager.CancelRequested = false;
                     return;
                 }
 
-                _dialogsManager.CancelRequested = true;
+                DialogsManager.CancelRequested = true;
                 Result = result;
             }
             finally
             {
-                _dialogsManager.RemoveDialog("CloseWindow");
-                _dialogsManager.CancelPending = false;
+                DialogsManager.RemoveDialog("CloseWindow");
+                DialogsManager.CancelPending = false;
             }
         }
 
         private AbstractBanner GetConfirmCloseBanner()
         {
-            var banner = _bannerManager.GetBanner(_confirmCloseBannerIdentifier);
+            var banner = _bannerManager.GetBanner(_confirmCloseBannerIdentifier) as HtmlBanner;
             if (banner != null)
             {
                 return banner;
             }
 
-            var wrapper = new BrowserContentWrapper(_engine)
-            {
-                Uri = new Uri("resource://html/ConfirmClose.html"),
-                Padding = new Thickness(0),
-                Margin = new Thickness(0),
-                SilentMode = true,
-                ControlKey = "browser",
-                Width = 550,
-                Height = 400
-            };
-
-            banner = new SimpleBanner(_engine)
+            banner = new HtmlBanner(_engine)
             {
                 Width = 550,
                 Height = 400,
                 CanClose = false,
-                Margin = new Thickness(0)
+                Margin = new Thickness(0),
+                Url = "resource://html/ConfirmClose.html"
             };
-
-            banner.AddMember(wrapper);
+            
             return _bannerManager.SetBanner(_confirmCloseBannerIdentifier, banner);
         }
-
-        public void SetBrowserAddress(string url)
-        {
-            var model = ContentModel.FindChildModel<BrowserContentModel>("browser");
-            if (model == null)
-            {
-                throw new Exception("Could not retrieve browser content model");
-            }
-
-            if (ShowingUrl(model, url))
-            {
-                model.Reload();
-            }
-            else
-            {
-                model.SetAddress(url);
-            }
-        }
-
-        private bool ShowingUrl(string url)
-        {
-            if (ContentModel == null)
-            {
-                return false;
-            }
-
-            var model = ContentModel.FindChildModel<BrowserContentModel>("browser");
-            return ShowingUrl(model, url);
-        }
-
-        private static bool ShowingUrl(BrowserContentModel browser, string url)
-        {
-            if (browser == null)
-            {
-                return false;
-            }
-
-            var address = browser.GetAddress();
-            if (string.IsNullOrWhiteSpace(address))
-            {
-                return false;
-
-            }
-
-            return address.Equals(url, StringComparison.InvariantCultureIgnoreCase);
-        }
-
+        
         public void EnableDisableAllControls(List<string> excludeList, bool enabled)
         {
             EnableDisableCloseButton(enabled);
@@ -827,6 +751,8 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
 
             return modelList;
         }
+
+       
     }
 }
 

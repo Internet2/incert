@@ -10,6 +10,7 @@ using Org.InCommon.InCert.Engine.Results.ControlResults;
 using Org.InCommon.InCert.Engine.Results.Errors.UserInterface;
 using Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.BannerWrappers;
 using Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.ContentControlWrappers;
+using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContainerModels;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels;
 
@@ -60,7 +61,7 @@ namespace Org.InCommon.InCert.Engine.Tasks.UserInterface
         [PropertyAllowedFromXml]
         public int YOffset { get; set; }
 
-        internal static void SetAddress(AbstractDialogModel dialog, string url)
+        internal static void SetAddress(AbstractHtmlDialogModel dialog, string url)
         {
             dialog.SetBrowserAddress(url);
         }
@@ -136,9 +137,9 @@ namespace Org.InCommon.InCert.Engine.Tasks.UserInterface
             return instance != null && instance.IsExternalUrl;
         }
 
-        protected static IResult WaitForLoad(AbstractDialogModel dialog)
+        protected static IResult WaitForLoad(AbstractHtmlDialogModel dialog)
         {
-            var model = dialog.ContentModel.FindChildModel<BrowserContentModel>("browser");
+            var model = dialog.ContentModel as BrowserContentModel;
             if (model == null)
             {
                 return new NextResult();
@@ -151,9 +152,9 @@ namespace Org.InCommon.InCert.Engine.Tasks.UserInterface
             return dialog.Result ?? new NextResult();
         }
 
-        protected AbstractBanner GetOrCreateBanner()
+        protected HtmlBanner GetOrCreateBanner()
         {
-            var banner = BannerManager.GetBanner(_identifier);
+            var banner = BannerManager.GetBanner(_identifier) as HtmlBanner;
             if (banner != null)
             {
                 return banner;
@@ -170,16 +171,17 @@ namespace Org.InCommon.InCert.Engine.Tasks.UserInterface
                 Height = Height
             };
 
-            banner = new SimpleBanner(Engine)
+            banner = new HtmlBanner(Engine)
             {
                 Width = Width,
                 Height = Height,
                 CanClose = true,
-                Margin = new Thickness(0)
+                Margin = new Thickness(0),
+                Url = Url
             };
 
             banner.AddMember(wrapper);
-            return BannerManager.SetBanner(_identifier, banner);
+            return BannerManager.SetBanner(_identifier, banner) as HtmlBanner;
         }
 
         public override void ConfigureFromNode(XElement node)
@@ -200,7 +202,7 @@ namespace Org.InCommon.InCert.Engine.Tasks.UserInterface
             }
         }
 
-        protected T GetBannerDialog<T>() where T : AbstractDialogModel
+        protected T GetBannerDialog<T>() where T : AbstractHtmlDialogModel
         {
             var result = DialogsManager.GetDialog<T>(Dialog);
             if (result == null)

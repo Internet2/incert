@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Runtime.InteropServices;
 using CefSharp.Wpf;
+using Microsoft.VisualBasic.Logging;
 using Org.InCommon.InCert.Engine.AdvancedMenu;
 using Org.InCommon.InCert.Engine.Dynamics;
 using Org.InCommon.InCert.Engine.Engines;
@@ -88,8 +89,21 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModel
 
         private void RaiseEvent(string eventName, AbstractEventData e)
         {
-            var script = string.Format(EventScriptFormat, eventName, e.ToJson());
-            _browser.EvaluateScriptAsync(script);
+            try
+            {
+                if (_browser.Dispatcher.InvokeIfRequired(() => RaiseEvent(eventName, e)))
+                {
+                    return;
+                }
+                
+                var script = string.Format(EventScriptFormat, eventName, e.ToJson());
+                _browser.EvaluateScriptAsync(script);
+            }
+            catch (Exception ex)
+            {
+                var test = ex;
+            }
+            
         }
 
         public bool InCertPresent()

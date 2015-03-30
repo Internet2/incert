@@ -33,14 +33,10 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Grid DataContext="{Binding ContentModel}" Background="{Binding Background}">
-            <ContentPresenter 
-            Name="ContentGrid"
-            
-            Content="{Binding Content}" />
+            <ContentPresenter Name="ContentGrid" Content="{Binding Content}" />
         </Grid>
       
-        <DockPanel
-            Name="NavigationPanel"
+        <DockPanel Name="NavigationPanel"
             Grid.Row="1"
             Grid.Column="0"
             Margin="0,4,0,4" 
