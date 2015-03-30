@@ -52,6 +52,8 @@
     }
 
     function addButtonEvents() {
+        $(".btn").click(clearFocusClickHandler);
+
         $("[data-setting-button").click(settingButtonClickHandler);
         $("[data-help-button]").click(showHelpTopicClickHandler);
 
@@ -75,6 +77,8 @@
 
         $("[data-advanced-menu-button]").click(showAdvancedMenuButtonClickHandler);
         $("[data-stored-result-button").click(returnStoredResultClickHandler);
+
+     
     }
 
     function addChangeEvents() {
@@ -261,6 +265,10 @@
         disableAllControls();
         engine.showAdvancedMenu(group);
         enableAllControls();
+    }
+
+    function clearFocusClickHandler(event) {
+        $(event.target).blur();
     }
 
     function returnStoredResultClickHandler(event) {
