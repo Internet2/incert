@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no, maximum-scale=1.0" />
+    <link rel="stylesheet" href="Css/bootstrap.min.css">
+    <link rel="stylesheet" href="Css/inCert.css" />
+    <link rel="stylesheet" href="Css/font-awesome.min.css" />
+    <script src="Scripts/jquery-2.1.3.min.js"></script>
+    <script src="Scripts/inCert.js"></script>
+    <script src="Scripts/InCert-expandable.js"></script>
+    <title></title>
+</head>
+<body>
+    <div class="container expandable" style="margin-top: 5em;">
+        <div class="row">
+            <div class="col-xs-10 col-xs-offset-1">
+                <div class="checkbox">
+                    <input type="checkbox" name="licenseCheckbox" id="licenseCheckbox" data-setting="monitor certificate on login">
+                    <p> Validate my user certificate when I log onto this computer.</p>
+                    <p>
+                        If this option is checked, <span data-resolve="!ApplicationTitle!"></span> will verify that your user authentication certificate is present and valid when you log into this computer.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <nav class="navbar navbar-fixed-bottom">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <a class="btn btn-default pull-left" target="_new" href="https://certdev0.incommontest.org/incommon/index.html" style="margin-right: 1em">Help</a>
+                    <button type="button" class="btn btn-default pull-right" data-next-button>Close</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+</body>
+</html>

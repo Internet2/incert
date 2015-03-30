@@ -1,6 +1,4 @@
 (function () {
-    var counter = 10;
-
     if (document.engineScriptVersion) {
         if (document.engineScriptVersion >= 1.0) {
             return;

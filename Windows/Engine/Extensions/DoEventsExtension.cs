@@ -37,8 +37,6 @@ namespace Org.InCommon.InCert.Engine.Extensions
             Dispatcher.PushFrame(frame);
         }
 
-
-
         public static bool InvokeIfRequired(this object target, Action action)
         {
             var instance = target as ContentControl;

@@ -1122,6 +1122,8 @@
     <EmbeddedResource Include="Content\Html\Scripts\inCert-advanced-menu.js" />
     <EmbeddedResource Include="Content\Html\Scripts\ellipsis.js" />
     <EmbeddedResource Include="Content\Html\RenewCertificate.html" />
+    <EmbeddedResource Include="Content\Html\RenewCertificateOptions.html" />
+    <EmbeddedResource Include="Content\Html\Scripts\inCert-expandable.js" />
     <Content Include="Content\InCommon\archive\AdvancedMenu.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

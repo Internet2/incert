@@ -45,24 +45,7 @@
         table.append(element);
     }
 
-    function adjustExpandable() {
-        var expandable = $(".expandable");
-        if (expandable.length === 0) {
-            return;
-        }
-
-        var siblingsHeight = 0;
-        expandable.siblings().each(function () {
-            siblingsHeight = siblingsHeight + this.clientHeight;
-        });
-
-        $(window).unbind("resize");
-        var expandableHeight = $(window).height() - siblingsHeight;
-        expandable.css("max-height", expandableHeight);
-
-        $(window).resize(adjustExpandable);
-
-    }
+   
 
     function addGroupItemsElement(items, table) {
         var count = 0;
@@ -255,8 +238,6 @@
         initializeDescription();
         hideIcons();
         addGroupElements();
-        adjustExpandable();
-
     });
 
     $(document).on("engine_advanced_menu_branch_finish", function (event, data) {

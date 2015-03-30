@@ -155,13 +155,23 @@
         </Properties>
       </Settings.SetSettingText>
       
-      <UserInterface.ShowChildBannerModal>
+      <!--<UserInterface.ShowChildBannerModal>
         <Properties>
           <ParentDialog>Renew certificate dialog</ParentDialog>
           <ChildDialog>Renew certificate options dialog</ChildDialog>
           <Banner>Renew certificate options banner</Banner>
         </Properties>
-      </UserInterface.ShowChildBannerModal>
+      </UserInterface.ShowChildBannerModal>-->
+
+      <UserInterface.ShowHtmlBannerModal>
+        <Properties>
+          <Dialog>Renew certificate options dialog</Dialog>
+          <ParentDialog>Renew certificate dialog</ParentDialog>
+          <Url>resource://html/RenewCertificateOptions.html</Url>
+          <Width>500</Width>
+          <Height>400</Height>
+        </Properties>
+      </UserInterface.ShowHtmlBannerModal>
 
       <Control.ReturnBranchResult>
         <Properties>
