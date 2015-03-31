@@ -67,7 +67,7 @@
         $("[data-repeat-current-branch-result]").click(new genericButtonClickHandler("returnRepeatCurrentBranchResult").handler);
         $("[data-repeat-current-task-result]").click(new genericButtonClickHandler("returnRepeatCurrentTaskResult").handler);
         $("[data-repeat-parent-branch-result]").click(new genericButtonClickHandler("returnRepeatParentBranchResult").handler);
-        $("[data-restart-computer-result]").click(new genericButtonClickHandler("returnRestartComputerResult").handler);
+        $("[data-restart-computer-button]").click(new genericButtonClickHandler("returnRestartComputerResult").handler);
 
         $("[data-branch-button]").each(function () {
             $(this).click(new genericButtonClickHandler("returnBranchResult", $(this).data("branch")).handler);
@@ -202,7 +202,7 @@
             errorElement: "span",
             errorClass: "help-block",
             errorPlacement: function (error, element) {
-                var errorElement = element.parent().find(".error");
+                var errorElement = $("[data-error-message-for='" + element.get(0).id + "']");
                 if (errorElement.length > 0) {
                     $(errorElement).replaceWith(error);
                     return;
@@ -390,19 +390,19 @@
             console.log("returning repeat-branching-task result");
         }
 
-        engine.ReturnRepeatCurrentBranchResult = function () {
+        engine.returnRepeatCurrentBranchResult = function () {
             console.log("returning repeat-current-branch result");
         }
 
-        engine.ReturnRepeatCurrentTaskResult = function () {
+        engine.returnRepeatCurrentTaskResult = function () {
             console.log("returning repeat-current-task result");
         }
 
-        engine.ReturnRepeatParentBranchResult = function () {
+        engine.returnRepeatParentBranchResult = function () {
             console.log("returning repeat-parent-branch result");
         }
 
-        engine.ReturnRestartComputerResult = function () {
+        engine.returnRestartComputerResult = function () {
             console.log("returning restart-computer result");
         }
 
