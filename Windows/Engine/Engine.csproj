@@ -795,6 +795,7 @@
     <Compile Include="UserInterface\ContentWrappers\ContentControlWrappers\OptionInputField.cs" />
     <Compile Include="UserInterface\ContentWrappers\EventWrappers\AbstractEventData.cs" />
     <Compile Include="UserInterface\ContentWrappers\EventWrappers\BranchEventData.cs" />
+    <Compile Include="UserInterface\ContentWrappers\EventWrappers\EnterKeyPressedEventData.cs" />
     <Compile Include="UserInterface\ContentWrappers\EventWrappers\IssueEventData.cs" />
     <Compile Include="UserInterface\ContentWrappers\EventWrappers\TaskEventData.cs" />
     <Compile Include="UserInterface\ContentWrappers\ImageWrappers\AbstractImageContent.cs" />
@@ -1012,6 +1013,7 @@
       <DependentUpon>ScratchPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserInterface\Dialogs\Models\ScriptingModels\IScriptingModel.cs" />
+    <Compile Include="UserInterface\Dialogs\Models\ScriptingModels\KeyboardHandlers\KeyboardHandler.cs" />
     <Compile Include="UserInterface\Dialogs\Models\ScriptingModels\LifespanHandlers\LifespanHandler.cs" />
     <Compile Include="UserInterface\Dialogs\Models\ScriptingModels\LifespanHandlers\RequestHandler.cs" />
     <Compile Include="UserInterface\Dialogs\Models\ScriptingModels\SchemeHandlers\AbstractSchemeHandler.cs" />

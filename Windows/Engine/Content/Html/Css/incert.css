@@ -34,6 +34,11 @@ button.startButton {
         -webkit-box-shadow: 0 0 105px #fff;
         box-shadow: 0px 0px 105px #fff;
     }
+    button.startButton:focus {
+        -moz-box-shadow: 0 0 105px #fff;
+        -webkit-box-shadow: 0 0 105px #fff;
+        box-shadow: 0px 0px 105px #fff;
+    }
 
 h3.errorText {
     font-weight: bold;

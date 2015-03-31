@@ -28,6 +28,7 @@
         configureConditionalVisibility();
         configureConditionalEnabledState();
         configureValidation();
+        setInitialFocus();
     }
 
     function resolveValues() {
@@ -265,6 +266,20 @@
         disableAllControls();
         engine.showAdvancedMenu(group);
         enableAllControls();
+    }
+
+    function setInitialFocus() {
+        var activeControl = $("[data-active-control]").get(0);
+        if (activeControl) {
+            activeControl.focus();
+            return;
+        }
+
+        var defaultButton = $("button[data-default-button]").get(0);
+        if (defaultButton) {
+            defaultButton.focus();
+            return;
+        }
     }
 
     function clearFocusClickHandler(event) {
@@ -535,6 +550,24 @@
         processTaskEvents($("[data-on-task-start]"), data);
         processGlobalTaskMessages(data);
 
+    });
+
+    $(document).on("engine_enter_key_pressed", function() {
+        var defaultButton = $("button[data-default-button]").get(0);
+        if (!defaultButton) {
+            return;
+        }
+
+        $(defaultButton).click();
+    });
+
+    $(document).on("engine_escape_key_pressed", function () {
+        var cancelButton = $("button[data-cancel-button]").get(0);
+        if (!cancelButton) {
+            return;
+        }
+
+        $(cancelButton).click();
     });
 
     $(document).on("engine_task_finish", function (event, data) {

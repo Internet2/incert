@@ -87,7 +87,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModel
             RaiseEvent(IssueEventName, e);
         }
 
-        private void RaiseEvent(string eventName, AbstractEventData e)
+        public void RaiseEvent(string eventName, AbstractEventData e)
         {
             try
             {

@@ -11,6 +11,7 @@ using Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.BannerWrappers;
 using Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.ContentControlWrappers;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModels;
+using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModels.KeyboardHandlers;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModels.LifespanHandlers;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModels.SchemeHandlers;
 
@@ -81,16 +82,21 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContainerModel
         protected override DependencyObject CreateInstance(AbstractBanner banner)
         {
             var content = new ChromiumWebBrowser { DataContext = this };
-            content.RegisterJsObject("engine", new ScriptingModel(banner.Engine, RootDialogModel, content));
-
+            var scriptingModel = new ScriptingModel(banner.Engine, RootDialogModel, content);
+            content.RegisterJsObject("engine", scriptingModel);
             content.RequestHandler = new RequestHandler();
             content.LifeSpanHandler = new LifespanHandler();
+            content.KeyboardHandler = new KeyboardHandler(scriptingModel);
+
             content.ConsoleMessage += ConsoleMessageHandler;
             content.LoadError += OnContentLoadError;
             content.FrameLoadEnd += OnFrameLoadEnd;
             content.FrameLoadStart += OnFrameLoadStart;
+            
             return content;
         }
+
+        
 
         private void OnFrameLoadStart(object sender, FrameLoadStartEventArgs e)
         {
@@ -104,6 +110,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContainerModel
                 return;
             }
 
+            Browser.Focus();
             IsLoaded = false;
         }
 
