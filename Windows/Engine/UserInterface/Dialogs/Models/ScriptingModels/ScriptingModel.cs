@@ -164,6 +164,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModel
 
         public void ReturnRestartComputerResult()
         {
+            _settingsManager.SetTemporarySettingString("restart computer.suppress dialog","true");
             _dialogModel.Result = new RestartComputerResult();
         }
 

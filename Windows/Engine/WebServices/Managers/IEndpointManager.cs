@@ -9,6 +9,7 @@ namespace Org.InCommon.InCert.Engine.WebServices.Managers
         string GetDefaultEndpoint();
         string GetEndpointForFunction(EndPointFunctions func);
         string GetDefaultHost();
+        string ResolveContentUrl(string url);
         void SetEndpointForFunction(EndPointFunctions func, string value);
         void SetContractForFunction(EndPointFunctions func, string value);
         void SetContractForFunction(EndPointFunctions func, AbstractContract value);

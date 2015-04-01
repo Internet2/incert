@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading;
 using System.Windows;
 using System.Windows.Input;
 using System.Xml.Linq;
@@ -10,9 +9,7 @@ using Org.InCommon.InCert.Engine.Results;
 using Org.InCommon.InCert.Engine.Results.ControlResults;
 using Org.InCommon.InCert.Engine.Results.Errors.UserInterface;
 using Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.BannerWrappers;
-using Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.ContentControlWrappers;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContainerModels;
-using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContentModels;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels;
 
 namespace Org.InCommon.InCert.Engine.Tasks.UserInterface
@@ -65,14 +62,7 @@ namespace Org.InCommon.InCert.Engine.Tasks.UserInterface
         [PropertyAllowedFromXml]
         public Cursor Cursor { get; set; }
 
-        internal static void SetAddress(AbstractHtmlDialogModel dialog, string url)
-        {
-            dialog.SetBrowserAddress(url);
-        }
-
         protected abstract IResult ShowBanner(IResult previousResults);
-
-        
 
         public override IResult Execute(IResult previousResults)
         {
@@ -172,7 +162,7 @@ namespace Org.InCommon.InCert.Engine.Tasks.UserInterface
                 Height = Height,
                 CanClose = true,
                 Margin = new Thickness(0),
-                Url = Url,
+                Url = EndpointManager.ResolveContentUrl(Url),
                 Cursor = Cursor
             };
 
@@ -180,6 +170,7 @@ namespace Org.InCommon.InCert.Engine.Tasks.UserInterface
             return BannerManager.SetBanner(_identifier, banner) as HtmlBanner;
         }
 
+     
         public override void ConfigureFromNode(XElement node)
         {
             base.ConfigureFromNode(node);

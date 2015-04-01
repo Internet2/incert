@@ -96,6 +96,27 @@ namespace Org.InCommon.InCert.Engine.WebServices.Managers
             }
         }
 
+        public string ResolveContentUrl(string url)
+        {
+            try
+            {
+                var uri = new Uri(url, UriKind.RelativeOrAbsolute);
+                if (uri.IsAbsoluteUri)
+                    return uri.AbsoluteUri;
+
+                var baseUri = new Uri(GetEndpointForFunction(EndPointFunctions.GetContent));
+                var fullUri = new Uri(baseUri, uri);
+                var result = fullUri.AbsoluteUri;
+
+                return result;
+            }
+            catch (Exception e)
+            {
+                Log.WarnFormat("An issue occurred while attempting to resolve the content endpoint url {0}: {1}", url, e.Message);
+                return url;
+            }
+        }
+
         public void SetEndpointForFunction(EndPointFunctions func, string value)
         {
            _endpointMap[func] = value;
