@@ -54,6 +54,19 @@
         <File Id="RestSharp.dll" Name="RestSharp.dll" Source="$(var.EngineFilesDir)\RestSharp.dll" />
         <File Id="BouncyCastle.Crypto.dll" Name="BouncyCastle.Crypto.dll" Source="$(var.EngineFilesDir)\BouncyCastle.Crypto.dll" />
         <File Id="DataContracts.dll" Name="DataContracts.dll" Source="$(var.EngineFilesDir)\DataContracts.dll" />
+        <!-- cef sharp -->
+        <File Id="CefSharp.BrowserSubprocess.Core.dll" Name="CefSharp.BrowserSubprocess.Core.dll" Source="$(var.EngineFilesDir)\CefSharp.BrowserSubprocess.Core.dll" />
+        <File Id="CefSharp.BrowserSubprocess.exe" Name="CefSharp.BrowserSubprocess.exe" Source="$(var.EngineFilesDir)\CefSharp.BrowserSubprocess.exe" />
+        <File Id="CefSharp.Core.dll" Name="CefSharp.Core.dll" Source="$(var.EngineFilesDir)\CefSharp.Core.dll" />
+        <File Id="CefSharp.dll" Name="CefSharp.dll" Source="$(var.EngineFilesDir)\CefSharp.dll" />
+        <File Id="CefSharp.wpf.dll" Name="CefSharp.wpf.dll" Source="$(var.EngineFilesDir)\CefSharp.wpf.dll" />
+        <File Id="d3dcompiler_43.dll" Name="d3dcompiler_43.dll" Source="$(var.EngineFilesDir)\d3dcompiler_43.dll" />
+        <File Id="d3dcompiler_46.dll" Name="d3dcompiler_46.dll" Source="$(var.EngineFilesDir)\d3dcompiler_46.dll" />
+        <File Id="ffmpegsumo.dll" Name="ffmpegsumo.dll" Source="$(var.EngineFilesDir)\ffmpegsumo.dll" />
+        <File Id="libcef.dll" Name="libcef.dll" Source="$(var.EngineFilesDir)\libcef.dll" />
+        <File Id="libEGL.dll" Name="libEGL.dll" Source="$(var.EngineFilesDir)\libEGL.dll" />
+        <File Id="libGLESv2.dll" Name="libGLESv2.dll" Source="$(var.EngineFilesDir)\libGLESv2.dll" />
+        <File Id="pdf.dll" Name="pdf.dll" Source="$(var.EngineFilesDir)\pdf.dll" />
       </Component>
       <Component Id="Elevator.exe" Guid="FF8117E5-D4C1-4705-9DBB-89622C3C1230">
         <File Id="Elevator.exe" Name="Elevator.exe" Source="$(var.EngineFilesDir)\Elevator.exe" />
