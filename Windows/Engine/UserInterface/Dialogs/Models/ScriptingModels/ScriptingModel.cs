@@ -247,6 +247,11 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModel
 
         public void ShowHelpTopic(string value)
         {
+            if (_dialogModel.DialogInstance.Dispatcher.InvokeIfRequired(() => ShowHelpTopic(value)))
+            {
+                return;
+            }
+            
             _helpManager.ShowHelpTopic(value, _dialogModel);
         }
 

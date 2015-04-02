@@ -167,7 +167,12 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
 
         public void ShowUri(Uri uri, double left, double top)
         {
-           if (_dialogInstance.Visibility != Visibility.Visible && !_positioned)
+            if (_dialogInstance.InvokeIfRequired(() => ShowUri(uri,left, top)))
+            {
+                return;
+            }
+            
+            if (_dialogInstance.Visibility != Visibility.Visible && !_positioned)
             {
                 Left = GetLeftPosition(left);
                 Top = GetTopPosition(top);
