@@ -125,7 +125,7 @@ namespace Org.InCommon.InCert.Engine.AdvancedMenu
                 {
                     Dialog = "Advanced Menu Dialog",
                     ParentDialog = parent.DialogKey,
-                    Url = "resource://html/AdvancedMenu.html",
+                    Url = string.Format("resource://html/AdvancedMenu.html?group={0}",group),
                     Width = 600,
                     Height = 600,
                     XOffset = -100,

@@ -22,8 +22,11 @@
     }
 
     function addGroupElements() {
-        var target = $("[data-advanced-menu-items-container]");
-
+        var target = $(getContainer());
+        if (target.length === 0) {
+            console.log("no element with 'data-advanced-menu-items-container' attribute. Cannot initialize.");
+        }
+     
         var items = deserializeItems();
         var groups = groupItems(items);
         for (var propertyName in groups) {
@@ -36,17 +39,46 @@
         target.append(target);
     }
 
+    function getContainer() {
+        return $("[data-advanced-menu-items-container]").get(0);
+    }
+
+    function jumpToGroup() {
+        var group = getQueryStringValue("group");
+        if (!group || !group.length) {
+            return;
+        }
+
+        var target = $("[id='" + group.toLowerCase()+"']").get(0);
+        if (!target) {
+            return;
+        }
+
+        var container = getContainer();
+        if (!container) {
+            return;
+        }
+
+        setTimeout(function() {
+            container.scrollTop = target.offsetTop - container.offsetTop;
+        },100);
+    }
+
+    function getQueryStringValue(key) {
+        return decodeURI(window.location.search.replace(new RegExp("^(?:.*[&\\?]" + escape(key).replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));
+    }
+
+
     function deserializeItems() {
         return $.parseJSON(engine.getAdvancedMenuItems());
     }
 
-    function appendGroupTitleElement(name, table) {
+    function appendGroupTitleElement(name, target) {
         var element = $("<div class='row'><div class='col-xs-12'><h4 class='menu-group-title'>" + name + "</h4></div></div>");
-        table.append(element);
+        element.attr("id", name.toLowerCase());
+        target.append(element);
     }
-
-   
-
+    
     function addGroupItemsElement(items, table) {
         var count = 0;
 
@@ -238,6 +270,7 @@
         initializeDescription();
         hideIcons();
         addGroupElements();
+        jumpToGroup();
     });
 
     $(document).on("engine_advanced_menu_branch_finish", function (event, data) {

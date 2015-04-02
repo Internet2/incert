@@ -462,7 +462,7 @@
         engine.getAdvancedMenuItems = function () {
             var result = [];
             for (var i = 1; i <= 15; i++) {
-                var group = i <= 9 ? "group1" : "group2";
+                var group = i <= 9 ? "group 1" : "group 2";
                 result.push({
                     show: true,
                     group: group,
