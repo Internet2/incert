@@ -273,7 +273,7 @@ namespace Org.InCommon.InCert.Engine.Importables
                 var value = XmlUtilities.GetTextFromNode(node);
                 if (string.IsNullOrWhiteSpace(value))
                 {
-                    throw new Exception("node must have a value set");
+                    return null;
                 }
 
                 // right now only deal with cursor class

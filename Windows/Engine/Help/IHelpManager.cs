@@ -22,9 +22,7 @@ namespace Org.InCommon.InCert.Engine.Help
 
         double InitialLeftOffset { get; set; }
         double InitialTopOffset { get; set; }
-
-        Dictionary<string, IHelpSchemeHandler> SchemeHandlers { get; }
-
+        
         void OpenCurrentViewInExternalWindow();
     }
 }

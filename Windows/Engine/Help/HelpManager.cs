@@ -2,14 +2,11 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Windows.Threading;
 using System.Xml.Linq;
 using log4net;
 using Org.InCommon.InCert.Engine.Dynamics;
-using Org.InCommon.InCert.Engine.Help.SchemeHandlers;
 using Org.InCommon.InCert.Engine.Importables;
 using Org.InCommon.InCert.Engine.Logging;
-using Org.InCommon.InCert.Engine.Settings;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Managers;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Properties;
@@ -34,12 +31,8 @@ namespace Org.InCommon.InCert.Engine.Help
             _valueResolver = valueResolver;
 
             _model = new HelpDialogModel(this, appearanceManager);
-            
-            SchemeHandlers = new Dictionary<string, IHelpSchemeHandler>
-                {
-                    {"archive", new ArchiveSchemeHandler()}
-                };
-
+           
+          
             PreserveContentText = "Preserve this content in a new window when the utility exits.";
             DialogTitle = "Help Resources";
             InitialLeftOffset = -75;
@@ -203,9 +196,7 @@ namespace Org.InCommon.InCert.Engine.Help
 
         public double InitialLeftOffset { get; set; }
         public double InitialTopOffset { get; set; }
-
-        public Dictionary<string, IHelpSchemeHandler> SchemeHandlers { get; private set; }
-
+        
         public void OpenCurrentViewInExternalWindow()
         {
             try
@@ -216,7 +207,7 @@ namespace Org.InCommon.InCert.Engine.Help
                 if (!_model.ShowingContent)
                     return;
 
-                var uri = GetExternalUri(_model.CurrentContentUri);
+                var uri = GetExternalUri(_model.CurrentContentUrl);
                 if (uri == null)
                     return;
 
@@ -236,6 +227,11 @@ namespace Org.InCommon.InCert.Engine.Help
             {
                 Log.WarnFormat("An issue occurred while attempting to open a help topic in an external window: {0}", e.Message);
             }
+        }
+
+        private Uri GetExternalUri(string url)
+        {
+            return GetExternalUri(new Uri(url, UriKind.RelativeOrAbsolute));
         }
 
         private Uri GetExternalUri(Uri uri)

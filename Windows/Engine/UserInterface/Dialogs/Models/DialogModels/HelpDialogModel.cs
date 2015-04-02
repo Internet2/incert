@@ -3,6 +3,8 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Navigation;
+using CefSharp;
+using CefSharp.Wpf;
 using Org.InCommon.InCert.Engine.Help;
 using Org.InCommon.InCert.Engine.Logging;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Commands;
@@ -10,6 +12,7 @@ using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Instances;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Managers;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Properties;
 using log4net;
+using Org.InCommon.InCert.Engine.Extensions;
 
 namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
 {
@@ -48,7 +51,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
             get
             {
                 return _backCommand ?? (
-                    _backCommand = new RelayCommand(param => _dialogInstance.Browser.GoBack()));
+                    _backCommand = new RelayCommand(param => _dialogInstance.Browser.Back()));
             }
         }
 
@@ -57,7 +60,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
             get
             {
                 return _forwardCommand ?? (
-                    _forwardCommand = new RelayCommand(param => _dialogInstance.Browser.GoForward()));
+                    _forwardCommand = new RelayCommand(param => _dialogInstance.Browser.Forward()));
             }
         }
 
@@ -78,8 +81,8 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
             {
                 return _reloadCommand ?? (
                     _reloadCommand = new RelayCommand(
-                  param => _dialogInstance.Browser.Refresh(),
-                  param => _dialogInstance.Browser.Source != null));
+                  param => _dialogInstance.Browser.Reload(),
+                  param => !string.IsNullOrWhiteSpace(_dialogInstance.Browser.Address)));
             }
         }
 
@@ -104,37 +107,23 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
             _helpManager = helpManager;
             _appearanceManager = appearanceManager;
             _dialogInstance = new HelpWindow { DataContext = this };
-            _dialogInstance.Browser.Navigated += LoadingCompleteHandler;
-            _dialogInstance.Browser.Navigating += NavigatingHandler;
-
+            _dialogInstance.Browser.FrameLoadEnd += LoadingCompleteHandler;
         }
 
-        private void NavigatingHandler(object sender, NavigatingCancelEventArgs e)
+        private void LoadingCompleteHandler(object sender, FrameLoadEndEventArgs e)
         {
-            if (!_dialogInstance.Browser.Dispatcher.CheckAccess())
+            if (_dialogInstance.InvokeIfRequired(() => LoadingCompleteHandler(sender, e)))
             {
-                _dialogInstance.Browser.Dispatcher.Invoke(()=>NavigatingHandler( sender, e ));
                 return;
             }
-
-            if (e.Uri == null)
-                return;
-
-            var scheme = e.Uri.Scheme.ToLowerInvariant();
-            if (string.IsNullOrWhiteSpace(scheme))
-                return;
-
-            if (!_helpManager.SchemeHandlers.ContainsKey(scheme))
-                return;
-
-            e.Cancel = true;
-
-            var newUri = _helpManager.SchemeHandlers[scheme].LoadDocument(e.Uri);
-            if (newUri == null)
-                return;
-
-            _dialogInstance.Browser.Source = newUri;
+            
+            FlagPropertyAsChanged("CanGoBack");
+            FlagPropertyAsChanged("CanGoForward");
+            _dialogInstance.Browser.Focus();
         }
+
+        public bool CanGoBack { get { return _dialogInstance.Browser.CanGoBack; } }
+        public bool CanGoForward { get { return _dialogInstance.Browser.CanGoForward; } }
 
         public bool PreserveChecked
         {
@@ -153,32 +142,14 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
             }
         }
 
-        public Uri CurrentContentUri
+        public string CurrentContentUrl
         {
             get
             {
-                return _dialogInstance == null ? null : _dialogInstance.Browser.Source;
+                return _dialogInstance == null ? null : _dialogInstance.Browser.Address;
             }
         }
-
-
-        public bool CanGoBack
-        {
-            get { return _dialogInstance.Browser.CanGoBack; }
-        }
-
-        public bool CanGoForward
-        {
-            get { return _dialogInstance.Browser.CanGoForward; }
-        }
-
-        private void LoadingCompleteHandler(object sender, NavigationEventArgs e)
-        {
-            FlagPropertyAsChanged("CanGoBack");
-            FlagPropertyAsChanged("CanGoForward");
-            _dialogInstance.Browser.Focus();
-        }
-
+        
         public Brush Background
         {
             get { return _appearanceManager.BackgroundBrush; }
@@ -214,7 +185,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
                 return;
             }
 
-            _dialogInstance.Browser.Navigate(uri);
+            _dialogInstance.Browser.Address = uri.AbsoluteUri;
             _dialogInstance.Show();
         }
 
@@ -243,7 +214,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
         {
             try
             {
-                _dialogInstance.Browser.Source = new Uri(_helpManager.HomeUrl);
+                _dialogInstance.Browser.Address = _helpManager.HomeUrl;
             }
             catch (Exception e)
             {

@@ -1475,9 +1475,6 @@
     <EmbeddedResource Include="Content\GenericDiagnosticsContent.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <Resource Include="Content\InCommon\tasklist.xml">
-      <SubType>Designer</SubType>
-    </Resource>
     <Resource Include="Content\InCommon\license.xml">
       <SubType>Designer</SubType>
     </Resource>

@@ -100,7 +100,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.BannerWrapper
             
             var settings = new CefSettings
             {
-                PackLoadingDisabled = true,
+                PackLoadingDisabled =false,
                 LogSeverity = LogSeverity.Disable
                     
             };

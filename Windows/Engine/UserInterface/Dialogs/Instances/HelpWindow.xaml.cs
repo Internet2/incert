@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using CefSharp.Wpf;
 
 namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Instances
 {
@@ -7,9 +8,13 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Instances
     /// </summary>
     public partial class HelpWindow : Window
     {
+        public ChromiumWebBrowser Browser { get; private set; }
+        
         public HelpWindow()
         {
             InitializeComponent();
+            Browser = new ChromiumWebBrowser();
+            BrowserGrid.Children.Add(Browser);
         }
 
         private void OnClosingHandler(object sender, System.ComponentModel.CancelEventArgs e)
