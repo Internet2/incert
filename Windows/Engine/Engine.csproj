@@ -392,8 +392,6 @@
     <Compile Include="Extensions\XmlExtensions.cs" />
     <Compile Include="Help\HelpTopic.cs" />
     <Compile Include="Help\IHelpManager.cs" />
-    <Compile Include="Help\SchemeHandlers\ArchiveSchemeHandler.cs" />
-    <Compile Include="Help\SchemeHandlers\IHelpSchemeHandler.cs" />
     <Compile Include="Help\IHelpTopic.cs" />
     <Compile Include="Importables\PropertySetters\KeyedLiteralStringPropertyEntry.cs" />
     <Compile Include="Importables\PropertySetters\KeyedStringPropertyEntry.cs" />
