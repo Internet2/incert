@@ -10,5 +10,8 @@ namespace Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.BannerWrapper
         bool ImportBannersFromXml(XElement node);
         AbstractBanner GetBanner(string value);
         AbstractBanner SetBanner(string key, AbstractBanner value);
+        void AddHtmlRedirect(string key, string value);
+        void RemoveHtmlRedirect(string key);
+        Dictionary<string, string> GetHtmlRedirects();
     }
 }

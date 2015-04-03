@@ -1,23 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Reflection;
 using CefSharp;
 using log4net;
 using Org.InCommon.InCert.Engine.Logging;
 
 namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModels.LifespanHandlers
 {
-    class RequestHandler : IRequestHandler
+    internal class RequestHandler : IRequestHandler
     {
-        private readonly Dictionary<string, string> _embeddedResourceDictionary;
-
         private static readonly ILog Log = Logger.Create();
+        private readonly Dictionary<string, string> _redirectDictionary;
 
-        public RequestHandler()
+        public RequestHandler(Dictionary<string, string> redirectDictionary)
         {
-            _embeddedResourceDictionary = BuildEmbeddedResourceDictionary();
+            _redirectDictionary = redirectDictionary;
         }
 
         public bool OnBeforeBrowse(IWebBrowser browser, IRequest request, bool isRedirect)
@@ -33,7 +30,6 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModel
 
         public void OnPluginCrashed(IWebBrowser browser, string pluginPath)
         {
-            return;
         }
 
         public bool OnBeforeResourceLoad(IWebBrowser browser, IRequest request, IResponse response)
@@ -65,35 +61,6 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModel
             var test = 0;
         }
 
-        private static Dictionary<string, string> BuildEmbeddedResourceDictionary()
-        {
-            var dictionary = new Dictionary<string, string>();
-
-            AddPathsToDictonary(dictionary, "Org.InCommon.InCert.Engine.Content.Html.Fonts", "resource://html/fonts/");
-            AddPathsToDictonary(dictionary, "Org.InCommon.InCert.Engine.Content.Html.Css", "resource://html/css/");
-            AddPathsToDictonary(dictionary, "Org.InCommon.InCert.Engine.Content.Html.Scripts", "resource://html/scripts/");
-
-            return dictionary;
-        }
-
-        private static void AddPathsToDictonary(IDictionary<string, string> dictionary, string manifestPrefix, string urlPrefix)
-        {
-            var assembly = Assembly.GetExecutingAssembly();
-            var resources = assembly.GetManifestResourceNames()
-                .Where(p => p.StartsWith(manifestPrefix));
-
-            foreach (var resource in resources.Select(r=>RemoveManifestPrefix(r, manifestPrefix)))
-            {
-                dictionary[resource.ToLowerInvariant()] = urlPrefix + resource;
-            }
-        }
-
-        private static string RemoveManifestPrefix(string value, string prefix)
-        {
-            value = value.Replace(prefix, "");
-            return value.TrimStart('.');
-        }
-
         private string GetRedirectUrl(string url)
         {
             var target = Path.GetFileName(url);
@@ -101,16 +68,16 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModel
             {
                 return string.Empty;
             }
-            
+
             target = target.ToLowerInvariant();
-            if (!_embeddedResourceDictionary.ContainsKey(target))
+            if (!_redirectDictionary.ContainsKey(target))
             {
                 return string.Empty;
             }
 
-            var redirectUrl = _embeddedResourceDictionary[target];
-            return redirectUrl.Equals(url, StringComparison.InvariantCultureIgnoreCase) 
-                ? string.Empty 
+            var redirectUrl = _redirectDictionary[target];
+            return redirectUrl.Equals(url, StringComparison.InvariantCultureIgnoreCase)
+                ? string.Empty
                 : redirectUrl;
         }
     }

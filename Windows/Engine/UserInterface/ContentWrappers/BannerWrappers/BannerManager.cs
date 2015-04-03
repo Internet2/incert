@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Xml.Linq;
 using CefSharp;
 using Org.InCommon.InCert.Engine.Importables;
@@ -14,11 +15,10 @@ namespace Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.BannerWrapper
 
     public sealed class BannerManager : IBannerManager
     {
-        private readonly string _closeBannerIdentifer = Guid.NewGuid().ToString();
-        
         private static readonly ILog Log = Logger.Create();
 
-        private readonly Dictionary<String, AbstractBanner> _banners = new Dictionary<String, AbstractBanner>();
+        private readonly Dictionary<string, AbstractBanner> _banners = new Dictionary<String, AbstractBanner>();
+        private readonly Dictionary<string, string> _htmlRedirects = new Dictionary<string, string>(); 
 
         public void Initialize()
         {
@@ -36,6 +36,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.BannerWrapper
                 }
 
                 ImportBannersFromXml(boostrapXml);
+                InitializeRedirectDictionary(_htmlRedirects);
             }
             catch (Exception e)
             {
@@ -91,6 +92,27 @@ namespace Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.BannerWrapper
             return _banners[key];
         }
 
+        public void AddHtmlRedirect(string key, string value)
+        {
+            _htmlRedirects[key] = value;
+        }
+
+        public void RemoveHtmlRedirect(string key)
+        {
+            if (!_htmlRedirects.ContainsKey(key))
+            {
+                Log.WarnFormat("Cannot remove redirect for key {0}: redirect not found", key);
+                return;
+            }
+
+            _htmlRedirects.Remove(key);
+        }
+
+        public Dictionary<string, string> GetHtmlRedirects()
+        {
+            return _htmlRedirects;
+        }
+
         private static void InitializeChromium()
         {
             if (Cef.IsInitialized)
@@ -127,6 +149,29 @@ namespace Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.BannerWrapper
             }
         }
 
-      
+        private static void InitializeRedirectDictionary(IDictionary<string, string> dictionary)
+        {
+            AddResourcePathsToDictonary(dictionary, "Org.InCommon.InCert.Engine.Content.Html.Fonts", "resource://html/fonts/");
+            AddResourcePathsToDictonary(dictionary, "Org.InCommon.InCert.Engine.Content.Html.Css", "resource://html/css/");
+            AddResourcePathsToDictonary(dictionary, "Org.InCommon.InCert.Engine.Content.Html.Scripts", "resource://html/scripts/");
+        }
+
+        private static void AddResourcePathsToDictonary(IDictionary<string, string> dictionary, string manifestPrefix, string urlPrefix)
+        {
+            var assembly = Assembly.GetExecutingAssembly();
+            var resources = assembly.GetManifestResourceNames()
+                .Where(p => p.StartsWith(manifestPrefix));
+
+            foreach (var resource in resources.Select(r => RemoveManifestPrefix(r, manifestPrefix)))
+            {
+                dictionary[resource.ToLowerInvariant()] = urlPrefix + resource;
+            }
+        }
+        
+        private static string RemoveManifestPrefix(string value, string prefix)
+        {
+            value = value.Replace(prefix, "");
+            return value.TrimStart('.');
+        }
     }
 }

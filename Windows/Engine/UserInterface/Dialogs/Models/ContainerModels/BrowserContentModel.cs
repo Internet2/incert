@@ -84,7 +84,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContainerModel
             var content = new ChromiumWebBrowser { DataContext = this };
             var scriptingModel = new ScriptingModel(banner.Engine, RootDialogModel, content);
             content.RegisterJsObject("engine", scriptingModel);
-            content.RequestHandler = new RequestHandler();
+            content.RequestHandler = new RequestHandler(banner.Engine.BannerManager.GetHtmlRedirects());
             content.LifeSpanHandler = new LifespanHandler();
             content.KeyboardHandler = new KeyboardHandler(scriptingModel);
 

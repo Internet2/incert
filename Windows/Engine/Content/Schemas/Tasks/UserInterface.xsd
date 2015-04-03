@@ -525,8 +525,6 @@
     </xs:complexType>
   </xs:element>
   
-  
-
   <xs:element name="UserInterface.SetColorValues">
     <xs:complexType>
       <xs:complexContent>
@@ -727,7 +725,52 @@
     </xs:complexType>
   </xs:element>
 
+  <xs:element name="UserInterface.AddHtmlRedirect">
+    <xs:annotation>
+      <xs:documentation>Adds entries to the engine's html redirect dictionary.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="Entry" type="KeyedStringPropertyType" minOccurs="1" maxOccurs="unbounded"  />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="UserInterface.RemoveHtmlRedirect">
+    <xs:annotation>
+      <xs:documentation>Removes entries to the engine's html redirect dictionary.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="Entry" type="xs:string" minOccurs="1" maxOccurs="unbounded"  />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  
   <xs:element name="UserInterface.ShowHtmlBanner">
+    <xs:annotation>
+      <xs:documentation>Shows a web page in a bordered, non-modal dialog.</xs:documentation>
+    </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
         <xs:extension base="BaseTaskNodeType">
@@ -754,6 +797,9 @@
   </xs:element>
   
   <xs:element name="UserInterface.ShowHtmlBannerModal">
+    <xs:annotation>
+      <xs:documentation>Shows a web page a bordered, modal dialog.</xs:documentation>
+    </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
         <xs:extension base="BaseTaskNodeType">
@@ -780,6 +826,9 @@
   </xs:element>
 
   <xs:element name="UserInterface.ShowBorderlessHtmlBanner">
+    <xs:annotation>
+      <xs:documentation>Shows a web page a borderless, non-modal dialog.</xs:documentation>
+    </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
         <xs:extension base="BaseTaskNodeType">

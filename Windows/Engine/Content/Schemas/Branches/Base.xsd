@@ -172,6 +172,7 @@
         <xs:element ref="Time.SetSystemTime" />
         <xs:element ref="Time.SetTimeZone" />
         <xs:element ref="Testing.TestTask" />
+        <xs:element ref="UserInterface.AddHtmlRedirect" />
         <xs:element ref="UserInterface.ActivateCheckedParagraph" />
         <xs:element ref="UserInterface.ChangeBanner" />
         <xs:element ref="UserInterface.ChangeDialogCursor" />
@@ -192,6 +193,7 @@
         <xs:element ref="UserInterface.LoadImageFromArchive" />
         <xs:element ref="UserInterface.LoadImageFromUri" />
         <xs:element ref="UserInterface.RemoveCheckedParagraphSubtitle" />
+        <xs:element ref="UserInterface.RemoveHtmlRedirect" />
         <xs:element ref="UserInterface.SetAdvancedMenuOptions" />
         <xs:element ref="UserInterface.SetColorValues" />
         <xs:element ref="UserInterface.SetDefaultFont" />

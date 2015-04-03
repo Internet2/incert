@@ -597,6 +597,8 @@
     <Compile Include="Tasks\Text\ConvertListToString.cs" />
     <Compile Include="Tasks\Text\TruncateStringLeft.cs" />
     <Compile Include="Tasks\UserInterface\AbstractHtmlBannerTask.cs" />
+    <Compile Include="Tasks\UserInterface\AddHtmlRedirect.cs" />
+    <Compile Include="Tasks\UserInterface\RemoveHtmlRedirect.cs" />
     <Compile Include="Tasks\UserInterface\LoadImageFromUri.cs" />
     <Compile Include="Tasks\UserInterface\LoadImageFromArchive.cs" />
     <Compile Include="Tasks\UserInterface\SetAdvancedMenuOptions.cs" />
