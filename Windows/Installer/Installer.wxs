@@ -67,6 +67,9 @@
         <File Id="libEGL.dll" Name="libEGL.dll" Source="$(var.EngineFilesDir)\libEGL.dll" />
         <File Id="libGLESv2.dll" Name="libGLESv2.dll" Source="$(var.EngineFilesDir)\libGLESv2.dll" />
         <File Id="pdf.dll" Name="pdf.dll" Source="$(var.EngineFilesDir)\pdf.dll" />
+        <File Id="cef.pak" Name="cef.pak" Source="$(var.EngineFilesDir)\cef.pak" />
+        <File Id="cef_100_percent.pak" Name="cef_100_percent.pak" Source="$(var.EngineFilesDir)\cef_100_percent.pak" />
+        <File Id="cef_200_percent.pak" Name="cef_200_percent.pak" Source="$(var.EngineFilesDir)\cef_200_percent.pak" />
       </Component>
       <Component Id="Elevator.exe" Guid="FF8117E5-D4C1-4705-9DBB-89622C3C1230">
         <File Id="Elevator.exe" Name="Elevator.exe" Source="$(var.EngineFilesDir)\Elevator.exe" />
