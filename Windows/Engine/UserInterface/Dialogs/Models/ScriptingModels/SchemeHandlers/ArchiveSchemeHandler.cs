@@ -69,7 +69,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModel
             }
             catch (Exception e)
             {
-                Log.WarnFormat("An exception occurred trying to load resource from archive: {0}",e);
+                Log.WarnFormat("An exception occurred trying to load content from archive url: {0}",e);
                 response.StatusCode = (int) HttpStatusCode.InternalServerError;
                 return false;
             }
