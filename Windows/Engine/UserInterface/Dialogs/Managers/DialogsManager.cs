@@ -1,24 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading;
 using System.Windows;
-using System.Windows.Threading;
+using log4net;
 using Ninject;
 using Org.InCommon.InCert.Engine.Extensions;
 using Org.InCommon.InCert.Engine.Logging;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels;
-using log4net;
 
 namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Managers
 {
     public class DialogsManager : IDialogsManager
     {
         private static readonly ILog Log = Logger.Create();
-
         private readonly IAppearanceManager _appearanceManager;
-
         private readonly Dictionary<string, AbstractDialogModel> _dialogs = new Dictionary<string, AbstractDialogModel>();
-
 
         public DialogsManager(IAppearanceManager appearanceManager)
         {
@@ -27,7 +22,6 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Managers
 
         public void Initialize()
         {
-
         }
 
         public string ActiveDialogKey { get; set; }
@@ -42,7 +36,6 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Managers
 
         public void WaitForDurationOrCancel(DateTime start, TimeSpan interval)
         {
-             
             if (interval.Duration().Ticks == 0)
                 return;
 
@@ -54,11 +47,10 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Managers
 
                 if (CancelRequested)
                     break;
-
             } while (elapsed.Duration().TotalSeconds <= interval.Duration().TotalSeconds);
             Application.Current.DoEvents(interval.TotalMilliseconds);
         }
-        
+
         public IAppearanceManager AppearanceManager
         {
             get { return _appearanceManager; }
@@ -79,15 +71,15 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Managers
             {
                 var result = _dialogs[key] as T;
                 if (result == null)
-                    Log.WarnFormat("The dialog associated with the key {0} is not of type {1}", key, typeof(T).Name);
+                    Log.WarnFormat("The dialog associated with the key {0} is not of type {1}", key, typeof (T).Name);
 
-                return result;
+                RemoveDialog(key);
             }
 
             var dialog = Application.Current.CurrentKernel().Get<T>();
             dialog.DialogKey = key;
             _dialogs[key] = dialog;
-            
+
             return dialog;
         }
 
@@ -98,6 +90,9 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Managers
                 return;
             }
 
+            var instance = _dialogs[key];
+            instance.HideDialog();
+
             _dialogs.Remove(key);
         }
 
@@ -105,7 +100,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Managers
         {
             if (string.IsNullOrWhiteSpace(key))
                 key = ActiveDialogKey;
-            
+
             if (string.IsNullOrWhiteSpace(key))
             {
                 Log.Warn("Cannot retrieve dialog: dialog key is empty or not valid");
@@ -119,9 +114,5 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Managers
         {
             _dialogs[key] = manager;
         }
-
-
-
-
     }
 }

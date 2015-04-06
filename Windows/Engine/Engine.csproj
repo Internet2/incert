@@ -1363,6 +1363,7 @@
     </None>
     <None Include="packages.config" />
     <Content Include="Content\InCommon\archive\incert.css" />
+    <Resource Include="Content\InCommon\tasklist.xml" />
     <Content Include="Content\InCommon\Utility.xml">
       <SubType>Designer</SubType>
     </Content>
