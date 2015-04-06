@@ -91,7 +91,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Managers
             }
 
             var instance = _dialogs[key];
-            instance.HideDialog();
+            instance.Dispose();
 
             _dialogs.Remove(key);
         }

@@ -24,7 +24,7 @@ using Org.InCommon.InCert.Engine.Utilities;
 
 namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
 {
-    public abstract class AbstractDialogModel : PropertyNotifyBase, IHasControlActions
+    public abstract class AbstractDialogModel : PropertyNotifyBase, IHasControlActions, IDisposable
     {
         public string DialogKey { get; set; }
 
@@ -576,9 +576,9 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
                 DialogsManager.CancelPending = true;
 
                 var banner = GetConfirmCloseBanner();
-                
+
                 closeWindow.LoadContent(banner);
-                
+
                 var result = ShowChildBannerModal(closeWindow, banner);
                 if ((result as CloseResult) == null)
                 {
@@ -613,10 +613,10 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
                 Margin = new Thickness(0),
                 Url = "resource://html/ConfirmClose.html"
             };
-            
+
             return _bannerManager.SetBanner(_confirmCloseBannerIdentifier, banner);
         }
-        
+
         public void EnableDisableAllControls(List<string> excludeList, bool enabled)
         {
             EnableDisableCloseButton(enabled);
@@ -751,7 +751,14 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
             return modelList;
         }
 
-       
+
+        // wpf dialogs don't need to be disposed; close does the same thing
+        // but implementing disposable pattern here as it makes our intent clear
+        public void Dispose()
+        {
+            DialogInstance.Closing -= DialogCloseButtonHandler;
+            DialogInstance.Close();
+        }
     }
 }
 
