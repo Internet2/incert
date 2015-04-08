@@ -5,10 +5,10 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModel
 {
     public class KeyboardHandler:IKeyboardHandler
     {
-        private readonly ScriptingModel _model;
+        private readonly IScriptingModel _model;
 
 
-        public KeyboardHandler(ScriptingModel model)
+        public KeyboardHandler(IScriptingModel model)
         {
             _model = model;
         }

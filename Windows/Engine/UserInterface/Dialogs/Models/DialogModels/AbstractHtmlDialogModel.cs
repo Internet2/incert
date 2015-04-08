@@ -66,6 +66,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
             if (ShowingUrl(model, Url))
             {
                 model.Reload();
+                model.Reload();
             }
             else
             {

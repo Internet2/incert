@@ -1,5 +1,4 @@
-﻿using Org.InCommon.InCert.Engine.AdvancedMenu;
-using Org.InCommon.InCert.Engine.Results;
+﻿using Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.EventWrappers;
 
 namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModels
 {
@@ -44,5 +43,9 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModel
         void DisableCloseButton(bool value);
 
         void RunTaskBranch(string branchName);
+
+        void RaiseEvent(string eventName, AbstractEventData e);
+
+        void Dispose();
     }
 }

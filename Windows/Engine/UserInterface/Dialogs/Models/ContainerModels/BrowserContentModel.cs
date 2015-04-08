@@ -24,6 +24,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContainerModel
         private readonly Dictionary<string, string> _redirects;
         private readonly LinkPolicy _linkPolicy;
         private static readonly ILog Log = Logger.Create();
+        private IScriptingModel _scriptingModel;
 
         public BrowserContentModel(AbstractDialogModel parentModel, string url, Dictionary<string, string> redirects,LinkPolicy linkPolicy)
             : base(parentModel)
@@ -82,11 +83,11 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContainerModel
         protected override DependencyObject CreateInstance(AbstractBanner banner)
         {
             var content = new ChromiumWebBrowser { DataContext = this };
-            var scriptingModel = new ScriptingModel(banner.Engine, RootDialogModel, content);
-            content.RegisterJsObject("engine", scriptingModel);
+            _scriptingModel = new ScriptingModel(banner.Engine, RootDialogModel, content);
+            content.RegisterJsObject("engine", _scriptingModel);
             content.RequestHandler = new RequestHandler(_url, _redirects, _linkPolicy);
             content.LifeSpanHandler = new LifespanHandler();
-            content.KeyboardHandler = new KeyboardHandler(scriptingModel);
+            content.KeyboardHandler = new KeyboardHandler(_scriptingModel);
 
             content.ConsoleMessage += ConsoleMessageHandler;
             content.LoadError += OnContentLoadError;
@@ -193,6 +194,22 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContainerModel
             }
 
             Log.DebugFormat("Javascript Console: {0}", e.Message);
+        }
+
+        public override void Dispose()
+        {
+            if (_scriptingModel != null)
+            {
+                _scriptingModel.Dispose();
+            }
+
+            if (Browser != null)
+            {
+                Browser.KeyboardHandler = null;
+                Browser.RequestHandler = null;
+                Browser.LifeSpanHandler = null;
+                Browser.Dispose();
+            }
         }
     }
 }

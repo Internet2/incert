@@ -12,7 +12,7 @@ using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Properties;
 
 namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models
 {
-    public abstract class AbstractModel : PropertyNotifyBase, IHasControlActions
+    public abstract class AbstractModel : PropertyNotifyBase, IHasControlActions, IDisposable
     {
         private readonly List<AbstractControlAction> _actions = new List<AbstractControlAction>();
         private readonly Dictionary<string, AbstractModel> _childModels = new Dictionary<string, AbstractModel>();
@@ -245,6 +245,10 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models
 
             foreach (var child in _childModels.Values)
                 child.ListKeyedModels(key, ref modelList);
+        }
+
+        public virtual void Dispose()
+        {
         }
     }
 }

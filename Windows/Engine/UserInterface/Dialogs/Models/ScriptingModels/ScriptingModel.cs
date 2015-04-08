@@ -2,12 +2,14 @@
 using System.Linq;
 using System.Runtime.InteropServices;
 using CefSharp.Wpf;
+using log4net;
 using Microsoft.VisualBasic.Logging;
 using Org.InCommon.InCert.Engine.AdvancedMenu;
 using Org.InCommon.InCert.Engine.Dynamics;
 using Org.InCommon.InCert.Engine.Engines;
 using Org.InCommon.InCert.Engine.Extensions;
 using Org.InCommon.InCert.Engine.Help;
+using Org.InCommon.InCert.Engine.Logging;
 using Org.InCommon.InCert.Engine.Results;
 using Org.InCommon.InCert.Engine.Results.ControlResults;
 using Org.InCommon.InCert.Engine.Results.Errors;
@@ -22,6 +24,8 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModel
     [ComVisible(true)]
     public class ScriptingModel : IScriptingModel
     {
+        private static readonly ILog Log = Logger.Create();
+        
         private const string EventScriptFormat = "if (typeof document.raiseEngineEvent!='undefined'){{document.raiseEngineEvent('{0}',{1});}}";
 
         private const string TaskStartEventName = "engine_task_start";
@@ -95,15 +99,15 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModel
                 {
                     return;
                 }
-                
+
                 var script = string.Format(EventScriptFormat, eventName, e.ToJson());
                 _browser.EvaluateScriptAsync(script);
             }
             catch (Exception ex)
             {
-                var test = ex;
+               Log.WarnFormat("An exception occurred while attempting to raise a browser event: {0}", ex); 
             }
-            
+
         }
 
         public bool InCertPresent()
@@ -164,7 +168,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModel
 
         public void ReturnRestartComputerResult()
         {
-            _settingsManager.SetTemporarySettingString("restart computer.suppress dialog","true");
+            _settingsManager.SetTemporarySettingString("restart computer.suppress dialog", "true");
             _dialogModel.Result = new RestartComputerResult();
         }
 
@@ -240,8 +244,8 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModel
                 return _dialogModel.DialogInstance.Dispatcher.Invoke(() => GetAdvancedMenuItems());
             }
 
-            var items = _engine.AdvancedMenuManager.Items.Values.Where(i => i.Show).ToArray(); 
-            var result = AbstractDynamicPropertyContainer.ToJson(items); 
+            var items = _engine.AdvancedMenuManager.Items.Values.Where(i => i.Show).ToArray();
+            var result = AbstractDynamicPropertyContainer.ToJson(items);
             return result;
         }
 
@@ -251,7 +255,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModel
             {
                 return;
             }
-            
+
             _helpManager.ShowHelpTopic(value, _dialogModel);
         }
 
@@ -278,7 +282,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModel
                 _dialogModel.DialogInstance.Dispatcher.Invoke(() => RunTaskBranch(branchName));
                 return;
             }
-            
+
             var branch = _engine.BranchManager.GetBranch(branchName);
             if (branch == null)
             {
@@ -299,13 +303,26 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModel
             try
             {
                 _dialogModel.EnableDisableAllControls(false);
-                return branch.Execute(new NextResult()); 
+                return branch.Execute(new NextResult());
             }
             finally
             {
                 _dialogModel.EnableDisableAllControls(true);
 
             }
+        }
+
+        public void Dispose()
+        {
+            var engine = _engine as IHasEngineEvents;
+            if (engine == null)
+            {
+                return;
+            }
+
+            engine.IssueOccurred += OnIssueOccurred;
+            engine.TaskStarted += OnTaskStarted;
+            engine.TaskCompleted += OnTaskCompleted;
         }
     }
 }

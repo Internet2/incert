@@ -761,6 +761,11 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
         public void Dispose()
         {
             DialogInstance.Closing -= DialogCloseButtonHandler;
+            if (ContentModel != null)
+            {
+                ContentModel.Dispose();    
+            }
+            
             DialogInstance.Close();
         }
     }
