@@ -19,6 +19,7 @@ using Org.InCommon.InCert.Engine.UserInterface.Dialogs.ControlActions;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Managers;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.CommandModels;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContainerModels;
+using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModels;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Properties;
 using Org.InCommon.InCert.Engine.Utilities;
 
@@ -571,6 +572,9 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
                     return;
                 }
 
+                closeWindow.Url = "resource://html/ConfirmClose.html";
+                closeWindow.LinkPolicy = LinkPolicy.None;
+                closeWindow.Redirects = _engine.BannerManager.GetHtmlRedirects();
                 closeWindow.StartupLocation = WindowStartupLocation.CenterOwner;
 
                 DialogsManager.CancelPending = true;

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Windows;
 using CefSharp;
@@ -19,22 +20,22 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContainerModel
 {
     public class BrowserContentModel : AbstractContainerModel
     {
-       private static readonly ILog Log = Logger.Create();
+        private readonly string _url;
+        private readonly Dictionary<string, string> _redirects;
+        private readonly LinkPolicy _linkPolicy;
+        private static readonly ILog Log = Logger.Create();
 
-        public BrowserContentModel(AbstractDialogModel parentModel)
+        public BrowserContentModel(AbstractDialogModel parentModel, string url, Dictionary<string, string> redirects,LinkPolicy linkPolicy)
             : base(parentModel)
         {
+            _url = url;
+            _redirects = redirects;
+           _linkPolicy = linkPolicy;
         }
 
         public bool IsLoaded { get; private set; }
 
-        public string Address
-        {
-            get { return Browser.Address; }
-            set { Browser.Address = value; }
-        }
-
-        public ChromiumWebBrowser Browser { get; set; }
+        private ChromiumWebBrowser Browser { get; set; }
 
         public string GetAddress()
         {
@@ -52,7 +53,6 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContainerModel
             {
                 return;
             }
-            ;
 
             Browser.Address = value;
         }
@@ -63,7 +63,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContainerModel
             {
                 return;
             }
-            
+
             Browser.Reload();
         }
 
@@ -78,13 +78,13 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContainerModel
             Browser = Content as ChromiumWebBrowser;
             return Content as T;
         }
-        
+
         protected override DependencyObject CreateInstance(AbstractBanner banner)
         {
             var content = new ChromiumWebBrowser { DataContext = this };
             var scriptingModel = new ScriptingModel(banner.Engine, RootDialogModel, content);
             content.RegisterJsObject("engine", scriptingModel);
-            content.RequestHandler = new RequestHandler(banner.Engine.BannerManager.GetHtmlRedirects());
+            content.RequestHandler = new RequestHandler(_url, _redirects, _linkPolicy);
             content.LifeSpanHandler = new LifespanHandler();
             content.KeyboardHandler = new KeyboardHandler(scriptingModel);
 
@@ -92,11 +92,10 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContainerModel
             content.LoadError += OnContentLoadError;
             content.FrameLoadEnd += OnFrameLoadEnd;
             content.FrameLoadStart += OnFrameLoadStart;
-            
+
             return content;
         }
 
-        
 
         private void OnFrameLoadStart(object sender, FrameLoadStartEventArgs e)
         {
@@ -151,8 +150,8 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContainerModel
 
         private void SetError(FrameLoadEndEventArgs e)
         {
-            var statusCode = Enum.IsDefined(typeof (HttpStatusCode), e.HttpStatusCode)
-                ? ((HttpStatusCode) e.HttpStatusCode).ToString().SplitByCapitalLetters()
+            var statusCode = Enum.IsDefined(typeof(HttpStatusCode), e.HttpStatusCode)
+                ? ((HttpStatusCode)e.HttpStatusCode).ToString().SplitByCapitalLetters()
                 : "Unknown Issue";
 
             statusCode = string.Format("{0} ({1})", statusCode, e.HttpStatusCode);
@@ -195,6 +194,5 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContainerModel
 
             Log.DebugFormat("Javascript Console: {0}", e.Message);
         }
-
     }
 }

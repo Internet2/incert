@@ -24,6 +24,11 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModel
             return !string.IsNullOrWhiteSpace(url)
                 && url.StartsWith(SchemeName, StringComparison.InvariantCultureIgnoreCase);
         }
+
+        public static bool IsSchemeUri(Uri uri)
+        {
+            return uri.Scheme.Equals(SchemeName, StringComparison.InvariantCultureIgnoreCase);
+        }
     }
 
     public class ArchiveSchemeHandler : AbstractSchemeHandler

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Xml.Linq;
+using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModels;
 
 namespace Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.BannerWrappers
 {
@@ -13,5 +14,6 @@ namespace Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.BannerWrapper
         void AddHtmlRedirect(string key, string value);
         void RemoveHtmlRedirect(string key);
         Dictionary<string, string> GetHtmlRedirects();
+        LinkPolicy LinkPolicy { get; set; }
     }
 }

@@ -11,6 +11,8 @@ using Org.InCommon.InCert.Engine.Results.Errors.UserInterface;
 using Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.BannerWrappers;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContainerModels;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels;
+using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModels;
+using Org.InCommon.InCert.Engine.Utilities;
 
 namespace Org.InCommon.InCert.Engine.Tasks.UserInterface
 {
@@ -61,6 +63,9 @@ namespace Org.InCommon.InCert.Engine.Tasks.UserInterface
 
         [PropertyAllowedFromXml]
         public Cursor Cursor { get; set; }
+
+        [PropertyAllowedFromXml]
+        public LinkPolicy LinkPolicy { get; set; }
 
         protected abstract IResult ShowBanner(IResult previousResults);
 
@@ -124,7 +129,7 @@ namespace Org.InCommon.InCert.Engine.Tasks.UserInterface
                 return false;
             }
 
-            if (!string.IsNullOrWhiteSpace(ErrorBranch))
+            if (!String.IsNullOrWhiteSpace(ErrorBranch))
             {
                 return false;
             }
@@ -155,7 +160,7 @@ namespace Org.InCommon.InCert.Engine.Tasks.UserInterface
             {
                 return banner;
             }
-            
+
             banner = new HtmlBanner(Engine)
             {
                 Width = Width,
@@ -163,18 +168,19 @@ namespace Org.InCommon.InCert.Engine.Tasks.UserInterface
                 CanClose = true,
                 Margin = new Thickness(0),
                 Url = EndpointManager.ResolveContentUrl(Url),
-                Cursor = Cursor
+                Cursor = Cursor,
+                LinkPolicy = LinkPolicy
             };
 
-            
             return BannerManager.SetBanner(_identifier, banner) as HtmlBanner;
         }
 
-     
         public override void ConfigureFromNode(XElement node)
         {
             base.ConfigureFromNode(node);
 
+            LinkPolicy = (LinkPolicy)XmlUtilities.GetEnumValueFromChildNode(node, "LinkPolicy", BannerManager.LinkPolicy);
+            
             if (Width <= 0) Width = 600;
             if (Height <= 0) Height = 600;
         }
@@ -196,12 +202,17 @@ namespace Org.InCommon.InCert.Engine.Tasks.UserInterface
             {
                 throw new DialogInstanceNotFound(Dialog);
             }
+            
+            result.LinkPolicy = LinkPolicy;
+            result.Redirects = BannerManager.GetHtmlRedirects();
+            result.Url = EndpointManager.ResolveContentUrl(Url);
+
             return result;
         }
 
         protected AbstractDialogModel GetParentDialog()
         {
-            if (string.IsNullOrWhiteSpace(ParentDialog))
+            if (String.IsNullOrWhiteSpace(ParentDialog))
             {
                 return null;
             }
@@ -214,5 +225,8 @@ namespace Org.InCommon.InCert.Engine.Tasks.UserInterface
 
             return result;
         }
+
+
+        
     }
 }

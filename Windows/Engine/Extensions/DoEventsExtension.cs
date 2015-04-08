@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Management.Instrumentation;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
@@ -40,18 +41,40 @@ namespace Org.InCommon.InCert.Engine.Extensions
         public static bool InvokeIfRequired(this object target, Action action)
         {
             var instance = target as ContentControl;
-            if (instance == null)
-            {
-                return false;
-            }
-
-            if (instance.Dispatcher.CheckAccess())
+            if (instance == null || !instance.InvokeRequired())
             {
                 return false;
             }
 
             instance.Dispatcher.Invoke(action);
             return true;
+        }
+
+        public static bool InvokeRequired(this object target)
+        {
+            var instance = target as ContentControl;
+            return instance.InvokeRequired();
+        }
+        
+        public static bool InvokeRequired(this ContentControl target)
+        {
+            if (target == null)
+            {
+                return false;
+            }
+
+            return !target.Dispatcher.CheckAccess();
+        }
+
+        public static T Invoke<T>(this object target, Func<T> action)
+        {
+            var instance = target as ContentControl;
+            if (instance == null)
+            {
+                throw new Exception("could not convert object to content control");
+            }
+
+            return instance.Dispatcher.Invoke(action);
         }
     }
 }

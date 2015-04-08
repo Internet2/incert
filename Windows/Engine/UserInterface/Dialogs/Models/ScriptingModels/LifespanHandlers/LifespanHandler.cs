@@ -1,4 +1,5 @@
 ﻿using CefSharp;
+using Org.InCommon.InCert.Engine.Extensions;
 using Org.InCommon.InCert.Engine.Utilities;
 
 namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModels.LifespanHandlers
@@ -9,8 +10,19 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModel
         
         public bool OnBeforePopup(IWebBrowser browser, string url, ref int x, ref int y, ref int width, ref int height)
         {
-            UserInterfaceUtilities.OpenBrowser(url);
+            LaunchPopUp(browser,url);
             return true;
+        }
+
+       
+        private static void LaunchPopUp(IWebBrowser browser, string url)
+        {
+            if (browser.InvokeIfRequired(() => LaunchPopUp(browser, url)))
+            {
+                return;
+            }
+
+            UserInterfaceUtilities.OpenBrowser(url);
         }
 
         public void OnBeforeClose(IWebBrowser browser)

@@ -1,4 +1,5 @@
 ﻿using Org.InCommon.InCert.Engine.Engines;
+using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModels;
 
 namespace Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.BannerWrappers
 {
@@ -9,5 +10,6 @@ namespace Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.BannerWrapper
         }
 
         public string Url { get; set; }
+        public LinkPolicy LinkPolicy { get; set; }
     }
 }

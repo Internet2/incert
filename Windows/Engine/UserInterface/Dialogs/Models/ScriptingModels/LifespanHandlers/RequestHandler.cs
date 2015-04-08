@@ -3,22 +3,40 @@ using System.Collections.Generic;
 using System.IO;
 using CefSharp;
 using log4net;
+using Org.InCommon.InCert.Engine.Extensions;
 using Org.InCommon.InCert.Engine.Logging;
+using Org.InCommon.InCert.Engine.Utilities;
 
 namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModels.LifespanHandlers
 {
     internal class RequestHandler : IRequestHandler
     {
         private static readonly ILog Log = Logger.Create();
+        private readonly LinkPolicy _linkPolicy;
+        private readonly Uri _originalUri;
         private readonly Dictionary<string, string> _redirectDictionary;
 
-        public RequestHandler(Dictionary<string, string> redirectDictionary)
+        public RequestHandler(string url, Dictionary<string, string> redirectDictionary, LinkPolicy linkPolicy)
         {
             _redirectDictionary = redirectDictionary;
+            _linkPolicy = linkPolicy;
+
+            _originalUri = new Uri(url, UriKind.RelativeOrAbsolute);
         }
 
         public bool OnBeforeBrowse(IWebBrowser browser, IRequest request, bool isRedirect)
         {
+            if (browser.InvokeRequired())
+            {
+                return browser.Invoke(() => OnBeforeBrowse(browser, request, isRedirect));
+            }
+
+            if (!OpenInBrowserInstance(request.Url))
+            {
+                UserInterfaceUtilities.OpenBrowser(request.Url);
+                return true;
+            }
+
             return false;
         }
 
@@ -30,10 +48,16 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModel
 
         public void OnPluginCrashed(IWebBrowser browser, string pluginPath)
         {
+            var test = 0;
         }
 
         public bool OnBeforeResourceLoad(IWebBrowser browser, IRequest request, IResponse response)
         {
+            if (browser.InvokeRequired())
+            {
+                return browser.Invoke(() => OnBeforeResourceLoad(browser, request, response));
+            }
+
             var redirectUrl = GetRedirectUrl(request.Url);
             if (!string.IsNullOrWhiteSpace(redirectUrl))
             {
@@ -58,7 +82,44 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModel
 
         public void OnRenderProcessTerminated(IWebBrowser browser, CefTerminationStatus status)
         {
-            var test = 0;
+            if (browser.InvokeIfRequired(() => OnRenderProcessTerminated(browser, status)))
+            {
+                return;
+            }
+
+            Log.WarnFormat("Render process terminated with status of {0}. Attempting to reload current page.", status);
+            browser.Reload();
+        }
+
+        private bool OpenInBrowserInstance(string url)
+        {
+            try
+            {
+                var uri = new Uri(url);
+                if (uri.Equals(_originalUri))
+                {
+                    return true;
+                }
+
+                switch (_linkPolicy)
+                {
+                    case LinkPolicy.All:
+                        return true;
+                    case LinkPolicy.None:
+                        return false;
+                    case LinkPolicy.Internal:
+                        return uri.IsInternalScheme();
+                    case LinkPolicy.InternalAndSameHost:
+                        return uri.IsInternalScheme() || uri.IsSameHost(_originalUri);
+                }
+
+                return false;
+            }
+            catch (Exception e)
+            {
+                Log.WarnFormat("An exception occurred while evaluating a browse request url ({0}): {1}", url, e);
+                return false;
+            }
         }
 
         private string GetRedirectUrl(string url)

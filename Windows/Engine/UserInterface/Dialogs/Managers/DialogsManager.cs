@@ -70,9 +70,12 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Managers
             if (_dialogs.ContainsKey(key))
             {
                 var result = _dialogs[key] as T;
-                if (result == null)
-                    Log.DebugFormat("The dialog associated with the key {0} is not of type {1}", key, typeof (T).Name);
+                if (result != null)
+                {
+                    return result;
+                }
 
+                Log.DebugFormat("The dialog associated with the key {0} is not of type {1}", key, typeof(T).Name);
                 RemoveDialog(key);
             }
 

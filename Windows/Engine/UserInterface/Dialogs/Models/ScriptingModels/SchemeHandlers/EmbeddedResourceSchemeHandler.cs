@@ -18,6 +18,11 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModel
                 && url.StartsWith(SchemeName, StringComparison.InvariantCultureIgnoreCase);
         }
 
+        public static bool IsSchemeUri(Uri uri)
+        {
+            return uri.Scheme.Equals(SchemeName, StringComparison.InvariantCultureIgnoreCase);
+        }
+
         public ISchemeHandler Create()
         {
             return new EmbeddedResourceSchemeHandler();

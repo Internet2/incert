@@ -4,26 +4,27 @@ using System.Linq;
 using System.Reflection;
 using System.Xml.Linq;
 using CefSharp;
+using log4net;
 using Org.InCommon.InCert.Engine.Importables;
 using Org.InCommon.InCert.Engine.Logging;
-using Org.InCommon.InCert.Engine.Utilities;
-using log4net;
+using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModels;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModels.SchemeHandlers;
+using Org.InCommon.InCert.Engine.Utilities;
 
 namespace Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.BannerWrappers
 {
-
     public sealed class BannerManager : IBannerManager
     {
         private static readonly ILog Log = Logger.Create();
-
         private readonly Dictionary<string, AbstractBanner> _banners = new Dictionary<String, AbstractBanner>();
-        private readonly Dictionary<string, string> _htmlRedirects = new Dictionary<string, string>(); 
+        private readonly Dictionary<string, string> _htmlRedirects = new Dictionary<string, string>();
 
         public void Initialize()
         {
             try
             {
+                LinkPolicy = LinkPolicy.Internal;
+             
                 InitializeChromium();
 
                 _banners.Clear();
@@ -113,36 +114,35 @@ namespace Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.BannerWrapper
             return _htmlRedirects;
         }
 
+        public LinkPolicy LinkPolicy { get; set; }
+
         private static void InitializeChromium()
         {
             if (Cef.IsInitialized)
             {
                 return;
             }
-            
+
             var settings = new CefSettings
             {
-                PackLoadingDisabled =false,
-                LogSeverity = LogSeverity.Disable
-                    
+                PackLoadingDisabled = false,
+                LogSeverity = LogSeverity.Verbose
             };
 
             settings.CefCommandLineArgs.Add(new KeyValuePair<string, string>("no-proxy-server", ""));
-            
+
             settings.RegisterScheme(new CefCustomScheme
             {
                 SchemeName = ArchiveSchemeHandlerFactory.SchemeName,
-                SchemeHandlerFactory = new ArchiveSchemeHandlerFactory(),
-
+                SchemeHandlerFactory = new ArchiveSchemeHandlerFactory()
             });
 
             settings.RegisterScheme(new CefCustomScheme
             {
                 SchemeName = EmbeddedResourceSchemeHandlerFactory.SchemeName,
-                SchemeHandlerFactory = new EmbeddedResourceSchemeHandlerFactory(),
-
+                SchemeHandlerFactory = new EmbeddedResourceSchemeHandlerFactory()
             });
-            
+
             if (!Cef.Initialize(settings))
             {
                 throw new Exception("Could not initialize Chromium browser");
@@ -167,7 +167,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.BannerWrapper
                 dictionary[resource.ToLowerInvariant()] = urlPrefix + resource;
             }
         }
-        
+
         private static string RemoveManifestPrefix(string value, string prefix)
         {
             value = value.Replace(prefix, "");
