@@ -203,6 +203,7 @@
         <xs:element ref="UserInterface.SetCheckedParagraphSubtitle" />
         <xs:element ref="UserInterface.SetDialogTitle" />
         <xs:element ref="UserInterface.SetParagraphText" />
+        <xs:element ref="UserInterface.SetHtmlBannerLinkPolicy" />
         <xs:element ref="UserInterface.ShowBannerControl" />
         <xs:element ref="UserInterface.ShowBorderlessDialog" />
         <xs:element ref="UserInterface.ShowChildBannerModal" />

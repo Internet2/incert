@@ -746,6 +746,27 @@
     </xs:complexType>
   </xs:element>
 
+  <xs:element name="UserInterface.SetHtmlBannerLinkPolicy">
+    <xs:annotation>
+      <xs:documentation>Sets the default link policy. The link policy determines how embedded html banner instances handle hyperlinks.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="BaseTaskNodeType">
+          <xs:sequence>
+            <xs:element name="Properties">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="LinkPolicy" type="LinkPolicies" minOccurs="1" maxOccurs="1"  />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
   <xs:element name="UserInterface.RemoveHtmlRedirect">
     <xs:annotation>
       <xs:documentation>Removes entries to the engine's html redirect dictionary.</xs:documentation>
@@ -931,7 +952,6 @@
     </xs:complexType>
   </xs:element>
 
-
   <xs:simpleType name="LinkPolicies">
     <xs:annotation>
       <xs:documentation>Determines how the embedded brower will handle hyperlinks that do not have an explicit 'target' attribute set</xs:documentation>
@@ -960,6 +980,4 @@
       </xs:enumeration>
     </xs:restriction>
   </xs:simpleType>
-
-
 </xs:schema>
