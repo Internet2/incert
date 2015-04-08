@@ -61,7 +61,9 @@ namespace Org.InCommon.InCert.Engine.Tasks.UserInterface
         [PropertyAllowedFromXml]
         public int YOffset { get; set; }
 
-     
+        [PropertyAllowedFromXml]
+        public Cursor Cursor { get; set; }
+
         [PropertyAllowedFromXml]
         public LinkPolicy LinkPolicy { get; set; }
 
@@ -166,6 +168,7 @@ namespace Org.InCommon.InCert.Engine.Tasks.UserInterface
                 CanClose = true,
                 Margin = new Thickness(0),
                 Url = EndpointManager.ResolveContentUrl(Url),
+                Cursor = Cursor,
                 LinkPolicy = LinkPolicy
             };
 
