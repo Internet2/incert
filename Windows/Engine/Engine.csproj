@@ -603,6 +603,7 @@
     <Compile Include="Tasks\UserInterface\LoadImageFromUri.cs" />
     <Compile Include="Tasks\UserInterface\LoadImageFromArchive.cs" />
     <Compile Include="Tasks\UserInterface\SetAdvancedMenuOptions.cs" />
+    <Compile Include="Tasks\UserInterface\SetDialogTitle.cs" />
     <Compile Include="Tasks\UserInterface\SetHtmlBannerLinkPolicy.cs" />
     <Compile Include="Tasks\UserInterface\ShowBorderlessHtmlDialog.cs" />
     <Compile Include="Tasks\UserInterface\ShowHtmlBanner.cs" />
