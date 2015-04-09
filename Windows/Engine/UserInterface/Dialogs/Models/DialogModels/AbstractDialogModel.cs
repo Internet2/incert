@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Interop;
 using System.Windows.Media;
 using log4net;
 using Org.InCommon.InCert.Engine.Engines;
@@ -598,6 +599,20 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
             {
                 DialogsManager.RemoveDialog("CloseWindow");
                 DialogsManager.CancelPending = false;
+                if (Result is CloseResult)
+                {
+                    CloseChildren();
+                }
+            }
+        }
+
+        private void CloseChildren()
+        {
+            foreach (Window child in _dialogInstance.OwnedWindows)
+            {
+                var model = DialogsManager.GetDialog<AbstractDialogModel>(child);
+                model.SuppressCloseQuestion = true;
+                model.Result = new CloseResult();
             }
         }
 
@@ -763,9 +778,9 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
             DialogInstance.Closing -= DialogCloseButtonHandler;
             if (ContentModel != null)
             {
-                ContentModel.Dispose();    
+                ContentModel.Dispose();
             }
-            
+
             DialogInstance.Close();
         }
     }

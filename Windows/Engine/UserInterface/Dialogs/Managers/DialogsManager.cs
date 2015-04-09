@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using log4net;
 using Ninject;
@@ -25,6 +26,8 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Managers
         }
 
         public string ActiveDialogKey { get; set; }
+
+     
 
         public void CloseAllDialogs()
         {
@@ -84,6 +87,11 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Managers
             _dialogs[key] = dialog;
 
             return dialog;
+        }
+
+        public T GetDialog<T>(Window instance) where T : AbstractDialogModel
+        {
+            return _dialogs.Values.SingleOrDefault(d => d.DialogInstance.Equals(instance)) as T;
         }
 
         public void RemoveDialog(string key)
