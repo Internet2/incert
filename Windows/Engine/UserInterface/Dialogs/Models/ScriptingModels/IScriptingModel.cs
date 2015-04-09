@@ -41,6 +41,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModel
         // dialog behavior, etc.
         void SuppressCloseQuestion(bool value);
         void DisableCloseButton(bool value);
+        void SetWindowTitle(string value);
 
         void RunTaskBranch(string branchName);
 

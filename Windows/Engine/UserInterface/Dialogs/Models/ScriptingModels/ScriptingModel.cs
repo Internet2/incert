@@ -3,7 +3,6 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using CefSharp.Wpf;
 using log4net;
-using Microsoft.VisualBasic.Logging;
 using Org.InCommon.InCert.Engine.AdvancedMenu;
 using Org.InCommon.InCert.Engine.Dynamics;
 using Org.InCommon.InCert.Engine.Engines;
@@ -24,22 +23,19 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModel
     [ComVisible(true)]
     public class ScriptingModel : IScriptingModel
     {
-        private static readonly ILog Log = Logger.Create();
-        
         private const string EventScriptFormat = "if (typeof document.raiseEngineEvent!='undefined'){{document.raiseEngineEvent('{0}',{1});}}";
-
         private const string TaskStartEventName = "engine_task_start";
         private const string TaskFinishEventName = "engine_task_finish";
         private const string IssueEventName = "issue_occurred";
         private const string AdvancedMenuBranchStartEventName = "engine_advanced_menu_branch_start";
         private const string AdvancedMenuBranchFinishEventName = "engine_advanced_menu_branch_finish";
-
-        private readonly ISettingsManager _settingsManager;
-        private readonly IHelpManager _helpManager;
+        private static readonly ILog Log = Logger.Create();
         private readonly IAdvancedMenuManager _advancedMenuManager;
-        private readonly IEngine _engine;
-        private readonly AbstractDialogModel _dialogModel;
         private readonly ChromiumWebBrowser _browser;
+        private readonly AbstractDialogModel _dialogModel;
+        private readonly IEngine _engine;
+        private readonly IHelpManager _helpManager;
+        private readonly ISettingsManager _settingsManager;
 
         public ScriptingModel(IEngine engine, AbstractDialogModel dialogModel, ChromiumWebBrowser browser)
         {
@@ -51,44 +47,6 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModel
             _browser = browser;
 
             SubscribeToEngineEvents(engine as IHasEngineEvents);
-        }
-
-        private void SubscribeToEngineEvents(IHasEngineEvents engine)
-        {
-            if (_engine == null)
-            {
-                throw new Exception("Could not subscribe to engine events.");
-            }
-
-            engine.IssueOccurred += OnIssueOccurred;
-            engine.TaskStarted += OnTaskStarted;
-            engine.TaskCompleted += OnTaskCompleted;
-
-        }
-
-        private void OnTaskCompleted(object sender, TaskEventData e)
-        {
-            if (!e.HasContent())
-            {
-                return;
-            }
-
-            RaiseEvent(TaskStartEventName, e);
-        }
-
-        private void OnTaskStarted(object sender, TaskEventData e)
-        {
-            if (!e.HasContent())
-            {
-                return;
-            }
-
-            RaiseEvent(TaskFinishEventName, e);
-        }
-
-        private void OnIssueOccurred(object sender, IssueEventData e)
-        {
-            RaiseEvent(IssueEventName, e);
         }
 
         public void RaiseEvent(string eventName, AbstractEventData e)
@@ -105,9 +63,8 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModel
             }
             catch (Exception ex)
             {
-               Log.WarnFormat("An exception occurred while attempting to raise a browser event: {0}", ex); 
+                Log.WarnFormat("An exception occurred while attempting to raise a browser event: {0}", ex);
             }
-
         }
 
         public bool InCertPresent()
@@ -133,7 +90,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModel
         public bool SettingExists(string key)
         {
             return _settingsManager.IsTemporarySettingStringPresent(key)
-                || _settingsManager.IsTemporaryObjectPresent(key);
+                   || _settingsManager.IsTemporaryObjectPresent(key);
         }
 
         public void ReturnLeaveBranchNextResult()
@@ -200,7 +157,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModel
         public void ReturnErrorResult(string errorType)
         {
             var result = ErrorResult.FromTypeName(errorType)
-                ?? new ExceptionOccurred(new Exception(string.Format("Could not result error type {0}", errorType)));
+                         ?? new ExceptionOccurred(new Exception(string.Format("Could not result error type {0}", errorType)));
 
             _dialogModel.Result = result;
         }
@@ -208,7 +165,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModel
         public void ReturnStoredResult(string settingKey)
         {
             _dialogModel.Result = _settingsManager.GetTemporaryObject(settingKey) as AbstractTaskResult
-                ?? new ExceptionOccurred(new Exception(string.Format("No valid result object exists for the key {0}", settingKey)));
+                                  ?? new ExceptionOccurred(new Exception(string.Format("No valid result object exists for the key {0}", settingKey)));
         }
 
         public void ShowAdvancedMenu(string group)
@@ -275,6 +232,21 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModel
             _dialogModel.CanClose = !value;
         }
 
+        public void SetWindowTitle(string value)
+        {
+            if (_dialogModel.DialogInstance.InvokeIfRequired(() => SetWindowTitle(value)))
+            {
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                return;
+            }
+
+            _dialogModel.WindowTitle = ResolveValue(value);
+        }
+
         public void RunTaskBranch(string branchName)
         {
             if (!_dialogModel.DialogInstance.Dispatcher.CheckAccess())
@@ -298,20 +270,6 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModel
             _dialogModel.Result = result;
         }
 
-        private IResult ExecuteBranch(ITaskBranch branch)
-        {
-            try
-            {
-                _dialogModel.EnableDisableAllControls(false);
-                return branch.Execute(new NextResult());
-            }
-            finally
-            {
-                _dialogModel.EnableDisableAllControls(true);
-
-            }
-        }
-
         public void Dispose()
         {
             var engine = _engine as IHasEngineEvents;
@@ -323,6 +281,56 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModel
             engine.IssueOccurred += OnIssueOccurred;
             engine.TaskStarted += OnTaskStarted;
             engine.TaskCompleted += OnTaskCompleted;
+        }
+
+        private void SubscribeToEngineEvents(IHasEngineEvents engine)
+        {
+            if (_engine == null)
+            {
+                throw new Exception("Could not subscribe to engine events.");
+            }
+
+            engine.IssueOccurred += OnIssueOccurred;
+            engine.TaskStarted += OnTaskStarted;
+            engine.TaskCompleted += OnTaskCompleted;
+        }
+
+        private void OnTaskCompleted(object sender, TaskEventData e)
+        {
+            if (!e.HasContent())
+            {
+                return;
+            }
+
+            RaiseEvent(TaskStartEventName, e);
+        }
+
+        private void OnTaskStarted(object sender, TaskEventData e)
+        {
+            if (!e.HasContent())
+            {
+                return;
+            }
+
+            RaiseEvent(TaskFinishEventName, e);
+        }
+
+        private void OnIssueOccurred(object sender, IssueEventData e)
+        {
+            RaiseEvent(IssueEventName, e);
+        }
+
+        private IResult ExecuteBranch(ITaskBranch branch)
+        {
+            try
+            {
+                _dialogModel.EnableDisableAllControls(false);
+                return branch.Execute(new NextResult());
+            }
+            finally
+            {
+                _dialogModel.EnableDisableAllControls(true);
+            }
         }
     }
 }

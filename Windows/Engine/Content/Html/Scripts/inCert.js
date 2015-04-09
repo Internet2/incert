@@ -28,7 +28,17 @@
         configureConditionalVisibility();
         configureConditionalEnabledState();
         configureValidation();
+        setWindowTitle();
         setInitialFocus();
+    }
+
+    function setWindowTitle() {
+        var title = $(document).attr("title");
+        if (!title || !title.length) {
+            return;
+        }
+
+        engine.setWindowTitle(title);
     }
 
     function resolveValues() {
@@ -367,6 +377,10 @@
 
         engine.getValue = function (property) {
             return property + " value";
+        }
+
+        engine.setWindowTitle = function(value) {
+            console.log("setting external window title to " + value);
         }
 
         engine.resolveValue = function (value) {
