@@ -199,12 +199,14 @@
     }
 
     function disableAllControls() {
+        $("html").addClass("disabled");
         $(":input").attr("disabled", true);
         $(":button").attr("disabled", true);
         $(".menu-item-title, .menu-group-title, .number-circle").addClass("disabled");
     }
 
     function enableAllControls() {
+        $("html").removeClass("disabled");
         $(":input").attr("disabled", false);
         $(":button").attr("disabled", false);
         $(".menu-item-title, .menu-group-title, .number-circle").removeClass("disabled");
