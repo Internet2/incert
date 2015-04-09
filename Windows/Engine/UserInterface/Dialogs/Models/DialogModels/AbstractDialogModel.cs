@@ -43,7 +43,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.DialogModels
 
         private readonly string _confirmCloseBannerIdentifier = Guid.NewGuid().ToString();
 
-        protected IDialogsManager DialogsManager { get; private set; }
+        private IDialogsManager DialogsManager { get; set; }
         private readonly IBannerManager _bannerManager;
 
         private readonly IEngine _engine;
