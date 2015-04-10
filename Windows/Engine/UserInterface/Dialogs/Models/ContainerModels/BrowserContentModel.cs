@@ -40,12 +40,9 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ContainerModel
 
         public string GetAddress()
         {
-            if (!Browser.Dispatcher.CheckAccess())
-            {
-                return Browser.Dispatcher.Invoke(() => GetAddress());
-            }
-
-            return Browser.Address;
+            return Browser.Dispatcher.InvokeRequired() 
+                ? Browser.Dispatcher.Invoke(() => GetAddress()) 
+                : Browser.Address;
         }
 
         public void SetAddress(string value)
