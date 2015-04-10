@@ -272,15 +272,7 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModel
 
         public void Dispose()
         {
-            var engine = _engine as IHasEngineEvents;
-            if (engine == null)
-            {
-                return;
-            }
-
-            engine.IssueOccurred += OnIssueOccurred;
-            engine.TaskStarted += OnTaskStarted;
-            engine.TaskCompleted += OnTaskCompleted;
+            UnsubscribeFromEngineEvents(_engine as IHasEngineEvents);
         }
 
         private void SubscribeToEngineEvents(IHasEngineEvents engine)
@@ -293,6 +285,18 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModel
             engine.IssueOccurred += OnIssueOccurred;
             engine.TaskStarted += OnTaskStarted;
             engine.TaskCompleted += OnTaskCompleted;
+        }
+
+        private void UnsubscribeFromEngineEvents(IHasEngineEvents engine)
+        {
+            if (_engine == null)
+            {
+                throw new Exception("Could not subscribe to engine events.");
+            }
+
+            engine.IssueOccurred -= OnIssueOccurred;
+            engine.TaskStarted -= OnTaskStarted;
+            engine.TaskCompleted -= OnTaskCompleted;
         }
 
         private void OnTaskCompleted(object sender, TaskEventData e)
