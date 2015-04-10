@@ -8,11 +8,11 @@
     document.engineScriptVersion = 1.0;
 
     function disableAllControls() {
-        $(":input").attr("disabled", true);
+        $(":input").prop("disabled", true);
     }
 
     function enableAllControls() {
-        $(":input").attr("disabled", false);
+        $(":input").prop("disabled", false);
     }
 
     function globalInitialize() {
@@ -123,8 +123,8 @@
     }
 
     function configureInitialEnabledState() {
-        $("[data-enable]").attr("disabled", true);
-        $("[data-disable]").attr("disabled", false);
+        $("[data-enable]").prop("disabled", true);
+        $("[data-disable]").prop("disabled", false);
     }
 
     function configureConditionalVisibility() {
@@ -169,25 +169,25 @@
         $("[data-enable][data-if-help-topic-exists]").each(function () {
             var topic = $(this).data("help-topic");
             var available = engine.helpTopicAvailable(topic);
-            $(this).attr("disabled", !available);
+            $(this).prop("disabled", !available);
         });
 
         $("[data-enable][data-if-setting-exists]").each(function () {
             var key = $(this).data("setting");
             var exists = engine.settingExists(key);
-            $(this).attr("disabled", !exists);
+            $(this).prop("disabled", !exists);
         });
 
         $("[data-disable][data-if-help-topic-exists]").each(function () {
             var topic = $(this).data("help-topic");
             var available = engine.helpTopicAvailable(topic);
-            $(this).attr("disabled", available);
+            $(this).prop("disabled", available);
         });
 
         $("[data-disable][data-if-setting-exists]").each(function () {
             var key = $(this).data("setting");
             var available = engine.settingExists(key);
-            $(this).attr("disabled", !available);
+            $(this).prop("disabled", !available);
         });
     }
 
@@ -519,8 +519,8 @@
         var affected = targets.filter(selector);
         if (!affected.length) { return; }
 
-        affected.filter("[data-disable]").attr("disabled", true);
-        affected.filter("[data-enable]").attr("disabled", false);
+        affected.filter("[data-disable]").prop("disabled", true);
+        affected.filter("[data-enable]").prop("disabled", false);
         affected.filter("[data-show]").show();
         affected.filter("[data-hide]").hide();
 
@@ -535,8 +535,8 @@
             return;
         }
 
-        targets.filter("[data-on-form-valid").attr("disabled", isValid);
-        targets.filter("[data-on-form-invalid").attr("disabled", !isValid);
+        targets.filter("[data-on-form-valid").prop("disabled", isValid);
+        targets.filter("[data-on-form-invalid").prop("disabled", !isValid);
 
     }
 
