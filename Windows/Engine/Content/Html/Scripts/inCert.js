@@ -23,8 +23,6 @@
         addChangeEvents();
         configureCloseButton();
         configureCloseQuestion();
-        configureInitialVisibility();
-        configureInitialEnabledState();
         configureConditionalVisibility();
         configureConditionalEnabledState();
         configureValidation();
@@ -115,16 +113,6 @@
         if ($(document.body).data("raise-close-button") != undefined) {
             engine.suppressCloseQuestion(false);
         }
-    }
-
-    function configureInitialVisibility() {
-        $("[data-show]").hide();
-        $("[data-hide]").show();
-    }
-
-    function configureInitialEnabledState() {
-        $("[data-enable]").prop("disabled", true);
-        $("[data-disable]").prop("disabled", false);
     }
 
     function configureConditionalVisibility() {
@@ -519,8 +507,12 @@
         var affected = targets.filter(selector);
         if (!affected.length) { return; }
 
-        affected.filter("[data-disable]").prop("disabled", true);
-        affected.filter("[data-enable]").prop("disabled", false);
+        disableIndividualElements(affected);
+        disableContainerElements(affected);
+
+        enableIndividualElements(affected);
+        enableContainerElements(affected);
+    
         affected.filter("[data-show]").show();
         affected.filter("[data-hide]").hide();
 
@@ -530,6 +522,44 @@
         }
     }
 
+    function disableIndividualElements(affected) {
+        var elementsToDisable = getAffectedElements(affected, "[data-disable]");
+        elementsToDisable.prop("disabled", true);
+        elementsToDisable.addClass("disabled");
+    }
+
+    // disable input, button, and a elements that are children of body, form elements with data-disable, 
+    // ignoring those with 'data-no-disable' set
+    function disableContainerElements(affected) {
+        var containersToDisable = getAffectedContainers(affected, "[data-disable]");
+        containersToDisable.addClass("disabled");
+        containersToDisable.find("input,button").not("[data-no-disable]").prop("disabled", true);
+        containersToDisable.find("a").not("[data-no-disable]").addClass("disabled");
+    }
+
+    function enableIndividualElements(affected) {
+        var elementsToDisable = getAffectedElements(affected, "[data-enable]");
+        elementsToDisable.prop("disabled", false);
+        elementsToDisable.removeClass("disabled");
+    }
+
+    // disable input, button, and a elements that are children of body, form elements with data-disable, 
+    // ignoring those with 'data-no-disable' set
+    function enableContainerElements(affected) {
+        var containersToDisable = getAffectedContainers(affected, "[data-enable]");
+        containersToDisable.removeClass("disabled");
+        containersToDisable.find("input,button").prop("disabled", false);
+        containersToDisable.find("a").removeClass("disabled");
+    }
+
+    function getAffectedElements(affected, filter) {
+        return affected.filter(filter).filter("input,button,a");
+    }
+
+    function getAffectedContainers(affected, filter) {
+        return affected.filter(filter).filter("form,body,div,html");
+    }
+    
     function processValidationEvents(targets, isValid) {
         if (targets.length === 0) {
             return;
