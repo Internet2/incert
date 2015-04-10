@@ -67,6 +67,10 @@ pre.errorText {
     word-wrap: break-word; 
 }
 
+.form-control-feedback {
+    color:transparent
+}
+
 .has-error .help-block,
 .has-error .control-label,
 .has-error .radio,
