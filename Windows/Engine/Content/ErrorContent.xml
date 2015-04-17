@@ -73,7 +73,11 @@
       </Content>
     </SimpleBanner>
 
-    <SimpleBanner name="Error footer banner" />
+    <SimpleBanner name="Error footer banner">
+      <Content>
+        <SimpleParagraph />
+      </Content>
+    </SimpleBanner>
       
   </Banners>
 </Content>

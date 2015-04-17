@@ -1461,7 +1461,9 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Resource Include="icon.ico" />
-    <EmbeddedResource Include="Content\ErrorContent.xml" />
+    <EmbeddedResource Include="Content\ErrorContent.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Content\SplashScreenBanner.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>

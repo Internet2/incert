@@ -29,8 +29,7 @@
         </Properties>
       </Settings.SetSettingText>
 
-     
-     <Verification.VerifyApplicationSignature />
+      <Verification.VerifyApplicationSignature />
 
       <Control.ImportContentFromSignedArchive>
         <Conditions.All>
@@ -42,7 +41,7 @@
       </Control.ImportContentFromSignedArchive>
 
       <Control.ProcessCommandLineArguments />
-      
+
       <NamedPipes.SendMessage>
         <Conditions.All>
           <Settings.SettingPresent key="engine.named pipe" />
@@ -54,7 +53,7 @@
           <Timeout>1</Timeout>
         </Properties>
       </NamedPipes.SendMessage>
-      
+
       <Control.ReturnRoleBranchResult>
         <Properties>
           <Role>Initialize</Role>
@@ -69,7 +68,7 @@
           <Branch>restart computer.remove restart shortcut</Branch>
         </Properties>
       </Control.ReturnBranchResult>
-     
+
       <Control.ReturnBranchResult>
         <Properties>
           <Branch>configure default task list</Branch>
@@ -124,7 +123,7 @@
           <Branch>check operating system version</Branch>
         </Properties>
       </Control.ReturnBranchResult>
-      
+
       <Control.ReturnBranchResult>
         <Properties>
           <Branch>download task list</Branch>
@@ -163,7 +162,7 @@
           <Branch>check operating system version</Branch>
         </Properties>
       </Control.ReturnBranchResult>
-      
+
       <Control.ReturnBranchResult>
         <Conditions.All>
           <SystemInfo.IsNotAdministrator />
@@ -184,7 +183,7 @@
           <Branch>download task list</Branch>
         </Properties>
       </Control.ReturnBranchResult>
-   </RoleBranch>
+    </RoleBranch>
 
     <RoleBranch name="Final" role="Final">
       <UserInterface.CloseAllDialogs />
@@ -214,7 +213,7 @@
         </Properties>
       </Logging.LogEvent>
     </RoleBranch>
-    
+
     <TaskBranch name="download task list">
       <Control.GetContentFromEndpoint>
         <Properties>
@@ -234,7 +233,7 @@
         </Properties>
       </Settings.SetSettingText>
     </TaskBranch>
-    
+
     <TaskBranch name="check operating system version">
       <Control.ReturnLeaveBranchNextResult>
         <Conditions.Any>
