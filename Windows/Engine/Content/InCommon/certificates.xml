@@ -2,24 +2,7 @@
 <Content xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xsi:schemaLocation="http://incert.incommon.org/schemas ../Schemas/tasklist.xsd">
   <Branches>
-    <TaskBranch name="certificates.configure">
-      <UserInterface.SetCheckedParagraphSubtitle>
-        <Conditions.All>
-          <Certificates.ValidCertExistsForEmail authorityKey="e8d7bd96aaddd008efa1339e5e59983c12b79b91" address="[username]@incommontest.org" mode="Offline" />
-        </Conditions.All>
-        <Properties>
-          <Dialog>Main dialog</Dialog>
-          <ControlKey>Installing certificate</ControlKey>
-        </Properties>
-        <Content>
-          <SimpleParagraph style="InsetText" margin="0,0,0,0" padding="0,0,0,0">
-            <Content>
-              <DirectTextContent>A valid certificate already exists. There is no need to provision a new one.</DirectTextContent>
-            </Content>
-          </SimpleParagraph>
-        </Content>
-      </UserInterface.SetCheckedParagraphSubtitle>
-
+    <TaskBranch name="certificates.configure" minimumBranchTime="1">
       <Certificates.CreateWrapperFromExistingUserCertificate>
         <Conditions.All>
           <Certificates.ValidCertExistsForEmail authorityKey="e8d7bd96aaddd008efa1339e5e59983c12b79b91" address="[username]@incommontest.org" mode="Offline" />
@@ -50,34 +33,7 @@ xsi:schemaLocation="http://incert.incommon.org/schemas ../Schemas/tasklist.xsd">
       </Control.ReturnBranchResult>
     </TaskBranch>
     
-    <TaskBranch name="certificates.install">
-      <UserInterface.ActivateCheckedParagraph minimumTaskTime="1">
-        <Properties>
-          <Dialog>Main dialog</Dialog>
-          <ControlKey>Installing certificate</ControlKey>
-        </Properties>
-      </UserInterface.ActivateCheckedParagraph>
-
-      <UserInterface.SetCheckedParagraphSubtitle>
-        <Properties>
-          <Dialog>Main dialog</Dialog>
-          <ControlKey>Installing certificate</ControlKey>
-        </Properties>
-        <Content>
-          <ProgressParagraph settingKey="installing certificate message" style="InsetText" margin="0,0,0,0" padding="0,0,0,0">
-            <Content>
-              <DirectTextContent>Acquiring new user authentication certificate</DirectTextContent>
-            </Content>
-          </ProgressParagraph>
-        </Content>
-      </UserInterface.SetCheckedParagraphSubtitle>
-
-      <UserInterface.StartMessageTimer>
-        <Properties>
-          <SettingKey>installing certificate message</SettingKey>
-        </Properties>
-      </UserInterface.StartMessageTimer>
-
+    <TaskBranch name="certificates.install" minimumBranchTime="1">
       <Certificates.RetrieveUserCertificate minimumTaskTime="3">
         <Properties>
           <UsernameKey>username</UsernameKey>
@@ -98,12 +54,6 @@ xsi:schemaLocation="http://incert.incommon.org/schemas ../Schemas/tasklist.xsd">
         </Properties>
       </Certificates.ExportCertificateToFile>
 
-      <UserInterface.StopMessageTimer>
-        <Properties>
-          <SettingKey>installing certificate message</SettingKey>
-        </Properties>
-      </UserInterface.StopMessageTimer>
-
       <Certificates.GetSettingCertificateSubjectProperty>
         <Properties>
           <CertificateWrapperKey>user certificate</CertificateWrapperKey>
@@ -111,26 +61,6 @@ xsi:schemaLocation="http://incert.incommon.org/schemas ../Schemas/tasklist.xsd">
           <Property>SimpleName</Property>
         </Properties>
       </Certificates.GetSettingCertificateSubjectProperty>
-
-      <UserInterface.SetCheckedParagraphSubtitle>
-        <Properties>
-          <Dialog>Main dialog</Dialog>
-          <ControlKey>Installing certificate</ControlKey>
-        </Properties>
-        <Content>
-          <ProgressParagraph settingKey="installing certificate message" style="InsetText" margin="0,0,0,0" padding="0,0,0,0">
-            <Content>
-              <DirectTextContent>Installing certificate for [user certificate subject name]</DirectTextContent>
-            </Content>
-          </ProgressParagraph>
-        </Content>
-      </UserInterface.SetCheckedParagraphSubtitle>
-
-      <UserInterface.StartMessageTimer>
-        <Properties>
-          <SettingKey>installing certificate message</SettingKey>
-        </Properties>
-      </UserInterface.StartMessageTimer>
 
       <Certificates.ImportCertificateFromSettings minimumTaskTime="3">
         <Properties>
@@ -145,26 +75,6 @@ xsi:schemaLocation="http://incert.incommon.org/schemas ../Schemas/tasklist.xsd">
           <CertificateWrapperKey>user certificate</CertificateWrapperKey>
         </Properties>
       </Certificates.RemoveSimiliarCertificatesFromStore>
-
-      <UserInterface.StopMessageTimer>
-        <Properties>
-          <SettingKey>installing certificate message</SettingKey>
-        </Properties>
-      </UserInterface.StopMessageTimer>
-
-      <UserInterface.RemoveCheckedParagraphSubtitle>
-        <Properties>
-          <Dialog>Main dialog</Dialog>
-          <ControlKey>Installing certificate</ControlKey>
-        </Properties>
-      </UserInterface.RemoveCheckedParagraphSubtitle>
-
-      <UserInterface.CompleteCheckedParagraph minimumTaskTime="1">
-        <Properties>
-          <Dialog>Main dialog</Dialog>
-          <ControlKey>Installing certificate</ControlKey>
-        </Properties>
-      </UserInterface.CompleteCheckedParagraph>
     </TaskBranch>
 
     <TaskBranch name="Enable certificate monitor">

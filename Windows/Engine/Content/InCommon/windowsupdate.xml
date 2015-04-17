@@ -2,14 +2,7 @@
 <Content xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://incert.incommon.org/schemas ../Schemas/tasklist.xsd">
   <Branches>
-    <TaskBranch name="windowsupdate.configure">
-      <UserInterface.ActivateCheckedParagraph minimumTaskTime="1">
-        <Properties>
-          <Dialog>Main dialog</Dialog>
-          <ControlKey>Configuring windows update</ControlKey>
-        </Properties>
-      </UserInterface.ActivateCheckedParagraph>
-
+    <TaskBranch name="windowsupdate.configure" minimumBranchTime="1">
       <!-- this block clears settings that may have been set in registry by sys admins. 
       We want to use the windows update api to set these settings.  -->
       <WindowsUpdate.SetRegistryValues>
@@ -52,13 +45,6 @@
       
       <!-- restart the windows update server so settings take effect immediately -->
       <WindowsUpdate.RestartService />
-
-      <UserInterface.CompleteCheckedParagraph minimumTaskTime="1">
-        <Properties>
-          <Dialog>Main dialog</Dialog>
-          <ControlKey>Configuring windows update</ControlKey>
-        </Properties>
-      </UserInterface.CompleteCheckedParagraph>
     </TaskBranch>
   </Branches>
   

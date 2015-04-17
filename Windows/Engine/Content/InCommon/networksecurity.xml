@@ -3,64 +3,16 @@
 xsi:schemaLocation="http://incert.incommon.org/schemas ../Schemas/tasklist.xsd">
   <Branches>
     <TaskBranch name="networksecurity.configure">
-      <UserInterface.ActivateCheckedParagraph minimumTaskTime="1">
-        <Properties>
-          <Dialog>Main dialog</Dialog>
-          <ControlKey>Configuring network security</ControlKey>
-        </Properties>
-      </UserInterface.ActivateCheckedParagraph>
-
       <Control.ReturnBranchResult>
         <Properties>
           <Branch>networksecurity.configure firewall</Branch>
         </Properties>
       </Control.ReturnBranchResult>
-
-      <UserInterface.SetCheckedParagraphSubtitle>
-        <Properties>
-          <Dialog>Main dialog</Dialog>
-          <ControlKey>Configuring network security</ControlKey>
-        </Properties>
-        <Content>
-          <ProgressParagraph settingKey="Configuring network security subtitle" margin="0,0,0,0" padding="0,0,0,0" style="InsetText">
-            <Content>
-              <DirectTextContent>Blocking ports used by known exploits</DirectTextContent>
-            </Content>
-          </ProgressParagraph>
-        </Content>
-      </UserInterface.SetCheckedParagraphSubtitle>
-
-      <UserInterface.StartMessageTimer>
-        <Properties>
-          <SettingKey>Configuring network security subtitle</SettingKey>
-        </Properties>
-      </UserInterface.StartMessageTimer>
-
       <Control.ReturnBranchResult minimumTaskTime="3">
         <Properties>
           <Branch>networksecurity.block ports</Branch>
         </Properties>
       </Control.ReturnBranchResult>
-
-      <UserInterface.StopMessageTimer>
-        <Properties>
-          <SettingKey>Configuring network security subtitle</SettingKey>
-        </Properties>
-      </UserInterface.StopMessageTimer>
-
-      <UserInterface.RemoveCheckedParagraphSubtitle>
-        <Properties>
-          <Dialog>Main dialog</Dialog>
-          <ControlKey>Configuring network security</ControlKey>
-        </Properties>
-      </UserInterface.RemoveCheckedParagraphSubtitle>
-
-      <UserInterface.CompleteCheckedParagraph minimumTaskTime="1">
-        <Properties>
-          <Dialog>Main dialog</Dialog>
-          <ControlKey>Configuring network security</ControlKey>
-        </Properties>
-      </UserInterface.CompleteCheckedParagraph>
     </TaskBranch>
 
     <TaskBranch name="networksecurity.configure firewall">
@@ -69,26 +21,6 @@ xsi:schemaLocation="http://incert.incommon.org/schemas ../Schemas/tasklist.xsd">
           <Firewall.IsFirewallEnabled profile="All" />
         </Conditions.All>
       </Control.ReturnLeaveBranchNextResult>
-
-      <UserInterface.SetCheckedParagraphSubtitle>
-        <Properties>
-          <Dialog>Main dialog</Dialog>
-          <ControlKey>Configuring network security</ControlKey>
-        </Properties>
-        <Content>
-          <ProgressParagraph settingKey="Configuring network security subtitle" margin="0,0,0,0" padding="0,0,0,0" style="InsetText">
-            <Content>
-              <DirectTextContent>Enabling Windows firewall</DirectTextContent>
-            </Content>
-          </ProgressParagraph>
-        </Content>
-      </UserInterface.SetCheckedParagraphSubtitle>
-
-      <UserInterface.StartMessageTimer>
-        <Properties>
-          <SettingKey>Configuring network security subtitle</SettingKey>
-        </Properties>
-      </UserInterface.StartMessageTimer>
 
       <Firewall.EnableFirewall minimumTaskTime="3">
         <Properties>

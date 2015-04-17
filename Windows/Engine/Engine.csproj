@@ -1136,7 +1136,6 @@
     <Content Include="Content\InCommon\archive\icons\icon.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Resource Include="Content\InCommon\banners.xml" />
     <Resource Include="Content\InCommon\windowsupdate.xml">
       <SubType>Designer</SubType>
     </Resource>
@@ -1367,7 +1366,14 @@
     </None>
     <None Include="packages.config" />
     <Content Include="Content\InCommon\archive\incert.css" />
-    <Resource Include="Content\InCommon\tasklist.xml" />
+    <Resource Include="Content\InCommon\tasklist.xml">
+      <SubType>Designer</SubType>
+    </Resource>
+    <Content Include="Content\InCommon\html\begin.html" />
+    <Content Include="Content\InCommon\html\finish.html" />
+    <Content Include="Content\InCommon\html\license.html" />
+    <Content Include="Content\InCommon\html\login.html" />
+    <Content Include="Content\InCommon\html\progress.html" />
     <Content Include="Content\InCommon\Utility.xml">
       <SubType>Designer</SubType>
     </Content>
@@ -1480,9 +1486,6 @@
     <EmbeddedResource Include="Content\GenericDiagnosticsContent.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <Resource Include="Content\InCommon\license.xml">
-      <SubType>Designer</SubType>
-    </Resource>
     <EmbeddedResource Include="Content\RestartComputerContent.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>

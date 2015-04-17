@@ -5,20 +5,18 @@ xsi:schemaLocation="http://incert.incommon.org/schemas ../Schemas/tasklist.xsd">
     <RoleBranch name="main" role="Remote" roleMode="Normal">
       <Control.GetContentFromEndpoint>
         <Properties>
-          <ContentName>banners.xml</ContentName>
           <ContentName>credentials.xml</ContentName>
           <ContentName>certificates.xml</ContentName>
           <ContentName>restorepoint.xml</ContentName>
           <ContentName>wireless.xml</ContentName>
           <ContentName>systemintegrity.xml</ContentName>
           <ContentName>antimalware.xml</ContentName>
-          <ContentName>license.xml</ContentName>
           <ContentName>networksecurity.xml</ContentName>
           <ContentName>screensaver.xml</ContentName>
           <ContentName>windowsupdate.xml</ContentName>
         </Properties>
       </Control.GetContentFromEndpoint>
-
+      
       <Settings.SetSettingText>
         <Properties>
           <Setter key="certificate provider">incommontest.org</Setter>
@@ -29,12 +27,6 @@ xsi:schemaLocation="http://incert.incommon.org/schemas ../Schemas/tasklist.xsd">
       </Settings.SetSettingText>
 
       <!-- hide the splash screen dialog raised by bootstrap tasklist -->
-      <UserInterface.StopMessageTimer>
-        <Properties>
-          <SettingKey>Splash screen progress text</SettingKey>
-        </Properties>
-      </UserInterface.StopMessageTimer>
-
       <UserInterface.HideDialog>
         <Properties>
           <Dialog>Splash screen dialog</Dialog>
@@ -55,118 +47,104 @@ xsi:schemaLocation="http://incert.incommon.org/schemas ../Schemas/tasklist.xsd">
 
       <Settings.RetrieveSettingsString forwardOnly="true">
         <Properties>
-          <Setter key="agree to license">LicenseAccepted</Setter>
+          <Setter key="agreeToLicense">LicenseAccepted</Setter>
         </Properties>
       </Settings.RetrieveSettingsString>
 
-      <UserInterface.ShowBorderedBannerModal>
+      <UserInterface.ShowHtmlBannerModal>
         <Properties>
           <Dialog>Main dialog</Dialog>
-          <Banner>LicenseDialog</Banner>
+          <Url>html/license.html</Url>
         </Properties>
-      </UserInterface.ShowBorderedBannerModal>
-
+      </UserInterface.ShowHtmlBannerModal>
+  
       <Settings.PersistSettingsString forwardOnly="true">
         <Properties>
-          <Setter key="agree to license">LicenseAccepted</Setter>
+          <Setter key="agreeToLicense">LicenseAccepted</Setter>
         </Properties>
       </Settings.PersistSettingsString>
 
-      <UserInterface.ShowBorderedBannerModal>
+      <UserInterface.ShowHtmlBannerModal>
         <Properties>
           <Dialog>Main dialog</Dialog>
-          <Banner>ReadyBanner</Banner>
+          <Url>html/begin.html</Url>
         </Properties>
-      </UserInterface.ShowBorderedBannerModal>
+      </UserInterface.ShowHtmlBannerModal>
 
-      <UserInterface.ChangeBanner minimumTaskTime="1">
+      <UserInterface.ShowHtmlBanner>
         <Properties>
           <Dialog>Main dialog</Dialog>
-          <Banner>ConfirmSettingsProgressBanner</Banner>
+          <Url>html/progress.html</Url>
         </Properties>
-      </UserInterface.ChangeBanner>
-
-      <Control.ReturnBranchResult>
+      </UserInterface.ShowHtmlBanner>
+   
+      <Control.ReturnBranchResult message="Creating new system restore point">
         <Properties>
           <Branch>restorepoint.set restore point</Branch>
         </Properties>
       </Control.ReturnBranchResult>
 
-      <Control.ReturnBranchResult>
+      <Control.ReturnBranchResult message="Confirming administrator account credentials">
         <Properties>
           <Branch>credentials.verify admin account credentials</Branch>
         </Properties>
       </Control.ReturnBranchResult>
 
-      <Control.ReturnBranchResult>
+      <Control.ReturnBranchResult message="Verifying system integrity">
         <Properties>
           <Branch>antimalware.evaluate</Branch>
         </Properties>
       </Control.ReturnBranchResult>
 
-      <Control.ReturnBranchResult>
+      <Control.ReturnBranchResult message="Checking Windows Security Center">
         <Properties>
           <Branch>systemintegrity.verify security center</Branch>
         </Properties>
       </Control.ReturnBranchResult>
 
-      <Control.ReturnBranchResult>
+      <Control.ReturnBranchResult message="Checking anti-virus software">
         <Properties>
           <Branch>systemintegrity.verify anti-virus software</Branch>
         </Properties>
       </Control.ReturnBranchResult>
 
-      <Control.ReturnBranchResult>
+      <Control.ReturnBranchResult message="Checking anti-spyware software">
         <Properties>
           <Branch>systemintegrity.verify anti-spyware software</Branch>
         </Properties>
       </Control.ReturnBranchResult>
-
-      <UserInterface.ChangeBanner>
-        <Properties>
-          <Dialog>Main dialog</Dialog>
-          <Banner>ConfigureProgressBanner</Banner>
-        </Properties>
-      </UserInterface.ChangeBanner>
-
-      <Control.ReturnBranchResult>
+   
+      <Control.ReturnBranchResult message="Configuring Network Security">
         <Properties>
           <Branch>networksecurity.configure</Branch>
         </Properties>
       </Control.ReturnBranchResult>
 
-      <Control.ReturnBranchResult>
+      <Control.ReturnBranchResult message="Configuring Windows Update">
         <Properties>
           <Branch>windowsupdate.configure</Branch>
         </Properties>
       </Control.ReturnBranchResult>
 
-      <Control.ReturnBranchResult>
+      <Control.ReturnBranchResult message="Configuring screen saver">
         <Properties>
           <Branch>screensaver.configure</Branch>
         </Properties>
       </Control.ReturnBranchResult>
 
-      <Control.ReturnBranchResult>
+      <Control.ReturnBranchResult message="Configuring certificate">
         <Properties>
           <Branch>certificates.configure</Branch>
         </Properties>
       </Control.ReturnBranchResult>
 
-      <Control.ReturnBranchResult>
+      <Control.ReturnBranchResult message="Adding wireless profiles">
         <Properties>
           <Branch>wireless.add profiles</Branch>
         </Properties>
       </Control.ReturnBranchResult>
 
-      <UserInterface.ActivateCheckedParagraph minimumTaskTime="1">
-        <Properties>
-          <Dialog>Main dialog</Dialog>
-          <ControlKey>Registering computer</ControlKey>
-        </Properties>
-      </UserInterface.ActivateCheckedParagraph>
-
-      <Registration.RegisterComputer>
+      <Registration.RegisterComputer message="Registering computer" minimumTaskTime="1">
         <Properties>
           <UsernameKey>username</UsernameKey>
           <PassphraseKey>passphrase</PassphraseKey>
@@ -176,20 +154,13 @@ xsi:schemaLocation="http://incert.incommon.org/schemas ../Schemas/tasklist.xsd">
           <CertificateProvider>[certificate provider]</CertificateProvider>
         </Properties>
       </Registration.RegisterComputer>
-
-      <UserInterface.CompleteCheckedParagraph minimumTaskTime="1">
+      
+      <UserInterface.ShowHtmlBannerModal>
         <Properties>
           <Dialog>Main dialog</Dialog>
-          <ControlKey>Registering computer</ControlKey>
+          <Url>html/finish.html</Url>
         </Properties>
-      </UserInterface.CompleteCheckedParagraph>
-
-      <UserInterface.ShowBorderedBannerModal>
-        <Properties>
-          <Dialog>Main dialog</Dialog>
-          <Banner>FinishBanner</Banner>
-        </Properties>
-      </UserInterface.ShowBorderedBannerModal>
+      </UserInterface.ShowHtmlBannerModal>
     </RoleBranch>
 
     <TaskBranch name="Authenticate">
@@ -199,93 +170,20 @@ xsi:schemaLocation="http://incert.incommon.org/schemas ../Schemas/tasklist.xsd">
         </Properties>
       </Settings.RetrieveSettingsString>
 
-      <UserInterface.StopMessageTimer>
-        <Conditions.Any>
-          <UserInterface.TimedMessageExists key="AuthenticatingMessage" />
-        </Conditions.Any>
-        <Properties>
-          <SettingKey>AuthenticatingMessage</SettingKey>
-        </Properties>
-      </UserInterface.StopMessageTimer>
-
-      <UserInterface.HideBannerControl>
-        <Conditions.Any>
-          <UserInterface.BannerControlExists key="AuthenticatingMessage" dialog="Main dialog" />
-        </Conditions.Any>
+      <UserInterface.ShowHtmlBannerModal>
         <Properties>
           <Dialog>Main dialog</Dialog>
-          <ControlKey>AuthenticatingMessage</ControlKey>
+          <Url>html/login.html</Url>
+          <Width>600</Width>
+          <Height>700</Height>
         </Properties>
-      </UserInterface.HideBannerControl>
+      </UserInterface.ShowHtmlBannerModal>
 
-      <UserInterface.ShowBannerControl>
-        <Conditions.Any>
-          <UserInterface.BannerControlExists key="Instructions" dialog="Main dialog" />
-        </Conditions.Any>
-        <Properties>
-          <Dialog>Main dialog</Dialog>
-          <ControlKey>Instructions</ControlKey>
-        </Properties>
-      </UserInterface.ShowBannerControl>
-
-      <Settings.SetSettingText>
-        <Properties>
-          <Setter key="authenticating">false</Setter>
-        </Properties>
-      </Settings.SetSettingText>
-
-      <UserInterface.ShowBorderedBannerModal>
-        <Properties>
-          <Dialog>Main dialog</Dialog>
-          <Banner>LoginBanner</Banner>
-        </Properties>
-      </UserInterface.ShowBorderedBannerModal>
-
-      <Settings.SetSettingText>
-        <Properties>
-          <Setter key="authenticating">true</Setter>
-        </Properties>
-      </Settings.SetSettingText>
-
-      <Settings.PersistSettingsString>
+      <Settings.PersistSettingsString id="authenticating">
         <Properties>
           <Setter key="username">Username</Setter>
         </Properties>
       </Settings.PersistSettingsString>
-
-      <UserInterface.DisableAllBannerDialogControls forwardOnly="true">
-        <Properties>
-          <Dialog>Main dialog</Dialog>
-          <ExcludeControlKey>HelpButton</ExcludeControlKey>
-        </Properties>
-      </UserInterface.DisableAllBannerDialogControls>
-
-      <UserInterface.CollapseBannerControl>
-        <Properties>
-          <Dialog>Main dialog</Dialog>
-          <ControlKey>Instructions</ControlKey>
-        </Properties>
-      </UserInterface.CollapseBannerControl>
-
-      <UserInterface.ShowBannerControl>
-        <Properties>
-          <Dialog>Main dialog</Dialog>
-          <ControlKey>AuthenticatingMessage</ControlKey>
-        </Properties>
-      </UserInterface.ShowBannerControl>
-
-      <UserInterface.EnableBannerControl>
-        <Properties>
-          <Dialog>Main dialog</Dialog>
-          <ControlKey>AuthenticatingMessage</ControlKey>
-        </Properties>
-      </UserInterface.EnableBannerControl>
-
-      <UserInterface.StartMessageTimer forwardOnly="true">
-        <Properties>
-          <SettingKey>AuthenticatingMessage</SettingKey>
-        </Properties>
-      </UserInterface.StartMessageTimer>
 
       <Authentication.AuthenticateUser>
         <Properties>
@@ -297,13 +195,8 @@ xsi:schemaLocation="http://incert.incommon.org/schemas ../Schemas/tasklist.xsd">
           <CertificateProvider>[certificate provider]</CertificateProvider>
         </Properties>
       </Authentication.AuthenticateUser>
+  </TaskBranch>
 
-      <UserInterface.StopMessageTimer>
-        <Properties>
-          <SettingKey>AuthenticatingMessage</SettingKey>
-        </Properties>
-      </UserInterface.StopMessageTimer>
-    </TaskBranch>
 
     <TaskBranch name="handle authentication issues">
       <Control.PreserveLastResult>
@@ -311,6 +204,15 @@ xsi:schemaLocation="http://incert.incommon.org/schemas ../Schemas/tasklist.xsd">
           <SettingKey>generic issue retry banner stored result</SettingKey>
         </Properties>
       </Control.PreserveLastResult>
+
+      <Control.ReturnPreservedResult>
+        <Conditions.All>
+          <Control.IsNotResultType resultKey="generic issue retry banner stored result" resultType="Errors.Authentication.CouldNotAuthenticateUser"/>
+        </Conditions.All>
+        <Properties>
+          <SettingKey>generic issue retry banner stored result</SettingKey>
+        </Properties>
+      </Control.ReturnPreservedResult>
 
       <UserInterface.StopMessageTimer>
         <Properties>
@@ -322,17 +224,19 @@ xsi:schemaLocation="http://incert.incommon.org/schemas ../Schemas/tasklist.xsd">
         <Properties>
           <Setter key="generic issue retry banner title">Authentication Failed - Retry?</Setter>
           <Setter key="generic issue retry banner description">!ApplicationTitle! could not verify your network credentials.</Setter>
-          <Setter key="generic issue retry banner retry cancel text">Click Retry to try again or Cancel to exit.</Setter>
+          <Setter key="generic issue retry banner help topic">close utility</Setter>
         </Properties>
       </Settings.SetSettingText>
 
-      <UserInterface.ShowChildBannerModal>
+      <UserInterface.ShowHtmlBannerModal>
         <Properties>
+          <Dialog>retry dialog</Dialog>
           <ParentDialog>Main dialog</ParentDialog>
-          <ChildDialog>notification dialog manager</ChildDialog>
-          <Banner>Generic issue retry banner</Banner>
+          <Url>resource://html/GenericRetry.html</Url>
+          <Width>500</Width>
+          <Height>350</Height>
         </Properties>
-      </UserInterface.ShowChildBannerModal>
+      </UserInterface.ShowHtmlBannerModal>
     </TaskBranch>
   </Branches>
 </Content>

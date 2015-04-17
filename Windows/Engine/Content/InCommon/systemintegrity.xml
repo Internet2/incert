@@ -2,58 +2,16 @@
 <Content xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xsi:schemaLocation="http://incert.incommon.org/schemas ../Schemas/tasklist.xsd">
   <Branches>
-    <TaskBranch name="systemintegrity.verify security center" >
-      <UserInterface.ActivateCheckedParagraph minimumTaskTime="1">
-        <Properties>
-          <Dialog>Main dialog</Dialog>
-          <ControlKey>Verifying windows security center</ControlKey>
-        </Properties>
-      </UserInterface.ActivateCheckedParagraph>
-
+    <TaskBranch name="systemintegrity.verify security center" minimumBranchTime="1">
       <AntiMalware.VerifySecurityCenter />
-
-      <UserInterface.CompleteCheckedParagraph minimumTaskTime="1">
-        <Properties>
-          <Dialog>Main dialog</Dialog>
-          <ControlKey>Verifying windows security center</ControlKey>
-        </Properties>
-      </UserInterface.CompleteCheckedParagraph>
     </TaskBranch>
 
-    <TaskBranch name="systemintegrity.verify anti-virus software">
-      <UserInterface.ActivateCheckedParagraph minimumTaskTime="1">
-        <Properties>
-          <Dialog>Main dialog</Dialog>
-          <ControlKey>Verifying anti-virus software</ControlKey>
-        </Properties>
-      </UserInterface.ActivateCheckedParagraph>
-
+    <TaskBranch name="systemintegrity.verify anti-virus software" minimumBranchTime="1">
       <AntiMalware.VerifyAntiVirusSoftware />
-
-      <UserInterface.CompleteCheckedParagraph minimumTaskTime="1">
-        <Properties>
-          <Dialog>Main dialog</Dialog>
-          <ControlKey>Verifying anti-virus software</ControlKey>
-        </Properties>
-      </UserInterface.CompleteCheckedParagraph>
     </TaskBranch>
 
-    <TaskBranch name="systemintegrity.verify anti-spyware software">
-      <UserInterface.ActivateCheckedParagraph minimumTaskTime="1">
-        <Properties>
-          <Dialog>Main dialog</Dialog>
-          <ControlKey>Verifying anti-spyware software</ControlKey>
-        </Properties>
-      </UserInterface.ActivateCheckedParagraph>
-
+    <TaskBranch name="systemintegrity.verify anti-spyware software" minimumBranchTime="1">
       <AntiMalware.VerifyAntiSpywareSoftware />
-
-      <UserInterface.CompleteCheckedParagraph minimumTaskTime="1">
-        <Properties>
-          <Dialog>Main dialog</Dialog>
-          <ControlKey>Verifying anti-spyware software</ControlKey>
-        </Properties>
-      </UserInterface.CompleteCheckedParagraph>
     </TaskBranch>
   </Branches>
 </Content>
