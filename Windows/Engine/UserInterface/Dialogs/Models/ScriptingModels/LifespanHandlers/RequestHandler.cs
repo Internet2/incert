@@ -24,11 +24,11 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModel
             _originalUri = new Uri(url, UriKind.RelativeOrAbsolute);
         }
 
-        public bool OnBeforeBrowse(IWebBrowser browser, IRequest request, bool isRedirect)
+        public bool OnBeforeBrowse(IWebBrowser browser, IRequest request, bool isRedirect, bool isMainFrame)
         {
             if (browser.InvokeRequired())
             {
-                return browser.Invoke(() => OnBeforeBrowse(browser, request, isRedirect));
+                return browser.Invoke(() => OnBeforeBrowse(browser, request, isRedirect, isMainFrame));
             }
 
             if (!OpenInBrowserInstance(request.Url))
@@ -51,35 +51,35 @@ namespace Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModel
             var test = 0;
         }
 
-        public bool OnBeforeResourceLoad(IWebBrowser browser, IRequest request, IResponse response)
+        public bool OnBeforeResourceLoad(IWebBrowser browser, IRequest request, bool isMainFrame)
         {
             if (browser.InvokeRequired())
             {
-                return browser.Invoke(() => OnBeforeResourceLoad(browser, request, response));
+                return browser.Invoke(() => OnBeforeResourceLoad(browser, request, isMainFrame));
             }
 
             var redirectUrl = GetRedirectUrl(request.Url);
             if (!string.IsNullOrWhiteSpace(redirectUrl))
             {
                 Log.DebugFormat("redirecting {0} to {1}", request.Url, redirectUrl);
-                response.Redirect(redirectUrl);
+                request.Url = redirectUrl;
                 return false;
             }
 
             Log.DebugFormat("resource load request: {0}", request.Url);
             return false;
         }
-
+        
         public bool GetAuthCredentials(IWebBrowser browser, bool isProxy, string host, int port, string realm, string scheme, ref string username, ref string password)
         {
             return false;
         }
 
-        public bool OnBeforePluginLoad(IWebBrowser browser, string url, string policyUrl, IWebPluginInfo info)
+        public bool OnBeforePluginLoad(IWebBrowser browser, string url, string policyUrl, WebPluginInfo info)
         {
             return false;
         }
-
+        
         public void OnRenderProcessTerminated(IWebBrowser browser, CefTerminationStatus status)
         {
             if (browser.InvokeIfRequired(() => OnRenderProcessTerminated(browser, status)))

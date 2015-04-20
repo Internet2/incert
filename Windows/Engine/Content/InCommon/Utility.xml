@@ -929,20 +929,20 @@
       <Settings.AppendLineToSettingsText>
         <Properties>
           <SettingKey>progress text</SettingKey>
-          <Line>Copying and signing d3dcompiler_46.dll</Line>
+          <Line>Copying and signing d3dcompiler_47.dll</Line>
         </Properties>
       </Settings.AppendLineToSettingsText>
 
       <FileAndPath.CopyFile>
         <Properties>
-          <SourcePath>[engine files path]\d3dcompiler_46.dll</SourcePath>
-          <DestinationPath>!TemporaryDirectory![build staging folder]\d3dcompiler_46.dll</DestinationPath>
+          <SourcePath>[engine files path]\d3dcompiler_47.dll</SourcePath>
+          <DestinationPath>!TemporaryDirectory![build staging folder]\d3dcompiler_47.dll</DestinationPath>
         </Properties>
       </FileAndPath.CopyFile>
 
       <Settings.SetSettingText>
         <Properties>
-          <Setter key="generic signtool branch target">!TemporaryDirectory![build staging folder]\d3dcompiler_46.dll</Setter>
+          <Setter key="generic signtool branch target">!TemporaryDirectory![build staging folder]\d3dcompiler_47.dll</Setter>
         </Properties>
       </Settings.SetSettingText>
 
@@ -1581,7 +1581,7 @@
 
       <Control.ReturnBranchResult>
         <Properties>
-          <Branch>download d3dcompiler_46.dll</Branch>
+          <Branch>download d3dcompiler_47.dll</Branch>
         </Properties>
       </Control.ReturnBranchResult>
 
@@ -2055,12 +2055,12 @@
       </Control.ReturnBranchResult>
     </TaskBranch>
 
-    <TaskBranch name="download d3dcompiler_46.dll">
+    <TaskBranch name="download d3dcompiler_47.dll">
       <Settings.SetSettingText>
         <Properties>
-          <Setter key="generic download branch info key">d3dcompiler_46.dll.info.xml</Setter>
-          <Setter key="generic download branch target url">build/d3dcompiler_46.dll.info.xml</Setter>
-          <Setter key="generic download branch display name">d3dcompiler_46.dll</Setter>
+          <Setter key="generic download branch info key">d3dcompiler_47.dll.info.xml</Setter>
+          <Setter key="generic download branch target url">build/d3dcompiler_47.dll.info.xml</Setter>
+          <Setter key="generic download branch display name">d3dcompiler_47.dll</Setter>
         </Properties>
       </Settings.SetSettingText>
 
@@ -2668,20 +2668,20 @@
       <Settings.AppendLineToSettingsText>
         <Properties>
           <SettingKey>progress text</SettingKey>
-          <Line>processing d3dcompiler_46.dll</Line>
+          <Line>processing d3dcompiler_47.dll</Line>
         </Properties>
       </Settings.AppendLineToSettingsText>
 
       <FileAndPath.CopyFile>
         <Properties>
-          <SourcePath>[engine components path]\d3dcompiler_46.dll</SourcePath>
-          <DestinationPath>[content folder path]\d3dcompiler_46.dll</DestinationPath>
+          <SourcePath>[engine components path]\d3dcompiler_47.dll</SourcePath>
+          <DestinationPath>[content folder path]\d3dcompiler_47.dll</DestinationPath>
         </Properties>
       </FileAndPath.CopyFile>
 
       <Utility.GenerateFileWrapper>
         <Properties>
-          <Target>[content folder path]\d3dcompiler_46.dll</Target>
+          <Target>[content folder path]\d3dcompiler_47.dll</Target>
           <Version />
           <Vital>true</Vital>
           <OutputFolder>[content folder path]</OutputFolder>

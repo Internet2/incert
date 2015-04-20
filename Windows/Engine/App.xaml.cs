@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Threading;
+using CefSharp;
 using Ninject;
 using Ninject.Modules;
 using Org.InCommon.InCert.Engine.AdvancedMenu;
@@ -20,6 +22,7 @@ using Org.InCommon.InCert.Engine.Utilities;
 using Org.InCommon.InCert.Engine.WebServices.Managers;
 using log4net;
 using Org.InCommon.InCert.Engine.Dynamics;
+using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModels.SchemeHandlers;
 
 namespace Org.InCommon.InCert.Engine
 {
@@ -41,12 +44,16 @@ namespace Org.InCommon.InCert.Engine
         private void StartupHandler(object sender, StartupEventArgs e)
         {
             Log.InfoFormat("Client started - {0}", DateTime.UtcNow);
-
+         
+            InitializeChromium();
+            
             var engine = Kernel.Get<IEngine>();
             var result = engine.Execute();
             if (result is RestartComputerResult)
+            {
                 SystemUtilities.RestartComputer();
-
+            }
+                
             Current.Shutdown(result.ResultCode);
 
         }
@@ -57,6 +64,38 @@ namespace Org.InCommon.InCert.Engine
             e.Handled = false;
         }
 
+        private static void InitializeChromium()
+        {
+            if (Cef.IsInitialized)
+            {
+                return;
+            }
+
+            var settings = new CefSettings
+            {
+                PackLoadingDisabled = false,
+                LogSeverity = LogSeverity.Verbose
+            };
+
+            settings.CefCommandLineArgs.Add(new KeyValuePair<string, string>("no-proxy-server", ""));
+
+            settings.RegisterScheme(new CefCustomScheme
+            {
+                SchemeName = ArchiveSchemeHandlerFactory.SchemeName,
+                SchemeHandlerFactory = new ArchiveSchemeHandlerFactory()
+            });
+
+            settings.RegisterScheme(new CefCustomScheme
+            {
+                SchemeName = EmbeddedResourceSchemeHandlerFactory.SchemeName,
+                SchemeHandlerFactory = new EmbeddedResourceSchemeHandlerFactory()
+            });
+
+            if (!Cef.Initialize(settings))
+            {
+                throw new Exception("Could not initialize Chromium browser");
+            }
+        }
 
         private class EngineModule : NinjectModule
         {

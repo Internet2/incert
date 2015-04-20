@@ -3,12 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Xml.Linq;
-using CefSharp;
 using log4net;
 using Org.InCommon.InCert.Engine.Importables;
 using Org.InCommon.InCert.Engine.Logging;
 using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModels;
-using Org.InCommon.InCert.Engine.UserInterface.Dialogs.Models.ScriptingModels.SchemeHandlers;
 using Org.InCommon.InCert.Engine.Utilities;
 
 namespace Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.BannerWrappers
@@ -24,8 +22,6 @@ namespace Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.BannerWrapper
             try
             {
                 LinkPolicy = LinkPolicy.Internal;
-             
-                InitializeChromium();
 
                 _banners.Clear();
 
@@ -115,39 +111,6 @@ namespace Org.InCommon.InCert.Engine.UserInterface.ContentWrappers.BannerWrapper
         }
 
         public LinkPolicy LinkPolicy { get; set; }
-
-        private static void InitializeChromium()
-        {
-            if (Cef.IsInitialized)
-            {
-                return;
-            }
-
-            var settings = new CefSettings
-            {
-                PackLoadingDisabled = false,
-                LogSeverity = LogSeverity.Verbose
-            };
-
-            settings.CefCommandLineArgs.Add(new KeyValuePair<string, string>("no-proxy-server", ""));
-
-            settings.RegisterScheme(new CefCustomScheme
-            {
-                SchemeName = ArchiveSchemeHandlerFactory.SchemeName,
-                SchemeHandlerFactory = new ArchiveSchemeHandlerFactory()
-            });
-
-            settings.RegisterScheme(new CefCustomScheme
-            {
-                SchemeName = EmbeddedResourceSchemeHandlerFactory.SchemeName,
-                SchemeHandlerFactory = new EmbeddedResourceSchemeHandlerFactory()
-            });
-
-            if (!Cef.Initialize(settings))
-            {
-                throw new Exception("Could not initialize Chromium browser");
-            }
-        }
 
         private static void InitializeRedirectDictionary(IDictionary<string, string> dictionary)
         {

@@ -61,7 +61,7 @@
         <File Id="CefSharp.dll" Name="CefSharp.dll" Source="$(var.EngineFilesDir)\CefSharp.dll" />
         <File Id="CefSharp.wpf.dll" Name="CefSharp.wpf.dll" Source="$(var.EngineFilesDir)\CefSharp.wpf.dll" />
         <File Id="d3dcompiler_43.dll" Name="d3dcompiler_43.dll" Source="$(var.EngineFilesDir)\d3dcompiler_43.dll" />
-        <File Id="d3dcompiler_46.dll" Name="d3dcompiler_46.dll" Source="$(var.EngineFilesDir)\d3dcompiler_46.dll" />
+        <File Id="d3dcompiler_47.dll" Name="d3dcompiler_47.dll" Source="$(var.EngineFilesDir)\d3dcompiler_47.dll" />
         <File Id="ffmpegsumo.dll" Name="ffmpegsumo.dll" Source="$(var.EngineFilesDir)\ffmpegsumo.dll" />
         <File Id="libcef.dll" Name="libcef.dll" Source="$(var.EngineFilesDir)\libcef.dll" />
         <File Id="libEGL.dll" Name="libEGL.dll" Source="$(var.EngineFilesDir)\libEGL.dll" />
