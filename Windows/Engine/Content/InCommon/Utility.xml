@@ -1,6 +1,7 @@
-<?xml version="1.0" encoding="us-ascii" ?>
+<?xml version="1.0" encoding="us-ascii"?>
+
 <Content xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://incert.incommon.org/schemas ../Schemas/tasklist.xsd">
+         xsi:schemaLocation="http://incert.incommon.org/schemas ../Schemas/tasklist.xsd">
 
   <Branches>
     <RoleBranch name="main" role="Remote" roleMode="Utility">
@@ -42,7 +43,6 @@
           <Branch>Hasher branch</Branch>
         </Properties>
       </Control.ReturnBranchResult>
-
     </TaskBranch>
 
     <TaskBranch name="hasher branch">
@@ -136,7 +136,7 @@
 
       <Settings.SetSettingText>
         <Conditions.All>
-          <Settings.SettingNotPresent key="certificate timestamp server"/>
+          <Settings.SettingNotPresent key="certificate timestamp server" />
         </Conditions.All>
         <Properties>
           <Setter key="certificate timestamp server">http://timestamp.verisign.com/scripts/timstamp.dll</Setter>
@@ -769,6 +769,396 @@
           <Branch>generic signing branch</Branch>
         </Properties>
       </Control.ReturnBranchResult>
+
+      <Settings.AppendLineToSettingsText>
+        <Properties>
+          <SettingKey>progress text</SettingKey>
+          <Line>Copying and signing CefSharp.BrowserSubprocess.Core.dll</Line>
+        </Properties>
+      </Settings.AppendLineToSettingsText>
+
+      <FileAndPath.CopyFile>
+        <Properties>
+          <SourcePath>[engine files path]\CefSharp.BrowserSubprocess.Core.dll</SourcePath>
+          <DestinationPath>!TemporaryDirectory![build staging folder]\CefSharp.BrowserSubprocess.Core.dll</DestinationPath>
+        </Properties>
+      </FileAndPath.CopyFile>
+
+      <Settings.SetSettingText>
+        <Properties>
+          <Setter key="generic signtool branch target">!TemporaryDirectory![build staging folder]\CefSharp.BrowserSubprocess.Core.dll</Setter>
+        </Properties>
+      </Settings.SetSettingText>
+
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>generic signing branch</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+
+      <Settings.AppendLineToSettingsText>
+        <Properties>
+          <SettingKey>progress text</SettingKey>
+          <Line>Copying and signing CefSharp.BrowserSubprocess.exe</Line>
+        </Properties>
+      </Settings.AppendLineToSettingsText>
+
+      <FileAndPath.CopyFile>
+        <Properties>
+          <SourcePath>[engine files path]\CefSharp.BrowserSubprocess.exe</SourcePath>
+          <DestinationPath>!TemporaryDirectory![build staging folder]\CefSharp.BrowserSubprocess.exe</DestinationPath>
+        </Properties>
+      </FileAndPath.CopyFile>
+
+      <Settings.SetSettingText>
+        <Properties>
+          <Setter key="generic signtool branch target">!TemporaryDirectory![build staging folder]\CefSharp.BrowserSubprocess.exe</Setter>
+        </Properties>
+      </Settings.SetSettingText>
+
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>generic signing branch</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+
+      <Settings.AppendLineToSettingsText>
+        <Properties>
+          <SettingKey>progress text</SettingKey>
+          <Line>Copying and signing CefSharp.Core.dll</Line>
+        </Properties>
+      </Settings.AppendLineToSettingsText>
+
+      <FileAndPath.CopyFile>
+        <Properties>
+          <SourcePath>[engine files path]\CefSharp.Core.dll</SourcePath>
+          <DestinationPath>!TemporaryDirectory![build staging folder]\CefSharp.Core.dll</DestinationPath>
+        </Properties>
+      </FileAndPath.CopyFile>
+
+      <Settings.SetSettingText>
+        <Properties>
+          <Setter key="generic signtool branch target">!TemporaryDirectory![build staging folder]\CefSharp.Core.dll</Setter>
+        </Properties>
+      </Settings.SetSettingText>
+
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>generic signing branch</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+
+      <Settings.AppendLineToSettingsText>
+        <Properties>
+          <SettingKey>progress text</SettingKey>
+          <Line>Copying and signing CefSharp.dll</Line>
+        </Properties>
+      </Settings.AppendLineToSettingsText>
+
+      <FileAndPath.CopyFile>
+        <Properties>
+          <SourcePath>[engine files path]\CefSharp.dll</SourcePath>
+          <DestinationPath>!TemporaryDirectory![build staging folder]\CefSharp.dll</DestinationPath>
+        </Properties>
+      </FileAndPath.CopyFile>
+
+      <Settings.SetSettingText>
+        <Properties>
+          <Setter key="generic signtool branch target">!TemporaryDirectory![build staging folder]\CefSharp.dll</Setter>
+        </Properties>
+      </Settings.SetSettingText>
+
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>generic signing branch</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+
+      <Settings.AppendLineToSettingsText>
+        <Properties>
+          <SettingKey>progress text</SettingKey>
+          <Line>Copying and signing CefSharp.wpf.dll</Line>
+        </Properties>
+      </Settings.AppendLineToSettingsText>
+
+      <FileAndPath.CopyFile>
+        <Properties>
+          <SourcePath>[engine files path]\CefSharp.wpf.dll</SourcePath>
+          <DestinationPath>!TemporaryDirectory![build staging folder]\CefSharp.wpf.dll</DestinationPath>
+        </Properties>
+      </FileAndPath.CopyFile>
+
+      <Settings.SetSettingText>
+        <Properties>
+          <Setter key="generic signtool branch target">!TemporaryDirectory![build staging folder]\CefSharp.wpf.dll</Setter>
+        </Properties>
+      </Settings.SetSettingText>
+
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>generic signing branch</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+
+      <Settings.AppendLineToSettingsText>
+        <Properties>
+          <SettingKey>progress text</SettingKey>
+          <Line>Copying and signing d3dcompiler_43.dll</Line>
+        </Properties>
+      </Settings.AppendLineToSettingsText>
+
+      <FileAndPath.CopyFile>
+        <Properties>
+          <SourcePath>[engine files path]\d3dcompiler_43.dll</SourcePath>
+          <DestinationPath>!TemporaryDirectory![build staging folder]\d3dcompiler_43.dll</DestinationPath>
+        </Properties>
+      </FileAndPath.CopyFile>
+
+      <Settings.SetSettingText>
+        <Properties>
+          <Setter key="generic signtool branch target">!TemporaryDirectory![build staging folder]\d3dcompiler_43.dll</Setter>
+        </Properties>
+      </Settings.SetSettingText>
+
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>generic signing branch</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+
+      <Settings.AppendLineToSettingsText>
+        <Properties>
+          <SettingKey>progress text</SettingKey>
+          <Line>Copying and signing d3dcompiler_46.dll</Line>
+        </Properties>
+      </Settings.AppendLineToSettingsText>
+
+      <FileAndPath.CopyFile>
+        <Properties>
+          <SourcePath>[engine files path]\d3dcompiler_46.dll</SourcePath>
+          <DestinationPath>!TemporaryDirectory![build staging folder]\d3dcompiler_46.dll</DestinationPath>
+        </Properties>
+      </FileAndPath.CopyFile>
+
+      <Settings.SetSettingText>
+        <Properties>
+          <Setter key="generic signtool branch target">!TemporaryDirectory![build staging folder]\d3dcompiler_46.dll</Setter>
+        </Properties>
+      </Settings.SetSettingText>
+
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>generic signing branch</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+
+      <Settings.AppendLineToSettingsText>
+        <Properties>
+          <SettingKey>progress text</SettingKey>
+          <Line>Copying and signing ffmpegsumo.dll</Line>
+        </Properties>
+      </Settings.AppendLineToSettingsText>
+
+      <FileAndPath.CopyFile>
+        <Properties>
+          <SourcePath>[engine files path]\ffmpegsumo.dll</SourcePath>
+          <DestinationPath>!TemporaryDirectory![build staging folder]\ffmpegsumo.dll</DestinationPath>
+        </Properties>
+      </FileAndPath.CopyFile>
+
+      <Settings.SetSettingText>
+        <Properties>
+          <Setter key="generic signtool branch target">!TemporaryDirectory![build staging folder]\ffmpegsumo.dll</Setter>
+        </Properties>
+      </Settings.SetSettingText>
+
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>generic signing branch</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+
+      <Settings.AppendLineToSettingsText>
+        <Properties>
+          <SettingKey>progress text</SettingKey>
+          <Line>Copying and signing libcef.dll</Line>
+        </Properties>
+      </Settings.AppendLineToSettingsText>
+
+      <FileAndPath.CopyFile>
+        <Properties>
+          <SourcePath>[engine files path]\libcef.dll</SourcePath>
+          <DestinationPath>!TemporaryDirectory![build staging folder]\libcef.dll</DestinationPath>
+        </Properties>
+      </FileAndPath.CopyFile>
+
+      <Settings.SetSettingText>
+        <Properties>
+          <Setter key="generic signtool branch target">!TemporaryDirectory![build staging folder]\libcef.dll</Setter>
+        </Properties>
+      </Settings.SetSettingText>
+
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>generic signing branch</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+
+      <Settings.AppendLineToSettingsText>
+        <Properties>
+          <SettingKey>progress text</SettingKey>
+          <Line>Copying and signing libEGL.dll</Line>
+        </Properties>
+      </Settings.AppendLineToSettingsText>
+
+      <FileAndPath.CopyFile>
+        <Properties>
+          <SourcePath>[engine files path]\libEGL.dll</SourcePath>
+          <DestinationPath>!TemporaryDirectory![build staging folder]\libEGL.dll</DestinationPath>
+        </Properties>
+      </FileAndPath.CopyFile>
+
+      <Settings.SetSettingText>
+        <Properties>
+          <Setter key="generic signtool branch target">!TemporaryDirectory![build staging folder]\libEGL.dll</Setter>
+        </Properties>
+      </Settings.SetSettingText>
+
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>generic signing branch</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+
+      <Settings.AppendLineToSettingsText>
+        <Properties>
+          <SettingKey>progress text</SettingKey>
+          <Line>Copying and signing libGLESv2.dll</Line>
+        </Properties>
+      </Settings.AppendLineToSettingsText>
+
+      <FileAndPath.CopyFile>
+        <Properties>
+          <SourcePath>[engine files path]\libGLESv2.dll</SourcePath>
+          <DestinationPath>!TemporaryDirectory![build staging folder]\libGLESv2.dll</DestinationPath>
+        </Properties>
+      </FileAndPath.CopyFile>
+
+      <Settings.SetSettingText>
+        <Properties>
+          <Setter key="generic signtool branch target">!TemporaryDirectory![build staging folder]\libGLESv2.dll</Setter>
+        </Properties>
+      </Settings.SetSettingText>
+
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>generic signing branch</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+
+      <Settings.AppendLineToSettingsText>
+        <Properties>
+          <SettingKey>progress text</SettingKey>
+          <Line>Copying and signing pdf.dll</Line>
+        </Properties>
+      </Settings.AppendLineToSettingsText>
+
+      <FileAndPath.CopyFile>
+        <Properties>
+          <SourcePath>[engine files path]\pdf.dll</SourcePath>
+          <DestinationPath>!TemporaryDirectory![build staging folder]\pdf.dll</DestinationPath>
+        </Properties>
+      </FileAndPath.CopyFile>
+
+      <Settings.SetSettingText>
+        <Properties>
+          <Setter key="generic signtool branch target">!TemporaryDirectory![build staging folder]\pdf.dll</Setter>
+        </Properties>
+      </Settings.SetSettingText>
+
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>generic signing branch</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+
+      <Settings.AppendLineToSettingsText>
+        <Properties>
+          <SettingKey>progress text</SettingKey>
+          <Line>Copying and signing cef.pak</Line>
+        </Properties>
+      </Settings.AppendLineToSettingsText>
+
+      <FileAndPath.CopyFile>
+        <Properties>
+          <SourcePath>[engine files path]\cef.pak</SourcePath>
+          <DestinationPath>!TemporaryDirectory![build staging folder]\cef.pak</DestinationPath>
+        </Properties>
+      </FileAndPath.CopyFile>
+
+      <Settings.SetSettingText>
+        <Properties>
+          <Setter key="generic signtool branch target">!TemporaryDirectory![build staging folder]\cef.pak</Setter>
+        </Properties>
+      </Settings.SetSettingText>
+
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>generic signing branch</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+
+      <Settings.AppendLineToSettingsText>
+        <Properties>
+          <SettingKey>progress text</SettingKey>
+          <Line>Copying and signing cef_100_percent.pak</Line>
+        </Properties>
+      </Settings.AppendLineToSettingsText>
+
+      <FileAndPath.CopyFile>
+        <Properties>
+          <SourcePath>[engine files path]\cef_100_percent.pak</SourcePath>
+          <DestinationPath>!TemporaryDirectory![build staging folder]\cef_100_percent.pak</DestinationPath>
+        </Properties>
+      </FileAndPath.CopyFile>
+
+      <Settings.SetSettingText>
+        <Properties>
+          <Setter key="generic signtool branch target">!TemporaryDirectory![build staging folder]\cef_100_percent.pak</Setter>
+        </Properties>
+      </Settings.SetSettingText>
+
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>generic signing branch</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+
+      <Settings.AppendLineToSettingsText>
+        <Properties>
+          <SettingKey>progress text</SettingKey>
+          <Line>Copying and signing cef_200_percent.pak</Line>
+        </Properties>
+      </Settings.AppendLineToSettingsText>
+
+      <FileAndPath.CopyFile>
+        <Properties>
+          <SourcePath>[engine files path]\cef_200_percent.pak</SourcePath>
+          <DestinationPath>!TemporaryDirectory![build staging folder]\cef_200_percent.pak</DestinationPath>
+        </Properties>
+      </FileAndPath.CopyFile>
+
+      <Settings.SetSettingText>
+        <Properties>
+          <Setter key="generic signtool branch target">!TemporaryDirectory![build staging folder]\cef_200_percent.pak</Setter>
+        </Properties>
+      </Settings.SetSettingText>
+
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>generic signing branch</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
     </TaskBranch>
 
     <TaskBranch name="build installer">
@@ -801,7 +1191,7 @@
 
       <Settings.SetSettingText>
         <Conditions.All>
-          <Settings.SettingNotEqual key="create desktop shortcut" value="true" ignoreCase="true"/>
+          <Settings.SettingNotEqual key="create desktop shortcut" value="true" ignoreCase="true" />
         </Conditions.All>
         <Properties>
           <Setter key="create desktop shortcut value">0</Setter>
@@ -810,7 +1200,7 @@
 
       <Settings.SetSettingText>
         <Conditions.All>
-          <Settings.SettingNotEqual key="create start-menu shortcut" value="true" ignoreCase="true"/>
+          <Settings.SettingNotEqual key="create start-menu shortcut" value="true" ignoreCase="true" />
         </Conditions.All>
         <Properties>
           <Setter key="create start-menu shortcut value">0</Setter>
@@ -1155,6 +1545,96 @@
 
       <Control.ReturnBranchResult>
         <Properties>
+          <Branch>download CefSharp.BrowserSubprocess.Core.dll</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>download CefSharp.BrowserSubprocess.exe</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>download CefSharp.Core.dll</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>download CefSharp.dll</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>download CefSharp.wpf.dll</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>download d3dcompiler_43.dll</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>download d3dcompiler_46.dll</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>download ffmpegsumo.dll</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>download libcef.dll</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>download libEGL.dll</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>download libGLESv2.dll</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>download pdf.dll</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>download cef.pak</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>download cef_100_percent.pak</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>download cef_200_percent.pak</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+
+      <Control.ReturnBranchResult>
+        <Properties>
           <Branch>download net framework installer</Branch>
         </Properties>
       </Control.ReturnBranchResult>
@@ -1420,6 +1900,351 @@
           <Setter key="generic download branch info key">DataContracts.dll.info.xml</Setter>
           <Setter key="generic download branch target url">build/DataContracts.dll.info.xml</Setter>
           <Setter key="generic download branch display name">DataContracts.dll</Setter>
+        </Properties>
+      </Settings.SetSettingText>
+
+      <Settings.AppendLineToSettingsText>
+        <Properties>
+          <SettingKey>progress text</SettingKey>
+          <Line>Downloading [generic download branch display name]</Line>
+        </Properties>
+      </Settings.AppendLineToSettingsText>
+
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>generic download branch</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+    </TaskBranch>
+
+    <TaskBranch name="download CefSharp.BrowserSubprocess.Core.dll">
+      <Settings.SetSettingText>
+        <Properties>
+          <Setter key="generic download branch info key">CefSharp.BrowserSubprocess.Core.dll.info.xml</Setter>
+          <Setter key="generic download branch target url">build/CefSharp.BrowserSubprocess.Core.dll.info.xml</Setter>
+          <Setter key="generic download branch display name">CefSharp.BrowserSubprocess.Core.dll</Setter>
+        </Properties>
+      </Settings.SetSettingText>
+
+      <Settings.AppendLineToSettingsText>
+        <Properties>
+          <SettingKey>progress text</SettingKey>
+          <Line>Downloading [generic download branch display name]</Line>
+        </Properties>
+      </Settings.AppendLineToSettingsText>
+
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>generic download branch</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+    </TaskBranch>
+
+    <TaskBranch name="download CefSharp.BrowserSubprocess.exe">
+      <Settings.SetSettingText>
+        <Properties>
+          <Setter key="generic download branch info key">CefSharp.BrowserSubprocess.exe.info.xml</Setter>
+          <Setter key="generic download branch target url">build/CefSharp.BrowserSubprocess.exe.info.xml</Setter>
+          <Setter key="generic download branch display name">CefSharp.BrowserSubprocess.exe</Setter>
+        </Properties>
+      </Settings.SetSettingText>
+
+      <Settings.AppendLineToSettingsText>
+        <Properties>
+          <SettingKey>progress text</SettingKey>
+          <Line>Downloading [generic download branch display name]</Line>
+        </Properties>
+      </Settings.AppendLineToSettingsText>
+
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>generic download branch</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+    </TaskBranch>
+
+    <TaskBranch name="download CefSharp.Core.dll">
+      <Settings.SetSettingText>
+        <Properties>
+          <Setter key="generic download branch info key">CefSharp.Core.dll.info.xml</Setter>
+          <Setter key="generic download branch target url">build/CefSharp.Core.dll.info.xml</Setter>
+          <Setter key="generic download branch display name">CefSharp.Core.dll</Setter>
+        </Properties>
+      </Settings.SetSettingText>
+
+      <Settings.AppendLineToSettingsText>
+        <Properties>
+          <SettingKey>progress text</SettingKey>
+          <Line>Downloading [generic download branch display name]</Line>
+        </Properties>
+      </Settings.AppendLineToSettingsText>
+
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>generic download branch</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+    </TaskBranch>
+
+    <TaskBranch name="download CefSharp.dll">
+      <Settings.SetSettingText>
+        <Properties>
+          <Setter key="generic download branch info key">CefSharp.dll.info.xml</Setter>
+          <Setter key="generic download branch target url">build/CefSharp.dll.info.xml</Setter>
+          <Setter key="generic download branch display name">CefSharp.dll</Setter>
+        </Properties>
+      </Settings.SetSettingText>
+
+      <Settings.AppendLineToSettingsText>
+        <Properties>
+          <SettingKey>progress text</SettingKey>
+          <Line>Downloading [generic download branch display name]</Line>
+        </Properties>
+      </Settings.AppendLineToSettingsText>
+
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>generic download branch</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+    </TaskBranch>
+
+    <TaskBranch name="download CefSharp.wpf.dll">
+      <Settings.SetSettingText>
+        <Properties>
+          <Setter key="generic download branch info key">CefSharp.wpf.dll.info.xml</Setter>
+          <Setter key="generic download branch target url">build/CefSharp.wpf.dll.info.xml</Setter>
+          <Setter key="generic download branch display name">CefSharp.wpf.dll</Setter>
+        </Properties>
+      </Settings.SetSettingText>
+
+      <Settings.AppendLineToSettingsText>
+        <Properties>
+          <SettingKey>progress text</SettingKey>
+          <Line>Downloading [generic download branch display name]</Line>
+        </Properties>
+      </Settings.AppendLineToSettingsText>
+
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>generic download branch</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+    </TaskBranch>
+
+    <TaskBranch name="download d3dcompiler_43.dll">
+      <Settings.SetSettingText>
+        <Properties>
+          <Setter key="generic download branch info key">d3dcompiler_43.dll.info.xml</Setter>
+          <Setter key="generic download branch target url">build/d3dcompiler_43.dll.info.xml</Setter>
+          <Setter key="generic download branch display name">d3dcompiler_43.dll</Setter>
+        </Properties>
+      </Settings.SetSettingText>
+
+      <Settings.AppendLineToSettingsText>
+        <Properties>
+          <SettingKey>progress text</SettingKey>
+          <Line>Downloading [generic download branch display name]</Line>
+        </Properties>
+      </Settings.AppendLineToSettingsText>
+
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>generic download branch</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+    </TaskBranch>
+
+    <TaskBranch name="download d3dcompiler_46.dll">
+      <Settings.SetSettingText>
+        <Properties>
+          <Setter key="generic download branch info key">d3dcompiler_46.dll.info.xml</Setter>
+          <Setter key="generic download branch target url">build/d3dcompiler_46.dll.info.xml</Setter>
+          <Setter key="generic download branch display name">d3dcompiler_46.dll</Setter>
+        </Properties>
+      </Settings.SetSettingText>
+
+      <Settings.AppendLineToSettingsText>
+        <Properties>
+          <SettingKey>progress text</SettingKey>
+          <Line>Downloading [generic download branch display name]</Line>
+        </Properties>
+      </Settings.AppendLineToSettingsText>
+
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>generic download branch</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+    </TaskBranch>
+
+    <TaskBranch name="download ffmpegsumo.dll">
+      <Settings.SetSettingText>
+        <Properties>
+          <Setter key="generic download branch info key">ffmpegsumo.dll.info.xml</Setter>
+          <Setter key="generic download branch target url">build/ffmpegsumo.dll.info.xml</Setter>
+          <Setter key="generic download branch display name">ffmpegsumo.dll</Setter>
+        </Properties>
+      </Settings.SetSettingText>
+
+      <Settings.AppendLineToSettingsText>
+        <Properties>
+          <SettingKey>progress text</SettingKey>
+          <Line>Downloading [generic download branch display name]</Line>
+        </Properties>
+      </Settings.AppendLineToSettingsText>
+
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>generic download branch</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+    </TaskBranch>
+
+    <TaskBranch name="download libcef.dll">
+      <Settings.SetSettingText>
+        <Properties>
+          <Setter key="generic download branch info key">libcef.dll.info.xml</Setter>
+          <Setter key="generic download branch target url">build/libcef.dll.info.xml</Setter>
+          <Setter key="generic download branch display name">libcef.dll</Setter>
+        </Properties>
+      </Settings.SetSettingText>
+
+      <Settings.AppendLineToSettingsText>
+        <Properties>
+          <SettingKey>progress text</SettingKey>
+          <Line>Downloading [generic download branch display name]</Line>
+        </Properties>
+      </Settings.AppendLineToSettingsText>
+
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>generic download branch</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+    </TaskBranch>
+
+    <TaskBranch name="download libEGL.dll">
+      <Settings.SetSettingText>
+        <Properties>
+          <Setter key="generic download branch info key">libEGL.dll.info.xml</Setter>
+          <Setter key="generic download branch target url">build/libEGL.dll.info.xml</Setter>
+          <Setter key="generic download branch display name">libEGL.dll</Setter>
+        </Properties>
+      </Settings.SetSettingText>
+
+      <Settings.AppendLineToSettingsText>
+        <Properties>
+          <SettingKey>progress text</SettingKey>
+          <Line>Downloading [generic download branch display name]</Line>
+        </Properties>
+      </Settings.AppendLineToSettingsText>
+
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>generic download branch</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+    </TaskBranch>
+
+    <TaskBranch name="download libGLESv2.dll">
+      <Settings.SetSettingText>
+        <Properties>
+          <Setter key="generic download branch info key">libGLESv2.dll.info.xml</Setter>
+          <Setter key="generic download branch target url">build/libGLESv2.dll.info.xml</Setter>
+          <Setter key="generic download branch display name">libGLESv2.dll</Setter>
+        </Properties>
+      </Settings.SetSettingText>
+
+      <Settings.AppendLineToSettingsText>
+        <Properties>
+          <SettingKey>progress text</SettingKey>
+          <Line>Downloading [generic download branch display name]</Line>
+        </Properties>
+      </Settings.AppendLineToSettingsText>
+
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>generic download branch</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+    </TaskBranch>
+
+    <TaskBranch name="download pdf.dll">
+      <Settings.SetSettingText>
+        <Properties>
+          <Setter key="generic download branch info key">pdf.dll.info.xml</Setter>
+          <Setter key="generic download branch target url">build/pdf.dll.info.xml</Setter>
+          <Setter key="generic download branch display name">pdf.dll</Setter>
+        </Properties>
+      </Settings.SetSettingText>
+
+      <Settings.AppendLineToSettingsText>
+        <Properties>
+          <SettingKey>progress text</SettingKey>
+          <Line>Downloading [generic download branch display name]</Line>
+        </Properties>
+      </Settings.AppendLineToSettingsText>
+
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>generic download branch</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+    </TaskBranch>
+
+    <TaskBranch name="download cef.pak">
+      <Settings.SetSettingText>
+        <Properties>
+          <Setter key="generic download branch info key">cef.pak.info.xml</Setter>
+          <Setter key="generic download branch target url">build/cef.pak.info.xml</Setter>
+          <Setter key="generic download branch display name">cef.pak</Setter>
+        </Properties>
+      </Settings.SetSettingText>
+
+      <Settings.AppendLineToSettingsText>
+        <Properties>
+          <SettingKey>progress text</SettingKey>
+          <Line>Downloading [generic download branch display name]</Line>
+        </Properties>
+      </Settings.AppendLineToSettingsText>
+
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>generic download branch</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+    </TaskBranch>
+
+    <TaskBranch name="download cef_100_percent.pak">
+      <Settings.SetSettingText>
+        <Properties>
+          <Setter key="generic download branch info key">cef_100_percent.pak.info.xml</Setter>
+          <Setter key="generic download branch target url">build/cef_100_percent.pak.info.xml</Setter>
+          <Setter key="generic download branch display name">cef_100_percent.pak</Setter>
+        </Properties>
+      </Settings.SetSettingText>
+
+      <Settings.AppendLineToSettingsText>
+        <Properties>
+          <SettingKey>progress text</SettingKey>
+          <Line>Downloading [generic download branch display name]</Line>
+        </Properties>
+      </Settings.AppendLineToSettingsText>
+
+      <Control.ReturnBranchResult>
+        <Properties>
+          <Branch>generic download branch</Branch>
+        </Properties>
+      </Control.ReturnBranchResult>
+    </TaskBranch>
+
+    <TaskBranch name="download cef_200_percent.pak">
+      <Settings.SetSettingText>
+        <Properties>
+          <Setter key="generic download branch info key">cef_200_percent.pak.info.xml</Setter>
+          <Setter key="generic download branch target url">build/cef_200_percent.pak.info.xml</Setter>
+          <Setter key="generic download branch display name">cef_200_percent.pak</Setter>
         </Properties>
       </Settings.SetSettingText>
 
@@ -2217,7 +3042,8 @@
   <Banners>
     <SimpleBanner name="Build ready banner" height="450" width="500">
       <Content>
-        <FramedButton controlKey="ready button" settingKey="start build" verticalAlignment="Center" alignment="Center" margin="0,75,0,0" defaultButton="true">
+        <FramedButton controlKey="ready button" settingKey="start build" verticalAlignment="Center" alignment="Center"
+                      margin="0,75,0,0" defaultButton="true">
           <Caption fontSize="32">Build</Caption>
           <Effect type="glow" />
         </FramedButton>
@@ -2277,7 +3103,7 @@
           </Content>
         </SimpleParagraph>
 
-        <SimpleInputField  maxLines="1" settingKey="certificate thumbprint" />
+        <SimpleInputField maxLines="1" settingKey="certificate thumbprint" />
         <SimpleParagraph dock="Top" fontSize="10">
           <Content>
             <DirectTextContent>The thumbprint of the code-signing certificate to be used to sign the package. This certificate should be installed in your personal store.</DirectTextContent>
@@ -2290,7 +3116,7 @@
           </Content>
         </SimpleParagraph>
 
-        <SimpleInputField  maxLines="1" settingKey="certificate timestamp server" />
+        <SimpleInputField maxLines="1" settingKey="certificate timestamp server" />
         <SimpleParagraph dock="Top" fontSize="10">
           <Content>
             <DirectTextContent>The timestamp server to use when signing the package and its components. If this field is blank, no timestamp server will be specified.</DirectTextContent>
@@ -2451,7 +3277,7 @@
       </Content>
 
       <Actions>
-        <HideControlAction >
+        <HideControlAction>
           <Conditions.All>
             <Settings.SettingEquals key="download content files" value="true" ignoreCase="true" />
           </Conditions.All>
@@ -2463,7 +3289,7 @@
           <ControlKey>installer folder instructions</ControlKey>
         </HideControlAction>
 
-        <ShowControlAction >
+        <ShowControlAction>
           <Conditions.All>
             <Settings.SettingEquals key="download content files" value="False" />
           </Conditions.All>
@@ -2547,7 +3373,7 @@
             <DirectTextContent>Output Name:</DirectTextContent>
           </Content>
         </SimpleParagraph>
-        <SimpleInputField  maxLines="1" settingKey="output name" />
+        <SimpleInputField maxLines="1" settingKey="output name" />
         <SimpleParagraph dock="Top" fontSize="10">
           <Content>
             <DirectTextContent>Name of the assembled package.</DirectTextContent>
@@ -2619,8 +3445,8 @@
           </Content>
         </SimpleParagraph>
 
-        <SimpleInputField  maxLines="1" settingKey="installer version" />
-        <SimpleParagraph  fontSize="10">
+        <SimpleInputField maxLines="1" settingKey="installer version" />
+        <SimpleParagraph fontSize="10">
           <Content>
             <DirectTextContent>The version to assign to the installer package. This value should be in standard version format ("1.1.1.0," for example). This value should be greater than the version that is assigned to your current, active installation.</DirectTextContent>
           </Content>
@@ -2631,8 +3457,8 @@
             <DirectTextContent>Display name</DirectTextContent>
           </Content>
         </SimpleParagraph>
-        <SimpleInputField  maxLines="1" settingKey="installer display name" />
-        <SimpleParagraph  fontSize="10">
+        <SimpleInputField maxLines="1" settingKey="installer display name" />
+        <SimpleParagraph fontSize="10">
           <Content>
             <DirectTextContent>The product display name for the installer.</DirectTextContent>
           </Content>
@@ -2643,8 +3469,8 @@
             <DirectTextContent>Institution name</DirectTextContent>
           </Content>
         </SimpleParagraph>
-        <SimpleInputField  maxLines="1" settingKey="installer institution name" />
-        <SimpleParagraph  fontSize="10">
+        <SimpleInputField maxLines="1" settingKey="installer institution name" />
+        <SimpleParagraph fontSize="10">
           <Content>
             <DirectTextContent>The institution display name for the installer.</DirectTextContent>
           </Content>
@@ -2718,8 +3544,8 @@
             <DirectTextContent>Help url</DirectTextContent>
           </Content>
         </SimpleParagraph>
-        <SimpleInputField  maxLines="1" settingKey="installer help url" />
-        <SimpleParagraph  fontSize="10">
+        <SimpleInputField maxLines="1" settingKey="installer help url" />
+        <SimpleParagraph fontSize="10">
           <Content>
             <DirectTextContent>The installer's help url.</DirectTextContent>
           </Content>
@@ -2730,8 +3556,8 @@
             <DirectTextContent>Foreground Color</DirectTextContent>
           </Content>
         </SimpleParagraph>
-        <SimpleInputField  maxLines="1" settingKey="installer foreground color" />
-        <SimpleParagraph  fontSize="10">
+        <SimpleInputField maxLines="1" settingKey="installer foreground color" />
+        <SimpleParagraph fontSize="10">
           <Content>
             <DirectTextContent>The color for the installer's text and ui elements.</DirectTextContent>
           </Content>
@@ -2742,8 +3568,8 @@
             <DirectTextContent>Background Color</DirectTextContent>
           </Content>
         </SimpleParagraph>
-        <SimpleInputField  maxLines="1" settingKey="installer background color" />
-        <SimpleParagraph  fontSize="10">
+        <SimpleInputField maxLines="1" settingKey="installer background color" />
+        <SimpleParagraph fontSize="10">
           <Content>
             <DirectTextContent>The installer's background color.</DirectTextContent>
           </Content>
@@ -2815,169 +3641,199 @@
 
     <SimpleBanner name="output path banner">
       <Content>
-        <FolderBrowseButton width="36" height="36" settingKey="output path" dock="Right" verticalAlignment="Center" alignment="Center"
-          margin="8,0,2,0" borderSize="1" glowEffect="false" glowColor="Transparent"
-          description="Select the destination folder for the installer package.">
+        <FolderBrowseButton width="36" height="36" settingKey="output path" dock="Right" verticalAlignment="Center"
+                            alignment="Center"
+                            margin="8,0,2,0" borderSize="1" glowEffect="false" glowColor="Transparent"
+                            description="Select the destination folder for the installer package.">
           <Caption>...</Caption>
           <Effect type="invert" />
         </FolderBrowseButton>
-        <SimpleInputField  maxLines="1" margin="0,0,4,0" settingKey="output path" dock="Left" alignment="Stretch" verticalAlignment="Center" />
+        <SimpleInputField maxLines="1" margin="0,0,4,0" settingKey="output path" dock="Left" alignment="Stretch"
+                          verticalAlignment="Center" />
       </Content>
     </SimpleBanner>
 
     <SimpleBanner name="secure files path banner">
       <Content>
-        <FolderBrowseButton width="36" height="36" settingKey="secure files path" dock="Right" verticalAlignment="Center" alignment="Center"
-          margin="8,0,2,0" borderSize="1" glowEffect="false" glowColor="Transparent"
-          description="Select the folder that contains the files that you wish to compress into the secure archive.">
+        <FolderBrowseButton width="36" height="36" settingKey="secure files path" dock="Right"
+                            verticalAlignment="Center" alignment="Center"
+                            margin="8,0,2,0" borderSize="1" glowEffect="false" glowColor="Transparent"
+                            description="Select the folder that contains the files that you wish to compress into the secure archive.">
           <Caption>...</Caption>
           <Effect type="invert" />
         </FolderBrowseButton>
-        <SimpleInputField  maxLines="1" margin="0,0,4,0" settingKey="secure files path" dock="Left" alignment="Stretch" verticalAlignment="Center" />
+        <SimpleInputField maxLines="1" margin="0,0,4,0" settingKey="secure files path" dock="Left" alignment="Stretch"
+                          verticalAlignment="Center" />
       </Content>
     </SimpleBanner>
 
     <SimpleBanner name="installer files path banner">
       <Content>
-        <FolderBrowseButton width="36" height="36" settingKey="installer files path" dock="Right" verticalAlignment="Center" alignment="Center"
-          margin="8,0,2,0" borderSize="1" glowEffect="false" glowColor="Transparent"
-          description="Select the folder that contains the files needed to build the installer.">
+        <FolderBrowseButton width="36" height="36" settingKey="installer files path" dock="Right"
+                            verticalAlignment="Center" alignment="Center"
+                            margin="8,0,2,0" borderSize="1" glowEffect="false" glowColor="Transparent"
+                            description="Select the folder that contains the files needed to build the installer.">
           <Caption>...</Caption>
           <Effect type="invert" />
         </FolderBrowseButton>
-        <SimpleInputField  maxLines="1" margin="0,0,4,0" settingKey="installer files path" dock="Left" alignment="Stretch" verticalAlignment="Center" />
+        <SimpleInputField maxLines="1" margin="0,0,4,0" settingKey="installer files path" dock="Left"
+                          alignment="Stretch" verticalAlignment="Center" />
       </Content>
     </SimpleBanner>
 
     <SimpleBanner name="engine files path banner">
       <Content>
-        <FolderBrowseButton width="36" height="36" settingKey="engine files path" dock="Right" verticalAlignment="Center" alignment="Center"
-          margin="8,0,2,0" borderSize="1" glowEffect="false" glowColor="Transparent"
-          description="Select the folder that contains the core engine files.">
+        <FolderBrowseButton width="36" height="36" settingKey="engine files path" dock="Right"
+                            verticalAlignment="Center" alignment="Center"
+                            margin="8,0,2,0" borderSize="1" glowEffect="false" glowColor="Transparent"
+                            description="Select the folder that contains the core engine files.">
           <Caption>...</Caption>
           <Effect type="invert" />
         </FolderBrowseButton>
-        <SimpleInputField  maxLines="1" settingKey="engine files path" dock="Left" margin="0,0,4,0" alignment="Stretch" verticalAlignment="Center" />
+        <SimpleInputField maxLines="1" settingKey="engine files path" dock="Left" margin="0,0,4,0" alignment="Stretch"
+                          verticalAlignment="Center" />
       </Content>
     </SimpleBanner>
 
     <SimpleBanner name="content folder path banner">
       <Content>
-        <FolderBrowseButton width="36" height="36" settingKey="content folder path" dock="Right" verticalAlignment="Center" alignment="Center"
-          margin="8,0,2,0" borderSize="1" glowEffect="false" glowColor="Transparent"
-          description="Select the folder that will store the generated content files.">
+        <FolderBrowseButton width="36" height="36" settingKey="content folder path" dock="Right"
+                            verticalAlignment="Center" alignment="Center"
+                            margin="8,0,2,0" borderSize="1" glowEffect="false" glowColor="Transparent"
+                            description="Select the folder that will store the generated content files.">
           <Caption>...</Caption>
           <Effect type="invert" />
         </FolderBrowseButton>
-        <SimpleInputField  maxLines="1" settingKey="content folder path" dock="Left" alignment="Stretch" margin="0,0,4,0" verticalAlignment="Center" />
+        <SimpleInputField maxLines="1" settingKey="content folder path" dock="Left" alignment="Stretch"
+                          margin="0,0,4,0" verticalAlignment="Center" />
       </Content>
     </SimpleBanner>
 
     <SimpleBanner name="engine components folder path banner">
       <Content>
-        <FolderBrowseButton width="36" height="36" settingKey="engine components path" dock="Right" verticalAlignment="Center" alignment="Center"
-          margin="8,0,2,0" borderSize="1" glowEffect="false" glowColor="Transparent"
-          description="Select the folder that contains the engine components to process.">
+        <FolderBrowseButton width="36" height="36" settingKey="engine components path" dock="Right"
+                            verticalAlignment="Center" alignment="Center"
+                            margin="8,0,2,0" borderSize="1" glowEffect="false" glowColor="Transparent"
+                            description="Select the folder that contains the engine components to process.">
           <Caption>...</Caption>
           <Effect type="invert" />
         </FolderBrowseButton>
-        <SimpleInputField  maxLines="1" settingKey="engine components path" dock="Left" alignment="Stretch" verticalAlignment="Center" margin="0,0,4,0" />
+        <SimpleInputField maxLines="1" settingKey="engine components path" dock="Left" alignment="Stretch"
+                          verticalAlignment="Center" margin="0,0,4,0" />
       </Content>
     </SimpleBanner>
 
     <SimpleBanner name="bootstrapper engine components folder path banner">
       <Content>
-        <FolderBrowseButton width="36" height="36" settingKey="bootstrapper engine components path" dock="Right" verticalAlignment="Center" alignment="Center"
-          margin="8,0,2,0" borderSize="1" glowEffect="false" glowColor="Transparent"
-          description="Select the folder that contains the bootstrapper engine components to process.">
+        <FolderBrowseButton width="36" height="36" settingKey="bootstrapper engine components path" dock="Right"
+                            verticalAlignment="Center" alignment="Center"
+                            margin="8,0,2,0" borderSize="1" glowEffect="false" glowColor="Transparent"
+                            description="Select the folder that contains the bootstrapper engine components to process.">
           <Caption>...</Caption>
           <Effect type="invert" />
         </FolderBrowseButton>
-        <SimpleInputField  maxLines="1" settingKey="bootstrapper engine components path" dock="Left" alignment="Stretch" margin="0,0,4,0" verticalAlignment="Center" />
+        <SimpleInputField maxLines="1" settingKey="bootstrapper engine components path" dock="Left" alignment="Stretch"
+                          margin="0,0,4,0" verticalAlignment="Center" />
       </Content>
     </SimpleBanner>
 
     <SimpleBanner name="installer.wxs path banner">
       <Content>
-        <FileBrowseButton width="36" height="36" settingKey="installer.wxs path" dock="Right" verticalAlignment="Center" alignment="Center"
-          margin="8,0,2,0" borderSize="1" glowEffect="false" glowColor="Transparent"
-          title="Locate installer.wxs"
-          filter = "installer.wxs|installer.wxs">
+        <FileBrowseButton width="36" height="36" settingKey="installer.wxs path" dock="Right"
+                          verticalAlignment="Center" alignment="Center"
+                          margin="8,0,2,0" borderSize="1" glowEffect="false" glowColor="Transparent"
+                          title="Locate installer.wxs"
+                          filter="installer.wxs|installer.wxs">
           <Caption>...</Caption>
           <Effect type="invert" />
         </FileBrowseButton>
-        <SimpleInputField  maxLines="1" settingKey="installer.wxs path" dock="Left" alignment="Stretch" margin="0,0,4,0" verticalAlignment="Center" />
+        <SimpleInputField maxLines="1" settingKey="installer.wxs path" dock="Left" alignment="Stretch" margin="0,0,4,0"
+                          verticalAlignment="Center" />
       </Content>
     </SimpleBanner>
 
     <SimpleBanner name="bundle.wxs path banner">
       <Content>
-        <FileBrowseButton width="36" height="36" settingKey="bundle.wxs path" dock="Right" verticalAlignment="Center" alignment="Center"
-          margin="8,0,2,0" borderSize="1" glowEffect="false" glowColor="Transparent"
-          title="Locate bundle.wxs"
-          filter = "bundle.wxs|bundle.wxs">
+        <FileBrowseButton width="36" height="36" settingKey="bundle.wxs path" dock="Right" verticalAlignment="Center"
+                          alignment="Center"
+                          margin="8,0,2,0" borderSize="1" glowEffect="false" glowColor="Transparent"
+                          title="Locate bundle.wxs"
+                          filter="bundle.wxs|bundle.wxs">
           <Caption>...</Caption>
           <Effect type="invert" />
         </FileBrowseButton>
-        <SimpleInputField  maxLines="1" settingKey="bundle.wxs path" dock="Left" alignment="Stretch" margin="0,0,4,0" verticalAlignment="Center" />
+        <SimpleInputField maxLines="1" settingKey="bundle.wxs path" dock="Left" alignment="Stretch" margin="0,0,4,0"
+                          verticalAlignment="Center" />
       </Content>
     </SimpleBanner>
 
     <SimpleBanner name="signtool path banner">
       <Content>
-        <FileBrowseButton width="36" height="36" settingKey="signtool path" dock="Right" verticalAlignment="Center" alignment="Center"
-          margin="8,0,2,0" borderSize="1" glowEffect="false" glowColor="Transparent"
-          title="Locate Signtool Utility"
-          filter = "Signtool Utility|signtool.exe">
+        <FileBrowseButton width="36" height="36" settingKey="signtool path" dock="Right" verticalAlignment="Center"
+                          alignment="Center"
+                          margin="8,0,2,0" borderSize="1" glowEffect="false" glowColor="Transparent"
+                          title="Locate Signtool Utility"
+                          filter="Signtool Utility|signtool.exe">
           <Caption>...</Caption>
           <Effect type="invert" />
         </FileBrowseButton>
-        <SimpleInputField  maxLines="1" settingKey="signtool path" dock="Left" margin="0,0,4,0" alignment="Stretch" verticalAlignment="Center" />
+        <SimpleInputField maxLines="1" settingKey="signtool path" dock="Left" margin="0,0,4,0" alignment="Stretch"
+                          verticalAlignment="Center" />
       </Content>
     </SimpleBanner>
 
     <SimpleBanner name="icon path banner">
       <Content>
-        <FileBrowseButton width="36" height="36" settingKey="installer icon path" dock="Right" verticalAlignment="Center" alignment="Center"
-          margin="8,0,2,0" borderSize="1" glowEffect="false" glowColor="Transparent"
-          title="Locate Installer Icon"
-          filter = "Icon Files (*.ico)|*.ico">
+        <FileBrowseButton width="36" height="36" settingKey="installer icon path" dock="Right"
+                          verticalAlignment="Center" alignment="Center"
+                          margin="8,0,2,0" borderSize="1" glowEffect="false" glowColor="Transparent"
+                          title="Locate Installer Icon"
+                          filter="Icon Files (*.ico)|*.ico">
           <Caption>...</Caption>
           <Effect type="invert" />
         </FileBrowseButton>
-        <SimpleInputField  maxLines="1" settingKey="installer icon path" dock="Left" margin="0,0,4,0" alignment="Stretch" verticalAlignment="Center" />
+        <SimpleInputField maxLines="1" settingKey="installer icon path" dock="Left" margin="0,0,4,0"
+                          alignment="Stretch" verticalAlignment="Center" />
       </Content>
     </SimpleBanner>
 
     <SimpleBanner name="wix path banner">
       <Content>
-        <FolderBrowseButton width="36" height="36" settingKey="wix path" dock="Right" verticalAlignment="Center" alignment="Center"
-          margin="8,0,2,0" borderSize="1" glowEffect="false" glowColor="Transparent"
-          description="Select the Windows Installer Xml (WiX) toolset installation folder.">
+        <FolderBrowseButton width="36" height="36" settingKey="wix path" dock="Right" verticalAlignment="Center"
+                            alignment="Center"
+                            margin="8,0,2,0" borderSize="1" glowEffect="false" glowColor="Transparent"
+                            description="Select the Windows Installer Xml (WiX) toolset installation folder.">
           <Caption>...</Caption>
           <Effect type="invert" />
         </FolderBrowseButton>
-        <SimpleInputField  maxLines="1" settingKey="wix path" dock="Left" alignment="Stretch" margin="0,0,4,0" verticalAlignment="Center" />
+        <SimpleInputField maxLines="1" settingKey="wix path" dock="Left" alignment="Stretch" margin="0,0,4,0"
+                          verticalAlignment="Center" />
       </Content>
     </SimpleBanner>
 
     <SimpleBanner name="hasher target file banner">
       <Content>
-        <FileBrowseButton width="36" height="36" settingKey="hasher target file" dock="Right" verticalAlignment="Center" alignment="Center" margin="8,0,2,0" borderSize="1" title="Locate File To Process">
+        <FileBrowseButton width="36" height="36" settingKey="hasher target file" dock="Right"
+                          verticalAlignment="Center" alignment="Center" margin="8,0,2,0" borderSize="1"
+                          title="Locate File To Process">
           <Caption>...</Caption>
           <Effect type="invert" />
         </FileBrowseButton>
-        <SimpleInputField  maxLines="1" settingKey="hasher target file" dock="Left" alignment="Stretch" margin="0,0,4,0" verticalAlignment="Center" />
+        <SimpleInputField maxLines="1" settingKey="hasher target file" dock="Left" alignment="Stretch" margin="0,0,4,0"
+                          verticalAlignment="Center" />
       </Content>
     </SimpleBanner>
 
     <SimpleBanner name="hasher output path banner">
       <Content>
-        <FolderBrowseButton width="36" height="36" settingKey="hasher output folder" dock="Right" verticalAlignment="Center" alignment="Center" margin="8,0,2,0" borderSize="1" description="Select the destination folder for the installer package.">
+        <FolderBrowseButton width="36" height="36" settingKey="hasher output folder" dock="Right"
+                            verticalAlignment="Center" alignment="Center" margin="8,0,2,0" borderSize="1"
+                            description="Select the destination folder for the installer package.">
           <Caption>...</Caption>
           <Effect type="invert" />
         </FolderBrowseButton>
-        <SimpleInputField  maxLines="1" settingKey="hasher output folder" dock="Left" alignment="Stretch" margin="0,0,4,0" verticalAlignment="Center" />
+        <SimpleInputField maxLines="1" settingKey="hasher output folder" dock="Left" alignment="Stretch"
+                          margin="0,0,4,0" verticalAlignment="Center" />
       </Content>
     </SimpleBanner>
 
@@ -3018,7 +3874,7 @@
             <DirectTextContent>Version:</DirectTextContent>
           </Content>
         </SimpleParagraph>
-        <SimpleInputField  maxLines="1" settingKey="hasher version" />
+        <SimpleInputField maxLines="1" settingKey="hasher version" />
         <SimpleParagraph dock="Top" fontSize="10">
           <Content>
             <DirectTextContent>Version to assign to file. Leave blank to use file version or 1.0.0.0 if the file lacks version information.</DirectTextContent>
@@ -3066,7 +3922,7 @@
         <EnableControlAction>
           <Conditions.All>
             <FileAndPath.FileExists key="[hasher target file]" />
-            <FileAndPath.DirectoryExists path ="[hasher output folder]" />
+            <FileAndPath.DirectoryExists path="[hasher output folder]" />
           </Conditions.All>
           <ControlKey>NextButton</ControlKey>
         </EnableControlAction>
@@ -3075,8 +3931,10 @@
 
     <SimpleBanner name="progress banner" width="500" height="450">
       <Content>
-        <SimpleInputField settingKey="progress text" readOnly="true" canScroll="true" minLines="25" maxLines="25" fontFamily="Courier" fontSize="12" scrollToEnd="true" />
-        <ProgressParagraph controlKey="build progress text" settingKey="build progress ticker" dock="Bottom" margin="0,12,0,0">
+        <SimpleInputField settingKey="progress text" readOnly="true" canScroll="true" minLines="25" maxLines="25"
+                          fontFamily="Courier" fontSize="12" scrollToEnd="true" />
+        <ProgressParagraph controlKey="build progress text" settingKey="build progress ticker" dock="Bottom"
+                           margin="0,12,0,0">
           <Content>
             <DirectTextContent>Initializing</DirectTextContent>
           </Content>
@@ -3107,7 +3965,7 @@
             <DirectTextContent>The build completed without issue. Click here to open the output folder.</DirectTextContent>
           </Content>
           <Links>
-            <OpenFolderLink target="[output path]" >
+            <OpenFolderLink target="[output path]">
               <DirectTextContent>here</DirectTextContent>
             </OpenFolderLink>
           </Links>
@@ -3134,7 +3992,7 @@
             <DirectTextContent>The operation completed without issue. Click here to open the content folder.</DirectTextContent>
           </Content>
           <Links>
-            <OpenFolderLink target="[content folder path]" >
+            <OpenFolderLink target="[content folder path]">
               <DirectTextContent>here</DirectTextContent>
             </OpenFolderLink>
           </Links>
@@ -3271,7 +4129,6 @@
         </SimpleParagraph>
 
 
-
         <SimpleParagraph dock="Top" margin="0,14,0,0">
           <Content>
             <DirectTextContent>Output path:</DirectTextContent>
@@ -3325,4 +4182,3 @@
 
 
 </Content>
-
