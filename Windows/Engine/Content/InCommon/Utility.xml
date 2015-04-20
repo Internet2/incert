@@ -1517,7 +1517,7 @@
         </Properties>
       </UserInterface.ChangeProgressMessage>
 
-      <Settings.AppendLineToSettingsText minimumTaskTime="1">
+      <Settings.AppendLineToSettingsText>
         <Properties>
           <SettingKey>progress text</SettingKey>
           <Line />
@@ -1541,7 +1541,7 @@
         </Properties>
       </Utility.GenerateFileWrapper>
 
-      <Settings.AppendLineToSettingsText minimumTaskTime="1">
+      <Settings.AppendLineToSettingsText>
         <Properties>
           <SettingKey>progress text</SettingKey>
           <Line>Processing engine.exe.config</Line>
@@ -1564,7 +1564,7 @@
         </Properties>
       </Utility.GenerateFileWrapper>
 
-      <Settings.AppendLineToSettingsText minimumTaskTime="1">
+      <Settings.AppendLineToSettingsText>
         <Properties>
           <SettingKey>progress text</SettingKey>
           <Line>Processing elevator.exe</Line>
@@ -1587,7 +1587,7 @@
         </Properties>
       </Utility.GenerateFileWrapper>
 
-      <Settings.AppendLineToSettingsText minimumTaskTime="1">
+      <Settings.AppendLineToSettingsText>
         <Properties>
           <SettingKey>progress text</SettingKey>
           <Line>Processing BouncyCastle.Crypto.dll</Line>
@@ -1610,7 +1610,7 @@
         </Properties>
       </Utility.GenerateFileWrapper>
 
-      <Settings.AppendLineToSettingsText minimumTaskTime="1">
+      <Settings.AppendLineToSettingsText>
         <Properties>
           <SettingKey>progress text</SettingKey>
           <Line>Processing log4net.dll</Line>
@@ -1633,7 +1633,7 @@
         </Properties>
       </Utility.GenerateFileWrapper>
 
-      <Settings.AppendLineToSettingsText minimumTaskTime="1">
+      <Settings.AppendLineToSettingsText>
         <Properties>
           <SettingKey>progress text</SettingKey>
           <Line>Processing Ninject.dll</Line>
@@ -1656,7 +1656,7 @@
         </Properties>
       </Utility.GenerateFileWrapper>
 
-      <Settings.AppendLineToSettingsText minimumTaskTime="1">
+      <Settings.AppendLineToSettingsText>
         <Properties>
           <SettingKey>progress text</SettingKey>
           <Line>Processing Restsharp.dll</Line>
@@ -1679,7 +1679,7 @@
         </Properties>
       </Utility.GenerateFileWrapper>
 
-      <Settings.AppendLineToSettingsText minimumTaskTime="1">
+      <Settings.AppendLineToSettingsText>
         <Properties>
           <SettingKey>progress text</SettingKey>
           <Line>Processing DataContracts.dll</Line>
@@ -1702,6 +1702,351 @@
         </Properties>
       </Utility.GenerateFileWrapper>
 
+      <Settings.AppendLineToSettingsText>
+        <Properties>
+          <SettingKey>progress text</SettingKey>
+          <Line>processing CefSharp.BrowserSubprocess.Core.dll</Line>
+        </Properties>
+      </Settings.AppendLineToSettingsText>
+
+      <FileAndPath.CopyFile>
+        <Properties>
+          <SourcePath>[engine components path]\CefSharp.BrowserSubprocess.Core.dll</SourcePath>
+          <DestinationPath>[content folder path]\CefSharp.BrowserSubprocess.Core.dll</DestinationPath>
+        </Properties>
+      </FileAndPath.CopyFile>
+
+      <Utility.GenerateFileWrapper>
+        <Properties>
+          <Target>[content folder path]\CefSharp.BrowserSubprocess.Core.dll</Target>
+          <Version />
+          <Vital>true</Vital>
+          <OutputFolder>[content folder path]</OutputFolder>
+        </Properties>
+      </Utility.GenerateFileWrapper>
+
+      <Settings.AppendLineToSettingsText>
+        <Properties>
+          <SettingKey>progress text</SettingKey>
+          <Line>processing CefSharp.BrowserSubprocess.exe</Line>
+        </Properties>
+      </Settings.AppendLineToSettingsText>
+
+      <FileAndPath.CopyFile>
+        <Properties>
+          <SourcePath>[engine components path]\CefSharp.BrowserSubprocess.exe</SourcePath>
+          <DestinationPath>[content folder path]\CefSharp.BrowserSubprocess.exe</DestinationPath>
+        </Properties>
+      </FileAndPath.CopyFile>
+
+      <Utility.GenerateFileWrapper>
+        <Properties>
+          <Target>[content folder path]\CefSharp.BrowserSubprocess.exe</Target>
+          <Version />
+          <Vital>true</Vital>
+          <OutputFolder>[content folder path]</OutputFolder>
+        </Properties>
+      </Utility.GenerateFileWrapper>
+
+      <Settings.AppendLineToSettingsText>
+        <Properties>
+          <SettingKey>progress text</SettingKey>
+          <Line>processing CefSharp.Core.dll</Line>
+        </Properties>
+      </Settings.AppendLineToSettingsText>
+
+      <FileAndPath.CopyFile>
+        <Properties>
+          <SourcePath>[engine components path]\CefSharp.Core.dll</SourcePath>
+          <DestinationPath>[content folder path]\CefSharp.Core.dll</DestinationPath>
+        </Properties>
+      </FileAndPath.CopyFile>
+
+      <Utility.GenerateFileWrapper>
+        <Properties>
+          <Target>[content folder path]\CefSharp.Core.dll</Target>
+          <Version />
+          <Vital>true</Vital>
+          <OutputFolder>[content folder path]</OutputFolder>
+        </Properties>
+      </Utility.GenerateFileWrapper>
+
+      <Settings.AppendLineToSettingsText>
+        <Properties>
+          <SettingKey>progress text</SettingKey>
+          <Line>processing CefSharp.dll</Line>
+        </Properties>
+      </Settings.AppendLineToSettingsText>
+
+      <FileAndPath.CopyFile>
+        <Properties>
+          <SourcePath>[engine components path]\CefSharp.dll</SourcePath>
+          <DestinationPath>[content folder path]\CefSharp.dll</DestinationPath>
+        </Properties>
+      </FileAndPath.CopyFile>
+
+      <Utility.GenerateFileWrapper>
+        <Properties>
+          <Target>[content folder path]\CefSharp.dll</Target>
+          <Version />
+          <Vital>true</Vital>
+          <OutputFolder>[content folder path]</OutputFolder>
+        </Properties>
+      </Utility.GenerateFileWrapper>
+
+      <Settings.AppendLineToSettingsText>
+        <Properties>
+          <SettingKey>progress text</SettingKey>
+          <Line>processing CefSharp.wpf.dll</Line>
+        </Properties>
+      </Settings.AppendLineToSettingsText>
+
+      <FileAndPath.CopyFile>
+        <Properties>
+          <SourcePath>[engine components path]\CefSharp.wpf.dll</SourcePath>
+          <DestinationPath>[content folder path]\CefSharp.wpf.dll</DestinationPath>
+        </Properties>
+      </FileAndPath.CopyFile>
+
+      <Utility.GenerateFileWrapper>
+        <Properties>
+          <Target>[content folder path]\CefSharp.wpf.dll</Target>
+          <Version />
+          <Vital>true</Vital>
+          <OutputFolder>[content folder path]</OutputFolder>
+        </Properties>
+      </Utility.GenerateFileWrapper>
+
+      <Settings.AppendLineToSettingsText>
+        <Properties>
+          <SettingKey>progress text</SettingKey>
+          <Line>processing d3dcompiler_43.dll</Line>
+        </Properties>
+      </Settings.AppendLineToSettingsText>
+
+      <FileAndPath.CopyFile>
+        <Properties>
+          <SourcePath>[engine components path]\d3dcompiler_43.dll</SourcePath>
+          <DestinationPath>[content folder path]\d3dcompiler_43.dll</DestinationPath>
+        </Properties>
+      </FileAndPath.CopyFile>
+
+      <Utility.GenerateFileWrapper>
+        <Properties>
+          <Target>[content folder path]\d3dcompiler_43.dll</Target>
+          <Version />
+          <Vital>true</Vital>
+          <OutputFolder>[content folder path]</OutputFolder>
+        </Properties>
+      </Utility.GenerateFileWrapper>
+
+      <Settings.AppendLineToSettingsText>
+        <Properties>
+          <SettingKey>progress text</SettingKey>
+          <Line>processing d3dcompiler_46.dll</Line>
+        </Properties>
+      </Settings.AppendLineToSettingsText>
+
+      <FileAndPath.CopyFile>
+        <Properties>
+          <SourcePath>[engine components path]\d3dcompiler_46.dll</SourcePath>
+          <DestinationPath>[content folder path]\d3dcompiler_46.dll</DestinationPath>
+        </Properties>
+      </FileAndPath.CopyFile>
+
+      <Utility.GenerateFileWrapper>
+        <Properties>
+          <Target>[content folder path]\d3dcompiler_46.dll</Target>
+          <Version />
+          <Vital>true</Vital>
+          <OutputFolder>[content folder path]</OutputFolder>
+        </Properties>
+      </Utility.GenerateFileWrapper>
+
+      <Settings.AppendLineToSettingsText>
+        <Properties>
+          <SettingKey>progress text</SettingKey>
+          <Line>processing ffmpegsumo.dll</Line>
+        </Properties>
+      </Settings.AppendLineToSettingsText>
+
+      <FileAndPath.CopyFile>
+        <Properties>
+          <SourcePath>[engine components path]\ffmpegsumo.dll</SourcePath>
+          <DestinationPath>[content folder path]\ffmpegsumo.dll</DestinationPath>
+        </Properties>
+      </FileAndPath.CopyFile>
+
+      <Utility.GenerateFileWrapper>
+        <Properties>
+          <Target>[content folder path]\ffmpegsumo.dll</Target>
+          <Version />
+          <Vital>true</Vital>
+          <OutputFolder>[content folder path]</OutputFolder>
+        </Properties>
+      </Utility.GenerateFileWrapper>
+
+      <Settings.AppendLineToSettingsText>
+        <Properties>
+          <SettingKey>progress text</SettingKey>
+          <Line>processing libcef.dll</Line>
+        </Properties>
+      </Settings.AppendLineToSettingsText>
+
+      <FileAndPath.CopyFile>
+        <Properties>
+          <SourcePath>[engine components path]\libcef.dll</SourcePath>
+          <DestinationPath>[content folder path]\libcef.dll</DestinationPath>
+        </Properties>
+      </FileAndPath.CopyFile>
+
+      <Utility.GenerateFileWrapper>
+        <Properties>
+          <Target>[content folder path]\libcef.dll</Target>
+          <Version />
+          <Vital>true</Vital>
+          <OutputFolder>[content folder path]</OutputFolder>
+        </Properties>
+      </Utility.GenerateFileWrapper>
+
+      <Settings.AppendLineToSettingsText>
+        <Properties>
+          <SettingKey>progress text</SettingKey>
+          <Line>processing libEGL.dll</Line>
+        </Properties>
+      </Settings.AppendLineToSettingsText>
+
+      <FileAndPath.CopyFile>
+        <Properties>
+          <SourcePath>[engine components path]\libEGL.dll</SourcePath>
+          <DestinationPath>[content folder path]\libEGL.dll</DestinationPath>
+        </Properties>
+      </FileAndPath.CopyFile>
+
+      <Utility.GenerateFileWrapper>
+        <Properties>
+          <Target>[content folder path]\libEGL.dll</Target>
+          <Version />
+          <Vital>true</Vital>
+          <OutputFolder>[content folder path]</OutputFolder>
+        </Properties>
+      </Utility.GenerateFileWrapper>
+
+      <Settings.AppendLineToSettingsText>
+        <Properties>
+          <SettingKey>progress text</SettingKey>
+          <Line>processing libGLESv2.dll</Line>
+        </Properties>
+      </Settings.AppendLineToSettingsText>
+
+      <FileAndPath.CopyFile>
+        <Properties>
+          <SourcePath>[engine components path]\libGLESv2.dll</SourcePath>
+          <DestinationPath>[content folder path]\libGLESv2.dll</DestinationPath>
+        </Properties>
+      </FileAndPath.CopyFile>
+
+      <Utility.GenerateFileWrapper>
+        <Properties>
+          <Target>[content folder path]\libGLESv2.dll</Target>
+          <Version />
+          <Vital>true</Vital>
+          <OutputFolder>[content folder path]</OutputFolder>
+        </Properties>
+      </Utility.GenerateFileWrapper>
+
+      <Settings.AppendLineToSettingsText>
+        <Properties>
+          <SettingKey>progress text</SettingKey>
+          <Line>processing pdf.dll</Line>
+        </Properties>
+      </Settings.AppendLineToSettingsText>
+
+      <FileAndPath.CopyFile>
+        <Properties>
+          <SourcePath>[engine components path]\pdf.dll</SourcePath>
+          <DestinationPath>[content folder path]\pdf.dll</DestinationPath>
+        </Properties>
+      </FileAndPath.CopyFile>
+
+      <Utility.GenerateFileWrapper>
+        <Properties>
+          <Target>[content folder path]\pdf.dll</Target>
+          <Version />
+          <Vital>true</Vital>
+          <OutputFolder>[content folder path]</OutputFolder>
+        </Properties>
+      </Utility.GenerateFileWrapper>
+
+      <Settings.AppendLineToSettingsText>
+        <Properties>
+          <SettingKey>progress text</SettingKey>
+          <Line>processing cef.pak</Line>
+        </Properties>
+      </Settings.AppendLineToSettingsText>
+
+      <FileAndPath.CopyFile>
+        <Properties>
+          <SourcePath>[engine components path]\cef.pak</SourcePath>
+          <DestinationPath>[content folder path]\cef.pak</DestinationPath>
+        </Properties>
+      </FileAndPath.CopyFile>
+
+      <Utility.GenerateFileWrapper>
+        <Properties>
+          <Target>[content folder path]\cef.pak</Target>
+          <Version />
+          <Vital>true</Vital>
+          <OutputFolder>[content folder path]</OutputFolder>
+        </Properties>
+      </Utility.GenerateFileWrapper>
+
+      <Settings.AppendLineToSettingsText>
+        <Properties>
+          <SettingKey>progress text</SettingKey>
+          <Line>processing cef_100_percent.pak</Line>
+        </Properties>
+      </Settings.AppendLineToSettingsText>
+
+      <FileAndPath.CopyFile>
+        <Properties>
+          <SourcePath>[engine components path]\cef_100_percent.pak</SourcePath>
+          <DestinationPath>[content folder path]\cef_100_percent.pak</DestinationPath>
+        </Properties>
+      </FileAndPath.CopyFile>
+
+      <Utility.GenerateFileWrapper>
+        <Properties>
+          <Target>[content folder path]\cef_100_percent.pak</Target>
+          <Version />
+          <Vital>true</Vital>
+          <OutputFolder>[content folder path]</OutputFolder>
+        </Properties>
+      </Utility.GenerateFileWrapper>
+
+      <Settings.AppendLineToSettingsText>
+        <Properties>
+          <SettingKey>progress text</SettingKey>
+          <Line>processing cef_200_percent.pak</Line>
+        </Properties>
+      </Settings.AppendLineToSettingsText>
+
+      <FileAndPath.CopyFile>
+        <Properties>
+          <SourcePath>[engine components path]\cef_200_percent.pak</SourcePath>
+          <DestinationPath>[content folder path]\cef_200_percent.pak</DestinationPath>
+        </Properties>
+      </FileAndPath.CopyFile>
+
+      <Utility.GenerateFileWrapper>
+        <Properties>
+          <Target>[content folder path]\cef_200_percent.pak</Target>
+          <Version />
+          <Vital>true</Vital>
+          <OutputFolder>[content folder path]</OutputFolder>
+        </Properties>
+      </Utility.GenerateFileWrapper>
+
       <UserInterface.ChangeProgressMessage>
         <Properties>
           <SettingKey>build progress ticker</SettingKey>
@@ -1709,7 +2054,7 @@
         </Properties>
       </UserInterface.ChangeProgressMessage>
 
-      <Settings.AppendLineToSettingsText minimumTaskTime="1">
+      <Settings.AppendLineToSettingsText>
         <Properties>
           <SettingKey>progress text</SettingKey>
           <Line>Processing installer.wxs</Line>
@@ -1739,7 +2084,7 @@
         </Properties>
       </UserInterface.ChangeProgressMessage>
 
-      <Settings.AppendLineToSettingsText  minimumTaskTime="1">
+      <Settings.AppendLineToSettingsText>
         <Properties>
           <SettingKey>progress text</SettingKey>
           <Line>Processing bundle.wxs</Line>
@@ -1769,7 +2114,7 @@
         </Properties>
       </UserInterface.ChangeProgressMessage>
 
-      <Settings.AppendLineToSettingsText minimumTaskTime="1">
+      <Settings.AppendLineToSettingsText>
         <Properties>
           <SettingKey>progress text</SettingKey>
           <Line>Processing BootstrapperCore.dll</Line>
@@ -1792,7 +2137,7 @@
         </Properties>
       </Utility.GenerateFileWrapper>
 
-      <Settings.AppendLineToSettingsText minimumTaskTime="1">
+      <Settings.AppendLineToSettingsText>
         <Properties>
           <SettingKey>progress text</SettingKey>
           <Line>Processing BootstrapperCore.config</Line>
@@ -1815,7 +2160,7 @@
         </Properties>
       </Utility.GenerateFileWrapper>
 
-      <Settings.AppendLineToSettingsText minimumTaskTime="1">
+      <Settings.AppendLineToSettingsText>
         <Properties>
           <SettingKey>progress text</SettingKey>
           <Line>Processing BootstrapperEngine.dll</Line>
@@ -1845,7 +2190,7 @@
         </Properties>
       </UserInterface.ChangeProgressMessage>
 
-      <Settings.AppendLineToSettingsText minimumTaskTime="3">
+      <Settings.AppendLineToSettingsText minimumTaskTime="2">
         <Properties>
           <SettingKey>progress text</SettingKey>
           <Line />
@@ -2097,7 +2442,7 @@
             <DirectTextContent>Path to folder containing files to compress into settings.cab.</DirectTextContent>
           </Content>
         </SimpleParagraph>
-        
+
         <CheckInputField settingKey="download content files" margin="0,12,0,0" padding="4,0,0,0" dock="Top">
           <Content>
             <DirectTextContent>Download engine and installer files</DirectTextContent>
