@@ -447,12 +447,15 @@ namespace Org.InCommon.InCert.Engine.Tasks.Downloader
 
             protected override WebRequest GetWebRequest(Uri address)
             {
-                var request = (HttpWebRequest)base.GetWebRequest(address);
-                if (request == null)
-                    return null;
+                var request = base.GetWebRequest(address);
+                var webRequest = request as HttpWebRequest;
+                if (webRequest == null)
+                {
+                    return request;
+                }
 
-                request.KeepAlive = KeepAlive;
-                request.ProtocolVersion = HttpVersion.Version10;
+                webRequest.KeepAlive = KeepAlive;
+                webRequest.ProtocolVersion = HttpVersion.Version10;
                 return request;
             }
         }
