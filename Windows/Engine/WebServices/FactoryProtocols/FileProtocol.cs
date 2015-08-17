@@ -248,8 +248,7 @@ namespace Org.InCommon.InCert.Engine.WebServices.FactoryProtocols
 
         public bool PreAuthenticate
         {
-            get { throw new NotImplementedException(); }
-            set { throw new NotImplementedException(); }
+            get;set;
         }
 
         public byte[] RequestBodyBytes { get; set; }
