@@ -264,7 +264,7 @@
       <Control.ReturnErrorResult>
         <Properties>
           <Result>Errors.System.NotSupported</Result>
-          <PropertySetter key="Issue">!ApplicationTitle! requires Windows Vista, Windows 7, or Windows 8.</PropertySetter>
+          <PropertySetter key="Issue">!ApplicationTitle! requires Windows Vista, Windows 7, Windows 8, or Windows 10.</PropertySetter>
         </Properties>
       </Control.ReturnErrorResult>
     </TaskBranch>

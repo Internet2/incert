@@ -961,6 +961,12 @@ namespace Org.InCommon.InCert.Engine.Utilities
         {
             var productName = "other";
             var productType = GetProductType().FriendlyName();
+            if (IsWindows10())
+                productName = "Windows 10";
+
+            if (IsWindows81())
+                productName = "Windows 8.1";
+
             if (IsWindows8())
                 productName = "Windows 8";
 
